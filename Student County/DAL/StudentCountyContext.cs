@@ -10,13 +10,6 @@ namespace Student_County.DAL
         public StudentCountyContext(DbContextOptions<StudentCountyContext> options) : base(options)
         {
         }
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-            
-
-        //    //modelBuilder.Seed();
-        //}
-
         public DbSet<AdminEntity> Admins { get; set; }
         public DbSet<BookStoreEntity> Books { get; set; }
         public DbSet<ChatEntity> Chats { get; set; }
@@ -26,8 +19,6 @@ namespace Student_County.DAL
         public DbSet<RideEntity> Rides { get; set; }
         public DbSet<StudentEntity> Students { get; set; }
         public DbSet<UniversityEntity> Universities { get; set; }
-
-
     }
 
 }

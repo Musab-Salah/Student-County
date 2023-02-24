@@ -12,8 +12,8 @@ using Student_County.DAL;
 namespace Student_County.Migrations
 {
     [DbContext(typeof(StudentCountyContext))]
-    [Migration("20230224150231_asdfacvs")]
-    partial class asdfacvs
+    [Migration("20230224174807_First")]
+    partial class First
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

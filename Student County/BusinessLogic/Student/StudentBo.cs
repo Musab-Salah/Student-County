@@ -1,23 +1,17 @@
-﻿
-using Microsoft.EntityFrameworkCore;
-
-using Student_County.BusinessLogic.Helpers.Common;
+﻿using Student_County.BusinessLogic.Helpers.Common;
 using Student_County.DAL;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics;
 
-namespace Student_County.DAL
+namespace Student_County.BusinessLogic.Student
 {
-    [Table("Student")]
-    public class StudentEntity : TrackableData
+    public class UniversityBo : TrackableData
     {
         [Key]
         public int Id { get; set; }
         [Required]
         public string? FullName { get; set; }
         [Required]
-        public int  IdNumber { get; set; }
+        public int IdNumber { get; set; }
         [Required]
         public string? Email { get; set; }
         [Required]
@@ -28,6 +22,5 @@ namespace Student_County.DAL
         public string? Gender { get; set; }
         public UniversityEntity? UniversityId { get; set; }
         public CollegeEntity? CollegeId { get; set; }
-
     }
 }

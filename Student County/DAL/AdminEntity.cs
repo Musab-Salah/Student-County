@@ -13,7 +13,7 @@ namespace Student_County.DAL
         [Required]
         public string? FullName { get; set; }
         [Required]
-        public int Password { get; set; }
+        public string? Password { get; set; }
         [Required]
         public string? UserName { get; set; }
 
