@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Student_County.BusinessLogic.Chat
 {
-    public class DestinationBo : TrackableData
+    public class ChatBo : TrackableData
     {
         [Key]
         public int Id { get; set; }

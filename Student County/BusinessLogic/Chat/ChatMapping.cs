@@ -2,9 +2,9 @@
 
 namespace Student_County.BusinessLogic.Chat
 {
-    public static class DestinationMapping
+    public static class ChatMapping
     {
-        public static ChatEntity? MapBoToEntity(this DestinationBo bo)
+        public static ChatEntity? MapBoToEntity(this ChatBo bo)
         {
             if (bo == null) return null;
             return new ChatEntity

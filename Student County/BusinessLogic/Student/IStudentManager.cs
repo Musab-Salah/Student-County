@@ -2,11 +2,11 @@
 
 namespace Student_County.BusinessLogic.Student
 {
-    public interface IUniversityManager
+    public interface IStudentManager
     {
-        List<StudentEntity> GetAll();
-        void Delete(int id);
-        StudentEntity GetStudent(int id);
-        StudentEntity CreateUpdate(UniversityBo bo, int id = 0);
+        Task<List<StudentEntity>> GetAll();
+        Task<StudentEntity> Delete(int id);
+        Task<StudentEntity> GetStudent(int id);
+        Task<StudentEntity> CreateUpdate(StudentBo bo, int id = 0);
     }
 }

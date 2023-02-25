@@ -3,10 +3,10 @@ using Student_County.DAL;
 
 namespace Student_County.BusinessLogic.University
 {
-    public class BookStoreManager : IBookStoreManager
+    public class UniversityManager : IUniversityManager
     {
         protected readonly StudentCountyContext _context;
-        public BookStoreManager(StudentCountyContext context)
+        public UniversityManager(StudentCountyContext context)
         {
             _context = context;
         }
@@ -35,7 +35,7 @@ namespace Student_County.BusinessLogic.University
                 throw new Exception("University Is Deleted");
             return entity;
         }
-        public async Task<UniversityEntity> CreateUpdate(BookStoreBo bo, int id = 0)
+        public async Task<UniversityEntity> CreateUpdate(UniversityBo bo, int id = 0)
         {
             var entity = bo.MapBoToEntity();
             if (id == 0)

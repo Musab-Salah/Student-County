@@ -2,9 +2,9 @@
 
 namespace Student_County.BusinessLogic.BookStore
 {
-    public static class RideMapping
+    public static class BookStoreMapping
     {
-        public static BookStoreEntity? MapBoToEntity(this RideBo bo)
+        public static BookStoreEntity? MapBoToEntity(this BookStoreBo bo)
         {
             if (bo == null) return null;
             return new BookStoreEntity

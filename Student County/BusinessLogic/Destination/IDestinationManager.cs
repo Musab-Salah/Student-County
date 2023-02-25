@@ -2,11 +2,11 @@
 
 namespace Student_County.BusinessLogic.Destination
 {
-    public interface ICollegeManager
+    public interface IDestinationManager
     {
-        List<DestinationEntity> GetAll();
-        void Delete(int id);
-        DestinationEntity GetDestination(int id);
-        DestinationEntity CreateUpdate(CollegeBo bo, int id = 0);
+        Task<List<DestinationEntity>> GetAll();
+        Task<DestinationEntity> Delete(int id);
+        Task<DestinationEntity> GetDestination(int id);
+        Task<DestinationEntity> CreateUpdate(DestinationBo bo, int id = 0);
     }
 }

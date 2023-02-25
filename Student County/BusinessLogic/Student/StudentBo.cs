@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Student_County.BusinessLogic.Student
 {
-    public class UniversityBo : TrackableData
+    public class StudentBo : TrackableData
     {
         [Key]
         public int Id { get; set; }
@@ -20,7 +20,7 @@ namespace Student_County.BusinessLogic.Student
         public int PhoneNumber { get; set; }
         [Required]
         public string? Gender { get; set; }
-        public UniversityEntity? UniversityId { get; set; }
-        public CollegeEntity? CollegeId { get; set; }
+        public UniversityEntity? University { get; set; }
+        public CollegeEntity? College { get; set; }
     }
 }

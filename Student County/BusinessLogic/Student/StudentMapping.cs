@@ -4,7 +4,7 @@ namespace Student_County.BusinessLogic.Student
 {
     public static class UniversityMapping
     {
-        public static StudentEntity? MapBoToEntity(this UniversityBo bo)
+        public static StudentEntity? MapBoToEntity(this StudentBo bo)
         {
             if (bo == null) return null;
             return new StudentEntity
@@ -16,8 +16,8 @@ namespace Student_County.BusinessLogic.Student
                 Password = bo.Password,
                 Email = bo.Email,
                 Gender = bo.Gender,
-                UniversityId = bo.UniversityId,
-                CollegeId = bo.CollegeId,
+                University = bo.University,
+                College = bo.College,
             };
         }
     }

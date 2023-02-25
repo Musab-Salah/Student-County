@@ -2,11 +2,11 @@
 
 namespace Student_County.BusinessLogic.University
 {
-    public interface IBookStoreManager
+    public interface IUniversityManager
     {
         Task<List<UniversityEntity>> GetAll();
         Task<UniversityEntity> Delete(int id);
         Task<UniversityEntity> GetUniversity(int id);
-        Task<UniversityEntity> CreateUpdate(BookStoreBo bo, int id = 0);
+        Task<UniversityEntity> CreateUpdate(UniversityBo bo, int id = 0);
     }
 }

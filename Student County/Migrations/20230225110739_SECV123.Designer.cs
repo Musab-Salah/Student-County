@@ -12,8 +12,8 @@ using Student_County.DAL;
 namespace Student_County.Migrations
 {
     [DbContext(typeof(StudentCountyContext))]
-    [Migration("20230224174807_First")]
-    partial class First
+    [Migration("20230225110739_SECV123")]
+    partial class SECV123
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,8 +52,9 @@ namespace Student_County.Migrations
                     b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Password")
-                        .HasColumnType("int");
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -304,7 +305,7 @@ namespace Student_County.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CollegeIdId")
+                    b.Property<int?>("CollegeId")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -337,20 +338,21 @@ namespace Student_County.Migrations
                     b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Password")
-                        .HasColumnType("int");
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PhoneNumber")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UniversityIdId")
+                    b.Property<int?>("UniversityId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CollegeIdId");
+                    b.HasIndex("CollegeId");
 
-                    b.HasIndex("UniversityIdId");
+                    b.HasIndex("UniversityId");
 
                     b.ToTable("Student");
                 });
@@ -426,17 +428,17 @@ namespace Student_County.Migrations
 
             modelBuilder.Entity("Student_County.DAL.StudentEntity", b =>
                 {
-                    b.HasOne("Student_County.DAL.CollegeEntity", "CollegeId")
+                    b.HasOne("Student_County.DAL.CollegeEntity", "College")
                         .WithMany()
-                        .HasForeignKey("CollegeIdId");
+                        .HasForeignKey("CollegeId");
 
-                    b.HasOne("Student_County.DAL.UniversityEntity", "UniversityId")
+                    b.HasOne("Student_County.DAL.UniversityEntity", "University")
                         .WithMany()
-                        .HasForeignKey("UniversityIdId");
+                        .HasForeignKey("UniversityId");
 
-                    b.Navigation("CollegeId");
+                    b.Navigation("College");
 
-                    b.Navigation("UniversityId");
+                    b.Navigation("University");
                 });
 #pragma warning restore 612, 618
         }

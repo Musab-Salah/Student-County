@@ -1,46 +1,49 @@
-﻿using Student_County.DAL;
+﻿using Microsoft.EntityFrameworkCore;
+using Student_County.BusinessLogic.Chat;
+using Student_County.DAL;
 
 namespace Student_County.BusinessLogic.Destination
 {
-    public class CollegeManager : ICollegeManager
+    public class DestinationManager : IDestinationManager
     {
         protected readonly StudentCountyContext _context;
-        public CollegeManager(StudentCountyContext context)
+        public DestinationManager(StudentCountyContext context)
         {
             _context = context;
         }
-        public List<DestinationEntity> GetAll() => _context.Destinations.Where(entity => !entity.IsDeleted).ToList();
-        
-        public void Delete(int id)
+        public async Task<List<DestinationEntity>> GetAll() => await _context.Destinations.Where(entity => !entity.IsDeleted).ToListAsync();
+
+        public async Task<DestinationEntity> Delete(int id)
         {
-            var entity = _context.Destinations.FirstOrDefault(entity => entity.Id == id);
+            var entity = await _context.Destinations.FirstOrDefaultAsync(entity => entity.Id == id);
             if (entity == null)
                 throw new Exception("Destination Not Found");
-           else if (!entity.IsDeleted)
+            else if (!entity.IsDeleted)
             {
                 entity.IsDeleted = true;
                 _context.Update(entity);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 throw new Exception("Destination Is Deleted");
             }
+            return entity;
         }
-        public DestinationEntity GetDestination(int id)
+        public async Task<DestinationEntity> GetDestination(int id)
         {
-            var entity = _context.Destinations.FirstOrDefault(x => x.Id == id);
+            var entity = await _context.Destinations.FirstOrDefaultAsync(x => x.Id == id);
             if (entity == null || id == 0)
                 throw new Exception("Destination Not Found");
-            else if(entity.IsDeleted)
+            else if (entity.IsDeleted)
                 throw new Exception("Destination Is Deleted");
             return entity;
         }
-        public DestinationEntity CreateUpdate(CollegeBo bo, int id = 0)
+        public async Task<DestinationEntity> CreateUpdate(DestinationBo bo, int id = 0)
         {
             var entity = bo.MapBoToEntity();
             if (id == 0)
                 _context.Add(entity);
-           else if (id != 0)
+            else if (id != 0)
                 _context.Update(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return entity;
         }
     }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Student_County.Migrations
 {
     /// <inheritdoc />
-    public partial class First : Migration
+    public partial class SECV123 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,7 @@ namespace Student_County.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<int>(type: "int", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -115,11 +115,11 @@ namespace Student_County.Migrations
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IdNumber = table.Column<int>(type: "int", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<int>(type: "int", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<int>(type: "int", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UniversityIdId = table.Column<int>(type: "int", nullable: true),
-                    CollegeIdId = table.Column<int>(type: "int", nullable: true),
+                    UniversityId = table.Column<int>(type: "int", nullable: true),
+                    CollegeId = table.Column<int>(type: "int", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -130,13 +130,13 @@ namespace Student_County.Migrations
                 {
                     table.PrimaryKey("PK_Student", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Student_College_CollegeIdId",
-                        column: x => x.CollegeIdId,
+                        name: "FK_Student_College_CollegeId",
+                        column: x => x.CollegeId,
                         principalTable: "College",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Student_University_UniversityIdId",
-                        column: x => x.UniversityIdId,
+                        name: "FK_Student_University_UniversityId",
+                        column: x => x.UniversityId,
                         principalTable: "University",
                         principalColumn: "Id");
                 });
@@ -244,14 +244,14 @@ namespace Student_County.Migrations
                 column: "StudentIdId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Student_CollegeIdId",
+                name: "IX_Student_CollegeId",
                 table: "Student",
-                column: "CollegeIdId");
+                column: "CollegeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Student_UniversityIdId",
+                name: "IX_Student_UniversityId",
                 table: "Student",
-                column: "UniversityIdId");
+                column: "UniversityId");
         }
 
         /// <inheritdoc />

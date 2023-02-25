@@ -2,11 +2,11 @@
 
 namespace Student_County.BusinessLogic.BookStore
 {
-    public interface IRideManager
+    public interface IBookStoreManager
     {
-        List<BookStoreEntity> GetAll();
-        void Delete(int id);
-        BookStoreEntity GetBookStore(int id);
-        BookStoreEntity CreateUpdate(RideBo bo, int id = 0);
+        Task<List<BookStoreEntity>> GetAll();
+        Task<BookStoreEntity> Delete(int id);
+        Task<BookStoreEntity> GetBookStore(int id);
+        Task<BookStoreEntity> CreateUpdate(BookStoreBo bo, int id = 0);
     }
 }

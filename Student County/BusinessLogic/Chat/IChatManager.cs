@@ -2,11 +2,11 @@
 
 namespace Student_County.BusinessLogic.Chat
 {
-    public interface IDestinationManager
+    public interface IChatManager
     {
-        List<ChatEntity> GetAll();
-        void Delete(int id);
-        ChatEntity GetChat(int id);
-        ChatEntity CreateUpdate(DestinationBo bo, int id = 0);
+        Task<List<ChatEntity>> GetAll();
+        Task<ChatEntity> Delete(int id);
+        Task<ChatEntity> GetChat(int id);
+        Task<ChatEntity> CreateUpdate(ChatBo bo, int id = 0);
     }
 }

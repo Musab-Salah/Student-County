@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Student_County.BusinessLogic.Ride
 {
-    public class HousingBo : TrackableData
+    public class RideBo : TrackableData
     {
         [Key]
         public int Id { get; set; }

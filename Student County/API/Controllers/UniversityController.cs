@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Student_County.BusinessLogic.University;
 
-namespace Student_County.API.Controllers
+namespace Student_County.API.Controller
 {
-    [Route("api/[controller]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class UniversityController : ControllerBase
     {
-        private readonly IBookStoreManager _manager;
-        public UniversityController(IBookStoreManager manager)
+        private readonly IUniversityManager _manager;
+        public UniversityController(IUniversityManager manager)
         {
             _manager = manager;
         }
@@ -16,7 +16,7 @@ namespace Student_County.API.Controllers
         public async Task<IActionResult> Index() =>  Ok(await _manager.GetAll());
         
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] BookStoreBo bo)
+        public async Task<IActionResult> Create([FromBody] UniversityBo bo)
         {
             if (ModelState.IsValid)
                  return Ok(await _manager.CreateUpdate(bo));
@@ -28,11 +28,11 @@ namespace Student_County.API.Controllers
             await _manager.Delete(id);
             return Ok("Is Deleted");
         }
-        [HttpGet("[action]/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id) => Ok(await _manager.GetUniversity(id));
         
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update([FromBody] BookStoreBo bo, [FromRoute] int id)
+        public async Task<IActionResult> Update([FromBody] UniversityBo bo, [FromRoute] int id)
         {
             if (bo == null)
                 return BadRequest("University Not Found");

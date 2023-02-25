@@ -1,10 +1,9 @@
 ﻿using Student_County.BusinessLogic.Helpers.Common;
-using Student_County.DAL;
 using System.ComponentModel.DataAnnotations;
 
 namespace Student_County.BusinessLogic.University
 {
-    public class BookStoreBo : TrackableData
+    public class UniversityBo : TrackableData
     {
         [Key]
         public int Id { get; set; }

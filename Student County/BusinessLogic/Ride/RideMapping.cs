@@ -2,9 +2,9 @@
 
 namespace Student_County.BusinessLogic.Ride
 {
-    public static class HousingMapping
+    public static class RideMapping
     {
-        public static RideEntity? MapBoToEntity(this HousingBo bo)
+        public static RideEntity? MapBoToEntity(this RideBo bo)
         {
             if (bo == null) return null;
             return new RideEntity

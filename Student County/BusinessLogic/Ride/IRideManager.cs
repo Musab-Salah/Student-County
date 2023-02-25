@@ -2,11 +2,11 @@
 
 namespace Student_County.BusinessLogic.Ride
 {
-    public interface IHousingManager
+    public interface IRideManager
     {
-        List<RideEntity> GetAll();
-        void Delete(int id);
-        RideEntity GetRide(int id);
-        RideEntity CreateUpdate(HousingBo bo, int id = 0);
+        Task<List<RideEntity>> GetAll();
+        Task<RideEntity> Delete(int id);
+        Task<RideEntity> GetRide(int id);
+        Task<RideEntity> CreateUpdate(RideBo bo, int id = 0);
     }
 }
