@@ -1,0 +1,54 @@
+body {
+    background-color: #F7F9FB;
+}
+
+.container {
+    width: 75%;
+    max-width: 1200px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10%;
+}
+
+.big-text {
+    width: 480px;
+    height: 176px;
+    
+    font-style: normal;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 58px;
+    /* or 122% */
+
+    text-transform: capitalize;
+
+    color: #09072F;
+
+
+    /* Inside auto layout */
+
+
+}
+
+.small-text {
+    margin-top: 5%;
+    width: 456px;
+    height: 46px;
+
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 145%;
+    /* or 23px */
+
+
+    color: #878787;
+}
+
+span.small-text{
+    margin: 2%;
+    
+}
