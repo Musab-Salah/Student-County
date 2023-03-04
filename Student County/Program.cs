@@ -32,15 +32,19 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("Connectionstring
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddCors((setup) =>
-{
-    setup.AddPolicy("defult", (options) =>
+
+
+    builder.Services.AddCors(options =>
     {
 
-        options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+        options.AddDefaultPolicy(
+            policy =>
+            {
+                policy.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
     });
-});
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -56,5 +60,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseCors();
 
 app.Run();
