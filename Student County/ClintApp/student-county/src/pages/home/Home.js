@@ -3,19 +3,15 @@ import Heading from '../../components/heading/Heading';
 import "../home/Home.css"
 import img from '../home/amico.png';
 import { Link } from "react-router-dom";
-// import {Container} from "reactstrap"
-
-
-
 
 const Home = () => {
+
+
     return (
         <>
             <Heading />
-
-          <h1>this.state.</h1>
             <div className='container'>
-           
+
 
                 <div className='big-text'>
                     Make your university life easier with Student County.
@@ -23,7 +19,7 @@ const Home = () => {
                         Using Student County, you can save money, time, and earn money while at university.
                     </div>
                     <Link to="/214" className="btn btn-primary ">Sign in</Link>
-                    <span  className='small-text'>
+                    <span className='small-text'>
                         or
                     </span>
                     <Link to="/sign_up" className="btn btn-primary ">Sign Up</Link>
@@ -36,7 +32,7 @@ const Home = () => {
 
 
 
-           
+
             </div>
         </>
     )

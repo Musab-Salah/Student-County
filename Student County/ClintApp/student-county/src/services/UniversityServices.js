@@ -4,26 +4,24 @@ const UNIVERSITY_API_BASE_URL = "https://localhost:7245/University/";
 
 class UniversityServices {
 
-    getEmployees(){
-      const tt= axios.get(UNIVERSITY_API_BASE_URL+"Index");
-      //console.log(tt)
-      return tt
+    async getUniversities(){
+      return await axios.get(UNIVERSITY_API_BASE_URL+"Index"); 
     }
 
-    createEmployee(university){
-        return axios.post(UNIVERSITY_API_BASE_URL, university);
+    async createUniversity(university){
+        return await axios.post(UNIVERSITY_API_BASE_URL + 'Create/', university);
     }
 
-    getEmployeeById(universityId){
-        return axios.get(UNIVERSITY_API_BASE_URL + '/' + universityId);
+    async getUniversityById(universityId){
+        return await axios.get(UNIVERSITY_API_BASE_URL + 'Get/' + universityId);
     }
 
-    updateEmployee(university, universityId){
-        return axios.put(UNIVERSITY_API_BASE_URL + '/' + universityId, university);
+    async updateUniversity(universityId, university){
+        return await axios.put(UNIVERSITY_API_BASE_URL + 'Update/' + universityId, university);
     }
 
-    deleteEmployee(universityId){
-        return axios.delete(UNIVERSITY_API_BASE_URL + '/' + universityId);
+    async deleteUniversity(universityId){
+        return await axios.delete(UNIVERSITY_API_BASE_URL + 'Delete/' + universityId);
     }
 }
 
