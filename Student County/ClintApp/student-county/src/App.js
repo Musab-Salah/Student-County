@@ -23,9 +23,7 @@ function App() {
                 </UniversitiesProvider>
             </CollegesProvider>
         </StudentProvider>
-    )
-
-
+       )
 }
 
 export default App;

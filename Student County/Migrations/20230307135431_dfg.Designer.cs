@@ -12,8 +12,8 @@ using Student_County.DAL;
 namespace Student_County.Migrations
 {
     [DbContext(typeof(StudentCountyContext))]
-    [Migration("20230225110739_SECV123")]
-    partial class SECV123
+    [Migration("20230307135431_dfg")]
+    partial class dfg
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -95,7 +95,7 @@ namespace Student_County.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.Property<int?>("StudentIdId")
+                    b.Property<int>("StudentId")
                         .HasColumnType("int");
 
                     b.Property<string>("TheWay")
@@ -104,7 +104,7 @@ namespace Student_County.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StudentIdId");
+                    b.HasIndex("StudentId");
 
                     b.ToTable("BookStore");
                 });
@@ -242,12 +242,12 @@ namespace Student_County.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StudentIdId")
+                    b.Property<int>("StudentId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StudentIdId");
+                    b.HasIndex("StudentId");
 
                     b.ToTable("Housing");
                 });
@@ -270,7 +270,7 @@ namespace Student_County.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DestinationIdId")
+                    b.Property<int>("DestinationId")
                         .HasColumnType("int");
 
                     b.Property<int>("EmptySeats")
@@ -285,14 +285,14 @@ namespace Student_County.Migrations
                     b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("StudentIdId")
+                    b.Property<int>("StudentId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DestinationIdId");
+                    b.HasIndex("DestinationId");
 
-                    b.HasIndex("StudentIdId");
+                    b.HasIndex("StudentId");
 
                     b.ToTable("Ride");
                 });
@@ -305,7 +305,7 @@ namespace Student_County.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CollegeId")
+                    b.Property<int>("CollegeId")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -345,7 +345,7 @@ namespace Student_County.Migrations
                     b.Property<int>("PhoneNumber")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UniversityId")
+                    b.Property<int>("UniversityId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -395,46 +395,58 @@ namespace Student_County.Migrations
 
             modelBuilder.Entity("Student_County.DAL.BookStoreEntity", b =>
                 {
-                    b.HasOne("Student_County.DAL.StudentEntity", "StudentId")
+                    b.HasOne("Student_County.DAL.StudentEntity", "Student")
                         .WithMany()
-                        .HasForeignKey("StudentIdId");
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("StudentId");
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("Student_County.DAL.HousingEntity", b =>
                 {
-                    b.HasOne("Student_County.DAL.StudentEntity", "StudentId")
+                    b.HasOne("Student_County.DAL.StudentEntity", "Student")
                         .WithMany()
-                        .HasForeignKey("StudentIdId");
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("StudentId");
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("Student_County.DAL.RideEntity", b =>
                 {
-                    b.HasOne("Student_County.DAL.DestinationEntity", "DestinationId")
+                    b.HasOne("Student_County.DAL.DestinationEntity", "Destination")
                         .WithMany()
-                        .HasForeignKey("DestinationIdId");
+                        .HasForeignKey("DestinationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Student_County.DAL.StudentEntity", "StudentId")
+                    b.HasOne("Student_County.DAL.StudentEntity", "Student")
                         .WithMany()
-                        .HasForeignKey("StudentIdId");
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("DestinationId");
+                    b.Navigation("Destination");
 
-                    b.Navigation("StudentId");
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("Student_County.DAL.StudentEntity", b =>
                 {
                     b.HasOne("Student_County.DAL.CollegeEntity", "College")
                         .WithMany()
-                        .HasForeignKey("CollegeId");
+                        .HasForeignKey("CollegeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Student_County.DAL.UniversityEntity", "University")
                         .WithMany()
-                        .HasForeignKey("UniversityId");
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("College");
 

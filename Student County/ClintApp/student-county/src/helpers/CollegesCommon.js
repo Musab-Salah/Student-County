@@ -7,6 +7,7 @@ const CollegesCxt = createContext();
 export function CollegesProvider({children}){
 
   const [Colleges,setColleges]=useState([])
+
   const [College]=useState({
     "id":"0",
     "name":""
@@ -16,7 +17,7 @@ export function CollegesProvider({children}){
   useEffect(() => {
     CollegeServices.getColleges().then((res) => {
         setColleges(res.data)
-        });
+        })
         
       
 }, []);

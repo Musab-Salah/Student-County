@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Student_County.Migrations
 {
     /// <inheritdoc />
-    public partial class SECV123 : Migration
+    public partial class dfg : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -118,8 +118,8 @@ namespace Student_County.Migrations
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<int>(type: "int", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UniversityId = table.Column<int>(type: "int", nullable: true),
-                    CollegeId = table.Column<int>(type: "int", nullable: true),
+                    UniversityId = table.Column<int>(type: "int", nullable: false),
+                    CollegeId = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -133,12 +133,14 @@ namespace Student_County.Migrations
                         name: "FK_Student_College_CollegeId",
                         column: x => x.CollegeId,
                         principalTable: "College",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Student_University_UniversityId",
                         column: x => x.UniversityId,
                         principalTable: "University",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -150,7 +152,7 @@ namespace Student_County.Migrations
                     BookName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TheWay = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
-                    StudentIdId = table.Column<int>(type: "int", nullable: true),
+                    StudentId = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -161,10 +163,11 @@ namespace Student_County.Migrations
                 {
                     table.PrimaryKey("PK_BookStore", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BookStore_Student_StudentIdId",
-                        column: x => x.StudentIdId,
+                        name: "FK_BookStore_Student_StudentId",
+                        column: x => x.StudentId,
                         principalTable: "Student",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -175,7 +178,7 @@ namespace Student_County.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StudentIdId = table.Column<int>(type: "int", nullable: true),
+                    StudentId = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -186,10 +189,11 @@ namespace Student_County.Migrations
                 {
                     table.PrimaryKey("PK_Housing", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Housing_Student_StudentIdId",
-                        column: x => x.StudentIdId,
+                        name: "FK_Housing_Student_StudentId",
+                        column: x => x.StudentId,
                         principalTable: "Student",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -200,8 +204,8 @@ namespace Student_County.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EmptySeats = table.Column<int>(type: "int", nullable: false),
                     CarDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StudentIdId = table.Column<int>(type: "int", nullable: true),
-                    DestinationIdId = table.Column<int>(type: "int", nullable: true),
+                    StudentId = table.Column<int>(type: "int", nullable: false),
+                    DestinationId = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -212,36 +216,38 @@ namespace Student_County.Migrations
                 {
                     table.PrimaryKey("PK_Ride", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ride_Destination_DestinationIdId",
-                        column: x => x.DestinationIdId,
+                        name: "FK_Ride_Destination_DestinationId",
+                        column: x => x.DestinationId,
                         principalTable: "Destination",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Ride_Student_StudentIdId",
-                        column: x => x.StudentIdId,
+                        name: "FK_Ride_Student_StudentId",
+                        column: x => x.StudentId,
                         principalTable: "Student",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookStore_StudentIdId",
+                name: "IX_BookStore_StudentId",
                 table: "BookStore",
-                column: "StudentIdId");
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Housing_StudentIdId",
+                name: "IX_Housing_StudentId",
                 table: "Housing",
-                column: "StudentIdId");
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ride_DestinationIdId",
+                name: "IX_Ride_DestinationId",
                 table: "Ride",
-                column: "DestinationIdId");
+                column: "DestinationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ride_StudentIdId",
+                name: "IX_Ride_StudentId",
                 table: "Ride",
-                column: "StudentIdId");
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Student_CollegeId",

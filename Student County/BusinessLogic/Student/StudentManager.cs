@@ -45,7 +45,7 @@ namespace Student_County.BusinessLogic.Student
             else if (id != 0)
                 _context.Update(entity);
             await _context.SaveChangesAsync();
-            return entity;
+             return entity;
         }
     }
 }

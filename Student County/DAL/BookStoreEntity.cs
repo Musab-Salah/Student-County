@@ -16,6 +16,8 @@ namespace Student_County.DAL
         public string? TheWay { get; set; }
         [Required]
         public int Price { get; set; }
-        public StudentEntity? StudentId { get; set; }
+        [Required]
+        public int StudentId { get; set; }
+        public StudentEntity? Student { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace Student_County.BusinessLogic.Ride
         public int EmptySeats { get; set; }
         [Required]
         public string? CarDescription { get; set; }
-        public StudentEntity? StudentId { get; set; }
-        public DestinationEntity? DestinationId { get; set; }
+        public int StudentId { get; set; }
+        public int DestinationId { get; set; }
     }
 }

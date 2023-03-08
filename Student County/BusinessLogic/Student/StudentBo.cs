@@ -20,7 +20,7 @@ namespace Student_County.BusinessLogic.Student
         public int PhoneNumber { get; set; }
         [Required]
         public string? Gender { get; set; }
-        public UniversityEntity? University { get; set; }
-        public CollegeEntity? College { get; set; }
+        public int University { get; set; }
+        public int College { get; set; }
     }
 }

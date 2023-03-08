@@ -16,8 +16,8 @@ namespace Student_County.BusinessLogic.Student
                 Password = bo.Password,
                 Email = bo.Email,
                 Gender = bo.Gender,
-                University = bo.University,
-                College = bo.College,
+                UniversityId = bo.University,
+                CollegeId = bo.College,
             };
         }
     }

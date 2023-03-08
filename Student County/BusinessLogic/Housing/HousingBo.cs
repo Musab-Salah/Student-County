@@ -12,6 +12,6 @@ namespace Student_County.BusinessLogic.Housing
         public string? Name { get; set; }
         [Required]
         public string? Location { get; set; }
-        public StudentEntity? StudentId { get; set; }
+        public int StudentId { get; set; }
     }
 }

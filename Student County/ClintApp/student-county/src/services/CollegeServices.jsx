@@ -24,6 +24,6 @@ class CollegeServices {
         return await axios.delete(COLLEGE_API_BASE_URL + 'Delete/' + collegeId);
     }
 }
-
+// eslint-disable-next-line
 export default new CollegeServices()
 

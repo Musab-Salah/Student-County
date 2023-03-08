@@ -14,7 +14,11 @@ namespace Student_County.DAL
         public int EmptySeats { get; set; }
         [Required]
         public string? CarDescription { get; set; }
-        public StudentEntity? StudentId { get; set; }
-        public DestinationEntity? DestinationId { get; set; }
+        [Required]
+        public int StudentId { get; set; }
+        [Required]
+        public int DestinationId { get; set; }
+        public StudentEntity? Student { get; set; }
+        public DestinationEntity? Destination { get; set; }
     }
 }

@@ -14,6 +14,6 @@ namespace Student_County.BusinessLogic.BookStore
         public string? TheWay { get; set; }
         [Required]
         public int Price { get; set; }
-        public StudentEntity? StudentId { get; set; }
+        public int StudentId { get; set; }
     }
 }
