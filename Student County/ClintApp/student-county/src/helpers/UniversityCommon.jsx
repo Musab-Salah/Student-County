@@ -26,10 +26,10 @@ export function UniversitiesProvider({ children }) {
       .catch(() => setError("Failed bring the universities..."));
   };
 
-  const createUniversity = (UniBo) => {
-    UniversityServices.createUniversity(UniBo)
+  const createUniversity = (Bo) => {
+    UniversityServices.createUniversity(Bo)
       .then((res) => {
-        setUniversities(res.data);
+        setUniversity(res.data);
         setError(null);
       })
       .catch(() => setError("Failed create the university..."));
@@ -44,8 +44,8 @@ export function UniversitiesProvider({ children }) {
       .catch(() => setError("Failed bring the university..."));
   };
 
-  const updateUniversity = (id, UniBo) => {
-    UniversityServices.updateUniversity(id, UniBo)
+  const updateUniversity = (id, Bo) => {
+    UniversityServices.updateUniversity(id, Bo)
       .then((res) => {
         setUniversity(res.data);
         setError(null);

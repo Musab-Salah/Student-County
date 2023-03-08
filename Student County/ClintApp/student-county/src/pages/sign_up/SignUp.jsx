@@ -10,9 +10,9 @@ import {
 } from "reactstrap";
 import Heading from "../../components/heading/Heading";
 import { EyeFill } from "react-bootstrap-icons";
-import UniversitiesCxt from "../../helpers/UniversitiesCommon";
-import CollegesCxt from "../../helpers/CollegesCommon";
-import StudentCxt from "../../helpers/StudentsCommon";
+import UniversitiesCxt from "../../helpers/UniversityCommon";
+import CollegesCxt from "../../helpers/CollegeCommon";
+import StudentCxt from "../../helpers/StudentCommon";
 import StudentServices from "../../services/StudentServices";
 import "../sign_up/SignUp.css";
 
@@ -53,7 +53,7 @@ const SignUp = ({ children }) => {
     var result = e.target.value.replace(/[^a-z.0-9]/gi, "");
     setStudent({
       ...studentBo,
-      email: result ,
+      email: result,
     });
   };
   const setPassword = (e) => {
@@ -86,7 +86,7 @@ const SignUp = ({ children }) => {
   const createStudent = () => {
     setStudent({
       ...studentBo,
-      email: studentBo.email + emailDomainName
+      email: studentBo.email + emailDomainName,
     });
     StudentServices.createStudent(studentBo);
   };
