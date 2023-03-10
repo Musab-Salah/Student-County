@@ -5,7 +5,7 @@ const HousingsCxt = createContext();
 
 export function HousingsProvider({ children }) {
   const [Housings, setHousings] = useState([]);
-  const [error, setError] = useState("Loading");
+  const [HousingError, setError] = useState("Loading");
   const [Housing, setHousing] = useState("Loading");
 
   const [HousingBo] = useState({
@@ -69,7 +69,7 @@ export function HousingsProvider({ children }) {
         Housings,
         Housing,
         HousingBo,
-        error,
+        HousingError,
         getHousingById,
         createHousing,
         updateHousing,

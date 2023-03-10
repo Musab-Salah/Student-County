@@ -5,7 +5,7 @@ const BooksCxt = createContext();
 
 export function BooksProvider({ children }) {
   const [Books, setBooks] = useState([]);
-  const [error, setError] = useState("Loading");
+  const [BookError, setError] = useState("Loading");
   const [Book, setBook] = useState("Loading");
 
   const [BookBo] = useState({
@@ -69,7 +69,7 @@ export function BooksProvider({ children }) {
         Books,
         Book,
         BookBo,
-        error,
+        BookError,
         getBookById,
         createBook,
         updateBook,

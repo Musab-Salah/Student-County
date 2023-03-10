@@ -5,7 +5,7 @@ const RidesCxt = createContext();
 
 export function RidesProvider({ children }) {
   const [Rides, setRides] = useState([]);
-  const [error, setError] = useState("Loading");
+  const [RideError, setError] = useState("Loading");
   const [Ride, setRide] = useState("Loading");
 
   const [RideBo] = useState({
@@ -69,7 +69,7 @@ export function RidesProvider({ children }) {
         Rides,
         Ride,
         RideBo,
-        error,
+        RideError,
         getRideById,
         createRide,
         updateRide,

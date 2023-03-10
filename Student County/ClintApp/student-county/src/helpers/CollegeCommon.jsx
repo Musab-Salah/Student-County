@@ -5,7 +5,7 @@ const CollegesCxt = createContext();
 
 export function CollegesProvider({ children }) {
   const [Colleges, setColleges] = useState([]);
-  const [error, setError] = useState("Loading");
+  const [CollegeError, setError] = useState("Loading");
   const [College, setCollege] = useState("Loading");
 
   const [CollegeBo] = useState({
@@ -67,7 +67,7 @@ export function CollegesProvider({ children }) {
         Colleges,
         College,
         CollegeBo,
-        error,
+        CollegeError,
         getCollegeById,
         createCollege,
         updateCollege,

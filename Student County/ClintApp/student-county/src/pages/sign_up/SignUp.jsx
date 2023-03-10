@@ -13,17 +13,15 @@ import { EyeFill } from "react-bootstrap-icons";
 import UniversitiesCxt from "../../helpers/UniversityCommon";
 import CollegesCxt from "../../helpers/CollegeCommon";
 import StudentCxt from "../../helpers/StudentCommon";
-import StudentServices from "../../services/StudentServices";
 import "../sign_up/SignUp.css";
 
 const SignUp = ({ children }) => {
-  const { Universities } = useContext(UniversitiesCxt);
-  const { getUniversityById } = useContext(UniversitiesCxt);
-  const { University } = useContext(UniversitiesCxt);
-  const { error } = useContext(UniversitiesCxt);
+  const { Universities, UniversityError, getUniversityById, University } =
+    useContext(UniversitiesCxt);
+  const { StudentBo, createStudent, Student, StudentError,resetStudentError } =
+    useContext(StudentCxt);
   const { Colleges } = useContext(CollegesCxt);
-  const { Student } = useContext(StudentCxt);
-  const [studentBo, setStudent] = useState(Student);
+  const [studentBo, setStudent] = useState(StudentBo);
   const [emailDomainName, setEmailDomainName] = useState();
   const [passwordType, setPasswordType] = useState("text");
   const [checkBox, setCheckBox] = useState(true);
@@ -44,10 +42,7 @@ const SignUp = ({ children }) => {
     });
   };
   const setPhoneNumber = (e) => {
-    setStudent({
-      ...studentBo,
-      phoneNumber: e.target.value,
-    });
+    studentBo.phoneNumber = e.target.value;
   };
   const setUserName = (e) => {
     var result = e.target.value.replace(/[^a-z.0-9]/gi, "");
@@ -83,12 +78,16 @@ const SignUp = ({ children }) => {
       college: e.target.value,
     });
   };
-  const createStudent = () => {
+  const createStudentt = () => {
     setStudent({
       ...studentBo,
       email: studentBo.email + emailDomainName,
     });
-    StudentServices.createStudent(studentBo);
+    createStudent(studentBo);
+    setStudent({
+      ...studentBo,
+      email: "",
+    });
   };
 
   const test = () => {
@@ -147,7 +146,7 @@ const SignUp = ({ children }) => {
             />
             <InputGroupText>
               {!emailDomainName ? "@" : emailDomainName}
-              {!emailDomainName && error && error}
+              {!emailDomainName && UniversityError && UniversityError}
             </InputGroupText>
           </FormGroup>
           <FormGroup>
@@ -203,7 +202,7 @@ const SignUp = ({ children }) => {
               <option value="Default" disabled>
                 Choose the University
               </option>
-              {!Universities && error && <option disabled> {error} </option>}
+              {UniversityError && <option disabled> {UniversityError} </option>}
               {Universities.map((uni) => (
                 <option key={uni.id} value={uni.id}>
                   {uni.name}
@@ -240,9 +239,12 @@ const SignUp = ({ children }) => {
             />{" "}
             <Label check>Check me out</Label>
           </FormGroup>
-          <Button disabled={checkBox} onClick={createStudent}>
-            Submit
-          </Button>
+          <FormGroup>
+            <Button disabled={checkBox} onClick={createStudentt}>
+              Submit
+            </Button>
+            {StudentError && <h1> {StudentError} </h1>}
+          </FormGroup>
         </Form>
       </Container>
     </>

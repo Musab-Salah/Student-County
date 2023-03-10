@@ -5,7 +5,7 @@ const DestinationsCxt = createContext();
 
 export function DestinationsProvider({ children }) {
   const [Destinations, setDestinations] = useState([]);
-  const [error, setError] = useState("Loading");
+  const [DestinationError, setError] = useState("Loading");
   const [Destination, setDestination] = useState("Loading");
 
   const [DestinationBo] = useState({
@@ -67,7 +67,7 @@ export function DestinationsProvider({ children }) {
         Destinations,
         Destination,
         DestinationBo,
-        error,
+        DestinationError,
         getDestinationById,
         createDestination,
         updateDestination,

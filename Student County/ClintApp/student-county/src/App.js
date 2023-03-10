@@ -7,20 +7,22 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { UniversitiesProvider } from "./helpers/UniversityCommon";
 import { CollegesProvider } from "./helpers/CollegeCommon";
 import { StudentsProvider } from "./helpers/StudentCommon";
+import Login from "./pages/log_in/Login";
 
 function App() {
   return (
-    <StudentsProvider>
-      <CollegesProvider>
-        <UniversitiesProvider>
+    <CollegesProvider>
+      <UniversitiesProvider>
+        <StudentsProvider>
           <Routes>
             <Route exact path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/services" element={<Services />} />
             <Route path="/sign_up" element={<SignUp />} />
           </Routes>
-        </UniversitiesProvider>
-      </CollegesProvider>
-    </StudentsProvider>
+        </StudentsProvider>
+      </UniversitiesProvider>
+    </CollegesProvider>
   );
 }
 

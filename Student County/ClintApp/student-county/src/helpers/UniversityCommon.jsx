@@ -5,7 +5,7 @@ const UniversitiesCxt = createContext();
 
 export function UniversitiesProvider({ children }) {
   const [Universities, setUniversities] = useState([]);
-  const [error, setError] = useState("Loading");
+  const [UniversityError, setError] = useState("Loading");
   const [University, setUniversity] = useState("Loading");
 
   const [UniversityBo] = useState({
@@ -68,7 +68,7 @@ export function UniversitiesProvider({ children }) {
         Universities,
         University,
         UniversityBo,
-        error,
+        UniversityError,
         getUniversityById,
         createUniversity,
         updateUniversity,

@@ -1,13 +1,15 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState, useContext } from "react";
 import StudentServices from "../services/StudentServices";
+import { useNavigate } from "react-router";
+import UniversitiesCxt from "./UniversityCommon";
 
 const StudentsCxt = createContext();
 
 export function StudentsProvider({ children }) {
+  const { getUniversityById, University } = useContext(UniversitiesCxt);
   const [Students, setStudents] = useState([]);
-  const [error, setError] = useState("Loading");
+  const [StudentError, setError] = useState(null);
   const [Student, setStudent] = useState("Loading");
-
   const [StudentBo] = useState({
     id: "0",
     fullName: "",
@@ -20,9 +22,12 @@ export function StudentsProvider({ children }) {
     college: "",
   });
 
+  let navigate = useNavigate();
+
   useEffect(() => {
     loadStudent();
   }, []);
+
   const loadStudent = () => {
     StudentServices.getStudents()
       .then((res) => {
@@ -31,14 +36,20 @@ export function StudentsProvider({ children }) {
       })
       .catch(() => setError("Failed bring the Students..."));
   };
-
+  
   const createStudent = (Bo) => {
+    getUniversityById(Bo.university);
+    Bo.email = Bo.email + University.emailDomainName;
     StudentServices.createStudent(Bo)
       .then((res) => {
         setStudent(res.data);
         setError(null);
+        navigate("/");
       })
-      .catch(() => setError("Failed create the Student..."));
+      .catch(() => {
+        setError("Failed create the Student...");
+        navigate("/sign_up");
+      });
   };
 
   const getStudentById = (id) => {
@@ -60,6 +71,7 @@ export function StudentsProvider({ children }) {
   };
 
   const deleteStudent = (id) => {
+    setError();
     StudentServices.deleteStudent(id)
       .then((res) => {
         setStudent(res.data);
@@ -74,7 +86,7 @@ export function StudentsProvider({ children }) {
         Students,
         Student,
         StudentBo,
-        error,
+        StudentError,
         getStudentById,
         createStudent,
         updateStudent,
