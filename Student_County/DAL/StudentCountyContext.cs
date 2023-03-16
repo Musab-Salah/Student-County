@@ -11,6 +11,7 @@ namespace Student_County.DAL
         public StudentCountyContext(DbContextOptions<StudentCountyContext> options) : base(options)
         {
         }
+
         public DbSet<BookStoreEntity> Books { get; set; }
         public DbSet<ChatEntity> Chats { get; set; }
         public DbSet<CollegeEntity> Colleges { get; set; }

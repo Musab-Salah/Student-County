@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Student_County.BusinessLogic.University;
 using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
 using System.Security.Claims;
@@ -35,8 +36,12 @@ namespace Student_County.BusinessLogic.Auth
             var user = new ApplicationUser
             {
                 UserName = model.UserName,
-                //Gender = model.Gender,
-
+                Gender = model.Gender,
+                IdNumber=model.IdNumber,
+                Password=model.Password,
+                PhoneNumber=model.PhoneNumber,
+                UniversityId=model.UniversityId,
+                CollegeId=model.CollegeId,
                 Email = model.Email,
                 FirstName = model.FirstName,
                 LastName = model.LastName
@@ -144,7 +149,6 @@ namespace Student_County.BusinessLogic.Auth
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Gender,user.Gender),
                 new Claim("uid", user.Id)
             }
             .Union(userClaims)

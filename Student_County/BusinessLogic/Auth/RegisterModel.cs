@@ -7,25 +7,25 @@ namespace Student_County.BusinessLogic.Auth
     {
         [StringLength(100)]
         [Required]
-        public string? FirstName { get; set; }
+        public string FirstName { get; set; }
         [StringLength(100)]
         [Required]
-        public string? LastName { get; set; }
+        public string LastName { get; set; }
         [Required]
-        public int IdNumber { get; set; }
+        public int? IdNumber { get; set; }
         [StringLength(50)]
         [Required]
-        public string? UserName { get; set; }
+        public string UserName { get; set; }
         [StringLength(128)]
         [Required]
-        public string? Email { get; set; }
+        public string Email { get; set; }
         [StringLength(256)]
         [Required]
-        public string? Password { get; set; }
+        public string Password { get; set; }
         [Required]
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         [Required]
-        public string? Gender { get; set; }
+        public string Gender { get; set; }
         [Required]
         public int UniversityId { get; set; }
         [Required]

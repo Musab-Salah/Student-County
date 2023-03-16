@@ -12,8 +12,8 @@ using Student_County.DAL;
 namespace Student_County.Migrations
 {
     [DbContext(typeof(StudentCountyContext))]
-    [Migration("20230315194900_ttadd1dfhSFDssdfsdfsdfsfds")]
-    partial class ttadd1dfhSFDssdfsdfsdfsfds
+    [Migration("20230316074024_sdfas")]
+    partial class sdfas
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -188,7 +188,8 @@ namespace Student_County.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IdNumber")
+                    b.Property<int?>("IdNumber")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")
@@ -216,8 +217,8 @@ namespace Student_County.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PhoneNumber")
-                        .HasColumnType("int");
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
