@@ -15,7 +15,7 @@ const Home = () => {
             Using Student County, you can save money, time, and earn money while
             at university.
           </div>
-          <Link to="/214" className="btn btn-primary ">
+          <Link to="/login" className="btn btn-primary ">
             Sign in
           </Link>
           <span className="small-text">or</span>

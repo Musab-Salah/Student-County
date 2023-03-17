@@ -1,42 +1,48 @@
-import React from "react";
-import Heading from "../../components/heading/Heading";
-import {
-  FormGroup,
-  Input,
-  Label,
-  Form,
-  Container,
-  Button,
-  InputGroupText,
-} from "reactstrap";
+import React, { useState, useRef, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { FormGroup, Input, Label, Form, Container, Button } from "reactstrap";
+import AuthContext from "../../services/auth/AuthContext";
 
-const Login = () => {
+import AuthService from "../../services/AuthServices";
+
+const Login = ({ children }) => {
+  let { loginUser } = useContext(AuthContext);
+  let [bo, setbo] = useState();
+
+  const setUserName = (e) => {
+    setbo({
+      ...bo,
+      userName: e.target.value,
+    });
+  };
+  const setPassword = (e) => {
+    setbo({
+      ...bo,
+      password: e.target.value,
+    });
+  };
+  const loogin =(event)=>{
+    event.preventDefault();
+    loginUser(bo);
+  }
   return (
     <>
-      <Heading />
-      <Form>
-        <FormGroup floating>
-          <Input
-            id="exampleEmail"
-            name="email"
-            placeholder="Email"
-            type="email"
-          />
-          <Label for="exampleEmail">Email</Label>
-        </FormGroup>{" "}
-        <FormGroup floating>
-          <Input
-            id="examplePassword"
-            name="password"
-            placeholder="Password"
-            type="password"
-          />
-          <Label for="examplePassword">Password</Label>
-        </FormGroup>{" "}
-        <Button>Submit</Button>
+      <Form onSubmit={loogin}>
+        <input
+          onChange={setUserName}
+          type="text"
+          name="username"
+          placeholder="Enter Username"
+        />
+        <input
+          onChange={setPassword}
+          type="password"
+          name="password"
+          placeholder="Enter Password"
+        />
+        <Button>dsf</Button>
       </Form>
     </>
   );
 };
-
 export default Login;

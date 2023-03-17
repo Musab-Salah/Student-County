@@ -84,7 +84,7 @@ namespace Student_County.BusinessLogic.Auth
         {
             var authModel = new AuthModel();
 
-            var user = await _userManager.FindByEmailAsync(model.Email);
+            var user = await _userManager.FindByNameAsync(model.UserName);
 
             if (user is null || !await _userManager.CheckPasswordAsync(user, model.Password))
             {
@@ -95,12 +95,14 @@ namespace Student_County.BusinessLogic.Auth
             var jwtSecurityToken = await CreateJwtToken(user);
             var rolesList = await _userManager.GetRolesAsync(user);
 
+
             authModel.IsAuthenticated = true;
             authModel.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
             authModel.Email = user.Email;
             authModel.Username = user.UserName;
             authModel.ExpiresOn = jwtSecurityToken.ValidTo;
             authModel.Roles = rolesList.ToList();
+         
 
             if (user.RefreshTokens.Any(t => t.IsActive))
             {
@@ -115,6 +117,7 @@ namespace Student_County.BusinessLogic.Auth
                 authModel.RefreshTokenExpiration = refreshToken.ExpiresOn;
                 user.RefreshTokens.Add(refreshToken);
                 await _userManager.UpdateAsync(user);
+                
             }
 
             return authModel;
@@ -201,6 +204,7 @@ namespace Student_County.BusinessLogic.Auth
             var roles = await _userManager.GetRolesAsync(user);
             authModel.Roles = roles.ToList();
             authModel.RefreshToken = newRefreshToken.Token;
+
             authModel.RefreshTokenExpiration = newRefreshToken.ExpiresOn;
 
             return authModel;
