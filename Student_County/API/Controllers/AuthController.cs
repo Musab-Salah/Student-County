@@ -74,9 +74,9 @@ namespace Student_County.API.Controllers
         }
 
         [HttpPost("revokeToken")]
-        public async Task<IActionResult> RevokeToken([FromBody] RevokeToken model)
+        public async Task<IActionResult> RevokeToken()
         {
-            var token = model.Token ?? Request.Cookies["refreshToken"];
+            var token =  Request.Cookies["refreshToken"];
 
             if (string.IsNullOrEmpty(token))
                 return BadRequest("Token is required!");
@@ -94,7 +94,10 @@ namespace Student_County.API.Controllers
             var cookieOptions = new CookieOptions
             {
                 HttpOnly = true,
-                Expires = expires.ToLocalTime()
+                Expires = expires.ToLocalTime(),
+                Secure = true,
+                IsEssential = true,
+                SameSite = SameSiteMode.None
             };
 
             Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);

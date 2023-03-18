@@ -1,4 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import AuthService from "./AuthServices";
+import AuthCxt from "../../helpers/AuthCommon";
 import { withRouter } from "./WithRouter";
 
 const parseJwt = (token) => {
@@ -9,22 +11,23 @@ const parseJwt = (token) => {
   }
 };
 
-const AuthVerify = (props) => {
+const AuthVerify = (props ,{ children }) => {
+  const {  refresh } = useContext(AuthCxt);
   let location = props.router.location;
+  const [previosLogoutStatus, setpreviosLogoutStatus] = useState(true);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-
+    console.log("decoded");
     if (user) {
       const decodedJwt = parseJwt(user.token);
-       console.log(JSON.stringify(decodedJwt.exp))
       if (decodedJwt.exp * 1000 < Date.now()) {
-        props.logOut();
+        refresh();
       }
-    }
+    } //else logout();
   }, [location]);
 
-  return <div></div>;
+  return <></>;
 };
 
 export default withRouter(AuthVerify);

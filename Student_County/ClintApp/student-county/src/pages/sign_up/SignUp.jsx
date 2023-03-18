@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext, useMemo } from "react";
-import { useNavigate } from "react-router";
 
 import {
   FormGroup,
@@ -20,7 +19,6 @@ import "../sign_up/SignUp.css";
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const SignUp = ({ children }) => {
-  let navigate = useNavigate();
   const { Universities, UniversityError, getUniversityById, University } =
     useContext(UniversitiesCxt);
   const { UserBo, createUser, UserError } = useContext(UsersCxt);
@@ -93,13 +91,13 @@ const SignUp = ({ children }) => {
       collegeId: e.target.value,
     });
   };
-  const createUsert = () => {
+  const createUsert = (e) => {
+    e.preventDefault();
     createUser(userBo);
     setUser({
       ...userBo,
       email: "",
     });
-    navigate("/");
   };
 
   const test = () => {
@@ -174,8 +172,7 @@ const SignUp = ({ children }) => {
               //invalid={!userBo.email ? true : false}
             />
             <InputGroupText>
-              {!emailDomainName ? "@" : emailDomainName}
-              {!emailDomainName && UniversityError && UniversityError}
+              {emailDomainName && !UserError ? emailDomainName : "@"}
             </InputGroupText>
           </FormGroup>
           <FormGroup>

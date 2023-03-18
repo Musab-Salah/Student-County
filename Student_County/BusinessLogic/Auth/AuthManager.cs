@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Azure;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -64,8 +66,10 @@ namespace Student_County.BusinessLogic.Auth
             var jwtSecurityToken = await CreateJwtToken(user);
 
             var refreshToken = GenerateRefreshToken();
+
             user.RefreshTokens?.Add(refreshToken);
             await _userManager.UpdateAsync(user);
+
 
             return new AuthModel
             {
@@ -237,12 +241,19 @@ namespace Student_County.BusinessLogic.Auth
 
             generator.GetBytes(randomNumber);
 
+
+
             return new RefreshToken
             {
+
                 Token = Convert.ToBase64String(randomNumber),
-                ExpiresOn = DateTime.UtcNow.AddDays(10),
-                CreatedOn = DateTime.UtcNow
-            };
+                
+                ExpiresOn = DateTime.UtcNow.AddMinutes(2),
+                CreatedOn = DateTime.UtcNow,
+                
+
+        };
         }
+        
     }
 }

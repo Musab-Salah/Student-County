@@ -1,12 +1,14 @@
 import React, { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { FormGroup, Input, Label, Form, Container, Button } from "reactstrap";
-import AuthContext from "../../services/auth/AuthContext";
+import AuthCxt from "../../helpers/AuthCommon";
+import Heading from "../../components/heading/Heading";
 
-import AuthService from "../../services/AuthServices";
+import AuthService from "../../services/AuthServices/AuthServices";
 
 const Login = ({ children }) => {
-  let { loginUser } = useContext(AuthContext);
+  const { logout, login } = useContext(AuthCxt);
+
   let [bo, setbo] = useState();
 
   const setUserName = (e) => {
@@ -21,12 +23,13 @@ const Login = ({ children }) => {
       password: e.target.value,
     });
   };
-  const loogin =(event)=>{
-    event.preventDefault();
-    loginUser(bo);
-  }
+  const loogin = (e) => {
+    e.preventDefault();
+    login(bo);
+  };
   return (
     <>
+      <Heading />
       <Form onSubmit={loogin}>
         <input
           onChange={setUserName}
@@ -42,6 +45,7 @@ const Login = ({ children }) => {
         />
         <Button>dsf</Button>
       </Form>
+      <Button onClick={logout}>logout</Button>
     </>
   );
 };

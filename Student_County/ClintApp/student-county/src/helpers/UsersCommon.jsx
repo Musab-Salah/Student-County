@@ -35,6 +35,7 @@ export function UsersProvider({ children }) {
         setUser(res.data);
         console.log(res);
         setError(null);
+        navigate("/");
       })
       .catch((res) => {
         setError(res.response.data);

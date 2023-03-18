@@ -4,7 +4,6 @@ const USERS_URL = "/Auth";
 
 class UsersServices {
   async register(user) {
-    debugger
     return await axios.post(USERS_URL + "/register", user);
   }
 }

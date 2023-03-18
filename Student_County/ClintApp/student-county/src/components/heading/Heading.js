@@ -8,7 +8,7 @@ const Heading = () => {
         <>
             <nav className="navbar navbar-expand-lg ">
                 <div className="container-fluid ">
-                    <Link to="/234" className="navbar-brand for-brand">
+                    <Link to="/" className="navbar-brand for-brand">
                         <img src={logo} alt="" />
                     </Link>
                     <button type="button" className="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -18,7 +18,7 @@ const Heading = () => {
                         <div className="navbar-nav  ">
                             <NavLink to="/" className="nav-item for-item nav-link ">Home</NavLink>
                             <NavLink to="/services" className="nav-item for-item nav-link">Services</NavLink>
-                            <NavLink to="/65" className="nav-item for-item nav-link">Messages</NavLink>
+                            <NavLink to="/" className="nav-item for-item nav-link">Messages</NavLink>
 
                         </div>
                         <div className="for-btn ms-auto">
