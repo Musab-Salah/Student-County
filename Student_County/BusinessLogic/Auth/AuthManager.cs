@@ -248,7 +248,7 @@ namespace Student_County.BusinessLogic.Auth
 
                 Token = Convert.ToBase64String(randomNumber),
                 
-                ExpiresOn = DateTime.UtcNow.AddMinutes(2),
+                ExpiresOn = DateTime.UtcNow.AddHours(3),
                 CreatedOn = DateTime.UtcNow,
                 
 

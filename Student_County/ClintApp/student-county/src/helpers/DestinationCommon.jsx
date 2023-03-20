@@ -14,9 +14,9 @@ export function DestinationsProvider({ children }) {
   });
 
   useEffect(() => {
-    loadDestination();
+    getDestinations();
   }, []);
-  const loadDestination = () => {
+  const getDestinations = () => {
     DestinationServices.getDestinations()
       .then((res) => {
         setDestinations(res.data);
@@ -70,6 +70,7 @@ export function DestinationsProvider({ children }) {
         DestinationError,
         getDestinationById,
         createDestination,
+        getDestinations,
         updateDestination,
         deleteDestination,
       }}

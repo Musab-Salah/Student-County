@@ -1,21 +1,21 @@
-import React,{useState} from "react";
-import { Button } from "reactstrap";
+import React from "react";
+import { Button, Container } from "reactstrap";
+import Heading from "../../components/heading/Heading";
+import { useNavigate } from "react-router";
 
 const User_Dashboard = () => {
-  var t
-  const [count,addcount]=useState(1);
- const tt =()=>{
-  addcount(count+1)
-  console.log(count)
- }
-  return <>
-  <Button onClick={tt}>
+  let navigate = useNavigate();
 
-ttt
-
-  </Button>
-  <h1>{count}</h1>
-  </>;
+  return (
+    <>
+      <Heading />
+      <Container>
+        <Button onClick={() => navigate("/create_book")}>add book</Button>
+        <Button onClick={() => navigate("/create_housing")}>add housing</Button>
+        <Button onClick={() => navigate("/create_ride")}>add ride</Button>
+      </Container>
+    </>
+  );
 };
 
 export default User_Dashboard;

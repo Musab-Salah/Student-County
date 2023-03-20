@@ -1,11 +1,29 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useMemo } from "react";
 import AuthServices from "../services/AuthServices/AuthServices";
+import { useNavigate } from "react-router-dom";
 
 const AuthCxt = createContext();
+
+const parseJwt = (token) => {
+  try {
+    return JSON.parse(atob(token.split(".")[1]));
+  } catch (e) {
+    return null;
+  }
+};
 
 export function AuthProvider({ children }) {
   const [isLogout, setIsLogout] = useState(true);
   const [AuthError, setError] = useState("Loading");
+  const [decodedJwt, setDecodedJwt] = useState();
+
+  let navigate = useNavigate();
+
+  useMemo(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const decodedJwt = parseJwt(user.token);
+    setDecodedJwt(decodedJwt)
+  }, []);
 
   const register = (Bo) => {
     AuthServices.register(Bo)
@@ -17,7 +35,8 @@ export function AuthProvider({ children }) {
       .then((response) => {
         console.log("login");
         localStorage.setItem("user", JSON.stringify(response.data));
-        console.log(localStorage.getItem("user"));
+        // console.log(localStorage.getItem("user"));
+        navigate("/user_dashboard");
       })
       .catch(() => setError("Failed Login"));
   };
@@ -26,7 +45,7 @@ export function AuthProvider({ children }) {
     AuthServices.refresh()
       .then((response) => {
         localStorage.setItem("user", JSON.stringify(response.data));
-        console.log(localStorage.getItem("user"));
+        // console.log(localStorage.getItem("user"));
         return response.data;
       })
       .catch(() => setError("Failed Refresh token"));
@@ -56,6 +75,7 @@ export function AuthProvider({ children }) {
         refresh,
         logout,
         AuthError,
+        decodedJwt
       }}
     >
       {children}

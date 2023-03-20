@@ -10,7 +10,7 @@ namespace Student_County.BusinessLogic.BookStore
             return new BookStoreEntity
             {
                 Id = bo.Id,
-                BookName = bo.BookName,
+                Name = bo.Name,
                 TheWay = bo.TheWay,
                 Price = bo.Price,
                 StudentId = bo.StudentId,        

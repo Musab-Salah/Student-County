@@ -12,7 +12,7 @@ namespace Student_County.DAL
         [Key]
         public int Id { get; set; }
         [Required]
-        public string? BookName { get; set; }
+        public string? Name { get; set; }
         [Required]
         public string? TheWay { get; set; }
         [Required]

@@ -1,24 +1,28 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState, useContext } from "react";
 import RideServices from "../services/RideServices";
+import AuthCxt from "../helpers/AuthCommon";
 
 const RidesCxt = createContext();
 
 export function RidesProvider({ children }) {
+  const { decodedJwt } = useContext(AuthCxt);
+
   const [Rides, setRides] = useState([]);
-  const [RideError, setError] = useState("Loading");
+  const [RideError, setError] = useState();
   const [Ride, setRide] = useState("Loading");
 
   const [RideBo] = useState({
     id: "0",
-    name: "",
-    location: "",
+    emptySeats: "",
+    carDescription: "",
     studentId: "",
+    destinationId: "",
   });
 
   useEffect(() => {
-    loadRide();
+    //getRides();
   }, []);
-  const loadRide = () => {
+  const getRides = () => {
     RideServices.getRides()
       .then((res) => {
         setRides(res.data);
@@ -28,6 +32,7 @@ export function RidesProvider({ children }) {
   };
 
   const createRide = (Bo) => {
+    Bo.studentId = decodedJwt.uid;
     RideServices.createRide(Bo)
       .then((res) => {
         setRide(res.data);
@@ -71,6 +76,7 @@ export function RidesProvider({ children }) {
         RideBo,
         RideError,
         getRideById,
+        getRides,
         createRide,
         updateRide,
         deleteRide,

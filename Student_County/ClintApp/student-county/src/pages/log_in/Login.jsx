@@ -1,10 +1,9 @@
 import React, { useState, useRef, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { FormGroup, Input, Label, Form, Container, Button } from "reactstrap";
+import {  Form, Button } from "reactstrap";
 import AuthCxt from "../../helpers/AuthCommon";
 import Heading from "../../components/heading/Heading";
 
-import AuthService from "../../services/AuthServices/AuthServices";
+
 
 const Login = ({ children }) => {
   const { logout, login } = useContext(AuthCxt);

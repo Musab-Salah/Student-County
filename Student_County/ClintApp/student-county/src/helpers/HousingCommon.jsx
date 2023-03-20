@@ -1,11 +1,14 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState,useContext } from "react";
 import HousingServices from "../services/HousingServices";
+import AuthCxt from "../helpers/AuthCommon";
 
 const HousingsCxt = createContext();
 
 export function HousingsProvider({ children }) {
+  const { decodedJwt } = useContext(AuthCxt);
+
   const [Housings, setHousings] = useState([]);
-  const [HousingError, setError] = useState("Loading");
+  const [HousingError, setError] = useState();
   const [Housing, setHousing] = useState("Loading");
 
   const [HousingBo] = useState({
@@ -16,9 +19,9 @@ export function HousingsProvider({ children }) {
   });
 
   useEffect(() => {
-    loadHousing();
+    // getHousings();
   }, []);
-  const loadHousing = () => {
+  const getHousings = () => {
     HousingServices.getHousings()
       .then((res) => {
         setHousings(res.data);
@@ -28,6 +31,7 @@ export function HousingsProvider({ children }) {
   };
 
   const createHousing = (Bo) => {
+    Bo.studentId = decodedJwt.uid;
     HousingServices.createHousing(Bo)
       .then((res) => {
         setHousing(res.data);
@@ -71,6 +75,7 @@ export function HousingsProvider({ children }) {
         HousingBo,
         HousingError,
         getHousingById,
+        getHousings,
         createHousing,
         updateHousing,
         deleteHousing,

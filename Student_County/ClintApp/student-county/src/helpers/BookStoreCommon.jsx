@@ -1,25 +1,28 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState, useContext } from "react";
 import BookStoreServices from "../services/BookStoreServices";
+import AuthCxt from "../helpers/AuthCommon";
 
 const BooksCxt = createContext();
 
 export function BooksProvider({ children }) {
+  const { decodedJwt } = useContext(AuthCxt);
+
   const [Books, setBooks] = useState([]);
-  const [BookError, setError] = useState("Loading");
+  const [BookError, setError] = useState();
   const [Book, setBook] = useState("Loading");
 
   const [BookBo] = useState({
     id: "0",
-    bookName: "",
+    name: "",
     theWay: "",
-    price: "",
+    price: 0,
     studentId: "",
   });
 
   useEffect(() => {
-    loadBooks();
+    //getBooks();
   }, []);
-  const loadBooks = () => {
+  const getBooks = () => {
     BookStoreServices.getBooks()
       .then((res) => {
         setBooks(res.data);
@@ -28,7 +31,8 @@ export function BooksProvider({ children }) {
       .catch(() => setError("Failed bring the books..."));
   };
   const createBook = (Bo) => {
-    BookStoreServices.createBookStore(Bo)
+    Bo.studentId = decodedJwt.uid;
+    BookStoreServices.createBook(Bo)
       .then((res) => {
         setBook(res.data);
         setError(null);
@@ -71,6 +75,7 @@ export function BooksProvider({ children }) {
         BookBo,
         BookError,
         getBookById,
+        getBooks,
         createBook,
         updateBook,
         deleteBook,

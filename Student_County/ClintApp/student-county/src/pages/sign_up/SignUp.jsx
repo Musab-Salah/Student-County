@@ -16,7 +16,7 @@ import CollegesCxt from "../../helpers/CollegeCommon";
 import UsersCxt from "../../helpers/UsersCommon";
 import "../sign_up/SignUp.css";
 
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+//const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const SignUp = ({ children }) => {
   const { Universities, UniversityError, getUniversityById, University } =
