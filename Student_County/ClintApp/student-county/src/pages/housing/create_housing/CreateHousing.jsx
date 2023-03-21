@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import Heading from "../../../components/heading/Heading";
-import HousingsCxt from "../../../helpers/HousingCommon";
+import HousingsCxt from "../../../context/HousingCommon";
 import { useNavigate } from "react-router";
 import {
   FormGroup,
@@ -71,7 +71,7 @@ const CreateHousing = () => {
 
           <Button>add</Button>
         </Form>
-        <Button onClick={() => navigate("/user_dashboard")}>go to dash</Button>
+        <Button onClick={() => navigate("/dashboard")}>go to dash</Button>
         {HousingError && HousingError}
       </Container>
     </>

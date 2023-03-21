@@ -36,7 +36,7 @@ export function AuthProvider({ children }) {
         console.log("login");
         localStorage.setItem("user", JSON.stringify(response.data));
         // console.log(localStorage.getItem("user"));
-        navigate("/user_dashboard");
+        navigate("/dashboard");
       })
       .catch(() => setError("Failed Login"));
   };

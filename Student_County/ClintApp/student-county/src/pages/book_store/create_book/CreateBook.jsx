@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import Heading from "../../../components/heading/Heading";
-import BooksCxt from "../../../helpers/BookStoreCommon";
+import BooksCxt from "../../../context/BookStoreCommon";
 import { useNavigate } from "react-router";
 import { FormGroup, Input, Form, Container, Button } from "reactstrap";
 
@@ -92,7 +92,7 @@ const CreateBook = () => {
           </FormGroup>
           <Button>add</Button>
         </Form>
-        <Button onClick={() => navigate("/user_dashboard")}>go to dash</Button>
+        <Button onClick={() => navigate("/dashboard")}>go to dash</Button>
         {BookError && BookError}
       </Container>
     </>

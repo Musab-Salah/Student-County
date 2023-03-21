@@ -11,9 +11,9 @@ import {
 } from "reactstrap";
 import Heading from "../../components/heading/Heading";
 import { EyeFill } from "react-bootstrap-icons";
-import UniversitiesCxt from "../../helpers/UniversityCommon";
-import CollegesCxt from "../../helpers/CollegeCommon";
-import UsersCxt from "../../helpers/UsersCommon";
+import UniversitiesCxt from "../../context/UniversityCommon";
+import CollegesCxt from "../../context/CollegeCommon";
+import UsersCxt from "../../context/UsersCommon";
 import "../sign_up/SignUp.css";
 
 //const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;

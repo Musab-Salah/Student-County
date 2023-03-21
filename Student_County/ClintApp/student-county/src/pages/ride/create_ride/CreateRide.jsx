@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import Heading from "../../../components/heading/Heading";
-import RidesCxt from "../../../helpers/RideCommon";
-import DestinationsCxt from "../../../helpers/DestinationCommon";
+import RidesCxt from "../../../context/RideCommon";
+import DestinationsCxt from "../../../context/DestinationCommon";
 import { useNavigate } from "react-router";
 import { FormGroup, Input, Form, Container, Button } from "reactstrap";
 
@@ -93,7 +93,7 @@ const CreateRide = () => {
           </FormGroup>
           <Button>add</Button>
         </Form>
-        <Button onClick={() => navigate("/user_dashboard")}>go to dash</Button>
+        <Button onClick={() => navigate("/dashboard")}>go to dash</Button>
         {RideError && RideError}
       </Container>
     </>

@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState, useContext } from "react";
 import RideServices from "../services/RideServices";
-import AuthCxt from "../helpers/AuthCommon";
+import AuthCxt from "../context/AuthCommon";
 
 const RidesCxt = createContext();
 

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useContext } from "react";
 import {  Form, Button } from "reactstrap";
-import AuthCxt from "../../helpers/AuthCommon";
+import AuthCxt from "../../context/AuthCommon";
 import Heading from "../../components/heading/Heading";
 
 
