@@ -1,4 +1,10 @@
-import React, { useState, createContext, useMemo } from "react";
+import React, {
+  useState,
+  createContext,
+  useMemo,
+  useRef,
+  useEffect,
+} from "react";
 import AuthServices from "../services/AuthServices/AuthServices";
 import { useNavigate } from "react-router-dom";
 
@@ -13,16 +19,27 @@ const parseJwt = (token) => {
 };
 
 export function AuthProvider({ children }) {
-  const [isLogout, setIsLogout] = useState(true);
+  const [isLogout, setIsLogout] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
   const [AuthError, setError] = useState("Loading");
   const [decodedJwt, setDecodedJwt] = useState();
 
   let navigate = useNavigate();
-
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      const decodedJwt = parseJwt(user.token);
+      const dexp = decodedJwt.exp * 1000;
+      if (dexp > Date.now()) setIsLogin(!isLogin);
+      else localStorage.clear("user");
+    }
+  }, []);
   useMemo(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    const decodedJwt = parseJwt(user.token);
-    setDecodedJwt(decodedJwt)
+    if (user) {
+      const decodedJwt = parseJwt(user.token);
+    }
+    setDecodedJwt(decodedJwt);
   }, []);
 
   const register = (Bo) => {
@@ -33,6 +50,7 @@ export function AuthProvider({ children }) {
   const login = (Bo) => {
     AuthServices.login(Bo)
       .then((response) => {
+        setIsLogin(!isLogin);
         console.log("login");
         localStorage.setItem("user", JSON.stringify(response.data));
         // console.log(localStorage.getItem("user"));
@@ -57,6 +75,7 @@ export function AuthProvider({ children }) {
       .then(() => {
         localStorage.removeItem("user");
         setIsLogout(!isLogout);
+        setIsLogin(!isLogin);
         console.log(isLogout);
       })
       .catch(() => {
@@ -69,13 +88,14 @@ export function AuthProvider({ children }) {
     <AuthCxt.Provider
       value={{
         isLogout,
+        isLogin,
         setIsLogout,
         register,
         login,
         refresh,
         logout,
         AuthError,
-        decodedJwt
+        decodedJwt,
       }}
     >
       {children}

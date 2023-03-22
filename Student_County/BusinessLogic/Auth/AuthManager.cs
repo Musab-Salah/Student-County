@@ -100,6 +100,7 @@ namespace Student_County.BusinessLogic.Auth
             var rolesList = await _userManager.GetRolesAsync(user);
 
 
+
             authModel.IsAuthenticated = true;
             authModel.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
             authModel.Email = user.Email;
@@ -248,7 +249,7 @@ namespace Student_County.BusinessLogic.Auth
 
                 Token = Convert.ToBase64String(randomNumber),
                 
-                ExpiresOn = DateTime.UtcNow.AddHours(3),
+                ExpiresOn = DateTime.UtcNow.AddMinutes(5),
                 CreatedOn = DateTime.UtcNow,
                 
 

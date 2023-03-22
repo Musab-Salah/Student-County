@@ -1,6 +1,8 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import AuthCxt from "../../context/AuthCommon";
 import { withRouter } from "./WithRouter";
+import add from "./../../../node_modules/lodash-es/add";
+import useIdle from "../../hooks/useIdleTimeout";
 
 const parseJwt = (token) => {
   try {
@@ -11,22 +13,27 @@ const parseJwt = (token) => {
 };
 
 const AuthVerify = (props, { children }) => {
-  const { refresh, setIsLogout, isLogout, logout } = useContext(AuthCxt);
+  const { isIdle, idleTimer } = useIdle({ idleTime: 60 * 15 });
+
+  const { refresh, setIsLogout, isLogout, logout, isLogin } =
+    useContext(AuthCxt);
   let location = props.router.location;
-  // const [previosLogoutStatus, setpreviosLogoutStatus] = useState(true);
+  const [previosLogoutStatus, setpreviosLogoutStatus] = useState(false);
   // need to add when user close without logout delete the local storge after 10 min & check refresh token if expire or not and logic of logout
   useEffect(() => {
-    //debugger
+    //if (isIdle) idleTimer.reset();
     const user = JSON.parse(localStorage.getItem("user"));
     console.log("decoded");
-    //console.log(user.token);
-    if (user) {
-      const decodedJwt = parseJwt(user.token);
-      // console.log(decodedJwt.uid);
-      if (decodedJwt.exp * 1000 < Date.now()) {
-        console.log("refresh");
-        refresh();
-      }
+    if (!isLogout && isLogin) {
+      if (user && !isIdle) {
+        idleTimer.reset();
+        const decodedJwt = parseJwt(user.token);
+        const dexp = decodedJwt.exp * 1000;
+        if (dexp < Date.now()) {
+          console.log("refresh");
+          refresh();
+        }
+      } else if (!user || isIdle) logout();
     }
   }, [refresh, location]);
 

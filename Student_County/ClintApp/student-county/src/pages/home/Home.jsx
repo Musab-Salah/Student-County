@@ -5,6 +5,7 @@ import img from "../home/amico.png";
 import { Link } from "react-router-dom";
 
 const Home = () => {
+  
   return (
     <>
       <Heading />
@@ -23,7 +24,7 @@ const Home = () => {
             Sign Up
           </Link>
         </div>
-
+        
         <img src={img} alt="" />
       </div>
     </>
