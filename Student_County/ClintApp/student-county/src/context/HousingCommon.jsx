@@ -1,11 +1,11 @@
-import React, { createContext, useEffect, useState,useContext } from "react";
+import React, { createContext, useEffect, useState, useContext } from "react";
 import HousingServices from "../services/HousingServices";
-import AuthCxt from "../context/AuthCommon";
+import useAuth from "../hooks/useAuth";
 
 const HousingsCxt = createContext();
 
 export function HousingsProvider({ children }) {
-  const { decodedJwt } = useContext(AuthCxt);
+  const { decodedJwt } = useAuth();
 
   const [Housings, setHousings] = useState([]);
   const [HousingError, setError] = useState();

@@ -1,30 +1,30 @@
-import axios from "axios";
+import axios from "../api/axios";
 
-const UNIVERSITY_API_BASE_URL = "https://localhost:7245/University/";
+const UNIVERSITY_API_BASE_URL = "/University";
 
 class UniversityServices {
   async getUniversities() {
-    return await axios.get(UNIVERSITY_API_BASE_URL + "Index");
+    return await axios.get(UNIVERSITY_API_BASE_URL + "/Index");
   }
 
   async createUniversity(university) {
-    return await axios.post(UNIVERSITY_API_BASE_URL + "Create/", university);
+    return await axios.post(UNIVERSITY_API_BASE_URL + "/Create", university);
   }
 
   async getUniversityById(universityId) {
-    return await axios.get(UNIVERSITY_API_BASE_URL + "Get/" + universityId);
+    return await axios.get(UNIVERSITY_API_BASE_URL + "/Get" + universityId);
   }
 
   async updateUniversity(universityId, university) {
     return await axios.put(
-      UNIVERSITY_API_BASE_URL + "Update/" + universityId,
+      UNIVERSITY_API_BASE_URL + "/Update" + universityId,
       university
     );
   }
 
   async deleteUniversity(universityId) {
     return await axios.delete(
-      UNIVERSITY_API_BASE_URL + "Delete/" + universityId
+      UNIVERSITY_API_BASE_URL + "/Delete" + universityId
     );
   }
 }

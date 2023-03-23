@@ -2,11 +2,10 @@ import React, { useContext } from "react";
 import { Button, Container } from "reactstrap";
 import Heading from "../../components/heading/Heading";
 import { useNavigate } from "react-router";
-import AuthCxt from "../../context/AuthCommon";
+import useAuth from "../../hooks/useAuth";
 
 const User_Dashboard = () => {
-
-  const { logout } = useContext(AuthCxt);
+  const { logout } = useAuth();
 
   let navigate = useNavigate();
 

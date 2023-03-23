@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import Heading from "../../../components/heading/Heading";
-import HousingsCxt from "../../../context/HousingCommon";
+import useHousings from "../../../hooks/useHousings";
 import { useNavigate } from "react-router";
 import {
   FormGroup,
@@ -14,7 +14,7 @@ import {
 
 const CreateHousing = () => {
   let navigate = useNavigate();
-  const { HousingError, HousingBo, createHousing } = useContext(HousingsCxt);
+  const { HousingError, HousingBo, createHousing } = useHousings();
 
   const [housingBo, setHousing] = useState(HousingBo);
 

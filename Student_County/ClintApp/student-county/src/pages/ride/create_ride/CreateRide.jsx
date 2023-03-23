@@ -1,14 +1,14 @@
 import React, { useContext, useState } from "react";
 import Heading from "../../../components/heading/Heading";
-import RidesCxt from "../../../context/RideCommon";
-import DestinationsCxt from "../../../context/DestinationCommon";
 import { useNavigate } from "react-router";
 import { FormGroup, Input, Form, Container, Button } from "reactstrap";
+import useRides from "./../../../hooks/useRides";
+import useDestinations from "./../../../hooks/useDestinations";
 
 const CreateRide = () => {
   let navigate = useNavigate();
-  const { RideError, RideBo, createRide } = useContext(RidesCxt);
-  const { DestinationError, Destinations } = useContext(DestinationsCxt);
+  const { RideError, RideBo, createRide } = useRides();
+  const { DestinationError, Destinations } = useDestinations();
 
   const [rideBo, setRide] = useState(RideBo);
 

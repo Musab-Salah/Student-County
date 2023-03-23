@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
 import Heading from "../../../components/heading/Heading";
-import BooksCxt from "../../../context/BookStoreCommon";
+import useBooks from "../../../hooks/useBooks";
 import { useNavigate } from "react-router";
 import { FormGroup, Input, Form, Container, Button } from "reactstrap";
 
 const CreateBook = () => {
   let navigate = useNavigate();
-  const { BookError, BookBo, createBook } = useContext(BooksCxt);
+  const { BookError, BookBo, createBook } = useBooks();
 
   const [bookBo, setBook] = useState(BookBo);
 

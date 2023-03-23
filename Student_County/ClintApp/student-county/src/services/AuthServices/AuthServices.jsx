@@ -4,7 +4,7 @@ const API_URL = "/Auth";
 
 class AuthServices {
   async register(Bo) {
-    return await axios.post(API_URL + "signup", Bo);
+    return await axios.post(API_URL + "/register", Bo);
   }
 
   async login(Bo) {
@@ -23,7 +23,7 @@ class AuthServices {
   }
 
   async getCurrentUser() {
-    return JSON.parse(localStorage.getItem("user"));
+    return JSON.parse(localStorage.getItem("user")); // need to check
   }
 }
 

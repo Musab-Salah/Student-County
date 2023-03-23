@@ -11,18 +11,18 @@ import {
 } from "reactstrap";
 import Heading from "../../components/heading/Heading";
 import { EyeFill } from "react-bootstrap-icons";
-import UniversitiesCxt from "../../context/UniversityCommon";
-import CollegesCxt from "../../context/CollegeCommon";
-import UsersCxt from "../../context/UsersCommon";
 import "../sign_up/SignUp.css";
+import useUniversities from "../../hooks/useUniversities";
+import useCollege from "./../../hooks/useCollege";
+import useAuth from "../../hooks/useAuth";
 
 //const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const SignUp = ({ children }) => {
   const { Universities, UniversityError, getUniversityById, University } =
-    useContext(UniversitiesCxt);
-  const { UserBo, createUser, UserError } = useContext(UsersCxt);
-  const { Colleges, CollegeError } = useContext(CollegesCxt);
+    useUniversities();
+  const { UserBo, register, UserError } = useAuth();
+  const { Colleges, CollegeError } = useCollege();
   const [userBo, setUser] = useState(UserBo);
   const [emailDomainName, setEmailDomainName] = useState();
   const [passwordType, setPasswordType] = useState("password");
@@ -93,7 +93,7 @@ const SignUp = ({ children }) => {
   };
   const createUsert = (e) => {
     e.preventDefault();
-    createUser(userBo);
+    register(userBo);
     setUser({
       ...userBo,
       email: "",

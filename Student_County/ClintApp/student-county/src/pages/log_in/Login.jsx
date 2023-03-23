@@ -1,12 +1,12 @@
 import React, { useState, useRef, useContext } from "react";
 import {  Form, Button } from "reactstrap";
-import AuthCxt from "../../context/AuthCommon";
+import useAuth from "../../hooks/useAuth";
 import Heading from "../../components/heading/Heading";
 
 
 
 const Login = ({ children }) => {
-  const { logout, login } = useContext(AuthCxt);
+  const { logout, login } = useAuth();
 
   let [bo, setbo] = useState();
 

@@ -1,11 +1,11 @@
 import React, { createContext, useEffect, useState, useContext } from "react";
 import BookStoreServices from "../services/BookStoreServices";
-import AuthCxt from "../context/AuthCommon";
+import useAuth from "../hooks/useAuth";
 
 const BooksCxt = createContext();
 
 export function BooksProvider({ children }) {
-  const { decodedJwt } = useContext(AuthCxt);
+  const { decodedJwt } = useAuth();
 
   const [Books, setBooks] = useState([]);
   const [BookError, setError] = useState();

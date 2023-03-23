@@ -1,8 +1,8 @@
 import React, { useEffect, useContext, useState } from "react";
-import AuthCxt from "../../context/AuthCommon";
 import { withRouter } from "./WithRouter";
 import add from "./../../../node_modules/lodash-es/add";
 import useIdle from "../../hooks/useIdleTimeout";
+import useAuth from "../../hooks/useAuth";
 
 const parseJwt = (token) => {
   try {
@@ -13,10 +13,10 @@ const parseJwt = (token) => {
 };
 
 const AuthVerify = (props, { children }) => {
-  const { isIdle, idleTimer } = useIdle({ idleTime: 60 * 15 });
+  const { isIdle, idleTimer } = useIdle({ idleTime: 60 * 30 });
 
   const { refresh, setIsLogout, isLogout, logout, isLogin } =
-    useContext(AuthCxt);
+  useAuth();
   let location = props.router.location;
   const [previosLogoutStatus, setpreviosLogoutStatus] = useState(false);
   // need to add when user close without logout delete the local storge after 10 min & check refresh token if expire or not and logic of logout

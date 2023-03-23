@@ -2,11 +2,12 @@ import React, {
   useState,
   createContext,
   useMemo,
-  useRef,
+  useContext,
   useEffect,
 } from "react";
 import AuthServices from "../services/AuthServices/AuthServices";
 import { useNavigate } from "react-router-dom";
+import useUniversities from "../hooks/useUniversities";
 
 const AuthCxt = createContext();
 
@@ -19,12 +20,29 @@ const parseJwt = (token) => {
 };
 
 export function AuthProvider({ children }) {
+  const { getUniversityById, University } = useUniversities();
+
   const [isLogout, setIsLogout] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [AuthError, setError] = useState("Loading");
   const [decodedJwt, setDecodedJwt] = useState();
 
   let navigate = useNavigate();
+
+  const [User, setUser] = useState("Loading");
+  const [UserBo] = useState({
+    firstName: "",
+    lastName: "",
+    idNumber: 0,
+    userName: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
+    gender: "",
+    universityId: "",
+    collegeId: "",
+  });
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
@@ -43,9 +61,20 @@ export function AuthProvider({ children }) {
   }, []);
 
   const register = (Bo) => {
+    //getUniversityById(Bo.universityId);
+    // Bo.email = Bo.email + University.emailDomainName;
     AuthServices.register(Bo)
-      .then((res) => {})
-      .catch(() => setError("Failed Register"));
+      .then((res) => {
+        setUser(res.data);
+        console.log(res);
+        setError(null);
+        navigate("/");
+      })
+      .catch((res) => {
+        setError(res.response.data);
+        //console.log(res.response.data);
+        navigate("/sign_up");
+      });
   };
   const login = (Bo) => {
     AuthServices.login(Bo)
@@ -94,6 +123,8 @@ export function AuthProvider({ children }) {
         login,
         refresh,
         logout,
+        User,
+        UserBo,
         AuthError,
         decodedJwt,
       }}

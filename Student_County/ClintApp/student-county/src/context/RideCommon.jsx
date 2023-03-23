@@ -1,11 +1,11 @@
 import React, { createContext, useEffect, useState, useContext } from "react";
 import RideServices from "../services/RideServices";
-import AuthCxt from "../context/AuthCommon";
+import useAuth from "../hooks/useAuth";
 
 const RidesCxt = createContext();
 
 export function RidesProvider({ children }) {
-  const { decodedJwt } = useContext(AuthCxt);
+  const { decodedJwt } = useAuth();
 
   const [Rides, setRides] = useState([]);
   const [RideError, setError] = useState();

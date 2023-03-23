@@ -1,30 +1,30 @@
-import axios from "axios";
+import axios from "../api/axios";
 
-const DESTINATION_API_BASE_URL = "https://localhost:7245/Destination/";
+const DESTINATION_API_BASE_URL = "/Destination";
 
 class DestinationServices {
   async getDestinations() {
-    return await axios.get(DESTINATION_API_BASE_URL + "Index");
+    return await axios.get(DESTINATION_API_BASE_URL + "/Index");
   }
 
   async createDestination(destination) {
-    return await axios.post(DESTINATION_API_BASE_URL + "Create/", destination);
+    return await axios.post(DESTINATION_API_BASE_URL + "/Create", destination);
   }
 
   async getDestinationById(destinationId) {
-    return await axios.get(DESTINATION_API_BASE_URL + "Get/" + destinationId);
+    return await axios.get(DESTINATION_API_BASE_URL + "/Get" + destinationId);
   }
 
   async updateDestination(destinationId, destination) {
     return await axios.put(
-      DESTINATION_API_BASE_URL + "Update/" + destinationId,
+      DESTINATION_API_BASE_URL + "/Update" + destinationId,
       destination
     );
   }
 
   async deleteDestination(destinationId) {
     return await axios.delete(
-      DESTINATION_API_BASE_URL + "Delete/" + destinationId
+      DESTINATION_API_BASE_URL + "/Delete" + destinationId
     );
   }
 }

@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useIdleTimer } from "react-idle-timer";
-import AuthCxt from "../context/AuthCommon";
+import useAuth from "../hooks/useAuth";
 
 /**
  * @param onIdle - function to notify user when idle timeout is close
@@ -10,7 +10,7 @@ import AuthCxt from "../context/AuthCommon";
 const useIdleTimeout = ({ onIdle, idleTime = 1 }) => {
   const idleTimeout = 1000 * idleTime;
   const [isIdle, setIdle] = useState(false);
-  const { isLogout, isLogin } = useContext(AuthCxt);
+  const { isLogout, isLogin } = useAuth();
 
   const handleIdle = () => {
     if (!isLogout && isLogin) setIdle(true);
