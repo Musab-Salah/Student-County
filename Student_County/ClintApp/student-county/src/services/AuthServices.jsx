@@ -26,5 +26,5 @@ class AuthServices {
     return JSON.parse(localStorage.getItem("user")); // need to check
   }
 }
-
+// eslint-disable-next-line
 export default new AuthServices();

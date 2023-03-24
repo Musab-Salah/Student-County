@@ -4,7 +4,7 @@ import useIdle from "../hooks/useIdleTimeout";
 import useAuth from "../hooks/useAuth";
 
 const AuthVerify = (props, { children }) => {
-  const { isIdle, idleTimer } = useIdle({});
+  const { isIdle, idleTimer ,setIdle} = useIdle({});
 
   const { refresh, isLogout, logout, isLogin, decodedJwt, userInLocal } =
     useAuth();
@@ -19,7 +19,10 @@ const AuthVerify = (props, { children }) => {
         if (dexp < Date.now()) {
           refresh();
         }
-      } else if (!userInLocal || isIdle) logout();
+      } else if (!userInLocal || isIdle) {
+        setIdle(false)
+        logout(); 
+      }
     }
     // eslint-disable-next-line
   }, [refresh, location]);

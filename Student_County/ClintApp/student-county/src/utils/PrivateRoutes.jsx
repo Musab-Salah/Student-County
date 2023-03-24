@@ -17,6 +17,7 @@ const PrivateRoutes = (props) => {
   useMemo(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     user ? setDecodedJwt(parseJwt(user.token)) : setDecodedJwt(false);
+    // eslint-disable-next-line
   }, [location]);
 
   let auth = decodedJwt ? decodedJwt.roles : "false";

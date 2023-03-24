@@ -14,8 +14,7 @@ const parseJwt = (token) => {
 
 export function AuthProvider({ children }) {
   const { getUniversityById, University } = useUniversities();
-
-  const [isLogout, setIsLogout] = useState(false);
+  const [isLogout, setIsLogout] = useState(true);
   const [isLogin, setIsLogin] = useState(false);
   const [AuthError, setError] = useState("Loading");
   const [decodedJwt, setDecodedJwt] = useState(false);
@@ -48,6 +47,7 @@ export function AuthProvider({ children }) {
       if (dexp > Date.now()) setIsLogin(!isLogin);
       else localStorage.clear("user");
     }
+    // eslint-disable-next-line
   }, []);
 
   const register = (Bo) => {
@@ -68,6 +68,7 @@ export function AuthProvider({ children }) {
     AuthServices.login(Bo)
       .then((response) => {
         setIsLogin(!isLogin);
+        setIsLogout(!isLogout);
         localStorage.setItem("user", JSON.stringify(response.data));
         setUserInLocal(response.data);
         navigate("/dashboard");
