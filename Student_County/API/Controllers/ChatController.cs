@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Student_County.BusinessLogic.Chat;
+using System.Data;
 
 namespace Student_County.API.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
+    [Authorize(Roles = "Student,DentistryStudent,Admin,Patient")]
     public class ChatController : ControllerBase
     {
         private readonly IChatManager _manager;

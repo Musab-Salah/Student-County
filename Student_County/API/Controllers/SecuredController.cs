@@ -5,7 +5,7 @@ namespace Student_County.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "Student,DentistryStudent,Admin")]
     public class SecuredController : ControllerBase
     {
         [HttpGet]

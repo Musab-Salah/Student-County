@@ -15,6 +15,10 @@ namespace Student_County.DAL
         [Required]
         public string? Location { get; set; }
         [Required]
+        public string? TypeOfContract { get; set; }
+        [Required]
+        public int Price { get; set; }
+        [Required]
         public string StudentId { get; set; }
         public ApplicationUser? Student { get; set; }
 

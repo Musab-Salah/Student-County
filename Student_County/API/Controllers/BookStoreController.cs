@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Student_County.BusinessLogic.BookStore;
+using System.Data;
 
 namespace Student_County.API.Controller
 {
     [Route("[controller]/[action]")]
     [ApiController]
+    [Authorize(Roles = "Student,DentistryStudent,Admin")]
     public class BookStoreController : ControllerBase
     {
         private readonly IBookStoreManager _manager;

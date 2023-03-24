@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Student_County.BusinessLogic.Ride;
+using System.Data;
 
 namespace Student_County.API.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
+    [Authorize(Roles = "Student,DentistryStudent,Admin")]
+
     public class RideController : ControllerBase
     {
         private readonly IRideManager _manager;

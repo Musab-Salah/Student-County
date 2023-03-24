@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Student_County.BusinessLogic.University;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
 using System.Security.Claims;
@@ -46,7 +47,7 @@ namespace Student_County.BusinessLogic.Auth
                 CollegeId=model.CollegeId,
                 Email = model.Email,
                 FirstName = model.FirstName,
-                LastName = model.LastName
+                LastName = model.LastName,
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -61,7 +62,7 @@ namespace Student_County.BusinessLogic.Auth
                 return new AuthModel { Message = errors };
             }
 
-            await _userManager.AddToRoleAsync(user, "Student");
+            await _userManager.AddToRoleAsync(user, model.Roles);
 
             var jwtSecurityToken = await CreateJwtToken(user);
 
@@ -76,7 +77,7 @@ namespace Student_County.BusinessLogic.Auth
                 Email = user.Email,
                 ExpiresOn = jwtSecurityToken.ValidTo,
                 IsAuthenticated = true,
-                Roles = new List<string> { "Student" },
+                Roles = new List<string> { model.Roles },
                 Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
                 Username = user.UserName,
                 RefreshToken = refreshToken.Token,

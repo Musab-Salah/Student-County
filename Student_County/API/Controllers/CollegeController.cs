@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Student_County.BusinessLogic.College;
+using System.Data;
 
 namespace Student_County.API.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
+
     public class CollegeController : ControllerBase
     {
         private readonly ICollegeManager _manager;
