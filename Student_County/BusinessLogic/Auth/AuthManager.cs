@@ -61,7 +61,7 @@ namespace Student_County.BusinessLogic.Auth
                 return new AuthModel { Message = errors };
             }
 
-            await _userManager.AddToRoleAsync(user, "User");
+            await _userManager.AddToRoleAsync(user, "Student");
 
             var jwtSecurityToken = await CreateJwtToken(user);
 
@@ -76,7 +76,7 @@ namespace Student_County.BusinessLogic.Auth
                 Email = user.Email,
                 ExpiresOn = jwtSecurityToken.ValidTo,
                 IsAuthenticated = true,
-                Roles = new List<string> { "User" },
+                Roles = new List<string> { "Student" },
                 Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
                 Username = user.UserName,
                 RefreshToken = refreshToken.Token,

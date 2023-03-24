@@ -97,7 +97,7 @@ namespace Student_County.API.Controllers
                 Expires = expires.ToLocalTime(),
                 Secure = true,
                 IsEssential = true,
-                SameSite = SameSiteMode.None
+                SameSite = SameSiteMode.None //check which type is better
             };
 
             Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);

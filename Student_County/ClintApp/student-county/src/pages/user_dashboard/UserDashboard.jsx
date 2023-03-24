@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Button, Container } from "reactstrap";
 import Heading from "../../components/heading/Heading";
 import { useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 
-const User_Dashboard = () => {
+const UserDashboard = () => {
   const { logout } = useAuth();
 
   let navigate = useNavigate();
@@ -23,4 +23,4 @@ const User_Dashboard = () => {
   );
 };
 
-export default User_Dashboard;
+export default UserDashboard;

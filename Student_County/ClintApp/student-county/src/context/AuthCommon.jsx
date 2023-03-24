@@ -1,14 +1,7 @@
-import React, {
-  useState,
-  createContext,
-  useMemo,
-  useContext,
-  useEffect,
-} from "react";
-import AuthServices from "../services/AuthServices/AuthServices";
+import React, { useState, createContext, useEffect } from "react";
+import AuthServices from "../services/AuthServices";
 import { useNavigate } from "react-router-dom";
 import useUniversities from "../hooks/useUniversities";
-
 const AuthCxt = createContext();
 
 const parseJwt = (token) => {
@@ -25,11 +18,13 @@ export function AuthProvider({ children }) {
   const [isLogout, setIsLogout] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [AuthError, setError] = useState("Loading");
-  const [decodedJwt, setDecodedJwt] = useState();
+  const [decodedJwt, setDecodedJwt] = useState(false);
 
   let navigate = useNavigate();
 
   const [User, setUser] = useState("Loading");
+  const [userInLocal, setUserInLocal] = useState();
+
   const [UserBo] = useState({
     firstName: "",
     lastName: "",
@@ -45,34 +40,27 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
+    setUserInLocal(user);
     if (user) {
       const decodedJwt = parseJwt(user.token);
+      setDecodedJwt(decodedJwt);
       const dexp = decodedJwt.exp * 1000;
       if (dexp > Date.now()) setIsLogin(!isLogin);
       else localStorage.clear("user");
     }
   }, []);
-  useMemo(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
-      const decodedJwt = parseJwt(user.token);
-    }
-    setDecodedJwt(decodedJwt);
-  }, []);
 
   const register = (Bo) => {
-    //getUniversityById(Bo.universityId);
-    // Bo.email = Bo.email + University.emailDomainName;
+    getUniversityById(Bo.universityId);
+    Bo.email = Bo.email + University.emailDomainName;
     AuthServices.register(Bo)
       .then((res) => {
         setUser(res.data);
-        console.log(res);
         setError(null);
         navigate("/");
       })
       .catch((res) => {
         setError(res.response.data);
-        //console.log(res.response.data);
         navigate("/sign_up");
       });
   };
@@ -80,9 +68,8 @@ export function AuthProvider({ children }) {
     AuthServices.login(Bo)
       .then((response) => {
         setIsLogin(!isLogin);
-        console.log("login");
         localStorage.setItem("user", JSON.stringify(response.data));
-        // console.log(localStorage.getItem("user"));
+        setUserInLocal(response.data);
         navigate("/dashboard");
       })
       .catch(() => setError("Failed Login"));
@@ -92,7 +79,6 @@ export function AuthProvider({ children }) {
     AuthServices.refresh()
       .then((response) => {
         localStorage.setItem("user", JSON.stringify(response.data));
-        // console.log(localStorage.getItem("user"));
         return response.data;
       })
       .catch(() => setError("Failed Refresh token"));
@@ -103,9 +89,10 @@ export function AuthProvider({ children }) {
     AuthServices.logout()
       .then(() => {
         localStorage.removeItem("user");
+        setDecodedJwt(false);
         setIsLogout(!isLogout);
         setIsLogin(!isLogin);
-        console.log(isLogout);
+        navigate("/login");
       })
       .catch(() => {
         console.log("error log");
@@ -127,6 +114,7 @@ export function AuthProvider({ children }) {
         UserBo,
         AuthError,
         decodedJwt,
+        userInLocal,
       }}
     >
       {children}

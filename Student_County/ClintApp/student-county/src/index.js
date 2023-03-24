@@ -10,7 +10,7 @@ import { AuthProvider } from "./context/AuthCommon";
 import { HousingsProvider } from "./context/HousingCommon";
 import { RidesProvider } from "./context/RideCommon";
 import { DestinationsProvider } from "./context/DestinationCommon";
-import AuthVerify from "./services/AuthServices/AuthVerify";
+import AuthVerify from "./utils/AuthVerify";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -23,11 +23,11 @@ root.render(
               <RidesProvider>
                 <HousingsProvider>
                   <BooksProvider>
-                    {/* <Suspense fallback={<div>lod</div>}> */}
-                    <Routes>
-                      <Route path="/*" element={<App />} />
-                    </Routes>
-                    {/* </Suspense> */}
+                    <Suspense fallback={<div>lod</div>}>
+                      <Routes>
+                        <Route path="/*" element={<App />} />
+                      </Routes>
+                    </Suspense>
                   </BooksProvider>
                 </HousingsProvider>
               </RidesProvider>

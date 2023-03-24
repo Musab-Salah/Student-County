@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState, useContext } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import RideServices from "../services/RideServices";
 import useAuth from "../hooks/useAuth";
 
