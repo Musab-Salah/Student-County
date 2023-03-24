@@ -22,8 +22,8 @@ class AuthServices {
     return await axios.post(API_URL + "/revokeToken");
   }
 
-  async getCurrentUser() {
-    return JSON.parse(localStorage.getItem("user")); // need to check
+  async getRoles() {
+    return await axios.get(API_URL + "/GetRoles");
   }
 }
 // eslint-disable-next-line

@@ -18,6 +18,8 @@ export function AuthProvider({ children }) {
   const [isLogin, setIsLogin] = useState(false);
   const [AuthError, setError] = useState("Loading");
   const [decodedJwt, setDecodedJwt] = useState(false);
+  const [Roles, setRoles] = useState();
+
 
   let navigate = useNavigate();
 
@@ -38,6 +40,7 @@ export function AuthProvider({ children }) {
   });
 
   useEffect(() => {
+    getRoles();
     const user = JSON.parse(localStorage.getItem("user"));
     setUserInLocal(user);
     if (user) {
@@ -71,6 +74,8 @@ export function AuthProvider({ children }) {
         setIsLogout(false);
         localStorage.setItem("user", JSON.stringify(response.data));
         setUserInLocal(response.data);
+        const decodedJwt = parseJwt(response.data.token);
+        setDecodedJwt(decodedJwt);
         navigate("/dashboard");
       })
       .catch(() => setError("Failed Login"));
@@ -98,6 +103,15 @@ export function AuthProvider({ children }) {
         setError("Failed Logout");
       });
   };
+  const getRoles = () => {
+    AuthServices.getRoles()
+      .then((res) => {
+        setRoles(res.data)   
+      })
+      .catch(() => {
+        setError("Failed bring the Roles");
+      });
+  };
 
   return (
     <AuthCxt.Provider
@@ -110,6 +124,7 @@ export function AuthProvider({ children }) {
         refresh,
         logout,
         User,
+        Roles,
         UserBo,
         AuthError,
         decodedJwt,

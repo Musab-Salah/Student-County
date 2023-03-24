@@ -89,6 +89,9 @@ namespace Student_County.API.Controllers
             return Ok();
         }
 
+        [HttpGet("GetRoles")]
+        public async Task<IActionResult> Index() => Ok(await _authService.GetAllRoles());
+
         private void SetRefreshTokenInCookie(string refreshToken, DateTime expires)
         {
             var cookieOptions = new CookieOptions

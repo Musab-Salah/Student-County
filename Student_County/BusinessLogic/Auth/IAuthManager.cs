@@ -1,4 +1,7 @@
 ﻿
+using Microsoft.AspNetCore.Identity;
+using Student_County.DAL;
+
 namespace Student_County.BusinessLogic.Auth
 {
     public interface IAuthManager
@@ -8,5 +11,7 @@ namespace Student_County.BusinessLogic.Auth
         Task<string> AddRoleAsync(AddRoleModel model);
         Task<AuthModel> RefreshTokenAsync(string token);
         Task<bool> RevokeTokenAsync(string token);
+        Task<List<IdentityRole>> GetAllRoles();
+
     }
 }

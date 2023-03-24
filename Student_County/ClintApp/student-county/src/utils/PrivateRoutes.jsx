@@ -1,27 +1,12 @@
 import { Outlet, Navigate } from "react-router-dom";
-import React, { useState, useMemo } from "react";
-import { withRouter } from "./WithRouter";
+import React from "react";
+import useAuth from "../hooks/useAuth";
 
-const parseJwt = (token) => {
-  try {
-    return JSON.parse(atob(token.split(".")[1]));
-  } catch (e) {
-    return null;
-  }
-};
-
-const PrivateRoutes = (props) => {
-  const [decodedJwt, setDecodedJwt] = useState(false);
-  let location = props.router.location;
-
-  useMemo(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    user ? setDecodedJwt(parseJwt(user.token)) : setDecodedJwt(false);
-    // eslint-disable-next-line
-  }, [location]);
+const PrivateRoutes = () => {
+  const { decodedJwt } = useAuth();
 
   let auth = decodedJwt ? decodedJwt.roles : "false";
   return auth === "DentistryStudent" ? <Outlet /> : <Navigate to="/login" />;
 };
 
-export default withRouter(PrivateRoutes);
+export default PrivateRoutes;

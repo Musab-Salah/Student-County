@@ -1,10 +1,12 @@
 ﻿using Azure;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Student_County.BusinessLogic.University;
+using Student_County.DAL;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
@@ -23,7 +25,7 @@ namespace Student_County.BusinessLogic.Auth
         public AuthManager(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager,
             IOptions<JWT> jwt)
         {
-            _userManager = userManager;
+             _userManager = userManager;
             _roleManager = roleManager;
             _jwt = jwt.Value;
         }
@@ -256,6 +258,8 @@ namespace Student_County.BusinessLogic.Auth
 
         };
         }
-        
+
+        public async Task<List<IdentityRole>> GetAllRoles() =>  await _roleManager.Roles.ToListAsync();
+    
     }
 }

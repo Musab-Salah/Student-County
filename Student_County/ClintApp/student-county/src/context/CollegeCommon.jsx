@@ -14,9 +14,9 @@ export function CollegesProvider({ children }) {
   });
 
   useEffect(() => {
-    loadCollege();
+    getColleges();
   }, []);
-  const loadCollege = () => {
+  const getColleges = () => {
     CollegeServices.getColleges()
       .then((res) => {
         setColleges(res.data);
