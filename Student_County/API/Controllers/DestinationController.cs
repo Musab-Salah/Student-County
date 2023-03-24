@@ -7,7 +7,6 @@ namespace Student_County.API.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
 
     public class DestinationController : ControllerBase
     {
@@ -16,9 +15,11 @@ namespace Student_County.API.Controllers
         {
             _manager = manager;
         }
+
         [HttpGet]
         public async Task<IActionResult> Index() => Ok(await _manager.GetAll());
-
+        
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] DestinationBo bo)
         {
@@ -26,15 +27,20 @@ namespace Student_County.API.Controllers
                 return Ok(await _manager.CreateUpdate(bo));
             return BadRequest("Wrong Information");
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _manager.Delete(id);
             return Ok("Is Deleted");
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id) => Ok(await _manager.GetDestination(id));
-
+        
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromBody] DestinationBo bo, [FromRoute] int id)
         {

@@ -67,8 +67,8 @@ export function AuthProvider({ children }) {
   const login = (Bo) => {
     AuthServices.login(Bo)
       .then((response) => {
-        setIsLogin(!isLogin);
-        setIsLogout(!isLogout);
+        setIsLogin(true);
+        setIsLogout(false);
         localStorage.setItem("user", JSON.stringify(response.data));
         setUserInLocal(response.data);
         navigate("/dashboard");
@@ -86,17 +86,15 @@ export function AuthProvider({ children }) {
   };
 
   const logout = () => {
-    console.log("logout");
     AuthServices.logout()
       .then(() => {
         localStorage.removeItem("user");
         setDecodedJwt(false);
-        setIsLogout(!isLogout);
-        setIsLogin(!isLogin);
+        setIsLogout(true);
+        setIsLogin(false);
         navigate("/login");
       })
       .catch(() => {
-        console.log("error log");
         setError("Failed Logout");
       });
   };

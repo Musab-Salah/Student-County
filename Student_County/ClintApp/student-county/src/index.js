@@ -10,6 +10,8 @@ import { AuthProvider } from "./context/AuthCommon";
 import { HousingsProvider } from "./context/HousingCommon";
 import { RidesProvider } from "./context/RideCommon";
 import { DestinationsProvider } from "./context/DestinationCommon";
+import { PatientsProvider } from "./context/PatientCommon";
+import { ToolsProvider } from "./context/ToolsCommon";
 import AuthVerify from "./utils/AuthVerify";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -17,24 +19,28 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <UniversitiesProvider>
-        <AuthProvider>
-          <CollegesProvider>
-            <DestinationsProvider>
-              <RidesProvider>
-                <HousingsProvider>
-                  <BooksProvider>
-                    <Suspense fallback={<div>lod</div>}>
-                      <Routes>
-                        <Route path="/*" element={<App />} />
-                      </Routes>
-                    </Suspense>
-                  </BooksProvider>
-                </HousingsProvider>
-              </RidesProvider>
-            </DestinationsProvider>
-          </CollegesProvider>
-          <AuthVerify />
-        </AuthProvider>
+        <CollegesProvider>
+          <AuthProvider>
+            <ToolsProvider>
+              <PatientsProvider>
+                <DestinationsProvider>
+                  <RidesProvider>
+                    <HousingsProvider>
+                      <BooksProvider>
+                        <Suspense fallback={<div>lod</div>}>
+                          <Routes>
+                            <Route path="/*" element={<App />} />
+                          </Routes>
+                        </Suspense>
+                      </BooksProvider>
+                    </HousingsProvider>
+                  </RidesProvider>
+                </DestinationsProvider>
+              </PatientsProvider>
+            </ToolsProvider>
+            <AuthVerify />
+          </AuthProvider>
+        </CollegesProvider>
       </UniversitiesProvider>
     </BrowserRouter>
   </React.StrictMode>

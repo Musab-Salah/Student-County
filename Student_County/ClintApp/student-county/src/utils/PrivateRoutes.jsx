@@ -21,7 +21,7 @@ const PrivateRoutes = (props) => {
   }, [location]);
 
   let auth = decodedJwt ? decodedJwt.roles : "false";
-  return auth === "Student" ? <Outlet /> : <Navigate to="/login" />;
+  return auth === "DentistryStudent" ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default withRouter(PrivateRoutes);
