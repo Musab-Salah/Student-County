@@ -13,15 +13,15 @@ namespace Student_County.BusinessLogic.Auth
     {
 
         [Required]
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
         [Required]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
         [Required]
         public int? IdNumber { get; set; }
         [Required]
-        public string Password { get; set; }
+        public string? Password { get; set; }
         [Required]
-        public string Gender { get; set; }
+        public string? Gender { get; set; }
         [Required]
         public int UniversityId { get; set; }
         [Required]

@@ -2,7 +2,7 @@
 
 namespace Student_County.BusinessLogic.Ride
 {
-    public static class RideMapping
+    public static class ToolsMapping
     {
         public static RideEntity? MapBoToEntity(this RideBo bo)
         {

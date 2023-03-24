@@ -7,7 +7,7 @@ import useAuth from "../hooks/useAuth";
  * @param idleTime - number of seconds to wait before user is logged out
  */
 
-const useIdleTimeout = ({ onIdle, idleTime = 5 }) => {
+const useIdleTimeout = ({ onIdle, idleTime = 60 * 30 }) => {
   const idleTimeout = 1000 * idleTime;
   const [isIdle, setIdle] = useState(false);
   const { isLogout, isLogin } = useAuth();
