@@ -7,7 +7,6 @@ namespace Student_County.API.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
-
     public class CollegeController : ControllerBase
     {
         private readonly ICollegeManager _manager;
@@ -19,8 +18,8 @@ namespace Student_County.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Index() => Ok(await _manager.GetAll());
 
-        [Authorize(Roles = "Admin")]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] CollegeBo bo)
         {
             if (ModelState.IsValid)

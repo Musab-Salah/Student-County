@@ -36,7 +36,6 @@ namespace Student_County.API.Controller
             return Ok("Is Deleted");
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id) => Ok(await _manager.GetUniversity(id));
         

@@ -12,18 +12,18 @@ class PatientServices {
   }
 
   async getPatientById(patientId) {
-    return await axios.get(PATIENT_API_BASE_URL + "/Get" + patientId);
+    return await axios.get(PATIENT_API_BASE_URL + "/Get/" + patientId);
   }
 
   async updatePatient(patientId, patient) {
     return await axios.put(
-      PATIENT_API_BASE_URL + "/Update" + patientId,
+      PATIENT_API_BASE_URL + "/Update/" + patientId,
       patient
     );
   }
 
   async deletePatient(patientId) {
-    return await axios.delete(PATIENT_API_BASE_URL + "/Delete" + patientId);
+    return await axios.delete(PATIENT_API_BASE_URL + "/Delete/" + patientId);
   }
 }
 // eslint-disable-next-line

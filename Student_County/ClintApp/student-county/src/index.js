@@ -21,6 +21,7 @@ root.render(
       <UniversitiesProvider>
         <CollegesProvider>
           <AuthProvider>
+            <AuthVerify />
             <ToolsProvider>
               <PatientsProvider>
                 <DestinationsProvider>
@@ -38,7 +39,6 @@ root.render(
                 </DestinationsProvider>
               </PatientsProvider>
             </ToolsProvider>
-            <AuthVerify />
           </AuthProvider>
         </CollegesProvider>
       </UniversitiesProvider>

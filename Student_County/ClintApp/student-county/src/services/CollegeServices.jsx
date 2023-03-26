@@ -12,18 +12,18 @@ class CollegeServices {
   }
 
   async getCollegeById(collegeId) {
-    return await axios.get(COLLEGE_API_BASE_URL + "/Get" + collegeId);
+    return await axios.get(COLLEGE_API_BASE_URL + "/Get/" + collegeId);
   }
 
   async updateCollege(collegeId, college) {
     return await axios.put(
-      COLLEGE_API_BASE_URL + "/Update" + collegeId,
+      COLLEGE_API_BASE_URL + "/Update/" + collegeId,
       college
     );
   }
 
   async deleteCollege(collegeId) {
-    return await axios.delete(COLLEGE_API_BASE_URL + "/Delete" + collegeId);
+    return await axios.delete(COLLEGE_API_BASE_URL + "/Delete/" + collegeId);
   }
 }
 // eslint-disable-next-line

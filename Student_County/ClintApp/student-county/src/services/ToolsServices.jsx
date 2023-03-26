@@ -12,15 +12,15 @@ class ToolsServices {
   }
 
   async getToolsById(toolId) {
-    return await axios.get(TOOLS_API_BASE_URL + "/Get" + toolId);
+    return await axios.get(TOOLS_API_BASE_URL + "/Get/" + toolId);
   }
 
   async updateTool(toolId, tool) {
-    return await axios.put(TOOLS_API_BASE_URL + "/Update" + toolId, tool);
+    return await axios.put(TOOLS_API_BASE_URL + "/Update/" + toolId, tool);
   }
 
   async deleteTool(toolId) {
-    return await axios.delete(TOOLS_API_BASE_URL + "/Delete" + toolId);
+    return await axios.delete(TOOLS_API_BASE_URL + "/Delete/" + toolId);
   }
 }
 // eslint-disable-next-line

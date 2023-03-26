@@ -12,18 +12,18 @@ class HousingServices {
   }
 
   async getHousingById(housingId) {
-    return await axios.get(HOUSING_API_BASE_URL + "/Get" + housingId);
+    return await axios.get(HOUSING_API_BASE_URL + "/Get/" + housingId);
   }
 
   async updateHousing(housingId, housing) {
     return await axios.put(
-      HOUSING_API_BASE_URL + "/Update" + housingId,
+      HOUSING_API_BASE_URL + "/Update/" + housingId,
       housing
     );
   }
 
   async deleteHousing(housingId) {
-    return await axios.delete(HOUSING_API_BASE_URL + "/Delete" + housingId);
+    return await axios.delete(HOUSING_API_BASE_URL + "/Delete/" + housingId);
   }
 }
 // eslint-disable-next-line

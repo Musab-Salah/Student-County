@@ -34,10 +34,8 @@ namespace Student_County.BusinessLogic.Auth
         {
             if (await _userManager.FindByEmailAsync(model.Email) is not null)
                 return new AuthModel { Message = "Email is already registered!" };
-
             if (await _userManager.FindByNameAsync(model.UserName) is not null)
                 return new AuthModel { Message = "Username is already registered!" };
-
             var user = new ApplicationUser
             {
                 UserName = model.UserName,
@@ -57,22 +55,16 @@ namespace Student_County.BusinessLogic.Auth
             if (!result.Succeeded)
             {
                 var errors = string.Empty;
-
                 foreach (var error in result.Errors)
                     errors += $"{error.Description},";
-
                 return new AuthModel { Message = errors };
             }
 
             await _userManager.AddToRoleAsync(user, model.Roles);
-
             var jwtSecurityToken = await CreateJwtToken(user);
-
             var refreshToken = GenerateRefreshToken();
-
             user.RefreshTokens?.Add(refreshToken);
             await _userManager.UpdateAsync(user);
-
 
             return new AuthModel
             {

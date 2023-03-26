@@ -12,19 +12,19 @@ class DestinationServices {
   }
 
   async getDestinationById(destinationId) {
-    return await axios.get(DESTINATION_API_BASE_URL + "/Get" + destinationId);
+    return await axios.get(DESTINATION_API_BASE_URL + "/Get/" + destinationId);
   }
 
   async updateDestination(destinationId, destination) {
     return await axios.put(
-      DESTINATION_API_BASE_URL + "/Update" + destinationId,
+      DESTINATION_API_BASE_URL + "/Update/" + destinationId,
       destination
     );
   }
 
   async deleteDestination(destinationId) {
     return await axios.delete(
-      DESTINATION_API_BASE_URL + "/Delete" + destinationId
+      DESTINATION_API_BASE_URL + "/Delete/" + destinationId
     );
   }
 }

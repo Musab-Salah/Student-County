@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Student_County.Migrations
 {
     /// <inheritdoc />
-    public partial class testt : Migration
+    public partial class asd24aa : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -285,6 +287,8 @@ namespace Student_County.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TypeOfContract = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -418,6 +422,27 @@ namespace Student_County.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "0b380ceb-a2e3-4d11-a7ac-79c617f7b39b", "0b380ceb-a2e3-4d11-a7ac-79c617f7b39b", "Dentistry Student", "DENTISTRYSTUDENT" },
+                    { "398a104f-4e07-470c-9781-07d9852fb00d", "398a104f-4e07-470c-9781-07d9852fb00d", "Patient", "PATIENT" },
+                    { "70140aa8-9d44-4896-9dd8-d149ca8d7df3", "70140aa8-9d44-4896-9dd8-d149ca8d7df3", "Student", "STUDENT" },
+                    { "8b2fe1d6-aa4d-4556-9589-cac1c9a89b53", "8b2fe1d6-aa4d-4556-9589-cac1c9a89b53", "Admin", "ADMIN" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "College",
+                columns: new[] { "Id", "CreatedBy", "CreatedOn", "IsDeleted", "ModifiedBy", "ModifiedOn", "Name" },
+                values: new object[] { 1, "Ini", new DateTime(2023, 3, 26, 10, 26, 7, 898, DateTimeKind.Utc).AddTicks(8636), true, "Ini", new DateTime(2023, 3, 26, 10, 26, 7, 898, DateTimeKind.Utc).AddTicks(8637), "EIT" });
+
+            migrationBuilder.InsertData(
+                table: "University",
+                columns: new[] { "Id", "CreatedBy", "CreatedOn", "EmailDomainName", "IsDeleted", "ModifiedBy", "ModifiedOn", "Name" },
+                values: new object[] { 1, "Ini", new DateTime(2023, 3, 26, 10, 26, 7, 898, DateTimeKind.Utc).AddTicks(8613), "@AAUP.COM", true, "Ini", new DateTime(2023, 3, 26, 10, 26, 7, 898, DateTimeKind.Utc).AddTicks(8614), "AAUP" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

@@ -47,6 +47,36 @@ namespace Student_County.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "0b380ceb-a2e3-4d11-a7ac-79c617f7b39b",
+                            ConcurrencyStamp = "0b380ceb-a2e3-4d11-a7ac-79c617f7b39b",
+                            Name = "Dentistry Student",
+                            NormalizedName = "DENTISTRYSTUDENT"
+                        },
+                        new
+                        {
+                            Id = "398a104f-4e07-470c-9781-07d9852fb00d",
+                            ConcurrencyStamp = "398a104f-4e07-470c-9781-07d9852fb00d",
+                            Name = "Patient",
+                            NormalizedName = "PATIENT"
+                        },
+                        new
+                        {
+                            Id = "70140aa8-9d44-4896-9dd8-d149ca8d7df3",
+                            ConcurrencyStamp = "70140aa8-9d44-4896-9dd8-d149ca8d7df3",
+                            Name = "Student",
+                            NormalizedName = "STUDENT"
+                        },
+                        new
+                        {
+                            Id = "8b2fe1d6-aa4d-4556-9589-cac1c9a89b53",
+                            ConcurrencyStamp = "8b2fe1d6-aa4d-4556-9589-cac1c9a89b53",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -363,6 +393,18 @@ namespace Student_County.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("College");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "Ini",
+                            CreatedOn = new DateTime(2023, 3, 26, 10, 26, 7, 898, DateTimeKind.Utc).AddTicks(8636),
+                            IsDeleted = true,
+                            ModifiedBy = "Ini",
+                            ModifiedOn = new DateTime(2023, 3, 26, 10, 26, 7, 898, DateTimeKind.Utc).AddTicks(8637),
+                            Name = "EIT"
+                        });
                 });
 
             modelBuilder.Entity("Student_County.DAL.DestinationEntity", b =>
@@ -428,9 +470,16 @@ namespace Student_County.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
                     b.Property<string>("StudentId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("TypeOfContract")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -633,6 +682,19 @@ namespace Student_County.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("University");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "Ini",
+                            CreatedOn = new DateTime(2023, 3, 26, 10, 26, 7, 898, DateTimeKind.Utc).AddTicks(8613),
+                            EmailDomainName = "@AAUP.COM",
+                            IsDeleted = true,
+                            ModifiedBy = "Ini",
+                            ModifiedOn = new DateTime(2023, 3, 26, 10, 26, 7, 898, DateTimeKind.Utc).AddTicks(8614),
+                            Name = "AAUP"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -12,19 +12,19 @@ class UniversityServices {
   }
 
   async getUniversityById(universityId) {
-    return await axios.get(UNIVERSITY_API_BASE_URL + "/Get" + universityId);
+    return await axios.get(UNIVERSITY_API_BASE_URL + "/Get/" + universityId);
   }
 
   async updateUniversity(universityId, university) {
     return await axios.put(
-      UNIVERSITY_API_BASE_URL + "/Update" + universityId,
+      UNIVERSITY_API_BASE_URL + "/Update/" + universityId,
       university
     );
   }
 
   async deleteUniversity(universityId) {
     return await axios.delete(
-      UNIVERSITY_API_BASE_URL + "/Delete" + universityId
+      UNIVERSITY_API_BASE_URL + "/Delete/" + universityId
     );
   }
 }
