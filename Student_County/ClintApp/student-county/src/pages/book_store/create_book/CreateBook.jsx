@@ -1,5 +1,4 @@
 import React, {  useState } from "react";
-import Heading from "../../../components/heading/Heading";
 import useBooks from "../../../hooks/useBooks";
 import { useNavigate } from "react-router";
 import { FormGroup, Input, Form, Container, Button } from "reactstrap";
@@ -39,7 +38,6 @@ const CreateBook = () => {
   };
   return (
     <>
-      <Heading />
       <Container>
         <Button onClick={test}>test book obj </Button>
         <Form onSubmit={AddBook}>

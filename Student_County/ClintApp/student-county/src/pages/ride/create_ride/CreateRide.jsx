@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import Heading from "../../../components/heading/Heading";
 import { useNavigate } from "react-router";
 import { FormGroup, Input, Form, Container, Button } from "reactstrap";
 import useRides from "./../../../hooks/useRides";
@@ -41,7 +40,6 @@ const CreateRide = () => {
   };
   return (
     <>
-      <Heading />
       <Container>
         <Button onClick={test}>test book obj </Button>
         <Form onSubmit={AddRide}>

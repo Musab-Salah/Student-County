@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Container } from "reactstrap";
-import Heading from "../../components/heading/Heading";
 import { useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 
@@ -11,7 +10,6 @@ const UserDashboard = () => {
 
   return (
     <>
-      <Heading />
 
       <Container>
         <Button onClick={() => navigate("/create_book")}>add book</Button>

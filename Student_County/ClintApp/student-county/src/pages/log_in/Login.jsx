@@ -1,7 +1,6 @@
 import React, { useState, useRef, useContext } from "react";
 import {  Form, Button } from "reactstrap";
 import useAuth from "../../hooks/useAuth";
-import Heading from "../../components/heading/Heading";
 
 
 
@@ -28,7 +27,6 @@ const Login = ({ children }) => {
   };
   return (
     <>
-      <Heading />
       <Form onSubmit={loogin}>
         <input
           onChange={setUserName}

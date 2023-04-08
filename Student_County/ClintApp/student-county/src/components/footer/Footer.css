@@ -1,0 +1,112 @@
+.vector-icon9 {
+	position: relative;
+	width: 154.45px;
+	height: 29.52px;
+	flex-shrink: 0;
+	z-index: 0;
+}
+.footer-logo {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+.footer-description {
+	line-height: 25px;
+	display: inline-block;
+	max-width: 352px;
+}
+.brand {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	gap: var(--gap-11xl);
+}
+.list-title {
+	display: flex;
+	flex-direction: column;
+	padding: 0 0 var(--padding-8xs);
+	align-items: flex-start;
+	justify-content: flex-start;
+	color: var(--color-blueviolet-100);
+	font-weight: 600;
+	text-transform: uppercase;
+}
+.footer-link {
+	position: relative;
+}
+.footer-link:hover {
+	color: var(--color-blueviolet-100);
+}
+.footer-lists {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: center;
+	gap: var(--gap-31xl);
+	flex-wrap: wrap;
+}
+.footer-list {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+	gap: var(--gap-mini);
+}
+.row {
+	align-self: stretch;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: var(--gap-xl);
+	flex-wrap: wrap;
+}
+.rectangle-div {
+	align-self: stretch;
+	position: relative;
+	background-color: var(--color-slategray);
+	height: 1px;
+	flex-shrink: 0;
+}
+.line3 {
+	align-self: stretch;
+	display: flex;
+	flex-direction: column;
+	padding: 0 var(--padding-81xl);
+	align-items: center;
+	justify-content: center;
+}
+.copyright {
+	position: relative;
+	font-size: var(--font-size-xl);
+	font-family: var(--font-cabin);
+	color: var(--color-darkslategray);
+}
+.footer {
+	align-self: stretch;
+	background-color: var(--color-white);
+	display: flex;
+	flex-direction: column;
+	padding: var(--padding-31xl);
+	align-items: center;
+	justify-content: center;
+	gap: var(--gap-18xl-5);
+	text-align: left;
+	font-size: var(--font-size-base);
+	color: var(--color-gray-100);
+	font-family: var(--font-poppins);
+}
+@media screen and (max-width:1020px) {
+	.row {
+		display: flex;
+		flex-direction: column;
+		align-self: unset;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.brand {
+		padding-bottom: var(--padding-31xl);
+	}
+}

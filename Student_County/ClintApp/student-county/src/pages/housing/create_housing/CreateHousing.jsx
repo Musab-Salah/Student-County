@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import Heading from "../../../components/heading/Heading";
 import useHousings from "../../../hooks/useHousings";
 import { useNavigate } from "react-router";
 import {
@@ -41,7 +40,6 @@ const CreateHousing = () => {
   };
   return (
     <>
-      <Heading />
       <Container>
         <Button onClick={test}>test book obj </Button>
         <Form onSubmit={AddHousing}>

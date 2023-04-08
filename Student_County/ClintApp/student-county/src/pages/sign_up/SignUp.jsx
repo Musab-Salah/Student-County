@@ -9,7 +9,6 @@ import {
   Button,
   InputGroupText,
 } from "reactstrap";
-import Heading from "../../components/heading/Heading";
 import { EyeFill } from "react-bootstrap-icons";
 import "../sign_up/SignUp.css";
 import useUniversities from "../../hooks/useUniversities";
@@ -106,7 +105,6 @@ const SignUp = ({ children }) => {
 
   return (
     <>
-      <Heading />
       <Container>
         <Button onClick={test}>test user obj </Button>
         <Form onSubmit={createUsert}>
