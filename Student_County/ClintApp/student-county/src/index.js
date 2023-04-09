@@ -1,6 +1,5 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
-import "./assets/Global.css";
 import App from "./App";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UniversitiesProvider } from "./context/UniversityCommon";
@@ -13,6 +12,7 @@ import { DestinationsProvider } from "./context/DestinationCommon";
 import { PatientsProvider } from "./context/PatientCommon";
 import { ToolsProvider } from "./context/ToolsCommon";
 import AuthVerify from "./utils/AuthVerify";
+import "./Global.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

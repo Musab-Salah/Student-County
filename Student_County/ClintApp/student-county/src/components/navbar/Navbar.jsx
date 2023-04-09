@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import "./Navbar.css";
-import "../../assets/Global.css";
+import "../../Global.css";
 import { RiArrowDownSLine, RiCloseLine } from "react-icons/ri";
 import { FaBars } from "react-icons/fa";
 

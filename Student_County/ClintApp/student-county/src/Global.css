@@ -124,7 +124,14 @@ body {
   .btn-secondary:hover {
     background-color: #fff;
   }
+  .sign {
+    width: -webkit-fill-available;
+    justify-content: center;
+  }
 
+  .disabled {
+    cursor: not-allowed!important;
+  }
   /* header background */
 
   /* scrollbar */

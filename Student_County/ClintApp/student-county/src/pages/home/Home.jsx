@@ -31,14 +31,14 @@ const Home = () => {
               </div>
             </div>
             <div className="hero-cta">
-              <a href='/sign-in'>
+              <a href='/login'>
                 <button className="btn btn-primary">
                   Sign in
                   <TbArrowNarrowRight className="arrow-right-icon" />
                 </button>
               </a>
               <div className="h6 gray-text">or</div>
-              <a href='/sign-up'>
+              <a href='/sign_up'>
                 <button className="btn btn-secondary">
                   Sign Up
                   <TbArrowNarrowRight className="arrow-right-icon" />
