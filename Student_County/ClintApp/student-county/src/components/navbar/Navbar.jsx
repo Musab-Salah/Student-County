@@ -1,14 +1,11 @@
 import React, { useState, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 import "../../Global.css";
 import { RiArrowDownSLine, RiCloseLine } from "react-icons/ri";
 import { FaBars } from "react-icons/fa";
 
 const Navbar = () => {
-  const location = useLocation();
-  const currentPage = location.pathname.split("/")[1];
-
   /* Dropdown Toggle Menu */
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -24,11 +21,13 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
-      <a className="logo">
+      <NavLink to="/" className="logo">
         <img className="vector-icon" alt="" src="/logo.svg" />
-      </a>
+      </NavLink>
       <div className="nav-items">
-        <a className={`nav-link ${currentPage === "" ? "active" : ""}`}>Home</a>
+        <NavLink to="/" exact activeClassName="active" className="nav-link">
+          Home
+        </NavLink>
         <button
           className={`nav-link ${dropdownOpen ? "active" : ""}`}
           onClick={toggleDropdown}
@@ -40,7 +39,7 @@ const Navbar = () => {
           {dropdownOpen && (
             <div className="dropdown-wrapper" ref={dropdownRef}>
               <div className="dropdown">
-                <a className="dropdown-link" href="/services/book-store">
+                <NavLink to="/services/book-store" className="dropdown-link">
                   <img
                     className="dropdown-item-icon"
                     alt=""
@@ -52,8 +51,8 @@ const Navbar = () => {
                       Sell, exchange, negotiate books.
                     </div>
                   </div>
-                </a>
-                <a className="dropdown-link" href="/services/housing">
+                </NavLink>
+                <NavLink to="/services/housing" className="dropdown-link">
                   <img
                     className="dropdown-item-icon"
                     alt=""
@@ -65,8 +64,8 @@ const Navbar = () => {
                       Find your roommate!
                     </div>
                   </div>
-                </a>
-                <a className="dropdown-link" href="/services/riding">
+                </NavLink>
+                <NavLink to="/services/riding" className="dropdown-link">
                   <img
                     className="dropdown-item-icon"
                     alt=""
@@ -78,53 +77,43 @@ const Navbar = () => {
                       Find your companion!
                     </div>
                   </div>
-                </a>
+                </NavLink>
               </div>
             </div>
           )}
         </button>
-
-        <a
-          className={`nav-link ${currentPage === "blog" ? "active" : ""}`}
-          href="/blog"
-        >
+        <NavLink to="/blog" activeClassName="active" className="nav-link">
           Blog
-        </a>
-
-        <a
-          className={`nav-link ${currentPage === "about-us" ? "active" : ""}`}
-          href="/about-us"
-        >
+        </NavLink>
+        <NavLink to="/about-us" activeClassName="active" className="nav-link">
           About Us
-        </a>
-
-        <a
-          className={`nav-link ${currentPage === "contact-us" ? "active" : ""}`}
-          href="/contact-us"
-        >
+        </NavLink>
+        <NavLink to="/contact-us" activeClassName="active" className="nav-link">
           Contact Us
-        </a>
+        </NavLink>
       </div>
+
       <button className="get-started">
-        <a href="/sign-up">Get Started</a>
+        <NavLink to="/sign-up">Get Started</NavLink>
       </button>
       <button className="bar" onClick={toggleMenu}>
         <FaBars className="bar-icon" />
       </button>
       <div className={`menu-phone ${isOpen ? "phone" : ""}`}>
         <div className="menu-phone-body">
-          <a className="logo">
+          <NavLink to="/" className="logo">
             <img className="vector-icon" alt="" src="/logo.svg" />
-          </a>
+          </NavLink>
           <button className="close" id="close" onClick={toggleMenu}>
             <RiCloseLine className="close-icon" />
           </button>
         </div>
         <div className="menu-line"></div>
         <div className="nav-items phone">
-          <a className={`nav-link phone ${currentPage === "" ? "active" : ""}`}>
+          <NavLink to="/" className="nav-link phone" activeClassName="active">
             Home
-          </a>
+          </NavLink>
+
           <button className="nav-link phone" onClick={toggleDropdown}>
             Services
             <RiArrowDownSLine
@@ -133,7 +122,7 @@ const Navbar = () => {
             {dropdownOpen && (
               <div className="dropdown-wrapper" ref={dropdownRef}>
                 <div className="dropdown">
-                  <a className="dropdown-link" href="/services/book-store">
+                  <NavLink to="/services/book-store" className="dropdown-link">
                     <img
                       className="dropdown-item-icon"
                       alt=""
@@ -145,8 +134,8 @@ const Navbar = () => {
                         Sell, exchange, negotiate books.
                       </div>
                     </div>
-                  </a>
-                  <a className="dropdown-link" href="/services/housing">
+                  </NavLink>
+                  <NavLink to="/services/housing" className="dropdown-link">
                     <img
                       className="dropdown-item-icon"
                       alt=""
@@ -158,8 +147,8 @@ const Navbar = () => {
                         Find your roommate!
                       </div>
                     </div>
-                  </a>
-                  <a className="dropdown-link" href="/services/riding">
+                  </NavLink>
+                  <NavLink to="/services/riding" className="dropdown-link">
                     <img
                       className="dropdown-item-icon"
                       alt=""
@@ -171,39 +160,36 @@ const Navbar = () => {
                         Find your companion!
                       </div>
                     </div>
-                  </a>
+                  </NavLink>
                 </div>
               </div>
             )}
           </button>
 
-          <a
-            className={`nav-link phone ${
-              currentPage === "blog" ? "active" : ""
-            }`}
-            href="/blog"
+          <NavLink
+            to="/blog"
+            className="nav-link phone"
+            activeClassName="active"
           >
             Blog
-          </a>
-          <a
-            className={`nav-link phone ${
-              currentPage === "about-us" ? "active" : ""
-            }`}
-            href="/about-us"
+          </NavLink>
+          <NavLink
+            to="/about-us"
+            className="nav-link phone"
+            activeClassName="active"
           >
             About Us
-          </a>
-          <a
-            className={`nav-link phone ${
-              currentPage === "contact-us" ? "active" : ""
-            }`}
-            href="/contact-us"
+          </NavLink>
+          <NavLink
+            to="/contact-us"
+            className="nav-link phone"
+            activeClassName="active"
           >
             Contact Us
-          </a>
+          </NavLink>
         </div>
         <button className="get-started phone">
-          <a href="/sign-up">Get Started</a>
+          <NavLink to="/sign-up">Get Started</NavLink>
         </button>
       </div>
     </div>

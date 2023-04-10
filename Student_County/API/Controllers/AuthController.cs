@@ -14,20 +14,35 @@ namespace Student_County.API.Controllers
             _authService = authService;
         }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> RegisterAsync([FromBody] RegisterModel model)
+        [HttpPost("StudentRegister")]
+        public async Task<IActionResult> RegisterStudentAsync([FromBody] StudentRegisterModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _authService.RegisterAsync(model);
+            var result = await _authService.RegisterStudentAsync(model);
 
             if (!result.IsAuthenticated)
                 return BadRequest(result.Message);
 
             SetRefreshTokenInCookie(result.RefreshToken, result.RefreshTokenExpiration);
 
-            return Ok(result);
+            return Ok("Success");
+        }
+        [HttpPost("PatientRegister")]
+        public async Task<IActionResult> RegisterPatientAsync([FromBody] PatientRegisterModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _authService.RegisterPatientAsync(model);
+
+            if (!result.IsAuthenticated)
+                return BadRequest(result.Message);
+
+            SetRefreshTokenInCookie(result.RefreshToken, result.RefreshTokenExpiration);
+
+            return Ok("Success");
         }
 
         [HttpPost("login")]

@@ -30,8 +30,10 @@ namespace Student_County.BusinessLogic.Auth
             _jwt = jwt.Value;
         }
 
-        public async Task<AuthModel> RegisterAsync(RegisterModel model)
+        public async Task<AuthModel> RegisterStudentAsync(StudentRegisterModel model)
         {
+  
+
             if (await _userManager.FindByEmailAsync(model.Email) is not null)
                 return new AuthModel { Message = "Email is already registered!" };
             if (await _userManager.FindByNameAsync(model.UserName) is not null)
@@ -50,6 +52,8 @@ namespace Student_County.BusinessLogic.Auth
                 LastName = model.LastName,
             };
 
+   
+
             var result = await _userManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded)
@@ -60,7 +64,7 @@ namespace Student_County.BusinessLogic.Auth
                 return new AuthModel { Message = errors };
             }
 
-            await _userManager.AddToRoleAsync(user, model.Roles);
+            await _userManager.AddToRoleAsync(user, "Student");
             var jwtSecurityToken = await CreateJwtToken(user);
             var refreshToken = GenerateRefreshToken();
             user.RefreshTokens?.Add(refreshToken);
@@ -71,7 +75,58 @@ namespace Student_County.BusinessLogic.Auth
                 Email = user.Email,
                 ExpiresOn = jwtSecurityToken.ValidTo,
                 IsAuthenticated = true,
-                Roles = new List<string> { model.Roles },
+                Roles = new List<string> { "Student" },
+                Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
+                Username = user.UserName,
+                RefreshToken = refreshToken.Token,
+                RefreshTokenExpiration = refreshToken.ExpiresOn
+            };
+        }
+
+        public async Task<AuthModel> RegisterPatientAsync(PatientRegisterModel model)
+        {
+  
+
+            if (await _userManager.FindByEmailAsync(model.Email) is not null)
+                return new AuthModel { Message = "Email is already registered!" };
+            if (await _userManager.FindByNameAsync(model.UserName) is not null)
+                return new AuthModel { Message = "Username is already registered!" };
+            var user = new ApplicationUser
+            {
+                UserName = model.UserName,
+                Password = model.Password,
+                PhoneNumber = model.PhoneNumber,
+                Email = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                UniversityId = 1,
+                CollegeId = 1,// change to Denistry college
+            };
+
+
+
+            var result = await _userManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
+            {
+                var errors = string.Empty;
+                foreach (var error in result.Errors)
+                    errors += $"{error.Description},";
+                return new AuthModel { Message = errors };
+            }
+
+            await _userManager.AddToRoleAsync(user, "Patient");
+            var jwtSecurityToken = await CreateJwtToken(user);
+            var refreshToken = GenerateRefreshToken();
+            user.RefreshTokens?.Add(refreshToken);
+            await _userManager.UpdateAsync(user);
+
+            return new AuthModel
+            {
+                Email = user.Email,
+                ExpiresOn = jwtSecurityToken.ValidTo,
+                IsAuthenticated = true,
+                Roles = new List<string> { "Patient" },
                 Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
                 Username = user.UserName,
                 RefreshToken = refreshToken.Token,

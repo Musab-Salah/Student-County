@@ -3,8 +3,12 @@ import axios from "../api/axios";
 const API_URL = "/Auth";
 
 class AuthServices {
-  async register(Bo) {
-    return await axios.post(API_URL + "/register", Bo);
+  async studentRegister(Bo) {
+    return await axios.post(API_URL + "/StudentRegister", Bo);
+  }
+
+  async patientRegister(Bo) {
+    return await axios.post(API_URL + "/PatientRegister", Bo);
   }
 
   async login(Bo) {

@@ -16,17 +16,17 @@ namespace Student_County.BusinessLogic.Auth
         public string? FirstName { get; set; }
         [Required]
         public string? LastName { get; set; }
-        [Required]
+        
         public int? IdNumber { get; set; }
         [Required]
         public string? Password { get; set; }
-        [Required]
+       
         public string? Gender { get; set; }
-        [Required]
-        public int UniversityId { get; set; }
-        [Required]
-        public int CollegeId { get; set; }
         
+        public int UniversityId { get; set; }
+        
+        public int CollegeId { get; set; }
+
         public List<RefreshToken>? RefreshTokens { get; set; }
 
         public UniversityEntity? University { get; set; }

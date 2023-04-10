@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Student_County.BusinessLogic.Auth
 {
-    public class RegisterModel
+    public class StudentRegisterModel
     {
         [StringLength(100)]
         [Required]
@@ -26,8 +26,6 @@ namespace Student_County.BusinessLogic.Auth
         public string? PhoneNumber { get; set; }
         [Required]
         public string? Gender { get; set; }
-        [Required]
-        public string? Roles { get; set; }
         [Required]
         public int UniversityId { get; set; }
         [Required]

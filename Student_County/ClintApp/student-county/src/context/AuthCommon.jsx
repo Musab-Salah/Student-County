@@ -16,17 +16,16 @@ export function AuthProvider({ children }) {
   const { getUniversityById, University } = useUniversities();
   const [isLogout, setIsLogout] = useState(true);
   const [isLogin, setIsLogin] = useState(false);
-  const [AuthError, setError] = useState("Loading");
+  const [AuthError, setError] = useState("");
   const [decodedJwt, setDecodedJwt] = useState(false);
   const [Roles, setRoles] = useState();
-
 
   let navigate = useNavigate();
 
   const [User, setUser] = useState("Loading");
   const [userInLocal, setUserInLocal] = useState();
 
-  const [UserBo] = useState({
+  const [StudentBo] = useState({
     firstName: "",
     lastName: "",
     idNumber: 0,
@@ -37,6 +36,15 @@ export function AuthProvider({ children }) {
     gender: "",
     universityId: "",
     collegeId: "",
+  });
+
+  const [PationtBo] = useState({
+    firstName: "",
+    lastName: "",
+    userName: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
   });
 
   useEffect(() => {
@@ -53,10 +61,10 @@ export function AuthProvider({ children }) {
     // eslint-disable-next-line
   }, []);
 
-  const register = (Bo) => {
+  const studentRegister = (Bo) => {
     getUniversityById(Bo.universityId);
     Bo.email = Bo.email + University.emailDomainName;
-    AuthServices.register(Bo)
+    AuthServices.studentRegister(Bo)
       .then((res) => {
         setUser(res.data);
         setError(null);
@@ -67,6 +75,20 @@ export function AuthProvider({ children }) {
         navigate("/sign_up");
       });
   };
+
+  const patientRegister = (Bo) => {
+    AuthServices.patientRegister(Bo)
+      .then((res) => {
+        setUser(res.data);
+        setError(null);
+        navigate("/");
+      })
+      .catch((res) => {
+        setError(res.response.data);
+        navigate("/sign_up");
+      });
+  };
+
   const login = (Bo) => {
     AuthServices.login(Bo)
       .then((response) => {
@@ -76,6 +98,7 @@ export function AuthProvider({ children }) {
         setUserInLocal(response.data);
         const decodedJwt = parseJwt(response.data.token);
         setDecodedJwt(decodedJwt);
+        setError("")
         navigate("/dashboard");
       })
       .catch(() => setError("Failed Login"));
@@ -106,7 +129,7 @@ export function AuthProvider({ children }) {
   const getRoles = () => {
     AuthServices.getRoles()
       .then((res) => {
-        setRoles(res.data)   
+        setRoles(res.data);
       })
       .catch(() => {
         setError("Failed bring the Roles");
@@ -119,13 +142,15 @@ export function AuthProvider({ children }) {
         isLogout,
         isLogin,
         setIsLogout,
-        register,
+        studentRegister,
+        patientRegister,
         login,
         refresh,
         logout,
         User,
         Roles,
-        UserBo,
+        StudentBo,
+        PationtBo,
         AuthError,
         decodedJwt,
         userInLocal,

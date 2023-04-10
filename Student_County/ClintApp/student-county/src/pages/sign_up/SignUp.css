@@ -2,13 +2,13 @@
 	background-color: var(--color-white);
 	display: flex;
 	flex-direction: column;
-	padding: 136px var(--padding-31xl);
+	padding: var(--padding-31xl) var(--padding-81xl);
 	box-sizing: border-box;
 	align-items: center;
 	justify-content: center;
 	gap: var(--gap-mini);
 	width: 50%;
-	height: 100vh;
+    min-height: 100vh;
 }
 .sign-up {
 	position: relative;
@@ -23,33 +23,32 @@
 	font-family: var(--font-poppins);
 }
 .PhoneSuffix {
-    padding: var(--padding-3xs) var(--padding-xl);
 	font-size: 16px;
-    background: var(--color-whitesmoke-100);
 }
 input#phone-number {
     padding: var(--padding-3xs) var(--padding-xl);
 }
-.password-input-group {
+.input-group {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     gap: 15px;
     width: -webkit-fill-available;
 }
-.password-input-container {
+.input-container-group {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
+    width: -webkit-fill-available;
 }
 
 
 @media screen and (max-width: 1280px) {
-    .password-input-group {
+    .input-group {
         flex-wrap: wrap;
     }
-    .password-input-container {
+    .input-container-group {
         width: -webkit-fill-available;
     }
 }
@@ -67,6 +66,7 @@ input#phone-number {
 @media screen and (max-width: 920px) {
 	.SignUp-section {
 		width: 100%;
+        padding: var(--padding-31xl);
 	}
 }
 .custom-select {
@@ -75,17 +75,19 @@ input#phone-number {
 }
 
 .selected-option {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--padding-3xs) var(--padding-xl);
-  cursor: pointer;
-  width: -webkit-fill-available;
-  border: 1.5px solid var(--color-slategray);
-  border-radius: var(--br-8xs);
-  box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding: var(--padding-3xs) var(--padding-xl) var(--padding-3xs) 0;
+    cursor: pointer;
+    width: -webkit-fill-available;
+    border: 1.5px solid var(--color-slategray);
+    border-radius: var(--br-8xs);
+    box-sizing: border-box;
+    justify-content: space-between;
 }
-
+.input-dropdown {
+    position: unset;
+}
 .selected-option span {
     font-size: 16px;
     color: var(--color-slategray);
@@ -94,8 +96,19 @@ input#phone-number {
     align-items: center;
     justify-content: space-between;
     width: -webkit-fill-available;
+    text-transform: capitalize;
 }
-
+.input-selected {
+    color: var(--color-gray-100);
+    text-transform: capitalize;
+}
+.input-dropdown-title {
+    transform: scale(0.75) translateY(-135%);
+    color: #8d37ff;
+    background: #fff;
+    outline: none;
+    padding: 0 10px;
+}
 .options {
     position: absolute;
     top: 45px;
@@ -111,14 +124,17 @@ input#phone-number {
     border-top: none;
 }
 
-.option {
+.option, .option-title {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   padding: var(--padding-3xs) var(--padding-xl);
   cursor: pointer;
 }
-
+.option-title {
+    color: var(--color-slategray);
+    background: var(--color-whitesmoke-100);
+}
 .option:hover {
   background-color: #f2f2f2;
 }

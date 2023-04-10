@@ -1,9 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
 import SignUp from "./pages/sign_up/SignUp";
-// import "bootstrap/dist/css/bootstrap.min.css";
-// import "semantic-ui-css/semantic.min.css";
 import SignIn from "./pages/sign_in/SignIn.jsx";
+import ForgotPassword from "./pages/forgot_password/ForgotPassword";
 import UserDashboard from "./pages/user_dashboard/UserDashboard";
 import CreateBook from "./pages/book_store/create_book/CreateBook.jsx";
 import CreateHousing from "./pages/housing/create_housing/CreateHousing.jsx";
@@ -16,6 +15,7 @@ function App() {
       <Route exact path="/" element={<Home />} />
       <Route path="/login" element={<SignIn />} />
       <Route path="/sign_up" element={<SignUp />} />
+      <Route path="/fogot_password" element={<ForgotPassword />} />
 
       <Route element={<PrivateRoutes />}>
         <Route path="/dashboard" element={<UserDashboard />} />

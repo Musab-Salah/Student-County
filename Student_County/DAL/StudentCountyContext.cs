@@ -71,7 +71,7 @@ namespace Student_County.DAL
                 EmailDomainName= "@AAUP.COM",
                 CreatedBy = "Ini",
                 CreatedOn = DateTime.UtcNow,
-                IsDeleted = true,
+                IsDeleted = false,
                 ModifiedBy = "Ini",
                 ModifiedOn = DateTime.UtcNow,
             }); builder.Entity<CollegeEntity>().HasData(new CollegeEntity
@@ -80,7 +80,7 @@ namespace Student_County.DAL
                 Name = "EIT",
                 CreatedBy = "Ini",
                 CreatedOn = DateTime.UtcNow,
-                IsDeleted = true,
+                IsDeleted = false,
                 ModifiedBy = "Ini",
                 ModifiedOn = DateTime.UtcNow,
             });
