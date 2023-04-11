@@ -25,7 +25,7 @@ const Navbar = () => {
         <img className="vector-icon" alt="" src="/logo.svg" />
       </NavLink>
       <div className="nav-items">
-        <NavLink to="/" exact activeClassName="active" className="nav-link">
+        <NavLink to="/" className="nav-link">
           Home
         </NavLink>
         <button
@@ -82,19 +82,19 @@ const Navbar = () => {
             </div>
           )}
         </button>
-        <NavLink to="/blog" activeClassName="active" className="nav-link">
+        <NavLink to="/blog" className="nav-link">
           Blog
         </NavLink>
-        <NavLink to="/about-us" activeClassName="active" className="nav-link">
+        <NavLink to="/about-us" className="nav-link">
           About Us
         </NavLink>
-        <NavLink to="/contact-us" activeClassName="active" className="nav-link">
+        <NavLink to="/contact-us" className="nav-link">
           Contact Us
         </NavLink>
       </div>
 
       <button className="get-started">
-        <NavLink to="/sign-up">Get Started</NavLink>
+        <NavLink to="/sign_up">Get Started</NavLink>
       </button>
       <button className="bar" onClick={toggleMenu}>
         <FaBars className="bar-icon" />
@@ -110,7 +110,7 @@ const Navbar = () => {
         </div>
         <div className="menu-line"></div>
         <div className="nav-items phone">
-          <NavLink to="/" className="nav-link phone" activeClassName="active">
+          <NavLink to="/" className="nav-link phone">
             Home
           </NavLink>
 
@@ -166,30 +166,18 @@ const Navbar = () => {
             )}
           </button>
 
-          <NavLink
-            to="/blog"
-            className="nav-link phone"
-            activeClassName="active"
-          >
+          <NavLink to="/blog" className="nav-link phone">
             Blog
           </NavLink>
-          <NavLink
-            to="/about-us"
-            className="nav-link phone"
-            activeClassName="active"
-          >
+          <NavLink to="/about-us" className="nav-link phone">
             About Us
           </NavLink>
-          <NavLink
-            to="/contact-us"
-            className="nav-link phone"
-            activeClassName="active"
-          >
+          <NavLink to="/contact-us" className="nav-link phone">
             Contact Us
           </NavLink>
         </div>
         <button className="get-started phone">
-          <NavLink to="/sign-up">Get Started</NavLink>
+          <NavLink to="/sign_up">Get Started</NavLink>
         </button>
       </div>
     </div>

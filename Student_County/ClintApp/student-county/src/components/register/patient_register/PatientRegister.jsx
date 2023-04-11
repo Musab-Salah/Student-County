@@ -6,22 +6,19 @@ import {
   AiFillEyeInvisible,
   AiFillExclamationCircle,
 } from "react-icons/ai";
+import useAuth from "../../../hooks/useAuth";
 
 import "../../../pages/sign_up/SignUp.css";
 
 const Patients = () => {
   // State Hook
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { patientRegister, UserError } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [phonePrefix, setPhonePrefix] = useState("+970");
   const [acceptPolicy, setAcceptPolicy] = useState(false);
-  const [isFormValid, setIsFormValid] = useState(false);
   const [gender, setGender] = useState("");
+  const [userBo, setUser] = useState();
+  const [username, setUsername] = useState("");
 
   const [showDropdownPrefix, setShowDropdownPrefix] = useState(false);
   const [showDropdownGender, setShowDropdownGender] = useState(false);
@@ -30,7 +27,6 @@ const Patients = () => {
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
   const [emailError, setEmailError] = useState("");
-  const [phoneNumberError, setPhoneNumberError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [AcceptPolicyError, setAcceptPolicyError] = useState("");
@@ -58,210 +54,114 @@ const Patients = () => {
   }, [showDropdownPrefix, showDropdownGender]);
 
   const handleFirstNameChange = (event) => {
-    setFirstName(event.target.value);
-    setFirstNameError("");
-
-    const firstNamePattern = /^[A-Za-z]+(?:\s[A-Za-z]+)*$/;
-    if (
-      firstNamePattern.test(event.target.value) &&
-      lastName.length > 0 &&
-      email.length > 0 &&
-      password.length >= 6 &&
-      acceptPolicy
-    ) {
-      setIsFormValid(true);
+    const nameRegex = /^([a-zA-Z])(?=.{3,})/;
+    if (!nameRegex.test(event.target.value)) {
+      setFirstNameError("Please enter a valid name, for example: Musab");
     } else {
-      setIsFormValid(false);
+      setUser({
+        ...userBo,
+        firstName: event.target.value,
+      });
+      setFirstNameError(false);
     }
   };
 
   const handleLastNameChange = (event) => {
-    setLastName(event.target.value);
-    setLastNameError("");
-
-    const lastNamePattern = /^[A-Za-z]+(?:\s[A-Za-z]+)*$/;
-    if (
-      lastNamePattern.test(event.target.value) &&
-      firstName.length > 0 &&
-      email.length > 0 &&
-      password.length >= 6 &&
-      acceptPolicy
-    ) {
-      setIsFormValid(true);
+    const nameRegex = /^([a-zA-Z])(?=.{3,})/;
+    if (!nameRegex.test(event.target.value)) {
+      setLastNameError("Please enter a valid name, for example: Salah");
     } else {
-      setIsFormValid(false);
+      setUser({
+        ...userBo,
+        lastName: event.target.value,
+      });
+      setLastNameError(false);
     }
   };
-
+  const handleUsernameChange = (event) => {
+    var result = event.target.value.replace(/[^a-z.0-9]/gi, "");
+    setUser({
+      ...userBo,
+      userName: result,
+    });
+    setUsername(result);
+  };
   const handlePhonePrefixChange = (prefix) => {
     setPhonePrefix(prefix);
     setShowDropdownPrefix(false);
-
-    const phoneSuffix = document.getElementById("phone-suffix");
-    if (phoneSuffix) {
-      phoneSuffix.textContent = prefix;
-    }
   };
 
   const handlePhoneNumberChange = (event) => {
-    setPhoneNumber(event.target.value);
-    setPhoneNumberError("");
+    setUser({
+      ...userBo,
+      phoneNumber: phonePrefix + "-" + event.target.value,
+    });
   };
 
   const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-    setEmailError("");
+    const emailPattern = /^(?=.*[@])(?=.{6,})(?=.{6,})/;
 
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (
-      emailPattern.test(event.target.value) &&
-      password.length >= 6 &&
-      acceptPolicy
-    ) {
-      setIsFormValid(true);
+    if (!emailPattern.test(event.target.value)) {
+      setEmailError(
+        "Please enter a valid name, for example: example@example.com"
+      );
     } else {
-      setIsFormValid(false);
+      setUser({
+        ...userBo,
+        email: event.target.value,
+      });
+      setEmailError("");
     }
   };
 
   const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-    setPasswordError("");
-
-    if (event.target.value.length >= 6 && email.length > 0 && acceptPolicy) {
-      setIsFormValid(true);
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$&*])(?=.{6})/;
+    if (!passwordRegex.test(event.target.value)) {
+      setPasswordError(
+        "must be at least 6 characters,one non alphanumeric character,one digit ('0'-'9'),one uppercase ('A'-'Z')"
+      );
     } else {
-      setIsFormValid(false);
+      setUser({
+        ...userBo,
+        password: event.target.value,
+      });
+      setPasswordError(false);
     }
   };
 
   const handleGenderChange = (value) => {
+    setUser({
+      ...userBo,
+      gender: value,
+    });
     setGender(value);
+    setGenderError(false);
     setShowDropdownGender(false);
-    setGenderError("");
   };
 
   const handleConfirmPasswordChange = (event) => {
-    setConfirmPassword(event.target.value);
-    setConfirmPasswordError("");
-
-    // Check password and confirm password validity and set form validity accordingly
-    if (
-      event.target.value === password &&
-      email.length > 0 &&
-      password.length >= 6
-    ) {
-      setIsFormValid(true);
+    if (event.target.value !== userBo.password) {
+      setConfirmPasswordError("Passwords do not match.");
     } else {
-      setIsFormValid(false);
+      setConfirmPasswordError(false);
     }
   };
 
-  const handleAcceptPolicyChange = (event) => {
+  const handleAcceptPolicyChange = () => {
     setAcceptPolicy(!acceptPolicy);
-    setAcceptPolicyError("");
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    userBo.gender
+      ? setGenderError(false)
+      : setGenderError("Please select your gender.");
 
-    // Validate first name, last name, univ, email, password, ID number, phone number, password confirmation, gender, and the rules.
-    let firstNameValid = true;
-    let lastNameValid = true;
-    let emailValid = true;
-    let passwordValid = true;
-    let phoneNumberValid = true;
-    let passwordConfirmationValid = true;
-    let genderValid = true;
-    let acceptPolicyValid = true;
-
-    const firstNamePattern = /^[A-Za-z]+(?:\s[A-Za-z]+)*$/;
-    if (!firstNamePattern.test(firstName)) {
-      setFirstNameError(
-        "Please enter a valid name, for example: Musab Al Hotaree"
-      );
-      firstNameValid = false;
-    }
-
-    const lastNamePattern = /^[A-Za-z]+(?:\s[A-Za-z]+)*$/;
-    if (!lastNamePattern.test(lastName)) {
-      setLastNameError(
-        "Please enter a valid name, for example: Musab Al Hotaree"
-      );
-      lastNameValid = false;
-    }
-
-    const emailPattern = /^[a-zA-Z0-9.]/;
-    if (!emailPattern.test(email)) {
-      setEmailError(
-        "Invalid email format. Only letters (a-z), numbers (0-9), and periods (.) are allowed."
-      );
-      emailValid = false;
-    }
-
-    if (password.length < 6) {
-      setPasswordError("Password must be at least 6 characters long.");
-      passwordValid = false;
-    }
-
-    const phoneNumberPattern = /^[0-9]{10}$/;
-    if (!phoneNumberPattern.test(phoneNumber)) {
-      setPhoneNumberError("Please enter a valid 10-digit phone number.");
-      phoneNumberValid = false;
-    }
-
-    if (confirmPassword !== password) {
-      setConfirmPasswordError("Passwords do not match.");
-      passwordConfirmationValid = false;
-    }
-
-    if (gender === "") {
-      setGenderError("Please select your gender.");
-      genderValid = false;
-    }
-
-    if (!acceptPolicy) {
-      setAcceptPolicyError("Please accept the terms and conditions.");
-      acceptPolicyValid = false;
-    }
-
-    setIsFormValid(
-      firstNameValid &&
-        lastNameValid &&
-        emailValid &&
-        passwordValid &&
-        phoneNumberValid &&
-        passwordConfirmationValid &&
-        genderValid &&
-        acceptPolicyValid
-    );
-
-    if (isFormValid) {
-      console.log(
-        "firstName:",
-        firstName,
-        "lastName:",
-        lastName,
-        "email:",
-        email,
-        "password:",
-        password,
-        "showPassword:",
-        showPassword,
-        "phoneNumber:",
-        phonePrefix,
-        "phonePrefix :",
-        phoneNumber,
-        "confirmPassword:",
-        confirmPassword,
-        "acceptPolicy:",
-        acceptPolicy,
-        "isFormValid:",
-        isFormValid,
-        "gender:",
-        gender
-      );
-      // submit the form
+    if (!genderError) {
+      !acceptPolicy
+        ? setAcceptPolicyError("Please accept the terms and conditions.")
+        : patientRegister(userBo);
     }
   };
 
@@ -274,8 +174,8 @@ const Patients = () => {
               type="text"
               id="firstName"
               name="firstName"
-              value={firstName}
               onChange={handleFirstNameChange}
+              maxLength={10}
               required
             />
             <div
@@ -299,8 +199,8 @@ const Patients = () => {
               type="text"
               id="lastName"
               name="lastName"
-              value={lastName}
               onChange={handleLastNameChange}
+              maxLength={10}
               required
             />
             <div
@@ -333,7 +233,7 @@ const Patients = () => {
               defaultValue={phonePrefix}
               onClick={() => setShowDropdownPrefix(!showDropdownPrefix)}
             >
-              {phonePrefix === "" ? (
+              {!phonePrefix ? (
                 <div
                   className="input-container-option input-dropdown"
                   htmlFor="phone-prefix"
@@ -376,11 +276,11 @@ const Patients = () => {
         </div>
         <div className="input-container">
           <input
-            type="tel"
+            type="number"
             id="phone-number"
             name="phone-number"
-            value={phoneNumber}
             onChange={handlePhoneNumberChange}
+            maxLength={13}
             required
           />
           <div
@@ -394,54 +294,75 @@ const Patients = () => {
           </div>
         </div>
       </div>
-      {phoneNumberError && (
-        <span className="wrong-info">
-          {" "}
-          <AiFillExclamationCircle /> {phoneNumberError}{" "}
-        </span>
-      )}
 
-      <div className="input-container">
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={email}
-          onChange={handleEmailChange}
-          required
-        />
-        <div
-          className="input-container-option"
-          htmlFor="email"
-          onClick={() => document.getElementsByName("email")[0].focus()}
-        >
-          Email
+      <div className="input-group">
+        <div className="input-container-group">
+          <div className="input-container">
+            <input
+              type="username"
+              id="username"
+              name="username"
+              value={username}
+              onChange={handleUsernameChange}
+              maxLength={20}
+              required
+            />
+            <div
+              className="input-container-option"
+              htmlFor="username"
+              onClick={() => document.getElementsByName("username")[0].focus()}
+            >
+              Username
+            </div>
+          </div>
+        </div>
+        <div className="input-container-group">
+          <div className="input-container">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              onChange={handleEmailChange}
+              maxLength={50}
+              required
+            />
+            <div
+              className="input-container-option"
+              htmlFor="email"
+              onClick={() => document.getElementsByName("email")[0].focus()}
+            >
+              Email
+            </div>
+          </div>
+          {emailError && (
+            <span className="wrong-info">
+              {" "}
+              <AiFillExclamationCircle /> {emailError}{" "}
+            </span>
+          )}
         </div>
       </div>
-      {emailError && (
-        <span className="wrong-info">
-          {" "}
-          <AiFillExclamationCircle /> {emailError}{" "}
-        </span>
-      )}
 
       <div className="custom-select">
         <div
           className="selected-option"
           onClick={() => setShowDropdownGender(!showDropdownGender)}
         >
-          {gender === "" ? (
-            <div class="input-container-option input-dropdown" for="id-number">
+          {!gender ? (
+            <div
+              className="input-container-option input-dropdown"
+              htmlFor="id-number"
+            >
               Select gender
             </div>
           ) : (
             <div>
-              <div class="input-container-option input-dropdown-title">
+              <div className="input-container-option input-dropdown-title">
                 Select gender
               </div>
               <div
-                class="input-container-option input-dropdown input-selected"
-                for="id-number"
+                className="input-container-option input-dropdown input-selected"
+                htmlFor="id-number"
               >
                 {gender}
               </div>
@@ -451,12 +372,7 @@ const Patients = () => {
         </div>
         {showDropdownGender && (
           <div className="options" id="input-dropdown">
-            <div
-              className="option-title"
-              onClick={() => handleGenderChange("")}
-            >
-              Select gender
-            </div>
+            <div className="option-title">Select gender</div>
             <div className="option" onClick={() => handleGenderChange("male")}>
               Male
             </div>
@@ -481,7 +397,6 @@ const Patients = () => {
           <div className="input-container">
             <input
               type={showPassword ? "text" : "password"}
-              value={password}
               name="password"
               onChange={handlePasswordChange}
               required
@@ -508,7 +423,6 @@ const Patients = () => {
               type={showPassword ? "text" : "password"}
               id="confirm-password"
               name="confirm-password"
-              value={confirmPassword}
               onChange={handleConfirmPasswordChange}
               required
             />
@@ -560,6 +474,12 @@ const Patients = () => {
       <button type="submit" className={`btn btn-primary sign`}>
         Sign Up
       </button>
+      {UserError && (
+        <span className="wrong-info">
+          <AiFillExclamationCircle />
+          {UserError}
+        </span>
+      )}
     </form>
   );
 };

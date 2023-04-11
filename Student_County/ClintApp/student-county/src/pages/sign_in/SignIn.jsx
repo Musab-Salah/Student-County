@@ -9,7 +9,7 @@ import useAuth from "../../hooks/useAuth";
 import "./SignIn.css";
 
 const SignIn = () => {
-  const { logout, login, AuthError } = useAuth();
+  const {  login, AuthError } = useAuth();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);

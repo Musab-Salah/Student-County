@@ -2,7 +2,7 @@ import Navbar from "../../components/navbar/Navbar";
 import FAQBox from "../../components/faq/Faq-box";
 import Footer from "../../components/footer/Footer";
 import { TbArrowNarrowRight } from "react-icons/tb";
-import {  IoPeopleSharp } from "react-icons/io5";
+import { IoPeopleSharp } from "react-icons/io5";
 import { HiShieldCheck } from "react-icons/hi";
 import "./Home.css";
 import { Helmet } from "react-helmet";
@@ -34,7 +34,7 @@ const Home = () => {
                 </div>
               </div>
               <div className="hero-cta">
-                <Link to="/login" className="btn btn-primary">
+                <Link to="/sign_in" className="btn btn-primary">
                   Sign in
                   <TbArrowNarrowRight className="arrow-right-icon" />
                 </Link>
@@ -227,7 +227,7 @@ const Home = () => {
               </button>
             </Link>
             <div className="h6 gray-text">or</div>
-            <Link to="/sign-up">
+            <Link to="/sign_up">
               <button className="btn btn-secondary">
                 Sign Up
                 <TbArrowNarrowRight className="arrow-right-icon" />

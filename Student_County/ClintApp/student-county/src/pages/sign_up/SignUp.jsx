@@ -3,6 +3,9 @@ import Students from "../../components/register/student_register/StudentRegister
 import Patients from "../../components/register/patient_register/PatientRegister";
 import { useNavigate } from "react-router-dom";
 import { TbArrowNarrowLeft } from "react-icons/tb";
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
+
 import "./SignUp.css";
 
 const SignUp = () => {
@@ -13,6 +16,10 @@ const SignUp = () => {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Sign Up</title>
+      </Helmet>
     <div className="sign-up">
       <div className="container">
         <div className="top-nav">
@@ -50,12 +57,13 @@ const SignUp = () => {
         </button>
         <div className="account-question">
           <span>{`Have an account? `}</span>
-          <a className="link" href="/sign-in">
+          <Link className="link" to="/sign_in">
             Sign In
-          </a>
+          </Link>
         </div>
       </div>
     </div>
+    </>
   );
 };
 

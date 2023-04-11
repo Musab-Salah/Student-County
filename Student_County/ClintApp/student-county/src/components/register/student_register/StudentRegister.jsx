@@ -14,23 +14,15 @@ import "../../../pages/sign_up/SignUp.css";
 
 const Students = () => {
   // State Hooks
-  const { Universities, UniversityError } = useUniversities();
-  const { UserBo, register, UserError } = useAuth();
+  const { Universities } = useUniversities();
+  const { UserBo, studentRegister, UserError } = useAuth();
   const { Colleges } = useCollege();
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [idNumber, setIdNumber] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [phonePrefix, setPhonePrefix] = useState("+970"); // need check when its empty
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [acceptPolicy, setAcceptPolicy] = useState(false);
-  const [isFormValid, setIsFormValid] = useState(false);
-  const [gender, setGender] = useState("");
+  const [gender, setGender] = useState();
   const [selectUniv, setSelectUniv] = useState("");
-  const [colleges, setColleges] = useState("");
   const [selectCollege, setSelectCollege] = useState("");
   const [userBo, setUser] = useState(UserBo);
   const [emailDomainName, setEmailDomainName] = useState();
@@ -43,13 +35,10 @@ const Students = () => {
   // Error Hooks
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
-  const [usernameError, setUsernameError] = useState("");
-  const [phoneNumberError, setPhoneNumberError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
-  const [idNumberError, setIdNumberError] = useState("");
   const [AcceptPolicyError, setAcceptPolicyError] = useState("");
-  const [genderError, setGenderError] = useState("");
+  const [genderError, setGenderError] = useState(false);
   const [selectUnivError, setSelectUnivError] = useState("");
   const [selectCollegeError, setSelectCollegeError] = useState("");
 
@@ -84,11 +73,9 @@ const Students = () => {
   useMemo(() => setEmailDomainName(selectUniv.emailDomainName), [selectUniv]);
 
   const handleFirstNameChange = (event) => {
-    const passwordRegex = /^([a-zA-Z])(?=.{6,})/;
-    if (!passwordRegex.test(event.target.value)) {
-      setFirstNameError(
-        "must be at least 6 characters,one non alphanumeric character,one digit ('0'-'9'),one uppercase ('A'-'Z')"
-      );
+    const nameRegex = /^([a-zA-Z])(?=.{3,})/;
+    if (!nameRegex.test(event.target.value)) {
+      setFirstNameError("Please enter a valid name, for example: Musab");
     } else {
       setUser({
         ...userBo,
@@ -99,11 +86,16 @@ const Students = () => {
   };
 
   const handleLastNameChange = (event) => {
-    setUser({
-      ...userBo,
-      lastName: event.target.value,
-    });
-    setLastNameError("");
+    const nameRegex = /^([a-zA-Z])(?=.{3,})/;
+    if (!nameRegex.test(event.target.value)) {
+      setLastNameError("Please enter a valid name, for example: Salah");
+    } else {
+      setUser({
+        ...userBo,
+        lastName: event.target.value,
+      });
+      setLastNameError(false);
+    }
   };
 
   const handleUsernameChange = (event) => {
@@ -114,7 +106,6 @@ const Students = () => {
       userName: result,
     });
     setUsername(result);
-    setUsernameError("");
   };
 
   const handleUniversityChange = (uni) => {
@@ -123,6 +114,7 @@ const Students = () => {
       universityId: uni.id,
     });
     setSelectUniv(uni);
+    setSelectUnivError(false);
     setShowDropdownUniv(false);
   };
 
@@ -132,13 +124,13 @@ const Students = () => {
       collegeId: college.id,
     });
     setSelectCollege(college.name);
-    setSelectCollegeError("");
     setShowDropdownCollege(false);
+    setSelectCollegeError(false);
   };
 
   const handlePasswordChange = (event) => {
     const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/;
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$&*])(?=.{6})/;
     if (!passwordRegex.test(event.target.value)) {
       setPasswordError(
         "must be at least 6 characters,one non alphanumeric character,one digit ('0'-'9'),one uppercase ('A'-'Z')"
@@ -153,18 +145,10 @@ const Students = () => {
   };
 
   const handleConfirmPasswordChange = (event) => {
-    setConfirmPassword(event.target.value);
-    setConfirmPasswordError("");
-
-    // Check password and confirm password validity and set form validity accordingly
-    if (
-      event.target.value === userBo.password &&
-      username.length > 0 &&
-      password.length >= 6
-    ) {
-      setIsFormValid(true);
+    if (event.target.value !== userBo.password) {
+      setConfirmPasswordError("Passwords do not match.");
     } else {
-      setIsFormValid(false);
+      setConfirmPasswordError(false);
     }
   };
 
@@ -173,30 +157,22 @@ const Students = () => {
       ...userBo,
       idNumber: event.target.value,
     });
-    setIdNumberError("");
   };
 
   const handlePhoneNumberChange = (event) => {
     setUser({
       ...userBo,
-      phoneNumber: event.target.value,
+      phoneNumber: phonePrefix + "-" + event.target.value,
     });
-    setPhoneNumberError("");
   };
 
   const handlePhonePrefixChange = (prefix) => {
     setPhonePrefix(prefix);
     setShowDropdownPrefix(false);
-
-    const phoneSuffix = document.getElementById("phone-suffix");
-    if (phoneSuffix) {
-      phoneSuffix.textContent = prefix;
-    }
   };
 
-  const handleAcceptPolicyChange = (event) => {
+  const handleAcceptPolicyChange = () => {
     setAcceptPolicy(!acceptPolicy);
-    setAcceptPolicyError("");
   };
 
   const handleGenderChange = (value) => {
@@ -205,137 +181,27 @@ const Students = () => {
       gender: value,
     });
     setGender(value);
+    setGenderError(false);
     setShowDropdownGender(false);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    userBo.gender
+      ? setGenderError(false)
+      : setGenderError("Please select your gender.");
 
-    // Validate first name, last name, univ, username, password, ID number, phone number, password confirmation, gender, and the rules.
-    let firstNameValid = true;
-    let lastNameValid = true;
-    let selectUnivValid = true;
-    let selectCollegeValid = true;
-    let usernameValid = true;
-    let passwordValid = true;
-    let idNumberValid = true;
-    let phoneNumberValid = true;
-    let passwordConfirmationValid = true;
-    let genderValid = true;
-    let acceptPolicyValid = true;
+    userBo.universityId
+      ? setSelectUnivError(false)
+      : setSelectUnivError("Please select your university.");
 
-    const firstNamePattern = /^[A-Za-z]+(?:\s[A-Za-z]+)*$/;
-    if (!firstNamePattern.test(firstName)) {
-      setFirstNameError(
-        "Please enter a valid name, for example: Musab Al Hotaree"
-      );
-      firstNameValid = false;
-    }
-
-    const lastNamePattern = /^[A-Za-z]+(?:\s[A-Za-z]+)*$/;
-    if (!lastNamePattern.test(lastName)) {
-      setLastNameError(
-        "Please enter a valid name, for example: Musab Al Hotaree"
-      );
-      lastNameValid = false;
-    }
-
-    const usernamePattern = /^[a-zA-Z0-9.]/;
-    if (!usernamePattern.test(username)) {
-      setUsernameError(
-        "Invalid username format. Only letters (a-z), numbers (0-9), and periods (.) are allowed."
-      );
-      usernameValid = false;
-    }
-
-    if (password.length < 6) {
-      setPasswordError("Password must be at least 6 characters long.");
-      passwordValid = false;
-    }
-
-    const idNumberPattern = /^[0-9]{9}$/;
-    if (!idNumberPattern.test(idNumber)) {
-      setIdNumberError("Please enter a valid 9-digit ID number.");
-      idNumberValid = false;
-    }
-
-    if (!selectUniv) {
-      setSelectUnivError("Please select a university.");
-      selectUnivValid = false;
-    }
-
-    if (!selectCollege) {
-      setSelectCollegeError("Please select a college.");
-      selectCollegeValid = false;
-    }
-
-    const phoneNumberPattern = /^[0-9]{10}$/;
-    if (!phoneNumberPattern.test(phoneNumber)) {
-      setPhoneNumberError("Please enter a valid 10-digit phone number.");
-      phoneNumberValid = false;
-    }
-
-    if (confirmPassword !== password) {
-      setConfirmPasswordError("Passwords do not match.");
-      passwordConfirmationValid = false;
-    }
-
-    if (gender === "") {
-      setGenderError("Please select your gender.");
-      genderValid = false;
-    }
-
-    if (!acceptPolicy) {
-      setAcceptPolicyError("Please accept the terms and conditions.");
-      acceptPolicyValid = false;
-    }
-
-    setIsFormValid(
-      firstNameValid &&
-        lastNameValid &&
-        selectUnivValid &&
-        selectCollegeValid &&
-        usernameValid &&
-        passwordValid &&
-        idNumberValid &&
-        phoneNumberValid &&
-        passwordConfirmationValid &&
-        genderValid &&
-        acceptPolicyValid
-    );
-
-    if (isFormValid) {
-      console.log(
-        "firstName:",
-        firstName,
-        "lastName:",
-        lastName,
-        "username:",
-        username,
-        "password:",
-        password,
-        "showPassword:",
-        showPassword,
-        "idNumber:",
-        idNumber,
-        "phoneNumber:",
-        phoneNumber,
-        "phonePrefix:",
-        phonePrefix,
-        "confirmPassword:",
-        confirmPassword,
-        "acceptPolicy:",
-        acceptPolicy,
-        "isFormValid:",
-        isFormValid,
-        "gender:",
-        gender,
-        "selectUniv:",
-        selectUniv,
-        "selectCollege:",
-        selectCollege
-      );
-      // submit the form
+    userBo.collegeId
+      ? setSelectCollegeError(false)
+      : setSelectCollegeError("Please select your college.");
+    if (!genderError && !selectUnivError && !selectCollegeError) {
+      !acceptPolicy
+        ? setAcceptPolicyError("Please accept the terms and conditions.")
+        : studentRegister(userBo);
     }
   };
 
@@ -435,12 +301,6 @@ const Students = () => {
               </div>
             )}
           </div>
-          {selectUnivError && (
-            <span className="wrong-info">
-              <AiFillExclamationCircle />
-              {selectUnivError}
-            </span>
-          )}{" "}
         </div>
         {selectUnivError && (
           <span className="wrong-info">
@@ -492,12 +352,6 @@ const Students = () => {
               </div>
             )}
           </div>
-          {selectCollegeError && (
-            <span className="wrong-info">
-              <AiFillExclamationCircle />
-              {selectCollegeError}
-            </span>
-          )}{" "}
         </div>
         {selectCollegeError && (
           <span className="wrong-info">
@@ -524,12 +378,6 @@ const Students = () => {
           ID Number
         </div>
       </div>
-      {idNumberError && (
-        <span className="wrong-info">
-          {" "}
-          <AiFillExclamationCircle /> {idNumberError}{" "}
-        </span>
-      )}
 
       <div className="input-container" style={{ border: "0", gap: 0 }}>
         <div className="PhoneSuffix">
@@ -605,12 +453,6 @@ const Students = () => {
           </div>
         </div>
       </div>
-      {phoneNumberError && (
-        <span className="wrong-info">
-          {" "}
-          <AiFillExclamationCircle /> {phoneNumberError}{" "}
-        </span>
-      )}
 
       <div className="input-container">
         <input
@@ -634,12 +476,6 @@ const Students = () => {
           {emailDomainName && !UserError ? emailDomainName : "@"}
         </div>
       </div>
-      {usernameError && (
-        <span className="wrong-info">
-          {" "}
-          <AiFillExclamationCircle /> {usernameError}{" "}
-        </span>
-      )}
 
       <div className="custom-select">
         <div
@@ -777,6 +613,12 @@ const Students = () => {
       <button type="submit" className={`btn btn-primary sign`}>
         Sign Up
       </button>
+      {UserError && (
+        <span className="wrong-info">
+          <AiFillExclamationCircle />
+          {UserError}
+        </span>
+      )}
     </form>
   );
 };

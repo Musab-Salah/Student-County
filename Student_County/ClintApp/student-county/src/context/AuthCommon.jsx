@@ -68,7 +68,7 @@ export function AuthProvider({ children }) {
       .then((res) => {
         setUser(res.data);
         setError(null);
-        navigate("/");
+        navigate("/sign_in");
       })
       .catch((res) => {
         setError(res.response.data);
@@ -81,7 +81,7 @@ export function AuthProvider({ children }) {
       .then((res) => {
         setUser(res.data);
         setError(null);
-        navigate("/");
+        navigate("/sign_in");
       })
       .catch((res) => {
         setError(res.response.data);
@@ -98,7 +98,7 @@ export function AuthProvider({ children }) {
         setUserInLocal(response.data);
         const decodedJwt = parseJwt(response.data.token);
         setDecodedJwt(decodedJwt);
-        setError("")
+        setError("");
         navigate("/dashboard");
       })
       .catch(() => setError("Failed Login"));

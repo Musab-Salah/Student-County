@@ -99,6 +99,7 @@ namespace Student_County.BusinessLogic.Auth
                 Email = model.Email,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
+                Gender = model.Gender,
                 UniversityId = 1,
                 CollegeId = 1,// change to Denistry college
             };
