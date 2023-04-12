@@ -48,7 +48,6 @@ export function AuthProvider({ children }) {
   });
 
   useEffect(() => {
-    getRoles();
     const user = JSON.parse(localStorage.getItem("user"));
     setUserInLocal(user);
     if (user) {
@@ -147,6 +146,7 @@ export function AuthProvider({ children }) {
         login,
         refresh,
         logout,
+        getRoles,
         User,
         Roles,
         StudentBo,

@@ -19,9 +19,7 @@ export function BooksProvider({ children }) {
     studentId: "",
   });
 
-  useEffect(() => {
-    //getBooks();
-  }, []);
+  useEffect(() => {}, []);
   const getBooks = () => {
     BookStoreServices.getBooks()
       .then((res) => {

@@ -133,7 +133,7 @@ const Students = () => {
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$&*])(?=.{6})/;
     if (!passwordRegex.test(event.target.value)) {
       setPasswordError(
-        "must be at least 6 characters,one non alphanumeric character,one digit ('0'-'9'),one uppercase ('A'-'Z')"
+        "Must be at least 6 characters, one non alphanumeric character, one digit (0-9), one uppercase (A-Z)!"
       );
     } else {
       setUser({
@@ -198,7 +198,15 @@ const Students = () => {
     userBo.collegeId
       ? setSelectCollegeError(false)
       : setSelectCollegeError("Please select your college.");
-    if (!genderError && !selectUnivError && !selectCollegeError) {
+    if (
+      !genderError &&
+      !firstNameError &&
+      !lastNameError &&
+      !passwordError &&
+      !confirmPasswordError &&
+      !selectUnivError &&
+      !selectCollegeError
+    ) {
       !acceptPolicy
         ? setAcceptPolicyError("Please accept the terms and conditions.")
         : studentRegister(userBo);
@@ -220,7 +228,6 @@ const Students = () => {
             />
             <div
               className="input-container-option"
-              htmlFor="firstName"
               onClick={() => document.getElementsByName("firstName")[0].focus()}
             >
               First Name
@@ -245,7 +252,6 @@ const Students = () => {
             />
             <div
               className="input-container-option"
-              htmlFor="lastName"
               onClick={() => document.getElementsByName("lastName")[0].focus()}
             >
               Last Name
@@ -276,10 +282,7 @@ const Students = () => {
                   <div className="input-container-option input-dropdown-title">
                     University
                   </div>
-                  <div
-                    className="input-container-option input-dropdown input-selected"
-                    htmlFor="id-number"
-                  >
+                  <div className="input-container-option input-dropdown input-selected">
                     {selectUniv.name}
                   </div>
                 </div>
@@ -323,10 +326,7 @@ const Students = () => {
                   <div className="input-container-option input-dropdown-title">
                     College Or Faculty
                   </div>
-                  <div
-                    className="input-container-option input-dropdown input-selected"
-                    htmlFor="id-number"
-                  >
+                  <div className="input-container-option input-dropdown input-selected">
                     {selectCollege}
                   </div>
                 </div>
@@ -372,7 +372,6 @@ const Students = () => {
         />
         <div
           className="input-container-option"
-          htmlFor="id-number"
           onClick={() => document.getElementsByName("id-number")[0].focus()}
         >
           ID Number
@@ -393,17 +392,13 @@ const Students = () => {
               onClick={() => setShowDropdownPrefix(!showDropdownPrefix)}
             >
               {!phonePrefix ? (
-                <div
-                  className="input-container-option input-dropdown"
-                  htmlFor="phone-prefix"
-                >
+                <div className="input-container-option input-dropdown">
                   Select prefix
                 </div>
               ) : (
                 <div>
                   <div
                     className="input-container-option input-dropdown input-selected"
-                    htmlFor="phone-prefix"
                     style={{
                       padding: 0,
                     }}
@@ -444,7 +439,6 @@ const Students = () => {
           />
           <div
             className="input-container-option"
-            htmlFor="phone-number"
             onClick={() =>
               document.getElementsByName("phone-number")[0].focus()
             }
@@ -466,7 +460,6 @@ const Students = () => {
         />
         <div
           className="input-container-option"
-          htmlFor="username"
           onClick={() => document.getElementsByName("username")[0].focus()}
         >
           Username
@@ -483,10 +476,7 @@ const Students = () => {
           onClick={() => setShowDropdownGender(!showDropdownGender)}
         >
           {!gender ? (
-            <div
-              className="input-container-option input-dropdown"
-              htmlFor="id-number"
-            >
+            <div className="input-container-option input-dropdown">
               Select gender
             </div>
           ) : (
@@ -494,10 +484,7 @@ const Students = () => {
               <div className="input-container-option input-dropdown-title">
                 Select gender
               </div>
-              <div
-                className="input-container-option input-dropdown input-selected"
-                htmlFor="id-number"
-              >
+              <div className="input-container-option input-dropdown input-selected">
                 {gender}
               </div>
             </div>
@@ -567,7 +554,6 @@ const Students = () => {
             />
             <div
               className="input-container-option"
-              htmlFor="confirm-password"
               onClick={() =>
                 document.getElementsByName("confirm-password")[0].focus()
               }

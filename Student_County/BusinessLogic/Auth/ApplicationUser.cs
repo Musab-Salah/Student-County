@@ -17,10 +17,7 @@ namespace Student_County.BusinessLogic.Auth
         [Required]
         public string? LastName { get; set; }
         
-        public int? IdNumber { get; set; }
-        [Required]
-        public string? Password { get; set; }
-       
+        public int? IdNumber { get; set; }      
         public string? Gender { get; set; }
         
         public int UniversityId { get; set; }

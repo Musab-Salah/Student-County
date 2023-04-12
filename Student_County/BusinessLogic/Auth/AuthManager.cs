@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Student_County.BusinessLogic.Helpers.Common;
 using Student_County.BusinessLogic.University;
 using Student_County.DAL;
 using System.Data;
@@ -43,7 +44,7 @@ namespace Student_County.BusinessLogic.Auth
                 UserName = model.UserName,
                 Gender = model.Gender,
                 IdNumber=model.IdNumber,
-                Password=model.Password,
+                PasswordHash = model.Password,
                 PhoneNumber=model.PhoneNumber,
                 UniversityId=model.UniversityId,
                 CollegeId=model.CollegeId,
@@ -52,12 +53,14 @@ namespace Student_County.BusinessLogic.Auth
                 LastName = model.LastName,
             };
 
-   
+            
+            var newSalt = Security.GenerateSalt();
+            user.PasswordHash = Security.ComputeHash(Encoding.UTF8.GetBytes(user.PasswordHash), Encoding.UTF8.GetBytes(newSalt));
 
-            var result = await _userManager.CreateAsync(user, model.Password);
-
+            var result = await _userManager.CreateAsync(user, user.PasswordHash);
+             
             if (!result.Succeeded)
-            {
+            {  
                 var errors = string.Empty;
                 foreach (var error in result.Errors)
                     errors += $"{error.Description},";
@@ -94,7 +97,7 @@ namespace Student_County.BusinessLogic.Auth
             var user = new ApplicationUser
             {
                 UserName = model.UserName,
-                Password = model.Password,
+                PasswordHash = model.Password,
                 PhoneNumber = model.PhoneNumber,
                 Email = model.Email,
                 FirstName = model.FirstName,
@@ -104,9 +107,10 @@ namespace Student_County.BusinessLogic.Auth
                 CollegeId = 1,// change to Denistry college
             };
 
+            var newSalt = Security.GenerateSalt();
+            user.PasswordHash = Security.ComputeHash(Encoding.UTF8.GetBytes(user.PasswordHash), Encoding.UTF8.GetBytes(newSalt));
 
-
-            var result = await _userManager.CreateAsync(user, model.Password);
+            var result = await _userManager.CreateAsync(user, user.PasswordHash);
 
             if (!result.Succeeded)
             {
@@ -139,9 +143,13 @@ namespace Student_County.BusinessLogic.Auth
         {
             var authModel = new AuthModel();
 
+
+            var newSalt = Security.GenerateSalt();
+            var PasswordH = Security.ComputeHash(Encoding.UTF8.GetBytes(model.Password), Encoding.UTF8.GetBytes(newSalt));
+
             var user = await _userManager.FindByNameAsync(model.UserName);
 
-            if (user is null || !await _userManager.CheckPasswordAsync(user, model.Password))
+            if (user is null || !await _userManager.CheckPasswordAsync(user, PasswordH))
             {
                 authModel.Message = "Email or Password is incorrect!";
                 return authModel;

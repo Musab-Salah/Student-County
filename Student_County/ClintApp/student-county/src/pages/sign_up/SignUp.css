@@ -86,7 +86,7 @@ input#phone-number {
     justify-content: space-between;
 }
 .input-dropdown {
-    position: unset;
+    position: unset!important;
 }
 .selected-option span {
     font-size: 16px;

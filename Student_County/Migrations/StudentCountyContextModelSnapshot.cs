@@ -235,10 +235,6 @@ namespace Student_County.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
@@ -397,10 +393,10 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTime(2023, 4, 9, 15, 15, 56, 914, DateTimeKind.Utc).AddTicks(1892),
-                            IsDeleted = true,
+                            CreatedOn = new DateTime(2023, 4, 11, 22, 47, 35, 177, DateTimeKind.Utc).AddTicks(1234),
+                            IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTime(2023, 4, 9, 15, 15, 56, 914, DateTimeKind.Utc).AddTicks(1893),
+                            ModifiedOn = new DateTime(2023, 4, 11, 22, 47, 35, 177, DateTimeKind.Utc).AddTicks(1235),
                             Name = "EIT"
                         });
                 });
@@ -686,11 +682,11 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTime(2023, 4, 9, 15, 15, 56, 914, DateTimeKind.Utc).AddTicks(1868),
+                            CreatedOn = new DateTime(2023, 4, 11, 22, 47, 35, 177, DateTimeKind.Utc).AddTicks(1210),
                             EmailDomainName = "@AAUP.COM",
-                            IsDeleted = true,
+                            IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTime(2023, 4, 9, 15, 15, 56, 914, DateTimeKind.Utc).AddTicks(1869),
+                            ModifiedOn = new DateTime(2023, 4, 11, 22, 47, 35, 177, DateTimeKind.Utc).AddTicks(1211),
                             Name = "AAUP"
                         });
                 });

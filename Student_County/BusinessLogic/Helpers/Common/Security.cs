@@ -1,21 +1,19 @@
 ﻿using Student_County.DAL;
+using System.Security.Cryptography;
 
 namespace Student_County.BusinessLogic.Helpers.Common
 {
     public class Security
     {
-        protected readonly StudentCountyContext _context;
-        public Security(StudentCountyContext context)
+        public static string ComputeHash(byte[] bytesToHash, byte[] salt)
         {
-            _context = context;
+            var byteResult = new Rfc2898DeriveBytes(bytesToHash, salt, 10000);
+            return Convert.ToBase64String(byteResult.GetBytes(24));
         }
-        public static string Encrypt_Password(string password)
+        public static string GenerateSalt()
         {
-            var password_encode = System.Text.Encoding.UTF8.GetBytes(password);
-            var passwordstr = Convert.ToBase64String(password_encode);
-            return passwordstr;
+            return "SCSaltENcR!";
         }
-   
     
     }
 }

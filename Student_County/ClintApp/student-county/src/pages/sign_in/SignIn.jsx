@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { TbArrowNarrowLeft, TbCheck } from "react-icons/tb";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import useAuth from "../../hooks/useAuth";
@@ -10,7 +9,6 @@ import "./SignIn.css";
 
 const SignIn = () => {
   const {  login, AuthError } = useAuth();
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   let [bo, setbo] = useState();
@@ -50,10 +48,10 @@ const SignIn = () => {
       <div className="sign-in">
         <div className="container">
           <div className="top-nav">
-            <button className="button" onClick={() => navigate(-1)}>
+            <Link className="button" to={"/"}>
               <TbArrowNarrowLeft className="arrow" />
               Go Back
-            </button>
+            </Link>
             <img className="logo" alt="" src="/logo-v2.svg" />
           </div>
           <img

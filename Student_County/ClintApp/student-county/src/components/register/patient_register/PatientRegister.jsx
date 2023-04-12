@@ -158,7 +158,14 @@ const Patients = () => {
       ? setGenderError(false)
       : setGenderError("Please select your gender.");
 
-    if (!genderError) {
+    if (
+      !genderError &&
+      !firstNameError &&
+      !lastNameError &&
+      !emailError &&
+      !passwordError &&
+      !confirmPasswordError
+    ) {
       !acceptPolicy
         ? setAcceptPolicyError("Please accept the terms and conditions.")
         : patientRegister(userBo);
@@ -180,7 +187,6 @@ const Patients = () => {
             />
             <div
               className="input-container-option"
-              htmlFor="firstName"
               onClick={() => document.getElementsByName("firstName")[0].focus()}
             >
               First Name
@@ -205,7 +211,6 @@ const Patients = () => {
             />
             <div
               className="input-container-option"
-              htmlFor="lastName"
               onClick={() => document.getElementsByName("lastName")[0].focus()}
             >
               Last Name
@@ -234,17 +239,13 @@ const Patients = () => {
               onClick={() => setShowDropdownPrefix(!showDropdownPrefix)}
             >
               {!phonePrefix ? (
-                <div
-                  className="input-container-option input-dropdown"
-                  htmlFor="phone-prefix"
-                >
+                <div className="input-container-option input-dropdown">
                   Select prefix
                 </div>
               ) : (
                 <div>
                   <div
                     className="input-container-option input-dropdown input-selected"
-                    htmlFor="phone-prefix"
                     style={{
                       padding: 0,
                     }}
@@ -285,7 +286,6 @@ const Patients = () => {
           />
           <div
             className="input-container-option"
-            htmlFor="phone-number"
             onClick={() =>
               document.getElementsByName("phone-number")[0].focus()
             }
@@ -309,7 +309,6 @@ const Patients = () => {
             />
             <div
               className="input-container-option"
-              htmlFor="username"
               onClick={() => document.getElementsByName("username")[0].focus()}
             >
               Username
@@ -328,7 +327,6 @@ const Patients = () => {
             />
             <div
               className="input-container-option"
-              htmlFor="email"
               onClick={() => document.getElementsByName("email")[0].focus()}
             >
               Email
@@ -349,10 +347,7 @@ const Patients = () => {
           onClick={() => setShowDropdownGender(!showDropdownGender)}
         >
           {!gender ? (
-            <div
-              className="input-container-option input-dropdown"
-              htmlFor="id-number"
-            >
+            <div className="input-container-option input-dropdown">
               Select gender
             </div>
           ) : (
@@ -360,10 +355,7 @@ const Patients = () => {
               <div className="input-container-option input-dropdown-title">
                 Select gender
               </div>
-              <div
-                className="input-container-option input-dropdown input-selected"
-                htmlFor="id-number"
-              >
+              <div className="input-container-option input-dropdown input-selected">
                 {gender}
               </div>
             </div>
@@ -428,7 +420,6 @@ const Patients = () => {
             />
             <div
               className="input-container-option"
-              htmlFor="confirm-password"
               onClick={() =>
                 document.getElementsByName("confirm-password")[0].focus()
               }
