@@ -16,30 +16,30 @@ import "./Global.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
-    <UniversitiesProvider>
-      <CollegesProvider>
-        <AuthProvider>
-          <AuthVerify />
-          <ToolsProvider>
-            <PatientsProvider>
-              <DestinationsProvider>
-                <RidesProvider>
-                  <HousingsProvider>
-                    <BooksProvider>
-                      <Suspense fallback={<div>lod</div>}>
-                        <Routes>
-                          <Route path="/*" element={<App />} />
-                        </Routes>
-                      </Suspense>
-                    </BooksProvider>
-                  </HousingsProvider>
-                </RidesProvider>
-              </DestinationsProvider>
-            </PatientsProvider>
-          </ToolsProvider>
-        </AuthProvider>
-      </CollegesProvider>
-    </UniversitiesProvider>
-  </BrowserRouter>
+    <BrowserRouter>
+      <UniversitiesProvider>
+        <CollegesProvider>
+          <AuthProvider>
+            <AuthVerify />
+            <ToolsProvider>
+              <PatientsProvider>
+                <DestinationsProvider>
+                  <RidesProvider>
+                    <HousingsProvider>
+                      <BooksProvider>
+                        <Suspense fallback={<div>lod</div>}>
+                          <Routes>
+                            <Route path="/*" element={<App />} />
+                          </Routes>
+                        </Suspense>
+                      </BooksProvider>
+                    </HousingsProvider>
+                  </RidesProvider>
+                </DestinationsProvider>
+              </PatientsProvider>
+            </ToolsProvider>
+          </AuthProvider>
+        </CollegesProvider>
+      </UniversitiesProvider>
+    </BrowserRouter>
 );

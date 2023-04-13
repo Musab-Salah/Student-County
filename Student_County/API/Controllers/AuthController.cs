@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MailKit;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Student_County.BusinessLogic.Auth;
+
 
 namespace Student_County.API.Controllers
 {
@@ -8,10 +11,12 @@ namespace Student_County.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthManager _authService;
+        private IConfiguration _configuration;
 
-        public AuthController(IAuthManager authService)
+        public AuthController(IAuthManager authService, IConfiguration configuration)
         {
             _authService = authService;
+            _configuration = configuration;
         }
 
         [HttpPost("StudentRegister")]
@@ -55,6 +60,7 @@ namespace Student_County.API.Controllers
 
             if (!string.IsNullOrEmpty(result.RefreshToken))
                 SetRefreshTokenInCookie(result.RefreshToken, result.RefreshTokenExpiration);
+
 
             return Ok(result);
         }
@@ -119,6 +125,23 @@ namespace Student_County.API.Controllers
             };
 
             Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
+        }
+
+        // /api/auth/confirmemail?userid&token
+        [HttpGet("ConfirmEmail")]
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(token))
+                return NotFound();
+
+            var result = await _authService.ConfirmEmailAsync(userId, token);
+
+            if (result.IsSuccess)
+            {
+                return Ok();
+            }
+
+            return BadRequest(result);
         }
     }
 }

@@ -5,6 +5,7 @@ namespace Student_County.BusinessLogic.Auth
     public class AuthModel
     {
         public string? Message { get; set; }
+        [JsonIgnore]
         public bool IsAuthenticated { get; set; }
 
         [JsonIgnore]
@@ -23,5 +24,8 @@ namespace Student_County.BusinessLogic.Auth
 
         [JsonIgnore]
         public DateTime RefreshTokenExpiration { get; set; }
+        [JsonIgnore]
+        public bool IsSuccess { get; set; }
+
     }
 }

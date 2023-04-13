@@ -13,9 +13,7 @@ export function DestinationsProvider({ children }) {
     name: "",
   });
 
-  useEffect(() => {
-    getDestinations();
-  }, []);
+  useEffect(() => {}, []);
   const getDestinations = () => {
     DestinationServices.getDestinations()
       .then((res) => {

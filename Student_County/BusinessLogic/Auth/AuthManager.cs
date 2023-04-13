@@ -1,15 +1,23 @@
 ﻿using Azure;
+using MailKit;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 using Student_County.BusinessLogic.Helpers.Common;
 using Student_County.BusinessLogic.University;
 using Student_County.DAL;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Mail;
 using System.Reflection;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -22,13 +30,22 @@ namespace Student_County.BusinessLogic.Auth
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly JWT _jwt;
+        private IConfiguration _configuration;
+        private IMailService _mailService;
+
+
 
         public AuthManager(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager,
-            IOptions<JWT> jwt)
+            IOptions<JWT> jwt, IMailService mailService, IConfiguration configuration)
         {
              _userManager = userManager;
             _roleManager = roleManager;
             _jwt = jwt.Value;
+            _configuration = configuration;
+            _mailService = mailService;
+
+
+
         }
 
         public async Task<AuthModel> RegisterStudentAsync(StudentRegisterModel model)
@@ -72,6 +89,16 @@ namespace Student_County.BusinessLogic.Auth
             var refreshToken = GenerateRefreshToken();
             user.RefreshTokens?.Add(refreshToken);
             await _userManager.UpdateAsync(user);
+
+            var confirmEmailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+            var encodedEmailToken = Encoding.UTF8.GetBytes(confirmEmailToken);
+            var validEmailToken = WebEncoders.Base64UrlEncode(encodedEmailToken);
+
+            string url = $"{_configuration["AppUrl"]}/api/auth/confirmemail?userid={user.Id}&token={validEmailToken}";
+
+            await _mailService.SendEmailAsync(user.Email, "Confirm your email", $"<h1>Welcome to Auth Demo</h1>" +
+                $"<p>Please confirm your email by <a href='{url}'>Clicking here</a></p>");
 
             return new AuthModel
             {
@@ -126,6 +153,17 @@ namespace Student_County.BusinessLogic.Auth
             user.RefreshTokens?.Add(refreshToken);
             await _userManager.UpdateAsync(user);
 
+
+            var confirmEmailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+            var encodedEmailToken = Encoding.UTF8.GetBytes(confirmEmailToken);
+            var validEmailToken = WebEncoders.Base64UrlEncode(encodedEmailToken);
+
+            string url = $"{_configuration["AppUrl"]}/auth/confirmemail?userid={user.Id}&token={validEmailToken}";
+
+            await _mailService.SendEmailAsync(user.Email, "Confirm your email", $"<h1>Welcome to Auth Demo</h1>" +
+                $"<p>Please confirm your email by <a href='{url}'>Clicking here</a></p>");
+
             return new AuthModel
             {
                 Email = user.Email,
@@ -141,13 +179,22 @@ namespace Student_County.BusinessLogic.Auth
 
         public async Task<AuthModel> GetTokenAsync(TokenRequestModel model)
         {
+            var user = await _userManager.FindByNameAsync(model.UserName);
+
             var authModel = new AuthModel();
+          
+
+            if (!await _userManager.IsEmailConfirmedAsync(user))
+            {
+                authModel.Message = "Email Not Confirmed";
+                return authModel;
+            }
+
 
 
             var newSalt = Security.GenerateSalt();
             var PasswordH = Security.ComputeHash(Encoding.UTF8.GetBytes(model.Password), Encoding.UTF8.GetBytes(newSalt));
 
-            var user = await _userManager.FindByNameAsync(model.UserName);
 
             if (user is null || !await _userManager.CheckPasswordAsync(user, PasswordH))
             {
@@ -316,6 +363,37 @@ namespace Student_County.BusinessLogic.Auth
         }
 
         public async Task<List<IdentityRole>> GetAllRoles() =>  await _roleManager.Roles.ToListAsync();
-    
+
+
+        public async Task<AuthModel> ConfirmEmailAsync(string userId, string token)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+                return new AuthModel
+                {
+                    IsSuccess = false,
+                    Message = "User not found"
+                };
+
+            var decodedToken = WebEncoders.Base64UrlDecode(token);
+            string normalToken = Encoding.UTF8.GetString(decodedToken);
+
+            var result = await _userManager.ConfirmEmailAsync(user, normalToken);
+
+            if (result.Succeeded)
+                return new AuthModel
+                {
+                    Message = "Email confirmed successfully!",
+                    IsSuccess = true,
+
+                };
+
+            return new AuthModel
+            {
+                Message = "Email did not confirm",
+                IsSuccess = false,
+            };
+        }
+        
     }
 }

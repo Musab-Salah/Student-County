@@ -1,3 +1,4 @@
+using MailKit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -33,11 +34,14 @@ builder.Services.AddScoped<IPatientManager, PatientManager>();
 builder.Services.AddScoped<IToolsManager, ToolsManager>();
 builder.Services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
 builder.Services.AddScoped<IAuthManager, AuthManager>();
+builder.Services.AddTransient<Student_County.BusinessLogic.Auth.IMailService, SendGridMailService>();
 
 
 
 builder.Services.AddControllers();
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<StudentCountyContext>();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<StudentCountyContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddDbContext<StudentCountyContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("Connectionstring")));

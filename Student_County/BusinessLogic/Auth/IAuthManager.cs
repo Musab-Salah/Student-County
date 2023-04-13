@@ -15,5 +15,10 @@ namespace Student_County.BusinessLogic.Auth
         Task<bool> RevokeTokenAsync(string token);
         Task<List<IdentityRole>> GetAllRoles();
 
+
+        Task<AuthModel> ConfirmEmailAsync(string userId, string token);
+
+
+
     }
 }
