@@ -284,6 +284,7 @@ FakesAssemblies/
 # Node.js Tools for Visual Studio
 .ntvs_analysis.dat
 node_modules/
+appsettings.json
 
 # Visual Studio 6 build log
 *.plg
@@ -361,3 +362,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Student_County/appsettings.json
