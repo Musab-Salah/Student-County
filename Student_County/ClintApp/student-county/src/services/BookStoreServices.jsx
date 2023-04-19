@@ -3,25 +3,19 @@ import axios from "../api/axios";
 const BOOKSTORE_API_BASE_URL = "/BookStoreee";
 
 class BookStoreServices {
-  async getBooks() {
-    return await axios.get(BOOKSTORE_API_BASE_URL + "/Index");
-  }
+  getBooks = async () => await axios.get(BOOKSTORE_API_BASE_URL + "/Index");
 
-  async createBook(book) {
-    return await axios.post(BOOKSTORE_API_BASE_URL + "/Create", book);
-  }
+  createBook = async (book) =>
+    await axios.post(BOOKSTORE_API_BASE_URL + "/Create", book);
 
-  async getBookById(bookId) {
-    return await axios.get(BOOKSTORE_API_BASE_URL + "/Get/" + bookId);
-  }
+  getBookById = async (bookId) =>
+    await axios.get(BOOKSTORE_API_BASE_URL + "/Get/" + bookId);
 
-  async updateBook(bookId, book) {
-    return await axios.put(BOOKSTORE_API_BASE_URL + "/Update/" + bookId, book);
-  }
+  updateBook = async (bookId, book) =>
+    await axios.put(BOOKSTORE_API_BASE_URL + "/Update/" + bookId, book);
 
-  async deleteBook(bookId) {
-    return await axios.delete(BOOKSTORE_API_BASE_URL + "/Delete/" + bookId);
-  }
+  deleteBook = async (bookId) =>
+    await axios.delete(BOOKSTORE_API_BASE_URL + "/Delete/" + bookId);
 }
 // eslint-disable-next-line
 export default new BookStoreServices();

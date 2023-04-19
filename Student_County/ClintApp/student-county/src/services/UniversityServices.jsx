@@ -3,30 +3,23 @@ import axios from "../api/axios";
 const UNIVERSITY_API_BASE_URL = "/University";
 
 class UniversityServices {
-  async getUniversities() {
-    return await axios.get(UNIVERSITY_API_BASE_URL + "/Index");
-  }
+  getUniversities = async () =>
+    await axios.get(UNIVERSITY_API_BASE_URL + "/Index");
 
-  async createUniversity(university) {
-    return await axios.post(UNIVERSITY_API_BASE_URL + "/Create", university);
-  }
+  createUniversity = async (university) =>
+    await axios.post(UNIVERSITY_API_BASE_URL + "/Create", university);
 
-  async getUniversityById(universityId) {
-    return await axios.get(UNIVERSITY_API_BASE_URL + "/Get/" + universityId);
-  }
+  getUniversityById = async (universityId) =>
+    await axios.get(UNIVERSITY_API_BASE_URL + "/Get/" + universityId);
 
-  async updateUniversity(universityId, university) {
-    return await axios.put(
+  updateUniversity = async (universityId, university) =>
+    await axios.put(
       UNIVERSITY_API_BASE_URL + "/Update/" + universityId,
       university
     );
-  }
 
-  async deleteUniversity(universityId) {
-    return await axios.delete(
-      UNIVERSITY_API_BASE_URL + "/Delete/" + universityId
-    );
-  }
+  deleteUniversity = async (universityId) =>
+    await axios.delete(UNIVERSITY_API_BASE_URL + "/Delete/" + universityId);
 }
 // eslint-disable-next-line
 export default new UniversityServices();

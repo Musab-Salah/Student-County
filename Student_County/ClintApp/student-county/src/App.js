@@ -3,7 +3,7 @@ import Home from "./pages/home/Home";
 import SignUp from "./pages/sign_up/SignUp";
 import SignIn from "./pages/sign_in/SignIn.jsx";
 import ForgotPassword from "./pages/forgot_password/ForgotPassword";
-import UserDashboard from "./pages/user_dashboard/UserDashboard";
+import Dashboard from "./pages/dashboard/Dashboard";
 import CreateBook from "./pages/book_store/create_book/CreateBook.jsx";
 import CreateHousing from "./pages/housing/create_housing/CreateHousing.jsx";
 import CreateRide from "./pages/ride/create_ride/CreateRide.jsx";
@@ -18,7 +18,7 @@ function App() {
       <Route path="/fogot_password" element={<ForgotPassword />} />
 
       <Route element={<PrivateRoutes />}>
-        <Route path="/dashboard" element={<UserDashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/create_book" element={<CreateBook />} />
         <Route path="/create_housing" element={<CreateHousing />} />
         <Route path="/create_ride" element={<CreateRide />} />

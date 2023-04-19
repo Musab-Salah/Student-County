@@ -3,28 +3,19 @@ import axios from "../api/axios";
 const COLLEGE_API_BASE_URL = "/College";
 
 class CollegeServices {
-  async getColleges() {
-    return await axios.get(COLLEGE_API_BASE_URL + "/Index");
-  }
+  getColleges = async () => await axios.get(COLLEGE_API_BASE_URL + "/Index");
 
-  async createCollege(college) {
-    return await axios.post(COLLEGE_API_BASE_URL + "/Create", college);
-  }
+  createCollege = async (college) =>
+    await axios.post(COLLEGE_API_BASE_URL + "/Create", college);
 
-  async getCollegeById(collegeId) {
-    return await axios.get(COLLEGE_API_BASE_URL + "/Get/" + collegeId);
-  }
+  getCollegeById = async (collegeId) =>
+    await axios.get(COLLEGE_API_BASE_URL + "/Get/" + collegeId);
 
-  async updateCollege(collegeId, college) {
-    return await axios.put(
-      COLLEGE_API_BASE_URL + "/Update/" + collegeId,
-      college
-    );
-  }
+  updateCollege = async (collegeId, college) =>
+    await axios.put(COLLEGE_API_BASE_URL + "/Update/" + collegeId, college);
 
-  async deleteCollege(collegeId) {
-    return await axios.delete(COLLEGE_API_BASE_URL + "/Delete/" + collegeId);
-  }
+  deleteCollege = async (collegeId) =>
+    await axios.delete(COLLEGE_API_BASE_URL + "/Delete/" + collegeId);
 }
 // eslint-disable-next-line
 export default new CollegeServices();

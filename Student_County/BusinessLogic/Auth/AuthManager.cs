@@ -1,24 +1,10 @@
-﻿using Azure;
-using MailKit;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.UI.Services;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using SendGrid;
-using SendGrid.Helpers.Mail;
 using Student_County.BusinessLogic.Helpers.Common;
-using Student_County.BusinessLogic.University;
-using Student_County.DAL;
-using System.Data;
 using System.IdentityModel.Tokens.Jwt;
-using System.Net.Mail;
-using System.Reflection;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -61,7 +47,7 @@ namespace Student_County.BusinessLogic.Auth
                 UserName = model.UserName,
                 Gender = model.Gender,
                 IdNumber=model.IdNumber,
-                PasswordHash = model.Password,
+                Password = model.Password,
                 PhoneNumber=model.PhoneNumber,
                 UniversityId=model.UniversityId,
                 CollegeId=model.CollegeId,
@@ -71,10 +57,9 @@ namespace Student_County.BusinessLogic.Auth
             };
 
             
-            var newSalt = Security.GenerateSalt();
-            user.PasswordHash = Security.ComputeHash(Encoding.UTF8.GetBytes(user.PasswordHash), Encoding.UTF8.GetBytes(newSalt));
+            user.Password= Security.ComputeHash(model.Password);
 
-            var result = await _userManager.CreateAsync(user, user.PasswordHash);
+            var result = await _userManager.CreateAsync(user, user.Password);
              
             if (!result.Succeeded)
             {  
@@ -124,7 +109,7 @@ namespace Student_County.BusinessLogic.Auth
             var user = new ApplicationUser
             {
                 UserName = model.UserName,
-                PasswordHash = model.Password,
+                Password = model.Password,
                 PhoneNumber = model.PhoneNumber,
                 Email = model.Email,
                 FirstName = model.FirstName,
@@ -134,10 +119,9 @@ namespace Student_County.BusinessLogic.Auth
                 CollegeId = 1,// change to Denistry college
             };
 
-            var newSalt = Security.GenerateSalt();
-            user.PasswordHash = Security.ComputeHash(Encoding.UTF8.GetBytes(user.PasswordHash), Encoding.UTF8.GetBytes(newSalt));
+            user.Password = Security.ComputeHash(model.Password);
 
-            var result = await _userManager.CreateAsync(user, user.PasswordHash);
+            var result = await _userManager.CreateAsync(user, user.Password);
 
             if (!result.Succeeded)
             {
@@ -190,13 +174,25 @@ namespace Student_County.BusinessLogic.Auth
                 return authModel;
             }
 
+            //if(!await _userManager.IsEmailConfirmedAsync(user))
+            //{
+            //    var confirmEmailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+            //    var encodedEmailToken = Encoding.UTF8.GetBytes(confirmEmailToken);
+            //    var validEmailToken = WebEncoders.Base64UrlEncode(encodedEmailToken);
+
+            //    string url = $"{_configuration["AppUrl"]}/api/auth/confirmemail?userid={user.Id}&token={validEmailToken}";
+
+            //    await _mailService.SendEmailAsync(user.Email, "Confirm your email", $"<h1>Welcome to Auth Demo</h1>" +
+            //        $"<p>Please confirm your email by <a href='{url}'>Clicking here</a></p>");
+
+            //}
 
 
-            var newSalt = Security.GenerateSalt();
-            var PasswordH = Security.ComputeHash(Encoding.UTF8.GetBytes(model.Password), Encoding.UTF8.GetBytes(newSalt));
+            user.Password = Security.ComputeHash(model.Password);
 
 
-            if (user is null || !await _userManager.CheckPasswordAsync(user, PasswordH))
+            if (user is null || !await _userManager.CheckPasswordAsync(user, user.Password))
             {
                 authModel.Message = "Email or Password is incorrect!";
                 return authModel;
@@ -394,6 +390,76 @@ namespace Student_County.BusinessLogic.Auth
                 IsSuccess = false,
             };
         }
-        
+
+        public async Task<AuthModel> ForgetPasswordAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                return new AuthModel
+                {
+                    IsSuccess = false,
+                    Message = "No user associated with email",
+                };
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var encodedToken = Encoding.UTF8.GetBytes(token);
+            var validToken = WebEncoders.Base64UrlEncode(encodedToken);
+
+
+            string url = $"{_configuration["AppUrl"]}/auth/ResetPassword?email={email}&token={validToken}";
+
+            await _mailService.SendEmailAsync(email, "Reset Password", "<h1>Follow the instructions to reset your password</h1>" +
+                $"<p>To reset your password <a href='{url}'>Click here</a></p>");
+
+            return new AuthModel
+            {
+                IsSuccess = true,
+                Message = "Reset password URL has been sent to the email successfully!"
+            };
+        }
+
+        public async Task<AuthModel> ResetPasswordAsync(ResetPasswordModel model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+                return new AuthModel
+                {
+                    IsSuccess = false,
+                    Message = "No user associated with email",
+                };
+
+            if (model.NewPassword != model.ConfirmPassword)
+                return new AuthModel
+                {
+                    IsSuccess = false,
+                    Message = "Password doesn't match its confirmation",
+                };
+
+            var decodedToken = WebEncoders.Base64UrlDecode(model.Token);
+            string normalToken = Encoding.UTF8.GetString(decodedToken);
+
+
+
+            user.Password = Security.ComputeHash(model.NewPassword);
+
+            var result = await _userManager.ResetPasswordAsync(user, normalToken,user.Password);
+
+            if (result.Succeeded)
+                return new AuthModel
+                {
+                    Message = "Password has been reset successfully!",
+                    IsSuccess = true,
+                };
+            var errors = string.Empty;
+            foreach (var error in result.Errors)
+                errors += $"{error.Description},";
+
+            return new AuthModel
+            {
+                Message = "Something went wrong" + errors,
+                IsSuccess = false,
+            };
+        }
+
     }
 }

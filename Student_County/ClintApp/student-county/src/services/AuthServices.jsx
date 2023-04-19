@@ -3,32 +3,28 @@ import axios from "../api/axios";
 const API_URL = "/Auth";
 
 class AuthServices {
-  async studentRegister(Bo) {
-    return await axios.post(API_URL + "/StudentRegister", Bo);
-  }
+  studentRegister = async (Bo) =>
+    await axios.post(API_URL + "/StudentRegister", Bo);
 
-  async patientRegister(Bo) {
-    return await axios.post(API_URL + "/PatientRegister", Bo);
-  }
+  patientRegister = async (Bo) =>
+    await axios.post(API_URL + "/PatientRegister", Bo);
 
-  async login(Bo) {
-    return await axios.post(API_URL + "/login", Bo);
-  }
+  login = async (Bo) => await axios.post(API_URL + "/login", Bo);
 
-  async refresh() {
-    console.log("refresh");
-    return await axios.get(API_URL + "/refreshToken", {
+  refresh = async () =>
+    await axios.get(API_URL + "/refreshToken", {
       withCredentials: true,
     });
-  }
 
-  async logout() {
-    return await axios.post(API_URL + "/revokeToken");
-  }
+  logout = async () => await axios.post(API_URL + "/revokeToken");
 
-  async getRoles() {
-    return await axios.get(API_URL + "/GetRoles");
-  }
+  getRoles = async () => await axios.get(API_URL + "/GetRoles");
+
+  confirmEmail = async () => await axios.get(API_URL + "/ConfirmEmail");
+
+  forgetPassword = async () => await axios.get(API_URL + "/ForgetPassword");
+
+  resetPassword = async () => await axios.get(API_URL + "/ResetPassword");
 }
 // eslint-disable-next-line
 export default new AuthServices();

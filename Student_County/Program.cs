@@ -1,10 +1,7 @@
-using MailKit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using Student_County.BusinessLogic.Auth;
 using Student_County.BusinessLogic.BookStore;
 using Student_County.BusinessLogic.Chat;
@@ -16,9 +13,7 @@ using Student_County.BusinessLogic.Ride;
 using Student_County.BusinessLogic.Tools;
 using Student_County.BusinessLogic.University;
 using Student_County.DAL;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,7 +29,7 @@ builder.Services.AddScoped<IPatientManager, PatientManager>();
 builder.Services.AddScoped<IToolsManager, ToolsManager>();
 builder.Services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
 builder.Services.AddScoped<IAuthManager, AuthManager>();
-builder.Services.AddTransient<Student_County.BusinessLogic.Auth.IMailService, SendGridMailService>();
+builder.Services.AddTransient<IMailService, SendGridMailService>();
 
 
 
