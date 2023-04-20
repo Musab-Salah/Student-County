@@ -185,7 +185,7 @@ namespace Student_County.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Student_County.BusinessLogic.Auth.ApplicationUser", b =>
+            modelBuilder.Entity("Student_County.BusinessLogic.Auth.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -397,10 +397,10 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTime(2023, 4, 19, 15, 4, 58, 583, DateTimeKind.Utc).AddTicks(9345),
+                            CreatedOn = new DateTime(2023, 4, 20, 10, 26, 10, 98, DateTimeKind.Utc).AddTicks(1459),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTime(2023, 4, 19, 15, 4, 58, 583, DateTimeKind.Utc).AddTicks(9345),
+                            ModifiedOn = new DateTime(2023, 4, 20, 10, 26, 10, 98, DateTimeKind.Utc).AddTicks(1460),
                             Name = "EIT"
                         });
                 });
@@ -507,6 +507,14 @@ namespace Student_County.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CurrentIllnesses")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CurrentlyUsedMedicines")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -537,6 +545,14 @@ namespace Student_County.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sensitivity")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TypeOfTreatment")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -686,11 +702,11 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTime(2023, 4, 19, 15, 4, 58, 583, DateTimeKind.Utc).AddTicks(9324),
+                            CreatedOn = new DateTime(2023, 4, 20, 10, 26, 10, 98, DateTimeKind.Utc).AddTicks(1380),
                             EmailDomainName = "@AAUP.COM",
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTime(2023, 4, 19, 15, 4, 58, 583, DateTimeKind.Utc).AddTicks(9325),
+                            ModifiedOn = new DateTime(2023, 4, 20, 10, 26, 10, 98, DateTimeKind.Utc).AddTicks(1382),
                             Name = "AAUP"
                         });
                 });
@@ -706,7 +722,7 @@ namespace Student_County.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Student_County.BusinessLogic.Auth.ApplicationUser", null)
+                    b.HasOne("Student_County.BusinessLogic.Auth.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -715,7 +731,7 @@ namespace Student_County.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Student_County.BusinessLogic.Auth.ApplicationUser", null)
+                    b.HasOne("Student_County.BusinessLogic.Auth.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -730,7 +746,7 @@ namespace Student_County.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Student_County.BusinessLogic.Auth.ApplicationUser", null)
+                    b.HasOne("Student_County.BusinessLogic.Auth.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -739,14 +755,14 @@ namespace Student_County.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Student_County.BusinessLogic.Auth.ApplicationUser", null)
+                    b.HasOne("Student_County.BusinessLogic.Auth.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Student_County.BusinessLogic.Auth.ApplicationUser", b =>
+            modelBuilder.Entity("Student_County.BusinessLogic.Auth.Models.ApplicationUser", b =>
                 {
                     b.HasOne("Student_County.DAL.CollegeEntity", "College")
                         .WithMany()
@@ -760,7 +776,7 @@ namespace Student_County.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsMany("Student_County.BusinessLogic.Auth.RefreshToken", "RefreshTokens", b1 =>
+                    b.OwnsMany("Student_County.BusinessLogic.Auth.Models.RefreshToken", "RefreshTokens", b1 =>
                         {
                             b1.Property<string>("ApplicationUserId")
                                 .HasColumnType("nvarchar(450)");
@@ -801,7 +817,7 @@ namespace Student_County.Migrations
 
             modelBuilder.Entity("Student_County.DAL.BookStoreEntity", b =>
                 {
-                    b.HasOne("Student_County.BusinessLogic.Auth.ApplicationUser", "Student")
+                    b.HasOne("Student_County.BusinessLogic.Auth.Models.ApplicationUser", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -812,7 +828,7 @@ namespace Student_County.Migrations
 
             modelBuilder.Entity("Student_County.DAL.HousingEntity", b =>
                 {
-                    b.HasOne("Student_County.BusinessLogic.Auth.ApplicationUser", "Student")
+                    b.HasOne("Student_County.BusinessLogic.Auth.Models.ApplicationUser", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -823,7 +839,7 @@ namespace Student_County.Migrations
 
             modelBuilder.Entity("Student_County.DAL.PatientEntity", b =>
                 {
-                    b.HasOne("Student_County.BusinessLogic.Auth.ApplicationUser", "User")
+                    b.HasOne("Student_County.BusinessLogic.Auth.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -840,7 +856,7 @@ namespace Student_County.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Student_County.BusinessLogic.Auth.ApplicationUser", "Student")
+                    b.HasOne("Student_County.BusinessLogic.Auth.Models.ApplicationUser", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -853,7 +869,7 @@ namespace Student_County.Migrations
 
             modelBuilder.Entity("Student_County.DAL.ToolsEntity", b =>
                 {
-                    b.HasOne("Student_County.BusinessLogic.Auth.ApplicationUser", "Student")
+                    b.HasOne("Student_County.BusinessLogic.Auth.Models.ApplicationUser", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)

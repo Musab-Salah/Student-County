@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Student_County.BusinessLogic.Auth;
+using Student_County.BusinessLogic.Auth.Models;
 using Student_County.BusinessLogic.BookStore;
 using Student_County.BusinessLogic.Chat;
 using Student_County.BusinessLogic.College;

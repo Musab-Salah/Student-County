@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Student_County.BusinessLogic.Auth
+namespace Student_County.BusinessLogic.Auth.Models
 {
     [Owned]
     public class RefreshToken

@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Identity;
+using Student_County.BusinessLogic.Auth.Models;
 using Student_County.DAL;
 
 namespace Student_County.BusinessLogic.Auth

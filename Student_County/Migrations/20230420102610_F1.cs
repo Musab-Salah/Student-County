@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Student_County.Migrations
 {
     /// <inheritdoc />
-    public partial class Fin2 : Migration
+    public partial class F1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -319,6 +319,10 @@ namespace Student_County.Migrations
                     NationalIdNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
+                    TypeOfTreatment = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CurrentIllnesses = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Sensitivity = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CurrentlyUsedMedicines = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -437,12 +441,12 @@ namespace Student_County.Migrations
             migrationBuilder.InsertData(
                 table: "College",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "IsDeleted", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 1, "Ini", new DateTime(2023, 4, 19, 15, 4, 58, 583, DateTimeKind.Utc).AddTicks(9345), false, "Ini", new DateTime(2023, 4, 19, 15, 4, 58, 583, DateTimeKind.Utc).AddTicks(9345), "EIT" });
+                values: new object[] { 1, "Ini", new DateTime(2023, 4, 20, 10, 26, 10, 98, DateTimeKind.Utc).AddTicks(1459), false, "Ini", new DateTime(2023, 4, 20, 10, 26, 10, 98, DateTimeKind.Utc).AddTicks(1460), "EIT" });
 
             migrationBuilder.InsertData(
                 table: "University",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "EmailDomainName", "IsDeleted", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 1, "Ini", new DateTime(2023, 4, 19, 15, 4, 58, 583, DateTimeKind.Utc).AddTicks(9324), "@AAUP.COM", false, "Ini", new DateTime(2023, 4, 19, 15, 4, 58, 583, DateTimeKind.Utc).AddTicks(9325), "AAUP" });
+                values: new object[] { 1, "Ini", new DateTime(2023, 4, 20, 10, 26, 10, 98, DateTimeKind.Utc).AddTicks(1380), "@AAUP.COM", false, "Ini", new DateTime(2023, 4, 20, 10, 26, 10, 98, DateTimeKind.Utc).AddTicks(1382), "AAUP" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

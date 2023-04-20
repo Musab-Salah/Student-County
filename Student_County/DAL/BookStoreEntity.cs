@@ -1,5 +1,4 @@
-﻿
-using Student_County.BusinessLogic.Auth;
+﻿using Student_County.BusinessLogic.Auth.Models;
 using Student_County.BusinessLogic.Helpers.Common;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

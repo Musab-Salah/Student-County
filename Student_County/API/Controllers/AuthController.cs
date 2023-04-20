@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Student_County.BusinessLogic.Auth;
-
+using Student_County.BusinessLogic.Auth.Models;
 
 namespace Student_County.API.Controllers
 {

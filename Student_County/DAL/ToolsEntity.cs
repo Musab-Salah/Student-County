@@ -1,11 +1,11 @@
-﻿using Student_County.BusinessLogic.Auth;
-using Student_County.BusinessLogic.Helpers.Common;
+﻿using Student_County.BusinessLogic.Helpers.Common;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Student_County.BusinessLogic.Auth.Models;
 
 namespace Student_County.DAL
 {
-        [Table("Tools")]
+    [Table("Tools")]
         public class ToolsEntity : TrackableData
         {
             [Key]

@@ -1,4 +1,4 @@
-﻿namespace Student_County.BusinessLogic.Auth
+﻿namespace Student_County.BusinessLogic.Auth.Models
 {
     public class AddRoleModel
     {

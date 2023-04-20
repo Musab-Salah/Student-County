@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Student_County.BusinessLogic.Auth.Models;
 using Student_County.BusinessLogic.Helpers.Common;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -174,21 +175,6 @@ namespace Student_County.BusinessLogic.Auth
                 return authModel;
             }
 
-            //if(!await _userManager.IsEmailConfirmedAsync(user))
-            //{
-            //    var confirmEmailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-
-            //    var encodedEmailToken = Encoding.UTF8.GetBytes(confirmEmailToken);
-            //    var validEmailToken = WebEncoders.Base64UrlEncode(encodedEmailToken);
-
-            //    string url = $"{_configuration["AppUrl"]}/api/auth/confirmemail?userid={user.Id}&token={validEmailToken}";
-
-            //    await _mailService.SendEmailAsync(user.Email, "Confirm your email", $"<h1>Welcome to Auth Demo</h1>" +
-            //        $"<p>Please confirm your email by <a href='{url}'>Clicking here</a></p>");
-
-            //}
-
-
             user.Password = Security.ComputeHash(model.Password);
 
 
@@ -265,7 +251,7 @@ namespace Student_County.BusinessLogic.Auth
             .Union(roleClaims);
 
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.Key));
-            var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
+            var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha512);
 
             var jwtSecurityToken = new JwtSecurityToken(
                 issuer: _jwt.Issuer,

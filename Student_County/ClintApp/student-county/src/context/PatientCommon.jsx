@@ -13,9 +13,19 @@ export function PatientsProvider({ children }) {
 
   const [PatientBo] = useState({
     id: "0",
-    name: "",
-    location: "",
-    studentId: "",
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    nationalIdNumber: "",
+    description: "",
+    age: 0,
+    typeOfTreatment: "",
+    currentIllnesses: "",
+    sensitivity: "",
+    currentlyUsedMedicines: "",
+    address: "",
+    gender: "",
+    userId: "",
   });
 
   useEffect(() => {

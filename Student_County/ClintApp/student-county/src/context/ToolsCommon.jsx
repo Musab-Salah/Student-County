@@ -13,10 +13,11 @@ export function ToolsProvider({ children }) {
 
   const [ToolBo] = useState({
     id: "0",
-    emptySeats: "",
-    carDescription: "",
+    name: "",
+    theWay: "",
+    price: 0,
+    description: "",
     studentId: "",
-    destinationId: "",
   });
 
   useEffect(() => {

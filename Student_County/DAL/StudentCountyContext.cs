@@ -3,7 +3,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Student_County.BusinessLogic.Auth;
+using Student_County.BusinessLogic.Auth.Models;
 using System.Reflection.Emit;
 
 namespace Student_County.DAL

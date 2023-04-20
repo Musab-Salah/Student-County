@@ -1,11 +1,11 @@
-﻿using Student_County.BusinessLogic.Auth;
+﻿using Student_County.BusinessLogic.Auth.Models;
 using Student_County.BusinessLogic.Helpers.Common;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Student_County.DAL
 {
-     [Table("Patient")]
+    [Table("Patient")]
     public class PatientEntity : TrackableData
     {
         [Key]
@@ -22,6 +22,14 @@ namespace Student_County.DAL
         public string? Description { get; set; }
         [Required]
         public int Age { get; set; }
+        [Required]
+        public string? TypeOfTreatment { get; set;}
+        [Required]
+        public string? CurrentIllnesses { get; set; }
+        [Required]
+        public string? Sensitivity { get; set; }
+        [Required]
+        public string? CurrentlyUsedMedicines { get; set; }
         [Required]
         public string? Address { get; set;}
         [Required]
