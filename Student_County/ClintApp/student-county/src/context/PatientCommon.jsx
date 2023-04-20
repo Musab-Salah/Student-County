@@ -28,6 +28,27 @@ export function PatientsProvider({ children }) {
     userId: "",
   });
 
+  //can select more than one
+  const typeOfTreatments = [
+    "Routine dental examination",
+    "Partial Dentures (Moving)",
+    "Remove caries (with silver or cosmetic fillings)",
+    "Tooth extraction",
+    "Pulling tooth nerve (Palm feels cold and hot)",
+    "Treatment for children (6-13 years)",
+    "Cleaning teeth and removing calcifications",
+  ];
+  //can select more than one
+  const currentIllnessess = [
+    "diabetes",
+    "Pressure",
+    "Heart Disease",
+    "Respiratory Diseases",
+    "Liver Disease",
+    "Allergy to medicines",
+    "I have no illnesses",
+  ];
+
   useEffect(() => {
     // getPatients();
   }, []);

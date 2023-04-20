@@ -1,6 +1,6 @@
 # Student County
 
-This is my senior project, it is a complete system that provides important services to students, it is now still in the first stage of development
+This is my senior project, it is a complete system that provides important services to students
 
 ## Technologies:
 
