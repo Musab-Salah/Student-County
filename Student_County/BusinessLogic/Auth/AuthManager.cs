@@ -442,7 +442,7 @@ namespace Student_County.BusinessLogic.Auth
 
             return new AuthModel
             {
-                Message = "Something went wrong" + errors,
+                Message = "Something went wrong" +" "+ errors,
                 IsSuccess = false,
             };
         }
