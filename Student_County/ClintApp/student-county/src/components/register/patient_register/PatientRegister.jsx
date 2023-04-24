@@ -12,7 +12,7 @@ import "../../../pages/sign_up/SignUp.css";
 
 const Patients = () => {
   // State Hook
-  const { patientRegister, UserError } = useAuth();
+  const { patientRegister, UserError, isSuccessfully } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [phonePrefix, setPhonePrefix] = useState("+970");
   const [acceptPolicy, setAcceptPolicy] = useState(false);
@@ -469,6 +469,12 @@ const Patients = () => {
         <span className="wrong-info">
           <AiFillExclamationCircle />
           {UserError}
+        </span>
+      )}
+      {isSuccessfully && (
+        <span className="success-info">
+          <AiFillExclamationCircle />
+          {"successful registration please confirm the email"}
         </span>
       )}
     </form>

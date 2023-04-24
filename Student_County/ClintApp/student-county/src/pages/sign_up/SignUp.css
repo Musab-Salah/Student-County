@@ -1,73 +1,72 @@
 .SignUp-section {
-	background-color: var(--color-white);
-	display: flex;
-	flex-direction: column;
-	padding: var(--padding-31xl) var(--padding-81xl);
-	box-sizing: border-box;
-	align-items: center;
-	justify-content: center;
-	gap: var(--gap-mini);
-	width: 50%;
-    min-height: 100vh;
+  background-color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-31xl) var(--padding-81xl);
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-mini);
+  width: 50%;
+  min-height: 100vh;
 }
 .sign-up {
-	position: relative;
-	background: radial-gradient(50% 50% at 50% 50%, #8d37ff, #9e57fb);
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: flex-start;
-	text-align: left;
-	font-size: var(--font-size-xs);
-	color: var(--color-gray-100);
-	font-family: var(--font-poppins);
+  position: relative;
+  background: radial-gradient(50% 50% at 50% 50%, #8d37ff, #9e57fb);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-100);
+  font-family: var(--font-poppins);
 }
 .PhoneSuffix {
-	font-size: 16px;
+  font-size: 16px;
 }
 input#phone-number {
-    padding: var(--padding-3xs) var(--padding-xl);
+  padding: var(--padding-3xs) var(--padding-xl);
 }
 .input-group {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 15px;
-    width: -webkit-fill-available;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 15px;
+  width: -webkit-fill-available;
 }
 .input-container-group {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-    width: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+  width: -webkit-fill-available;
 }
-
 
 @media screen and (max-width: 1280px) {
-    .input-group {
-        flex-wrap: wrap;
-    }
-    .input-container-group {
-        width: -webkit-fill-available;
-    }
+  .input-group {
+    flex-wrap: wrap;
+  }
+  .input-container-group {
+    width: -webkit-fill-available;
+  }
 }
 .accept-policy {
-    font-size: 14px;
-    color: var(--color-gray-100);
+  font-size: 14px;
+  color: var(--color-gray-100);
 }
 .accept-policy a {
-    color: var(--color-blueviolet-100);
-    transition: 0.3s ease;
+  color: var(--color-blueviolet-100);
+  transition: 0.3s ease;
 }
 .accept-policy a:hover {
-    color: #9e57fb;
+  color: #9e57fb;
 }
 @media screen and (max-width: 920px) {
-	.SignUp-section {
-		width: 100%;
-        padding: var(--padding-31xl);
-	}
+  .SignUp-section {
+    width: 100%;
+    padding: var(--padding-31xl);
+  }
 }
 .custom-select {
   position: relative;
@@ -75,56 +74,57 @@ input#phone-number {
 }
 
 .selected-option {
-    display: flex;
-    align-items: center;
-    padding: var(--padding-3xs) var(--padding-xl) var(--padding-3xs) 0;
-    cursor: pointer;
-    width: -webkit-fill-available;
-    border: 1.5px solid var(--color-slategray);
-    border-radius: var(--br-8xs);
-    box-sizing: border-box;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  padding: var(--padding-3xs) var(--padding-xl) var(--padding-3xs) 0;
+  cursor: pointer;
+  width: -webkit-fill-available;
+  border: 1.5px solid var(--color-slategray);
+  border-radius: var(--br-8xs);
+  box-sizing: border-box;
+  justify-content: space-between;
 }
 .input-dropdown {
-    position: unset!important;
+  position: unset !important;
 }
 .selected-option span {
-    font-size: 16px;
-    color: var(--color-slategray);
-    text-transform: capitalize;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: -webkit-fill-available;
-    text-transform: capitalize;
+  font-size: 16px;
+  color: var(--color-slategray);
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: -webkit-fill-available;
+  text-transform: capitalize;
 }
 .input-selected {
-    color: var(--color-gray-100);
-    text-transform: capitalize;
+  color: var(--color-gray-100);
+  text-transform: capitalize;
 }
 .input-dropdown-title {
-    transform: scale(0.75) translateY(-135%);
-    color: #8d37ff;
-    background: #fff;
-    outline: none;
-    padding: 0 10px;
+  transform: scale(0.75) translateY(-135%);
+  color: #8d37ff;
+  background: #fff;
+  outline: none;
+  padding: 0 10px;
 }
 .options {
-    position: absolute;
-    top: 45px;
-    left: 0;
-    z-index: 1;
-    width: -webkit-fill-available;
-    max-height: 200px;
-    overflow-y: auto;
-    background-color: #fff;
-    border: 1.5px solid var(--color-slategray);
-    box-shadow: 0 0 15px 0 rgba(0,0,0,.16);
-    border-radius: var(--br-8xs);
-    border-top: none;
+  position: absolute;
+  top: 45px;
+  left: 0;
+  z-index: 1;
+  width: -webkit-fill-available;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1.5px solid var(--color-slategray);
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.16);
+  border-radius: var(--br-8xs);
+  border-top: none;
 }
 
-.option, .option-title {
+.option,
+.option-title {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -132,9 +132,18 @@ input#phone-number {
   cursor: pointer;
 }
 .option-title {
-    color: var(--color-slategray);
-    background: var(--color-whitesmoke-100);
+  color: var(--color-slategray);
+  background: var(--color-whitesmoke-100);
 }
 .option:hover {
   background-color: #f2f2f2;
+}
+.success-info {
+  font-size: 20px;
+  color: rgb(0, 255, 115);
+  margin-top: -10px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }

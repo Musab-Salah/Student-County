@@ -8,6 +8,8 @@ import CreateBook from "./pages/book_store/create_book/CreateBook.jsx";
 import CreateHousing from "./pages/housing/create_housing/CreateHousing.jsx";
 import CreateRide from "./pages/ride/create_ride/CreateRide.jsx";
 import PrivateRoutes from "./utils/PrivateRoutes";
+import Success from "./pages/success/Success.jsx";
+import ResetPassword from "./pages/reset_password/ResetPassword.jsx";
 
 function App() {
   return (
@@ -15,7 +17,14 @@ function App() {
       <Route exact path="/" element={<Home />} />
       <Route path="/sign_in" element={<SignIn />} />
       <Route path="/sign_up" element={<SignUp />} />
-      <Route path="/fogot_password" element={<ForgotPassword />} />
+      <Route path="/forgot_password" element={<ForgotPassword />} />
+      <Route path="/reset_password" element={<ResetPassword />} />
+      <Route
+        path="/reset_password/:param1/:param2"
+        element={<ResetPassword />}
+      />
+
+      <Route path="/success" element={<Success />} />
 
       <Route element={<PrivateRoutes />}>
         <Route path="/dashboard" element={<Dashboard />} />

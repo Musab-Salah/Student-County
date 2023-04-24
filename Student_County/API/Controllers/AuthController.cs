@@ -127,7 +127,6 @@ namespace Student_County.API.Controllers
             Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
         }
 
-        // /api/auth/confirmemail?userid&token
         [HttpGet("ConfirmEmail")]
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
@@ -138,15 +137,14 @@ namespace Student_County.API.Controllers
 
             if (result.IsSuccess)
             {
-                return Ok();
+                return Redirect("http://localhost:3000/success");
             }
 
             return BadRequest(result);
         }
 
-        // api/auth/forgetpassword
         [HttpPost("ForgetPassword")]
-        public async Task<IActionResult> ForgetPassword(string email)
+        public async Task<IActionResult> ForgetPassword( string email)
         {
             if (string.IsNullOrEmpty(email))
                 return NotFound();
@@ -154,14 +152,13 @@ namespace Student_County.API.Controllers
             var result = await _authService.ForgetPasswordAsync(email);
 
             if (result.IsSuccess)
-                return Ok(result); // 200
+                return Ok(result); 
 
-            return BadRequest(result); // 400
+            return BadRequest(result); 
         }
 
-        // api/auth/resetpassword
         [HttpPost("ResetPassword")]
-        public async Task<IActionResult> ResetPassword([FromForm] ResetPasswordModel model)
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordModel model)
         {
             if (ModelState.IsValid)
             {

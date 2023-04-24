@@ -392,7 +392,7 @@ namespace Student_County.BusinessLogic.Auth
             var validToken = WebEncoders.Base64UrlEncode(encodedToken);
 
 
-            string url = $"{_configuration["AppUrl"]}/auth/ResetPassword?email={email}&token={validToken}";
+            string url = $"http://localhost:3000/reset_password/{email}/{validToken}";
 
             await _mailService.SendEmailAsync(email, "Reset Password", "<h1>Follow the instructions to reset your password</h1>" +
                 $"<p>To reset your password <a href='{url}'>Click here</a></p>");

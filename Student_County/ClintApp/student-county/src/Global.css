@@ -44,6 +44,7 @@ body {
   --padding-81xl: 100px;
   --padding-8xs: 5px;
   --padding-3xs: 10px;
+  --padding-mini: 15px;
   --padding-11xl: 30px;
   --padding-6xl: 25px;
   --padding-16xl: 35px;
@@ -128,7 +129,25 @@ body {
     width: -webkit-fill-available;
     justify-content: center;
   }
+   .btn-small {
+    font-size: 13px;
+    box-shadow: 2px 2px 0#09072f;
+    padding: var(--padding-8xs) var(--padding-mini);
+    color: var(--color-white);
+    background-color: var(--color-blueviolet-100);
+  } 
+  .btn-small:hover {
+    box-shadow: 3px 3px 0#09072f;
+  } 
 
+  /* lines styles */
+  .horizontal-line {
+    display: flex;
+    align-self: stretch;
+    width: 1px;
+    background-color: #e3e3e3;
+  }
+  /* disabled styles */
   .disabled {
     cursor: not-allowed!important;
   }

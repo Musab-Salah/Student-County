@@ -6,7 +6,7 @@ const PrivateRoutes = () => {
   const { decodedJwt } = useAuth();
 
   let auth = decodedJwt ? decodedJwt.roles : "false";
-  return auth === "Dentistry Student" ? <Outlet /> : <Navigate to="/login" />;
+  return auth === "Patient" ? <Outlet /> : <Navigate to="/sign_in" />;
 };
 
 export default PrivateRoutes;

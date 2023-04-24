@@ -19,10 +19,11 @@ export function AuthProvider({ children }) {
   const [AuthError, setError] = useState("");
   const [decodedJwt, setDecodedJwt] = useState(false);
   const [Roles, setRoles] = useState();
-
+  const [SendEmailResetPass, setSendEmailResetPass] = useState(false);
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   let navigate = useNavigate();
 
-  const [User, setUser] = useState("Loading");
+  const [isSuccessfully, setSuccessfully] = useState(false);
   const [userInLocal, setUserInLocal] = useState();
 
   const [StudentBo] = useState({
@@ -54,8 +55,10 @@ export function AuthProvider({ children }) {
       const decodedJwt = parseJwt(user.token);
       setDecodedJwt(decodedJwt);
       const dexp = decodedJwt.exp * 1000;
-      if (dexp > Date.now()) setIsLogin(!isLogin);
-      else localStorage.clear("user");
+      if (dexp > Date.now()) {
+        setIsLogin(true);
+        navigate("/dashboard");
+      } else localStorage.clear("user");
     }
     // eslint-disable-next-line
   }, []);
@@ -65,9 +68,12 @@ export function AuthProvider({ children }) {
     Bo.email = Bo.email + University.emailDomainName;
     AuthServices.studentRegister(Bo)
       .then((res) => {
-        setUser(res.data);
+        setSuccessfully(true);
         setError(null);
-        navigate("/sign_in");
+        sleep(5000).then(() => {
+          setSuccessfully(false);
+          navigate("/sign_in");
+        });
       })
       .catch((res) => {
         setError(res.response.data);
@@ -78,9 +84,12 @@ export function AuthProvider({ children }) {
   const patientRegister = (Bo) => {
     AuthServices.patientRegister(Bo)
       .then((res) => {
-        setUser(res.data);
+        setSuccessfully(true);
         setError(null);
-        navigate("/sign_in");
+        sleep(5000).then(() => {
+          setSuccessfully(false);
+          navigate("/sign_in");
+        });
       })
       .catch((res) => {
         setError(res.response.data);
@@ -135,6 +144,38 @@ export function AuthProvider({ children }) {
       });
   };
 
+  const forgetPassword = (Bo) => {
+    AuthServices.forgetPassword(Bo)
+      .then((res) => {
+        setError(null);
+        setSendEmailResetPass(true);
+        sleep(5000).then(() => {
+          setSendEmailResetPass(false);
+        });
+      })
+      .catch((res) => {
+        setError(res.response.data);
+        setSendEmailResetPass(false);
+        navigate("/forgot_password");
+      });
+  };
+  const resetPassword = (Bo) => {
+    AuthServices.resetPassword(Bo)
+      .then((res) => {
+        setError(null);
+        setSendEmailResetPass(true);
+        sleep(5000).then(() => {
+          setSendEmailResetPass(false);
+          navigate("/sign_in");
+        });
+      })
+      .catch((res) => {
+        setError(res.response.data);
+        setSendEmailResetPass(false);
+        navigate("/reset_password");
+      });
+  };
+
   return (
     <AuthCxt.Provider
       value={{
@@ -143,17 +184,20 @@ export function AuthProvider({ children }) {
         setIsLogout,
         studentRegister,
         patientRegister,
+        resetPassword,
         login,
         refresh,
         logout,
         getRoles,
-        User,
+        forgetPassword,
+        isSuccessfully,
         Roles,
         StudentBo,
         PationtBo,
         AuthError,
         decodedJwt,
         userInLocal,
+        SendEmailResetPass,
       }}
     >
       {children}

@@ -8,10 +8,10 @@ import useAuth from "../../hooks/useAuth";
 import "./SignIn.css";
 
 const SignIn = () => {
-  const {  login, AuthError } = useAuth();
+  const { login, AuthError } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  let [bo, setbo] = useState();
+  const [bo, setbo] = useState();
   const eyeIcon = showPassword ? (
     <AiFillEyeInvisible size={20} />
   ) : (
@@ -117,9 +117,9 @@ const SignIn = () => {
                 </div>
                 <div className="remember-me">Remember Me</div>
               </div>
-              <a className="link" href="/forgot-password">
+              <Link to="/forgot_password" className="link">
                 Forgot Password?
-              </a>
+              </Link>
             </div>
             {/* <button type="submit" className={`btn btn-primary sign ${!isFormValid ? 'disabled' : ''}`}>  */}
             <button type="submit" className={`btn btn-primary sign`}>

@@ -15,7 +15,7 @@ import "../../../pages/sign_up/SignUp.css";
 const Students = () => {
   // State Hooks
   const { Universities } = useUniversities();
-  const { UserBo, studentRegister, UserError } = useAuth();
+  const { UserBo, studentRegister, UserError, isSuccessfully } = useAuth();
   const { Colleges } = useCollege();
   const [username, setUsername] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -603,6 +603,12 @@ const Students = () => {
         <span className="wrong-info">
           <AiFillExclamationCircle />
           {UserError}
+        </span>
+      )}
+      {isSuccessfully && (
+        <span className="success-info">
+          <AiFillExclamationCircle />
+          {"successful registration please confirm the email"}
         </span>
       )}
     </form>

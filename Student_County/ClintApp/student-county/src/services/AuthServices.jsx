@@ -20,11 +20,17 @@ class AuthServices {
 
   getRoles = async () => await axios.get(API_URL + "/GetRoles");
 
-  confirmEmail = async () => await axios.get(API_URL + "/ConfirmEmail");
+  confirmEmail = async (Bo) => await axios.post(API_URL + "/ConfirmEmail", Bo);
 
-  forgetPassword = async () => await axios.get(API_URL + "/ForgetPassword");
+  forgetPassword = async (Bo) =>
+    await axios.post(API_URL + "/ForgetPassword", null, {
+      params: {
+        email: Bo,
+      },
+    });
 
-  resetPassword = async () => await axios.get(API_URL + "/ResetPassword");
+  resetPassword = async (Bo) =>
+    await axios.post(API_URL + "/ResetPassword", Bo);
 }
 // eslint-disable-next-line
 export default new AuthServices();
