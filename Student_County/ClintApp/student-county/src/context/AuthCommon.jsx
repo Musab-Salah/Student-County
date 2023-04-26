@@ -22,6 +22,7 @@ export function AuthProvider({ children }) {
   const [SendEmailResetPass, setSendEmailResetPass] = useState(false);
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   let navigate = useNavigate();
+  const [Option, setOption] = useState(null);
 
   const [isSuccessfully, setSuccessfully] = useState(false);
   const [userInLocal, setUserInLocal] = useState();
@@ -198,6 +199,8 @@ export function AuthProvider({ children }) {
         decodedJwt,
         userInLocal,
         SendEmailResetPass,
+        setOption,
+        Option,
       }}
     >
       {children}

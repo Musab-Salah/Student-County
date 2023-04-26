@@ -1,16 +1,7 @@
-  .full-dashboard {
-    background-color: var(--color-whitesmoke-200);
-    position: relative;
-    width: 100%;
-    overflow: hidden;
+  .dashboard-container {
     display: flex;
-    flex-direction: row;
     align-items: flex-start;
-    justify-content: flex-start;
-    text-align: left;
-    font-size: var(--font-size-5xl);
-    color: var(--color-gray-100);
-    font-family: var(--font-poppins);
+    flex-direction: row;
   }
   .dashboard {
     padding: var(--padding-31xl);
@@ -22,6 +13,7 @@
     align-items: center;
     gap: var(--gap-31xl);
     min-height: 89vh;
+    width: -webkit-fill-available;
   }
    .dashboard-navbar {
     align-self: stretch;
@@ -47,6 +39,16 @@
     border: none;
     padding: 0;
     background-color: transparent;
+  }
+  .phone-collapse {
+    display: none;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+  }
+  .dash-menu-close {
+    display: none;
   }
   .welcome-container {
     display: flex;
@@ -297,7 +299,7 @@
     border-radius: var(--br-3xs) var(--br-3xs) 0px 0px;
     background-color: var(--color-whitesmoke-300);
     width: 300px;
-    height: 175px;
+    height: 250px;
   }
   .card-info {
     background-color: var(--color-whitesmoke-200);
@@ -347,6 +349,22 @@
       height: 25px;
     }
   }
+  @media screen and (max-width: 720px) {
+    .dash-menu {
+      position: fixed;
+      z-index: 9;
+    }
+    .collapse {
+      display: none;
+    }
+    .phone-collapse {
+      display: flex;
+    }
+    .dash-menu-close {
+      display: flex;
+    }
+  }
+  
   @media screen and (max-width: 650px) {
     .user-info {
       display: none;
@@ -356,6 +374,11 @@
     }
     .profile {
       gap: var(--gap-5xs-5);
+    }
+  }
+  @media screen and (max-width: 480px) {
+    .dash-menu {
+        width: -webkit-fill-available;
     }
   }
   

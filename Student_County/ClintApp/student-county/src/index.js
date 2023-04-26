@@ -6,6 +6,7 @@ import { UniversitiesProvider } from "./context/UniversityCommon";
 import { CollegesProvider } from "./context/CollegeCommon";
 import { BooksProvider } from "./context/BookStoreCommon";
 import { AuthProvider } from "./context/AuthCommon";
+import { ComponentProvider } from "./context/ComponentCommon";
 import { HousingsProvider } from "./context/HousingCommon";
 import { RidesProvider } from "./context/RideCommon";
 import { DestinationsProvider } from "./context/DestinationCommon";
@@ -16,12 +17,13 @@ import "./Global.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <BrowserRouter>
-      <UniversitiesProvider>
-        <CollegesProvider>
-          <AuthProvider>
-            <AuthVerify />
-            <ToolsProvider>
+  <BrowserRouter>
+    <UniversitiesProvider>
+      <CollegesProvider>
+        <AuthProvider>
+          <AuthVerify />
+          <ToolsProvider>
+            <ComponentProvider>
               <PatientsProvider>
                 <DestinationsProvider>
                   <RidesProvider>
@@ -37,9 +39,10 @@ root.render(
                   </RidesProvider>
                 </DestinationsProvider>
               </PatientsProvider>
-            </ToolsProvider>
-          </AuthProvider>
-        </CollegesProvider>
-      </UniversitiesProvider>
-    </BrowserRouter>
+            </ComponentProvider>
+          </ToolsProvider>
+        </AuthProvider>
+      </CollegesProvider>
+    </UniversitiesProvider>
+  </BrowserRouter>
 );

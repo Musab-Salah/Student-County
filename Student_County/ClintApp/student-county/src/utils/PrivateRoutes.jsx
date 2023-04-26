@@ -5,8 +5,12 @@ import useAuth from "../hooks/useAuth";
 const PrivateRoutes = () => {
   const { decodedJwt } = useAuth();
 
+  const roles = {
+    scopes: "Dentistry Student" | "Patient" | "Student",
+  };
+
   let auth = decodedJwt ? decodedJwt.roles : "false";
-  return auth === "Patient" ? <Outlet /> : <Navigate to="/sign_in" />;
+  return auth === roles.scopes ? <Outlet /> : <Navigate to="/sign_in" />;
 };
 
 export default PrivateRoutes;

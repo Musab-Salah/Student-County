@@ -49,9 +49,6 @@
 	transition: .3s;
 	color: var(--color-blueviolet-100);
 }
-.rotate {
-	transform: rotate(180deg);
-}
 .question-container {
 	align-self: stretch;
 	display: flex;

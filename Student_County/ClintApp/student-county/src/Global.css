@@ -147,11 +147,35 @@ body {
     width: 1px;
     background-color: #e3e3e3;
   }
+  .vertical-line {
+    display: flex;
+    align-items: stretch;
+    height: 1px;
+    background-color: #e3e3e3;
+  }
   /* disabled styles */
   .disabled {
     cursor: not-allowed!important;
   }
+  /* hidden item */
+  .hidden{
+    display: none!important;
+  }
   /* header background */
+
+    /* rotate */
+    .rotate {
+      transform: rotate(180deg);
+    }
+    .rotate-90 {
+      transform: rotate(270deg);
+    }
+    .arrow-small {
+      width: 25px!important;
+      height: 25px;
+      height: 25px;
+
+    }
 
   /* scrollbar */
 

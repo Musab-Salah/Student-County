@@ -23,11 +23,10 @@ function App() {
         path="/reset_password/:param1/:param2"
         element={<ResetPassword />}
       />
-
+      <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/success" element={<Success />} />
 
       <Route element={<PrivateRoutes />}>
-        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/create_book" element={<CreateBook />} />
         <Route path="/create_housing" element={<CreateHousing />} />
         <Route path="/create_ride" element={<CreateRide />} />
