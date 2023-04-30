@@ -94,7 +94,7 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                 <div
                   className={`dash-nav-link ${
                     isMenuOpen ? "padding-resize" : ""
-                  } ${Option === "Overview" ? "selected" : ""} `}
+                  } ${Option === "Overview" ? "active" : ""} `}
                   onClick={() => setOption("Overview")}
                 >
                   <RxDashboard className="dash-nav-link-icon" />
@@ -270,23 +270,3 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
 };
 
 export default Menu;
-{
-  /* <div className="dash-group-parent">
-          <div className="dash-rectangle-parent">
-            <div className="dash-rectangle" />
-            <div className="dash-rectangle-group">
-              <div className="dash-rectangle1" />
-              <div className="dash-book-now">Upgrade now</div>
-            </div>
-            <div className="dash-new-york">Want to upgrade</div>
-            <img className="dash-icon" alt="" src="/2625765.svg" />
-          </div>
-          <img
-            className="dash-microsoftteams-image-46-1"
-            alt=""
-            src="/microsoftteamsimage-46-1@2x.png"
-          />
-          <img className="dash-icon1" alt="" src="/7450343-2@2x.png" />
-          <img className="dash-icon2" alt="" src="/7450343-3@2x.png" />
-        </div> */
-}

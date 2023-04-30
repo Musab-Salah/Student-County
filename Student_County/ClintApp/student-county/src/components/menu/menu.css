@@ -6,7 +6,7 @@
   justify-content: space-between;
   flex-direction: column;
   padding: var(--padding-31xl) var(--padding-6xl);
-  
+
   font-family: var(--font-poppins);
 }
 .animate {
@@ -29,7 +29,8 @@
 .dash-menu-items-buttom {
   gap: 10px;
 }
-.dash-menu-items, .dash-menu-items-buttom {
+.dash-menu-items,
+.dash-menu-items-buttom {
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -65,25 +66,26 @@
   cursor: pointer;
   border-radius: 5px;
   background-color: transparent;
-  color: #5F6366;
+  color: #5f6366;
   display: flex;
-  padding: var(--padding-3xs) var(--padding-81xl) var(--padding-3xs) var(--padding-mini);
+  padding: var(--padding-3xs) var(--padding-81xl) var(--padding-3xs)
+    var(--padding-mini);
   box-sizing: border-box;
   align-items: center;
   gap: var(--gap-3xs);
   align-self: stretch;
-  transition: .3s ease;
+  transition: 0.3s ease;
 }
 .padding-resize {
   padding: var(--padding-3xs);
   gap: 0;
 }
 .dash-nav-link:hover {
-  background-color: #EAECF1;
-  color: #3C3E4B;
+  background-color: #eaecf1;
+  color: #3c3e4b;
 }
 .selected {
-   background-color: #eaecf1;
+  background-color: #eaecf1;
 }
 .dash-nav-link-icon {
   height: 25px;
@@ -100,11 +102,9 @@
   justify-content: center;
 }
 
-.dash-btn { 
+.dash-btn {
   width: -webkit-fill-available;
 }
-
-
 
 @keyframes slide-in-left {
   0% {
@@ -121,11 +121,11 @@
   .dash-menu {
     position: fixed;
     z-index: 9;
-    transition: .3s ease;
+    transition: 0.3s ease;
     left: -480px;
   }
   .dash-menu.openn {
-    left: 0!important;
+    left: 0 !important;
   }
   .collapse {
     display: none;
@@ -137,6 +137,6 @@
 
 @media screen and (max-width: 480px) {
   .dash-menu {
-      width: -webkit-fill-available;
+    width: -webkit-fill-available;
   }
 }

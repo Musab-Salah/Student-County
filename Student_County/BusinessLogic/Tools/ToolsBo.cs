@@ -16,7 +16,9 @@ namespace Student_County.BusinessLogic.Tools
         [Required]
         public int Price { get; set; }
         [Required]
-        public string? Description { get; set; }
+        public string? ShortDescription { get; set; }
+        [Required]
+        public string? LongDescription { get; set; }
         [Required]
         public string StudentId { get; set; }
     }

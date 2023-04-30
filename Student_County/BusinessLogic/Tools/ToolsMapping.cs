@@ -13,7 +13,8 @@ namespace Student_County.BusinessLogic.Tools
                 Name = bo.Name,
                 TheWay = bo.TheWay,
                 Price = bo.Price,
-                Description = bo.Description,
+                ShortDescription = bo.ShortDescription,
+                LongDescription = bo.LongDescription,
                 StudentId = bo.StudentId,        
             };
         }

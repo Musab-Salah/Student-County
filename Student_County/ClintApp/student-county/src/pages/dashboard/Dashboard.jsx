@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Menu from "../../components/menu/menu";
 import Overview from "../../components/overview/Overview";
 // import PortalDrawer from "../../components/portal-drawer";
@@ -23,8 +23,32 @@ const Dashboard = () => {
   const toggleMenuPhone = () => {
     setIsMenuOpenPhone(!isMenuOpenPhone);
     setIsMenuOpen(false);
-
   };
+
+
+
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+
+  function handleToggleDropdown() {
+    setShowProfileDropdown(!showProfileDropdown);
+  }
+
+  /*useEffect(() => {
+    function handleClickOutside(event) {
+      const profileDropdownMenu = document.querySelector('.dropdown-menu');
+      if (profileDropdownMenu && !profileDropdownMenu.contains(event.target)) {
+        setShowProfileDropdown(false);
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);*/
+
+
   return (
     <div className="dashboard-container">
       <Menu isMenuOpen={isMenuOpen} isMenuOpenPhone={isMenuOpenPhone} />
@@ -55,13 +79,25 @@ const Dashboard = () => {
             </div>
             <div className="horizontal-line" />
             <div className="profile">
+            <div className="profile-info" onClick={handleToggleDropdown}>
               <FaUserCircle className="avatar-icon" />
               <div className="user-info">
                 <div className="username">Musab Al hotaree</div>
                 <div className="role">Student</div>
               </div>
               <RiArrowDownSLine className="arrow-down" />
+              
             </div>
+            {showProfileDropdown && (
+                <div className="dropdown-menu">
+                  <ul>
+                    <li>Profile</li>
+                    <li>Settings</li>
+                    <li>Logout</li>
+                  </ul>
+                </div>
+              )}
+             </div> 
           </div>
         </div>
 

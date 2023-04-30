@@ -14,6 +14,10 @@ namespace Student_County.BusinessLogic.BookStore
         public string? TheWay { get; set; }
         [Required]
         public int Price { get; set; }
+        [Required]
+        public string? ShortDescription { get; set; }
+        [Required]
+        public string? LongDescription { get; set; }
         public string StudentId { get; set; }
     }
 }

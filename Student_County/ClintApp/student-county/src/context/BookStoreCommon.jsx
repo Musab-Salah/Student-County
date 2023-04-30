@@ -16,6 +16,8 @@ export function BooksProvider({ children }) {
     name: "",
     theWay: "",
     price: 0,
+    shortDescription: "",
+    longDescription: "",
     studentId: "",
   });
 

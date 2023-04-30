@@ -16,10 +16,13 @@ namespace Student_County.DAL
             public string? TheWay { get; set; }
             [Required]
             public int Price { get; set; }
-            [Required] 
-            public string? Description { get; set; }
+            [Required]
+            public string? ShortDescription { get; set; }
+            [Required]
+            public string? LongDescription { get; set; }
             [Required]
             public string StudentId { get; set; }
+     
             public ApplicationUser? Student { get; set; }
         }
     }

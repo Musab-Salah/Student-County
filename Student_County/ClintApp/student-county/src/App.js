@@ -10,11 +10,14 @@ import CreateRide from "./pages/ride/create_ride/CreateRide.jsx";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import Success from "./pages/success/Success.jsx";
 import ResetPassword from "./pages/reset_password/ResetPassword.jsx";
+import Chat from "./components/Chat/Chat";
 
 function App() {
   return (
+    
     <Routes>
       <Route exact path="/" element={<Home />} />
+      <Route exact path="/chat" element={<Chat />} />
       <Route path="/sign_in" element={<SignIn />} />
       <Route path="/sign_up" element={<SignUp />} />
       <Route path="/forgot_password" element={<ForgotPassword />} />

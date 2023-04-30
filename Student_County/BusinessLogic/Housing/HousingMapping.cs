@@ -14,6 +14,8 @@ namespace Student_County.BusinessLogic.Housing
                 Location = bo.Location,
                 TypeOfContract = bo.TypeOfContract,
                 Price = bo.Price,
+                ShortDescription = bo.ShortDescription,
+                LongDescription = bo.LongDescription,
                 StudentId = bo.StudentId,        
             };
         }

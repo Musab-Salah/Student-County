@@ -9,6 +9,7 @@ using Student_County.BusinessLogic.Chat;
 using Student_County.BusinessLogic.College;
 using Student_County.BusinessLogic.Destination;
 using Student_County.BusinessLogic.Housing;
+using Student_County.BusinessLogic.Hubs;
 using Student_County.BusinessLogic.Patient;
 using Student_County.BusinessLogic.Ride;
 using Student_County.BusinessLogic.Tools;
@@ -31,6 +32,7 @@ builder.Services.AddScoped<IToolsManager, ToolsManager>();
 builder.Services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
 builder.Services.AddScoped<IAuthManager, AuthManager>();
 builder.Services.AddTransient<IMailService, SendGridMailService>();
+builder.Services.AddSignalR();
 
 
 
@@ -97,6 +99,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -104,5 +108,10 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseCors();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<ChatHub>("/chat");
+});
 
 app.Run();

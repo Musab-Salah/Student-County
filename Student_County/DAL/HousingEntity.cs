@@ -19,6 +19,10 @@ namespace Student_County.DAL
         [Required]
         public int Price { get; set; }
         [Required]
+        public string? ShortDescription { get; set; }
+        [Required]
+        public string? LongDescription { get; set; }
+        [Required]
         public string StudentId { get; set; }
         public ApplicationUser? Student { get; set; }
 

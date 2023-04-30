@@ -16,7 +16,8 @@ export function ToolsProvider({ children }) {
     name: "",
     theWay: "",
     price: 0,
-    description: "",
+    shortDescription: "",
+    longDescription: "",
     studentId: "",
   });
 

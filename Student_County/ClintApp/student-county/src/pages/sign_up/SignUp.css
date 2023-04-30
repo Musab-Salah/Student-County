@@ -33,6 +33,7 @@ input#phone-number {
   flex-direction: row;
   align-items: flex-start;
   gap: 15px;
+  min-width: 200px;
   width: -webkit-fill-available;
 }
 .input-container-group {

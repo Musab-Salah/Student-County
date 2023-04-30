@@ -15,6 +15,10 @@ namespace Student_County.DAL
         [Required]
         public string? CarDescription { get; set; }
         [Required]
+        public string? ShortDescription { get; set; }
+        [Required]
+        public string? LongDescription { get; set; }
+        [Required]
         public string StudentId { get; set; }
         [Required]
         public int DestinationId { get; set; }

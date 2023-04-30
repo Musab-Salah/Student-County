@@ -15,6 +15,8 @@ export function RidesProvider({ children }) {
     id: "0",
     emptySeats: "",
     carDescription: "",
+    shortDescription: "",
+    longDescription: "",
     studentId: "",
     destinationId: "",
   });

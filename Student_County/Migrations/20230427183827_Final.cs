@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Student_County.Migrations
 {
     /// <inheritdoc />
-    public partial class F1 : Migration
+    public partial class Final : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -261,6 +261,8 @@ namespace Student_County.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TheWay = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
+                    ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LongDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -289,6 +291,8 @@ namespace Student_County.Migrations
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TypeOfContract = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
+                    ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LongDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -374,6 +378,8 @@ namespace Student_County.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EmptySeats = table.Column<int>(type: "int", nullable: false),
                     CarDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LongDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     DestinationId = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -408,7 +414,8 @@ namespace Student_County.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TheWay = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LongDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -441,12 +448,12 @@ namespace Student_County.Migrations
             migrationBuilder.InsertData(
                 table: "College",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "IsDeleted", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 1, "Ini", new DateTime(2023, 4, 20, 10, 26, 10, 98, DateTimeKind.Utc).AddTicks(1459), false, "Ini", new DateTime(2023, 4, 20, 10, 26, 10, 98, DateTimeKind.Utc).AddTicks(1460), "EIT" });
+                values: new object[] { 1, "Ini", new DateTime(2023, 4, 27, 18, 38, 27, 714, DateTimeKind.Utc).AddTicks(1695), false, "Ini", new DateTime(2023, 4, 27, 18, 38, 27, 714, DateTimeKind.Utc).AddTicks(1696), "EIT" });
 
             migrationBuilder.InsertData(
                 table: "University",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "EmailDomainName", "IsDeleted", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 1, "Ini", new DateTime(2023, 4, 20, 10, 26, 10, 98, DateTimeKind.Utc).AddTicks(1380), "@AAUP.COM", false, "Ini", new DateTime(2023, 4, 20, 10, 26, 10, 98, DateTimeKind.Utc).AddTicks(1382), "AAUP" });
+                values: new object[] { 1, "Ini", new DateTime(2023, 4, 27, 18, 38, 27, 714, DateTimeKind.Utc).AddTicks(1668), "@AAUP.COM", false, "Ini", new DateTime(2023, 4, 27, 18, 38, 27, 714, DateTimeKind.Utc).AddTicks(1669), "AAUP" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

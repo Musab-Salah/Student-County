@@ -15,6 +15,10 @@ export function HousingsProvider({ children }) {
     id: "0",
     name: "",
     location: "",
+    typeOfContract:"",
+    price:"",
+    shortDescription: "",
+    longDescription: "",
     studentId: "",
   });
 

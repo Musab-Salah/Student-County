@@ -12,6 +12,8 @@ namespace Student_County.BusinessLogic.Ride
                 Id = bo.Id,
                 EmptySeats = bo.EmptySeats,
                 CarDescription = bo.CarDescription,
+                ShortDescription = bo.ShortDescription,
+                LongDescription = bo.LongDescription,
                 DestinationId = bo.DestinationId,
                 StudentId = bo.StudentId,        
             };

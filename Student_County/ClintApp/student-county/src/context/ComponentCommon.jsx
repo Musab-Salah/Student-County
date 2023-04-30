@@ -1,11 +1,10 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 
 const ComponentCxt = createContext();
 
 export function ComponentProvider({ children }) {
   const [Option, setOption] = useState(null);
 
-  useEffect(() => {}, []);
 
   return (
     <ComponentCxt.Provider
@@ -20,3 +19,4 @@ export function ComponentProvider({ children }) {
 }
 
 export default ComponentCxt;
+

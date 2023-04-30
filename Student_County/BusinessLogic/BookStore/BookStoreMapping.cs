@@ -13,6 +13,8 @@ namespace Student_County.BusinessLogic.BookStore
                 Name = bo.Name,
                 TheWay = bo.TheWay,
                 Price = bo.Price,
+                LongDescription = bo.LongDescription,
+                ShortDescription = bo.ShortDescription,
                 StudentId = bo.StudentId,        
             };
         }

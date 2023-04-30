@@ -16,6 +16,10 @@ namespace Student_County.BusinessLogic.Housing
         public string? TypeOfContract { get; set; }
         [Required]
         public int Price { get; set; }
+        [Required]
+        public string? ShortDescription { get; set; }
+        [Required]
+        public string? LongDescription { get; set; }
         public string StudentId { get; set; }
     }
 }
