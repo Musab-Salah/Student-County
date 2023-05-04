@@ -9,10 +9,11 @@ import { HiOutlineSupport } from "react-icons/hi";
 import { TbMessageCircle, TbTools } from "react-icons/tb";
 import { RxDashboard, RxGear } from "react-icons/rx";
 import useComponent from "../../hooks/useComponent";
-
+import useAuth from "./../../hooks/useAuth";
 const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
   const [navLinksVisible, setNavLinksVisible] = useState([true, true]);
   const { setOption, Option } = useComponent();
+  const { logout } = useAuth();
 
   const handleTitleClick = (index) => (event) => {
     setNavLinksVisible((prevState) => {
@@ -255,6 +256,7 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
         </div>
         <div className="vertical-line" />
         <button
+          onClick={() => logout()}
           className={`btn btn-primary dash-btn ${
             isMenuOpen ? "padding-resize" : ""
           }`}
