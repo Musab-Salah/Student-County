@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 
 const Chat = ({ sendMessage, messages, users, closeConnection }) => <div>
     <div className='leave-room'>
-        <Button variant='danger' onClick={() => closeConnection()}>Leave Room</Button>
+       <Button variant='danger' onClick={() => closeConnection()}>Leave Room</Button>
     </div>
     <ConnectedUsers users={users} />
     <div className='chat'>

@@ -19,11 +19,11 @@ const SendMessageForm = ({ sendMessage }) => {
           onChange={(e) => setMessage(e.target.value)}
           value={message}
         />
-        <InputGroup.Append>
+        <InputGroup>
           <Button variant="primary" type="submit" disabled={!message}>
             Send
           </Button>
-        </InputGroup.Append>
+        </InputGroup>
       </InputGroup>
     </Form>
   );

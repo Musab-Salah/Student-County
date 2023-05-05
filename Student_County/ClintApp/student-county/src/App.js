@@ -10,7 +10,7 @@ import CreateRide from "./pages/ride/create_ride/CreateRide.jsx";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import Success from "./pages/success/Success.jsx";
 import ResetPassword from "./pages/reset_password/ResetPassword.jsx";
-import Cchat from "./components/Chat/Cchat";
+import Cchat from "./components/chat/Cchat";
 
 function App() {
   
