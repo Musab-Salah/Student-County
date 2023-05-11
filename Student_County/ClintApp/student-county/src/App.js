@@ -13,12 +13,10 @@ import ResetPassword from "./pages/reset_password/ResetPassword.jsx";
 import Cchat from "./components/chat/Cchat";
 
 function App() {
-  
   return (
-    
     <Routes>
       <Route exact path="/" element={<Home />} />
-      <Route exact path="/chat" element={<Cchat />} />
+      <Route path="/chat" element={<Cchat />} />
       <Route path="/sign_in" element={<SignIn />} />
       <Route path="/sign_up" element={<SignUp />} />
       <Route path="/forgot_password" element={<ForgotPassword />} />
@@ -27,8 +25,8 @@ function App() {
         path="/reset_password/:param1/:param2"
         element={<ResetPassword />}
       />
-      <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/success" element={<Success />} />
+      <Route path="/dashboard" element={<Dashboard />} />
 
       <Route element={<PrivateRoutes />}>
         <Route path="/create_book" element={<CreateBook />} />

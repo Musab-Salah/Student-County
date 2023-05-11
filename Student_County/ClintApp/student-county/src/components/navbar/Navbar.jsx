@@ -22,7 +22,7 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <NavLink to="/" className="logo">
-        <img className="vector-icon" alt="" src="/logo.svg" />
+        <img className="vector-icon" alt="" src="./logo.svg" />
       </NavLink>
       <div className="nav-items">
         <NavLink to="/" className="nav-link">
@@ -43,7 +43,7 @@ const Navbar = () => {
                   <img
                     className="dropdown-item-icon"
                     alt=""
-                    src="/icons/book.svg"
+                    src="./icons/book.svg"
                   />
                   <div className="dropdown-item">
                     <div className="dropdown-item-title">Book Store</div>
@@ -56,7 +56,7 @@ const Navbar = () => {
                   <img
                     className="dropdown-item-icon"
                     alt=""
-                    src="/icons/house.svg"
+                    src="./icons/house.svg"
                   />
                   <div className="dropdown-item">
                     <div className="dropdown-item-title">Housing</div>
@@ -69,7 +69,7 @@ const Navbar = () => {
                   <img
                     className="dropdown-item-icon"
                     alt=""
-                    src="/icons/friend.svg"
+                    src="./icons/friend.svg"
                   />
                   <div className="dropdown-item">
                     <div className="dropdown-item-title">Riding</div>
@@ -102,7 +102,7 @@ const Navbar = () => {
       <div className={`menu-phone ${isOpen ? "phone" : ""}`}>
         <div className="menu-phone-body">
           <NavLink to="/" className="logo">
-            <img className="vector-icon" alt="" src="/logo.svg" />
+            <img className="vector-icon" alt="" src="./logo.svg" />
           </NavLink>
           <button className="close" id="close" onClick={toggleMenu}>
             <RiCloseLine className="close-icon" />
@@ -126,7 +126,7 @@ const Navbar = () => {
                     <img
                       className="dropdown-item-icon"
                       alt=""
-                      src="/icons/book.svg"
+                      src="./icons/book.svg"
                     />
                     <div className="dropdown-item">
                       <div className="dropdown-item-title">Book Store</div>
@@ -139,7 +139,7 @@ const Navbar = () => {
                     <img
                       className="dropdown-item-icon"
                       alt=""
-                      src="/icons/house.svg"
+                      src="./icons/house.svg"
                     />
                     <div className="dropdown-item">
                       <div className="dropdown-item-title">Housing</div>
@@ -152,7 +152,7 @@ const Navbar = () => {
                     <img
                       className="dropdown-item-icon"
                       alt=""
-                      src="/icons/friend.svg"
+                      src="./icons/friend.svg"
                     />
                     <div className="dropdown-item">
                       <div className="dropdown-item-title">Riding</div>

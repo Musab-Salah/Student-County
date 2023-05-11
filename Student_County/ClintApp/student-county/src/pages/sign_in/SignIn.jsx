@@ -52,12 +52,12 @@ const SignIn = () => {
               <TbArrowNarrowLeft className="arrow" />
               Go Back
             </Link>
-            <img className="logo" alt="" src="/logo-v2.svg" />
+            <img className="logo" alt="" src="./logo-v2.svg" />
           </div>
           <img
             className="right-child"
             alt=""
-            src="/assets/images/sign-in.svg"
+            src="./assets/images/sign-in.svg"
           />
         </div>
         <div className="SignIn-section">

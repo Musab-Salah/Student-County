@@ -63,12 +63,12 @@ const ResetPassword = () => {
     <div className="forgot-password">
       <div className="container">
         <div className="top-nav">
-          <img className="logo" alt="" src="/logo-v2.svg" />
+          <img className="logo" alt="" src="./logo-v2.svg" />
         </div>
         <img
           className="right-child"
           alt=""
-          src="/assets/images/forgot-password.svg"
+          src="./assets/images/forgot-password.svg"
         />
       </div>
       <div className="forgot-password-section">

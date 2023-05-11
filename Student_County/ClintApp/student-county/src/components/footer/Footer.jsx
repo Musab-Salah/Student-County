@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="row">
         <div className="brand">
           <div className="footer-logo">
-            <img className="vector-icon9" alt="" src="/logo.svg" />
+            <img className="vector-icon9" alt="" src="./logo.svg" />
           </div>
           <div className="footer-description">
           Maximize Student County's features in university to save money, manage time, and earn extra funds.

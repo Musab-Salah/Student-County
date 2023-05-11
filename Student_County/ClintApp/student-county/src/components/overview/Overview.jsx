@@ -140,7 +140,7 @@ function handleSortChange(sort) {
         </div>
         <div className="cards">
           <div className="card">
-            <img className="card-picture" alt="" src="assets/images/services/riding.svg" />
+            <img className="card-picture" alt="" src="./assets/images/services/riding.svg" />
             <div className="card-info">
               <div className="card-text">
                 <div className="card-title">Rides</div>
@@ -152,7 +152,7 @@ function handleSortChange(sort) {
             </div>
           </div>
           <div className="card">
-            <img className="card-picture" alt="" src="assets/images/services/book-store.svg" />
+            <img className="card-picture" alt="" src="./assets/images/services/book-store.svg" />
             <div className="card-info">
               <div className="card-text">
                 <div className="card-title">book</div>
@@ -164,7 +164,7 @@ function handleSortChange(sort) {
             </div>
           </div>
           <div className="card">
-          <img className="card-picture" alt="" src="assets/images/services/housing.svg" />
+          <img className="card-picture" alt="" src="./assets/images/services/housing.svg" />
             <div className="card-info">
               <div className="card-text">
                 <div className="card-title">Patient</div>

@@ -68,7 +68,7 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
     >
       <div className="dash-menu-link">
         <div className={`dash-logo ${isMenuOpen ? "hidden" : ""}`}>
-          <img className="logo" alt="" src="/logo.svg" />
+          <img className="logo" alt="" src="./logo.svg" />
           <button
             className="close dash-menu-close"
             id="close"

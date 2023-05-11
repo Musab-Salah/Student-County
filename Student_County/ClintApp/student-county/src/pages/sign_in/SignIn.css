@@ -1,185 +1,184 @@
-
 .SignIn-section {
-	background-color: var(--color-white);
-	display: flex;
-	flex-direction: column;
-	padding: var(--padding-31xl) var(--padding-81xl);
-	box-sizing: border-box;
-	align-items: center;
-	justify-content: center;
-	gap: var(--gap-mini);
-	width: 50%;
-	min-height: 100vh;
+  background-color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-31xl) var(--padding-81xl);
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-mini);
+  width: 50%;
+  min-height: 100vh;
 }
 .sign-in {
-	position: relative;
-	background: radial-gradient(50% 50% at 50% 50%, #8d37ff, #9e57fb);
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: flex-start;
-	text-align: left;
-	font-size: var(--font-size-xs);
-	color: var(--color-gray-100);
-	font-family: var(--font-poppins);
+  position: relative;
+  background: radial-gradient(50% 50% at 50% 50%, #8d37ff, #9e57fb);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-100);
+  font-family: var(--font-poppins);
 }
 .arrow {
-	width: 25px;
-	height: auto;
+  width: 25px;
+  height: auto;
 }
 .button {
-	border: 0;
-	padding: 7.5px 30px;
-	border-radius: 50px;
-	transition: 300ms ease;
-	display: flex;
-	align-items: center;
-	gap: var(--gap-8xs);
-	font-size: 16px;
-	font-weight: 500;
-	font-family: var(--font-poppins);
-	color: var(--color-blueviolet-100);
-	background: white;
+  border: 0;
+  padding: 7.5px 30px;
+  border-radius: 50px;
+  transition: 300ms ease;
+  display: flex;
+  align-items: center;
+  gap: var(--gap-8xs);
+  font-size: 16px;
+  font-weight: 500;
+  font-family: var(--font-poppins);
+  color: var(--color-blueviolet-100);
+  background: white;
 }
 .button:hover {
-	box-shadow: 3px 3px 0#09072f;
+  box-shadow: 3px 3px 0#09072f;
 }
 .logo {
-	height: 35px;
+  height: 35px;
 }
 .top-nav {
-	position: fixed;
-	padding: 30px;
-	top: 0;
-	align-items: center;
-	width: -webkit-fill-available;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+  position: fixed;
+  padding: 30px;
+  top: 0;
+  align-items: center;
+  width: -webkit-fill-available;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .right-child {
-	width: 350px;
-	height: auto;
+  width: 350px;
+  height: auto;
 }
 .container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	position: relative;
-	width: 50%;
-	height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 50%;
+  height: 100vh;
 }
 .span {
-	color: var(--color-blueviolet-100);
+  color: var(--color-blueviolet-100);
 }
 .section-title {
-	text-shadow: 0 3px 0 rgba(0,0,0,.1);
-	font-weight: 600;
-	font-size: 36px;
+  text-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  font-size: 36px;
 }
 .UnivSuffix {
   padding: var(--padding-3xs) var(--padding-xl) var(--padding-3xs) 0;
-	font-size: 16px;
+  font-size: 16px;
 }
 .input-container {
-	border-radius: var(--br-8xs);
-	border: 1.5px solid var(--color-slategray);
-	box-sizing: border-box;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-	transition: 0.3s ease;
-	width: -webkit-fill-available;
+  border-radius: var(--br-8xs);
+  border: 1.5px solid var(--color-slategray);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  transition: 0.3s ease;
+  width: -webkit-fill-available;
   gap: 10px;
 }
 .input-container-option {
-	position: absolute;
-	font-size: var(--font-size-sm);
-	font-family: var(--font-poppins);
-	color: var(--color-slategray);
-	padding: 0 var(--padding-xl);
-	transition: 0.1s ease;
+  position: absolute;
+  font-size: var(--font-size-sm);
+  font-family: var(--font-poppins);
+  color: var(--color-slategray);
+  padding: 0 var(--padding-xl);
+  transition: 0.1s ease;
 }
 form {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 input {
-	font-size: 16px;
-	font-family: var(--font-poppins);
-	border: none;
-	padding: var(--padding-3xs) 0 var(--padding-3xs) var(--padding-xl);
-  	width: 100%;
-  	color: var(--color-gray-100);
+  font-size: 16px;
+  font-family: var(--font-poppins);
+  border: none;
+  padding: var(--padding-3xs) 0 var(--padding-3xs) var(--padding-xl);
+  width: 100%;
+  color: var(--color-gray-100);
 }
 input:focus-visible {
-	outline: none;
+  outline: none;
 }
 input:focus-visible + .input-container-option {
-	transform: scale(0.75) translateY(-135%);
-	color: #8d37ff;
-	background: #fff;
-	outline: none;
-	padding: 0 10px;
+  transform: scale(0.75) translateY(-135%);
+  color: #8d37ff;
+  background: #fff;
+  outline: none;
+  padding: 0 10px;
 }
 input:valid + .input-container-option {
-	transform: scale(0.75) translateY(-135%);
-	color: #8d37ff;
-	background: #fff;
-	outline: none;
-	padding: 0 10px;
+  transform: scale(0.75) translateY(-135%);
+  color: #8d37ff;
+  background: #fff;
+  outline: none;
+  padding: 0 10px;
 }
 input:-webkit-autofill {
-	-webkit-box-shadow: white;
-  }
+  -webkit-box-shadow: white;
+}
 .input-container:focus-within {
-	border: 1.5px solid var(--color-blueviolet-100);
+  border: 1.5px solid var(--color-blueviolet-100);
 }
 .eye-wrapper {
-	cursor: pointer;
-	border: none;
+  cursor: pointer;
+  border: none;
   padding: var(--padding-3xs) var(--padding-xl) var(--padding-3xs) 0;
-	background-color: transparent;
-	display: flex;
-	color: var(--color-blueviolet-100);
-	transition: 0.3s ease;
+  background-color: transparent;
+  display: flex;
+  color: var(--color-blueviolet-100);
+  transition: 0.3s ease;
 }
 .eye-wrapper:hover {
-	color: #6400E6;
+  color: #6400e6;
 }
 .wrong-info {
-	font-size: 12px;
-	color: red;
-	margin-top: -10px;
-	margin-bottom: 5px;
+  font-size: 12px;
+  color: red;
+  margin-top: -10px;
+  margin-bottom: 5px;
   display: flex;
   align-items: center;
   gap: 5px;
 }
 .form {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	justify-content: flex-start;
-	gap: var(--gap-mini);
-	color: var(--color-blueviolet-100);
-	width: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-mini);
+  color: var(--color-blueviolet-100);
+  width: -webkit-fill-available;
 }
 .remember-me {
-	position: relative;
-	font-weight: 500;
+  position: relative;
+  font-weight: 500;
 }
 .link {
-	position: relative;
-	font-weight: 500;
-	color: var(--color-blueviolet-100)!important;
-	transition: 0.1s ease;
+  position: relative;
+  font-weight: 500;
+  color: var(--color-blueviolet-100) !important;
+  transition: 0.1s ease;
 }
 .link:hover {
-	color: #6400E6!important;
+  color: #6400e6 !important;
 }
 .choices {
   display: flex;
@@ -197,36 +196,36 @@ input:-webkit-autofill {
   gap: 10px;
 }
 .checkbox {
-	width: 20px;
-	height: 20px;
-	border: 1.5px solid var(--color-slategray);
-	border-radius: 3px;
-	text-align: center;
-	transition: 0.3ms;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--color-slategray);
+  border-radius: 3px;
+  text-align: center;
+  transition: 0.3ms;
 }
 .true {
-	background-color: var(--color-blueviolet-100);
-	border: 1.5px solid white;
-	color: white;
+  background-color: var(--color-blueviolet-100);
+  border: 1.5px solid white;
+  color: white;
 }
 .sign-button {
-    width: -webkit-fill-available;
+  width: -webkit-fill-available;
 }
 .sign-button.selected {
-    display: none;
+  display: none;
 }
 .account-question {
-	position: relative;
-	font-size: var(--font-size-sm);
-	font-weight: 500;
-	text-align: center;
-	color: var(--color-slategray);
+  position: relative;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  text-align: center;
+  color: var(--color-slategray);
 }
 @media screen and (max-width: 920px) {
-	.container {
-		display: none;
-	}
-	.SignIn-section {
-		width: 100%;
-	}
+  .container {
+    display: none;
+  }
+  .SignIn-section {
+    width: 100%;
+  }
 }

@@ -48,7 +48,7 @@ const Home = () => {
             <img
               className="hero-image-icon"
               alt=""
-              src="/assets/images/header.svg"
+              src="./assets/images/header.svg"
             />
           </div>
         </div>
@@ -86,14 +86,14 @@ const Home = () => {
               <img
                 className="service-picture"
                 alt=""
-                src="/assets/images/services/book-store.svg"
+                src="./assets/images/services/book-store.svg"
               />
             </div>
             <div className="service">
               <img
                 className="service-picture"
                 alt=""
-                src="/assets/images/services/housing.svg"
+                src="./assets/images/services/housing.svg"
               />
               {/* <div className="" /> */}
               <div className="service-body">
@@ -153,7 +153,7 @@ const Home = () => {
               <img
                 className="service-picture"
                 alt=""
-                src="/assets/images/services/riding.svg"
+                src="./assets/images/services/riding.svg"
               />
             </div>
           </div>
@@ -164,7 +164,7 @@ const Home = () => {
             <div className="feature">
               <div className="feature-icon">
                 <IoPeopleSharp className="frame-icon" />
-                {/* <img className="frame-icon" alt="" src="/icon.svg" /> */}
+                {/* <img className="frame-icon" alt="" src="./icon.svg" /> */}
               </div>
               <div className="feature-text">
                 <div className="h3">Community Hub</div>
@@ -176,7 +176,7 @@ const Home = () => {
             </div>
             <div className="feature">
               <div className="feature-icon yellow">
-                <img className="frame-icon" alt="" src="/icons/sparkles.svg" />
+                <img className="frame-icon" alt="" src="./icons/sparkles.svg" />
               </div>
               <div className="feature-text">
                 <div className="h3">Versatile</div>
@@ -189,7 +189,7 @@ const Home = () => {
             <div className="feature">
               <div className="feature-icon blue">
                 <HiShieldCheck className="frame-icon" />
-                {/* <img className="frame-icon" alt="" src="/icon1.svg" /> */}
+                {/* <img className="frame-icon" alt="" src="./icon1.svg" /> */}
               </div>
               <div className="feature-text">
                 <div className="h3">Safe and Secure</div>

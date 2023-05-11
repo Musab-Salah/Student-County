@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
-import Lobby from './Lobby';
-import './Cchat.css';
+import { useState } from "react";
+import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
+import Lobby from "./Lobby";
+import "./Cchat.css";
 //import 'bootstrap/dist/css/bootstrap.min.css';
-import Chat from './Chat';
+import Chat from "./Chat";
 
 const Cchat = () => {
   const [connection, setConnection] = useState();
@@ -18,14 +18,14 @@ const Cchat = () => {
         .build();
 
       connection.on("ReceiveMessage", (user, message) => {
-        setMessages(messages => [...messages, { user, message }]);
+        setMessages((messages) => [...messages, { user, message }]);
       });
 
       connection.on("UsersInRoom", (users) => {
         setUsers(users);
       });
 
-      connection.onclose(e => {
+      connection.onclose((e) => {
         setConnection();
         setMessages([]);
         setUsers([]);
@@ -37,7 +37,7 @@ const Cchat = () => {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   const sendMessage = async (message) => {
     try {
@@ -45,7 +45,7 @@ const Cchat = () => {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   const closeConnection = async () => {
     try {
@@ -53,15 +53,24 @@ const Cchat = () => {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  return <div className='app'>
-    <h2>MyChat</h2>
-    <hr className='line' />
-    {!connection
-      ? <Lobby joinRoom={joinRoom} />
-      : <Chat sendMessage={sendMessage} messages={messages} users={users} closeConnection={closeConnection} />}
-  </div>
-}
+  return (
+    <div className="app">
+      <h2>MyChat</h2>
+      <hr className="line" />
+      {!connection ? (
+        <Lobby joinRoom={joinRoom} />
+      ) : (
+        <Chat
+          sendMessage={sendMessage}
+          messages={messages}
+          users={users}
+          closeConnection={closeConnection}
+        />
+      )}
+    </div>
+  );
+};
 
 export default Cchat;

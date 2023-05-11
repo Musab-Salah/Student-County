@@ -15,7 +15,7 @@ export function UniversitiesProvider({ children }) {
   });
 
   useEffect(() => {
-    getUniversites();
+    //getUniversites();
   }, []);
   const getUniversites = () => {
     UniversityServices.getUniversities()

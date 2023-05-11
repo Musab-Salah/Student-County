@@ -51,12 +51,12 @@ const ForgotPassword = () => {
               <TbArrowNarrowLeft className="arrow" />
               Go Back
             </Link>
-          <img className="logo" alt="" src="/logo-v2.svg" />
+          <img className="logo" alt="" src="./logo-v2.svg" />
         </div>
         <img
           className="right-child"
           alt=""
-          src="/assets/images/forgot-password.svg"
+          src="./assets/images/forgot-password.svg"
         />
       </div>
       <div className="forgot-password-section">
