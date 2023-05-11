@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/StudentCounty-ClintApp/static/css/main.bce54a4b.css",
+    "main.js": "/StudentCounty-ClintApp/static/js/main.a99dd351.js",
+    "index.html": "/StudentCounty-ClintApp/index.html",
+    "main.bce54a4b.css.map": "/StudentCounty-ClintApp/static/css/main.bce54a4b.css.map",
+    "main.a99dd351.js.map": "/StudentCounty-ClintApp/static/js/main.a99dd351.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bce54a4b.css",
+    "static/js/main.a99dd351.js"
+  ]
+}
