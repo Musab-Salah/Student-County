@@ -1,15 +1,17 @@
 import React, { createContext, useEffect, useState } from "react";
 import BookStoreServices from "../services/BookStoreServices";
+import AuthVerify from "../utils/AuthVerify";
 import useAuth from "../hooks/useAuth";
 
 const BooksCxt = createContext();
 
 export function BooksProvider({ children }) {
-  const { decodedJwt } = useAuth();
+  const { decodedJwt, token } = useAuth();
 
   const [Books, setBooks] = useState([]);
   const [BookError, setError] = useState();
   const [Book, setBook] = useState("Loading");
+  const [Success, setSuccess] = useState();
 
   const [BookBo] = useState({
     id: "0",
@@ -26,15 +28,18 @@ export function BooksProvider({ children }) {
     BookStoreServices.getBooks()
       .then((res) => {
         setBooks(res.data);
+        setSuccess(true);
         setError(null);
       })
       .catch(() => setError("Failed bring the books..."));
   };
   const createBook = (Bo) => {
     Bo.studentId = decodedJwt.uid;
-    BookStoreServices.createBook(Bo)
+    AuthVerify.AuthVerify();
+    BookStoreServices.createBook(Bo, token)
       .then((res) => {
         setBook(res.data);
+        setSuccess(true);
         setError(null);
       })
       .catch(() => setError("Failed create the book..."));
@@ -44,6 +49,7 @@ export function BooksProvider({ children }) {
     BookStoreServices.getBookStoreById(id)
       .then((res) => {
         setBook(res.data);
+        setSuccess(true);
         setError(null);
       })
       .catch(() => setError("Failed bring the book..."));
@@ -53,6 +59,7 @@ export function BooksProvider({ children }) {
     BookStoreServices.updateBookStore(id, Bo)
       .then((res) => {
         setBook(res.data);
+        setSuccess(true);
         setError(null);
       })
       .catch(() => setError("Failed update the book..."));
@@ -62,6 +69,7 @@ export function BooksProvider({ children }) {
     BookStoreServices.deleteBookStore(id)
       .then((res) => {
         setBook(res.data);
+        setSuccess(true);
         setError(null);
       })
       .catch(() => setError("Failed delete the book..."));
@@ -79,6 +87,7 @@ export function BooksProvider({ children }) {
         createBook,
         updateBook,
         deleteBook,
+        Success,
       }}
     >
       {children}

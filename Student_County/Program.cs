@@ -64,8 +64,8 @@ builder.Services.AddAuthentication(options =>
        o.TokenValidationParameters = new TokenValidationParameters
        {
            ValidateIssuerSigningKey = true,
-           ValidateIssuer = true,
-           ValidateAudience = true,
+           ValidateIssuer = false,
+           ValidateAudience = false,
            ValidateLifetime = true,
            ValidIssuer = builder.Configuration["JWT:Issuer"],
            ValidAudience = builder.Configuration["JWT:Audience"],
@@ -101,19 +101,19 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors();
+app.UseAuthentication();
 
 app.UseRouting();
-app.UseAuthentication();
+
+
+
 app.UseAuthorization();
-
-
-app.MapControllers();
-
-app.UseCors();
 
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<ChatHub>("/chat");
 });
+app.MapControllers();
 
 app.Run();

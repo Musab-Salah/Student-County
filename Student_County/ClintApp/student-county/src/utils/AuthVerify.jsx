@@ -2,9 +2,11 @@ import React, { useEffect } from "react";
 import { withRouter } from "./WithRouter";
 import useIdle from "../hooks/useIdleTimeout";
 import useAuth from "../hooks/useAuth";
+import useComponent from "../hooks/useComponent";
 
 const AuthVerify = (props, { children }) => {
   const { isIdle, idleTimer, setIdle } = useIdle({});
+  const { Create } = useComponent();
 
   const { refresh, isLogout, logout, isLogin, decodedJwt, userInLocal } =
     useAuth();
@@ -23,9 +25,11 @@ const AuthVerify = (props, { children }) => {
       }
     }
     // eslint-disable-next-line
-  }, [refresh, location]);
+  }, [refresh, location,Create]);
 
   return <></>;
 };
 
 export default withRouter(AuthVerify);
+
+

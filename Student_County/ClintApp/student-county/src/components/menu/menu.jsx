@@ -111,7 +111,7 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                 <div
                   className={`dash-nav-link ${
                     isMenuOpen ? "padding-resize" : ""
-                  } ${Option === "Messages" ? "selected" : ""} `}
+                  } ${Option === "Messages" ? "active" : ""} `}
                   onClick={() => setOption("Messages")}
                 >
                   <TbMessageCircle className="dash-nav-link-icon" />
@@ -144,8 +144,8 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                 <div
                   className={`dash-nav-link ${
                     isMenuOpen ? "padding-resize" : ""
-                  } ${Option === "Bookings" ? "selected" : ""} `}
-                  onClick={() => setOption("Bookings")}
+                  } ${Option === "Books" ? "active" : ""} `}
+                  onClick={() => setOption("Books")}
                 >
                   <BiBook className="dash-nav-link-icon" />
                   <div

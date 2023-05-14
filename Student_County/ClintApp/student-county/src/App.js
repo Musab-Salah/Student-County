@@ -4,9 +4,6 @@ import SignUp from "./pages/sign_up/SignUp";
 import SignIn from "./pages/sign_in/SignIn.jsx";
 import ForgotPassword from "./pages/forgot_password/ForgotPassword";
 import Dashboard from "./pages/dashboard/Dashboard";
-import CreateBook from "./pages/book_store/create_book/CreateBook.jsx";
-import CreateHousing from "./pages/housing/create_housing/CreateHousing.jsx";
-import CreateRide from "./pages/ride/create_ride/CreateRide.jsx";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import Success from "./pages/success/Success.jsx";
 import ResetPassword from "./pages/reset_password/ResetPassword.jsx";
@@ -26,12 +23,9 @@ function App() {
         element={<ResetPassword />}
       />
       <Route path="/success" element={<Success />} />
-      <Route path="/dashboard" element={<Dashboard />} />
 
       <Route element={<PrivateRoutes />}>
-        <Route path="/create_book" element={<CreateBook />} />
-        <Route path="/create_housing" element={<CreateHousing />} />
-        <Route path="/create_ride" element={<CreateRide />} />
+      <Route path="/dashboard" element={<Dashboard />} />
       </Route>
     </Routes>
   );

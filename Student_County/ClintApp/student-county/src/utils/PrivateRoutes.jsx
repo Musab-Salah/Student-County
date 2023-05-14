@@ -10,7 +10,7 @@ const PrivateRoutes = () => {
   };
 
   let auth = decodedJwt ? decodedJwt.roles : "false";
-  return auth === roles.scopes ? <Outlet /> : <Navigate to="/sign_in" />;
+  return auth === "Student" ? <Outlet /> : <Navigate to="/sign_in" />;
 };
 
 export default PrivateRoutes;

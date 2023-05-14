@@ -9,6 +9,7 @@
   gap: var(--gap-mini);
   width: 50%;
   min-height: 100vh;
+
 }
 .sign-in {
   position: relative;

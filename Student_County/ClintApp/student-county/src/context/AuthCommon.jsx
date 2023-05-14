@@ -17,6 +17,7 @@ export function AuthProvider({ children }) {
   const [isLogout, setIsLogout] = useState(true);
   const [isLogin, setIsLogin] = useState(false);
   const [AuthError, setError] = useState("");
+  const [token, setToken] = useState();
   const [decodedJwt, setDecodedJwt] = useState(false);
   const [Roles, setRoles] = useState();
   const [SendEmailResetPass, setSendEmailResetPass] = useState(false);
@@ -53,6 +54,7 @@ export function AuthProvider({ children }) {
     const user = JSON.parse(localStorage.getItem("user"));
     setUserInLocal(user);
     if (user) {
+      setToken(user.token);
       const decodedJwt = parseJwt(user.token);
       setDecodedJwt(decodedJwt);
       const dexp = decodedJwt.exp * 1000;
@@ -65,8 +67,6 @@ export function AuthProvider({ children }) {
   }, []);
 
   const studentRegister = (Bo) => {
-    getUniversityById(Bo.universityId);
-    Bo.email = Bo.email + University.emailDomainName;
     AuthServices.studentRegister(Bo)
       .then((res) => {
         setSuccessfully(true);
@@ -106,6 +106,7 @@ export function AuthProvider({ children }) {
         localStorage.setItem("user", JSON.stringify(response.data));
         setUserInLocal(response.data);
         const decodedJwt = parseJwt(response.data.token);
+        setToken(response.data.token);
         setDecodedJwt(decodedJwt);
         setError("");
         navigate("/dashboard");
@@ -117,6 +118,7 @@ export function AuthProvider({ children }) {
     AuthServices.refresh()
       .then((response) => {
         localStorage.setItem("user", JSON.stringify(response.data));
+        setToken(response.data.token);
         return response.data;
       })
       .catch(() => setError("Failed Refresh token"));
@@ -127,9 +129,10 @@ export function AuthProvider({ children }) {
       .then(() => {
         localStorage.removeItem("user");
         setDecodedJwt(false);
+        setToken();
         setIsLogout(true);
         setIsLogin(false);
-        navigate("/login");
+        navigate("/sign_in");
       })
       .catch(() => {
         setError("Failed Logout");
@@ -201,6 +204,7 @@ export function AuthProvider({ children }) {
         SendEmailResetPass,
         setOption,
         Option,
+        token,
       }}
     >
       {children}

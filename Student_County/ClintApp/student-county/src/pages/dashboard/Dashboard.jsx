@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import Menu from "../../components/menu/menu";
 import Overview from "../../components/overview/Overview";
+import Books from "../../components/services/books/Books";
+import CreateBooks from "../../components/services/books/CreateBooks";
 // import PortalDrawer from "../../components/portal-drawer";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { FiSearch } from "react-icons/fi";
@@ -10,7 +12,7 @@ import { FaUserCircle } from "react-icons/fa";
 import useComponent from "../../hooks/useComponent";
 import "./Dashboard.css";
 const Dashboard = () => {
-  const { Option } = useComponent();
+  const { Option, setCreate, Create } = useComponent();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -25,90 +27,98 @@ const Dashboard = () => {
     setIsMenuOpen(false);
   };
 
-
-
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
 
   function handleToggleDropdown() {
     setShowProfileDropdown(!showProfileDropdown);
   }
 
-  /*useEffect(() => {
+  useEffect(() => {
     function handleClickOutside(event) {
-      const profileDropdownMenu = document.querySelector('.dropdown-menu');
+      const profileDropdownMenu = document.querySelector(".dropdown-menu");
       if (profileDropdownMenu && !profileDropdownMenu.contains(event.target)) {
         setShowProfileDropdown(false);
       }
     }
 
-    document.addEventListener('click', handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
 
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
-  }, []);*/
-
+  }, []);
 
   return (
-    <div className="dashboard-container">
-      <Menu isMenuOpen={isMenuOpen} isMenuOpenPhone={isMenuOpenPhone} />
-      <div className="dashboard">
-        <div className="dashboard-navbar">
-          <div className="left-navbar">
-            <button className="collapse" onClick={toggleMenu}>
-              <HiMenuAlt2 className="menu-collapse-icon" />
-            </button>
-            <button className="phone-collapse" onClick={toggleMenuPhone}>
-              <HiMenuAlt2 className="menu-collapse-icon" />
-            </button>
-            <div className="welcome-container">
-              <div className="horizontal-line" />
-              <div className="welcome-info">
-                <div className="welcome-text">Welcome, Musab 👋</div>
-                <div className="welcome-description">
-                  Manage your services on the Student County dashboard.
+    <>
+      {Create === "CreateBooks" && <CreateBooks />}
+      <div className={`${Create ? "oop" : ""}`}>
+        <div className={`dashboard-container `}>
+          <Menu isMenuOpen={isMenuOpen} isMenuOpenPhone={isMenuOpenPhone} />
+          <div className={`dashboard  `}>
+            <div className="dashboard-navbar">
+              <div className="left-navbar">
+                <button className="collapse" onClick={toggleMenu}>
+                  <HiMenuAlt2 className="menu-collapse-icon" />
+                </button>
+                <button className="phone-collapse" onClick={toggleMenuPhone}>
+                  <HiMenuAlt2 className="menu-collapse-icon" />
+                </button>
+                <div className="welcome-container">
+                  <div className="horizontal-line" />
+                  <div className="welcome-info">
+                    <div className="welcome-text">Welcome, Musab 👋</div>
+                    <div className="welcome-description">
+                      Manage your services on the Student County dashboard.
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="right-navbar">
-            <div className="tools">
-              <FiSearch className="btn btn-icon btn-icon-active" />
-              <AiOutlinePlus className="btn btn-icon" />
-              <RiNotification2Line className="btn btn-icon" />
-            </div>
-            <div className="horizontal-line" />
-            <div className="profile">
-            <div className="profile-info" onClick={handleToggleDropdown}>
-              <FaUserCircle className="avatar-icon" />
-              <div className="user-info">
-                <div className="username">Musab Al hotaree</div>
-                <div className="role">Student</div>
-              </div>
-              <RiArrowDownSLine className="arrow-down" />
-              
-            </div>
-            {showProfileDropdown && (
-                <div className="dropdown-menu">
-                  <ul>
-                    <li>Profile</li>
-                    <li>Settings</li>
-                    <li>Logout</li>
-                  </ul>
-                </div>
-              )}
-             </div> 
-          </div>
-        </div>
+              <div className="right-navbar">
+                <div className="tools">
+                  <FiSearch className="btn btn-icon btn-icon-active" />
+                  {Option === "Books" && (
+                    <AiOutlinePlus
+                      className="btn btn-icon"
+                      onClick={() => setCreate("CreateBooks")}
+                    />
+                  )}
 
-        {(Option === "Overview") | (Option === null) && <Overview />}
-      </div>
-      {/* {isDrawerOpen && (
-        <PortalDrawer placement="Left" onOutsideClick={closeDrawer}>
+                  <RiNotification2Line className="btn btn-icon" />
+                </div>
+                <div className="horizontal-line" />
+                <div className="profile">
+                  <div className="profile-info" onClick={handleToggleDropdown}>
+                    <FaUserCircle className="avatar-icon" />
+                    <div className="user-info">
+                      <div className="username">Musab Al hotaree</div>
+                      <div className="role">Student</div>
+                    </div>
+                    <RiArrowDownSLine className="arrow-down" />
+                  </div>
+                  {showProfileDropdown && (
+                    <div className="dropdown-menu">
+                      <ul>
+                        <li>Profile</li>
+                        <li>Settings</li>
+                        <li>Logout</li>
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {(Option === "Overview")  && <Overview />}
+            {Option === "Books" && <Books />}
+          </div>
+          {/* {isDrawerOpen && (
+          <PortalDrawer placement="Left" onOutsideClick={closeDrawer}>
           <Menu onClose={closeDrawer} />
-        </PortalDrawer>
-      )} */}
-    </div>
+          </PortalDrawer>
+        )} */}
+        </div>
+      </div>
+    </>
   );
 };
 

@@ -14,16 +14,17 @@ import { PatientsProvider } from "./context/PatientCommon";
 import { ToolsProvider } from "./context/ToolsCommon";
 import AuthVerify from "./utils/AuthVerify";
 import "./Global.css";
+import { HashRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <UniversitiesProvider>
       <CollegesProvider>
-        <AuthProvider>
-          <AuthVerify />
-          <ToolsProvider>
-            <ComponentProvider>
+        <ComponentProvider>
+          <AuthProvider>
+            <AuthVerify />
+            <ToolsProvider>
               <PatientsProvider>
                 <DestinationsProvider>
                   <RidesProvider>
@@ -39,9 +40,9 @@ root.render(
                   </RidesProvider>
                 </DestinationsProvider>
               </PatientsProvider>
-            </ComponentProvider>
-          </ToolsProvider>
-        </AuthProvider>
+            </ToolsProvider>
+          </AuthProvider>
+        </ComponentProvider>
       </CollegesProvider>
     </UniversitiesProvider>
   </BrowserRouter>

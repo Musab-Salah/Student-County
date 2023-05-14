@@ -102,7 +102,7 @@ const Students = () => {
     var result = event.target.value.replace(/[^a-z.0-9]/gi, "");
     setUser({
       ...userBo,
-      email: result,
+      email: result + emailDomainName,
       userName: result,
     });
     setUsername(result);
