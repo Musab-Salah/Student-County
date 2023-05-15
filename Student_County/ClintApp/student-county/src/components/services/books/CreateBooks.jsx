@@ -1,4 +1,4 @@
-import { useState, useEffect ,useMemo} from "react";
+import { useState, useEffect, useMemo } from "react";
 import useComponent from "../../../hooks/useComponent";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { AiFillExclamationCircle } from "react-icons/ai";
@@ -7,12 +7,12 @@ import "./CreateBooks.css";
 
 const CreateBooks = () => {
   const { setCreate } = useComponent();
-  const { Success, BookBo, createBook, BookError } = useBooks();
+  const { Success, BookBo, createBook, BookError, setSuccess } = useBooks();
   // State Hook
-  const [name, setName] = useState();
-  const [shortDescription, setShortDescription] = useState();
-  const [longDescription, setLongDescription] = useState();
-  const [price, setPrice] = useState();
+  const [name] = useState();
+  const [shortDescription] = useState();
+  const [longDescription] = useState();
+  const [price] = useState();
   const [theWay, setTheWay] = useState("");
   const [book, setBook] = useState(BookBo);
 
@@ -45,9 +45,11 @@ const CreateBooks = () => {
   useMemo(() => {
     if (Success) {
       sleep(3000).then(() => {
+        setSuccess();
         setCreate("");
       });
     }
+    // eslint-disable-next-line
   }, [Success]);
 
   const handleTheWayChange = (value) => {
@@ -247,6 +249,7 @@ const CreateBooks = () => {
             <input
               type="number"
               name="price"
+              value={price}
               onChange={handleSetPrice}
             />
 

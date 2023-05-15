@@ -10,10 +10,11 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { RiNotification2Line, RiArrowDownSLine } from "react-icons/ri";
 import { FaUserCircle } from "react-icons/fa";
 import useComponent from "../../hooks/useComponent";
+import useAuth from "../../hooks/useAuth";
 import "./Dashboard.css";
 const Dashboard = () => {
   const { Option, setCreate, Create } = useComponent();
-
+  const { decodedJwt } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -66,7 +67,7 @@ const Dashboard = () => {
                 <div className="welcome-container">
                   <div className="horizontal-line" />
                   <div className="welcome-info">
-                    <div className="welcome-text">Welcome, Musab 👋</div>
+                    <div className="welcome-text">Welcome, {decodedJwt.name} 👋</div>
                     <div className="welcome-description">
                       Manage your services on the Student County dashboard.
                     </div>
@@ -108,7 +109,7 @@ const Dashboard = () => {
               </div>
             </div>
 
-            {(Option === "Overview")  && <Overview />}
+            {Option === "Overview" && <Overview />}
             {Option === "Books" && <Books />}
           </div>
           {/* {isDrawerOpen && (

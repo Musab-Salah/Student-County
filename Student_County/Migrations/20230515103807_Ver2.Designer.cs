@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Student_County.DAL;
 
@@ -11,9 +12,11 @@ using Student_County.DAL;
 namespace Student_County.Migrations
 {
     [DbContext(typeof(StudentCountyContext))]
-    partial class StudentCountyContextModelSnapshot : ModelSnapshot
+    [Migration("20230515103807_Ver2")]
+    partial class Ver2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -405,10 +408,10 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTime(2023, 5, 15, 10, 41, 45, 324, DateTimeKind.Utc).AddTicks(5017),
+                            CreatedOn = new DateTime(2023, 5, 15, 10, 38, 6, 857, DateTimeKind.Utc).AddTicks(4944),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTime(2023, 5, 15, 10, 41, 45, 324, DateTimeKind.Utc).AddTicks(5018),
+                            ModifiedOn = new DateTime(2023, 5, 15, 10, 38, 6, 857, DateTimeKind.Utc).AddTicks(4945),
                             Name = "EIT"
                         });
                 });
@@ -730,11 +733,11 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTime(2023, 5, 15, 10, 41, 45, 324, DateTimeKind.Utc).AddTicks(4993),
+                            CreatedOn = new DateTime(2023, 5, 15, 10, 38, 6, 857, DateTimeKind.Utc).AddTicks(4907),
                             EmailDomainName = "@AAUP.COM",
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTime(2023, 5, 15, 10, 41, 45, 324, DateTimeKind.Utc).AddTicks(4995),
+                            ModifiedOn = new DateTime(2023, 5, 15, 10, 38, 6, 857, DateTimeKind.Utc).AddTicks(4909),
                             Name = "AAUP"
                         });
                 });

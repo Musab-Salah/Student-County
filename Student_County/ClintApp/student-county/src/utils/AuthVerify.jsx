@@ -6,7 +6,7 @@ import useComponent from "../hooks/useComponent";
 
 const AuthVerify = (props, { children }) => {
   const { isIdle, idleTimer, setIdle } = useIdle({});
-  const { Create } = useComponent();
+  const { Create, Option } = useComponent();
 
   const { refresh, isLogout, logout, isLogin, decodedJwt, userInLocal } =
     useAuth();
@@ -25,11 +25,9 @@ const AuthVerify = (props, { children }) => {
       }
     }
     // eslint-disable-next-line
-  }, [refresh, location,Create]);
+  }, [location, Create, Option]);
 
   return <></>;
 };
 
 export default withRouter(AuthVerify);
-
-

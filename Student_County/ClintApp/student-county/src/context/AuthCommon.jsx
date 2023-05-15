@@ -1,7 +1,6 @@
 import React, { useState, createContext, useEffect } from "react";
 import AuthServices from "../services/AuthServices";
 import { useNavigate } from "react-router-dom";
-import useUniversities from "../hooks/useUniversities";
 const AuthCxt = createContext();
 
 const parseJwt = (token) => {
@@ -13,7 +12,6 @@ const parseJwt = (token) => {
 };
 
 export function AuthProvider({ children }) {
-  const { getUniversityById, University } = useUniversities();
   const [isLogout, setIsLogout] = useState(true);
   const [isLogin, setIsLogin] = useState(false);
   const [AuthError, setError] = useState("");
@@ -119,7 +117,8 @@ export function AuthProvider({ children }) {
       .then((response) => {
         localStorage.setItem("user", JSON.stringify(response.data));
         setToken(response.data.token);
-        return response.data;
+        const decodedJwt = parseJwt(response.data.token);
+        setDecodedJwt(decodedJwt);
       })
       .catch(() => setError("Failed Refresh token"));
   };
