@@ -76,7 +76,9 @@ export function AuthProvider({ children }) {
       })
       .catch((res) => {
         setError(res.response.data);
-        navigate("/sign_up");
+        sleep(5000).then(() => {
+          setError();
+        });
       });
   };
 
@@ -92,7 +94,9 @@ export function AuthProvider({ children }) {
       })
       .catch((res) => {
         setError(res.response.data);
-        navigate("/sign_up");
+        sleep(5000).then(() => {
+          setError();
+        });
       });
   };
 
@@ -109,18 +113,22 @@ export function AuthProvider({ children }) {
         setError("");
         navigate("/dashboard");
       })
-      .catch(() => setError("Failed Login"));
+      .catch(() => {
+        setError("Failed Login");
+        sleep(5000).then(() => {
+          setError();
+        });
+      });
   };
 
   const refresh = () => {
-    AuthServices.refresh()
-      .then((response) => {
-        localStorage.setItem("user", JSON.stringify(response.data));
-        setToken(response.data.token);
-        const decodedJwt = parseJwt(response.data.token);
-        setDecodedJwt(decodedJwt);
-      })
-      .catch(() => setError("Failed Refresh token"));
+    AuthServices.refresh().then((response) => {
+      localStorage.setItem("user", JSON.stringify(response.data));
+      setToken(response.data.token);
+      const decodedJwt = parseJwt(response.data.token);
+      setDecodedJwt(decodedJwt);
+    });
+    //.catch(() => setError("Failed Refresh token"));
   };
 
   const logout = () => {
@@ -135,6 +143,9 @@ export function AuthProvider({ children }) {
       })
       .catch(() => {
         setError("Failed Logout");
+        sleep(5000).then(() => {
+          setError();
+        });
       });
   };
   const getRoles = () => {
@@ -143,7 +154,7 @@ export function AuthProvider({ children }) {
         setRoles(res.data);
       })
       .catch(() => {
-        setError("Failed bring the Roles");
+        //setError("Failed bring the Roles");
       });
   };
 
@@ -159,7 +170,10 @@ export function AuthProvider({ children }) {
       .catch((res) => {
         setError(res.response.data);
         setSendEmailResetPass(false);
-        navigate("/forgot_password");
+        sleep(5000).then(() => {
+          setError();
+          navigate("/forgot_password");
+        });
       });
   };
   const resetPassword = (Bo) => {
@@ -175,7 +189,10 @@ export function AuthProvider({ children }) {
       .catch((res) => {
         setError(res.response.data);
         setSendEmailResetPass(false);
-        navigate("/reset_password");
+        sleep(5000).then(() => {
+          setError();
+          navigate("/reset_password");
+        });
       });
   };
 

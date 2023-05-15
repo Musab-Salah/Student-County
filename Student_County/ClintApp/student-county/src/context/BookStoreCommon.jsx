@@ -28,7 +28,9 @@ export function BooksProvider({ children }) {
     sleep(3000).then(() => {
       setError("");
     });
-  useEffect(() => {}, []);
+  useEffect(() => {
+        // eslint-disable-next-line
+  }, []);
   useMemo(() => {
     // eslint-disable-next-line
   }, []);
@@ -56,6 +58,7 @@ export function BooksProvider({ children }) {
     BookStoreServices.createBook(Bo, token)
       .then((res) => {
         setBook(res.data);
+        getMyAllBooks();
         getMyAllBooks();
         setSuccess(true);
         setError(null);

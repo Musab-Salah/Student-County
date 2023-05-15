@@ -12,7 +12,7 @@ import "../../../pages/sign_up/SignUp.css";
 
 const Patients = () => {
   // State Hook
-  const { patientRegister, UserError, isSuccessfully } = useAuth();
+  const { patientRegister, AuthError, isSuccessfully } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [phonePrefix, setPhonePrefix] = useState("+970");
   const [acceptPolicy, setAcceptPolicy] = useState(false);
@@ -52,6 +52,7 @@ const Patients = () => {
       document.removeEventListener("click", handleOutsideClick);
     };
   }, [showDropdownPrefix, showDropdownGender]);
+
 
   const handleFirstNameChange = (event) => {
     const nameRegex = /^([a-zA-Z])(?=.{3,})/;
@@ -462,15 +463,15 @@ const Patients = () => {
         </span>
       )}
 
+      {AuthError && (
+        <span className="wrong-info">
+          <AiFillExclamationCircle />
+          {AuthError}
+        </span>
+      )}
       <button type="submit" className={`btn btn-primary sign`}>
         Sign Up
       </button>
-      {UserError && (
-        <span className="wrong-info">
-          <AiFillExclamationCircle />
-          {UserError}
-        </span>
-      )}
       {isSuccessfully && (
         <span className="success-info">
           <AiFillExclamationCircle />

@@ -15,7 +15,7 @@ import "../../../pages/sign_up/SignUp.css";
 const Students = () => {
   // State Hooks
   const { Universities } = useUniversities();
-  const { UserBo, studentRegister, UserError, isSuccessfully } = useAuth();
+  const { UserBo, studentRegister, AuthError, isSuccessfully } = useAuth();
   const { Colleges } = useCollege();
   const [username, setUsername] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -466,7 +466,7 @@ const Students = () => {
         </div>
         <div className="UnivSuffix">
           {" "}
-          {emailDomainName && !UserError ? emailDomainName : "@"}
+          {emailDomainName && !AuthError ? emailDomainName : "@"}
         </div>
       </div>
 
@@ -599,10 +599,10 @@ const Students = () => {
       <button type="submit" className={`btn btn-primary sign`}>
         Sign Up
       </button>
-      {UserError && (
+      {AuthError && (
         <span className="wrong-info">
           <AiFillExclamationCircle />
-          {UserError}
+          {AuthError}
         </span>
       )}
       {isSuccessfully && (

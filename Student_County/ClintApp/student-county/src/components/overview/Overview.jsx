@@ -45,7 +45,7 @@ const Overview = () => {
     getMyAllBooks();
 
     // eslint-disable-next-line
-  }, []);
+  }, [MyBooks]);
 
   return (
     <>
@@ -66,7 +66,7 @@ const Overview = () => {
             </div>
             <div className="stats-info">
               <div className="stats-title">RIDING</div>
-              <div className="stats-number">1</div>
+              <div className="stats-number">0</div>
             </div>
           </div>
           <div className="stats">
@@ -75,7 +75,7 @@ const Overview = () => {
             </div>
             <div className="stats-info">
               <div className="stats-title">HOUSING</div>
-              <div className="stats-number">1</div>
+              <div className="stats-number">0</div>
             </div>
           </div>
         </div>
@@ -180,10 +180,11 @@ const Overview = () => {
               shortDescription={book.shortDescription}
               longDescription={book.longDescription}
               key={book.id}
+              studentId={book.studentId}
             />
           ))}
 
-          <div className="card">
+          {/* <div className="card">
             <img
               className="card-picture"
               alt=""
@@ -230,7 +231,7 @@ const Overview = () => {
               </div>
               <button className="btn btn-small">Manage</button>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

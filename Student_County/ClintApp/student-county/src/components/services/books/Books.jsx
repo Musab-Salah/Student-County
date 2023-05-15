@@ -2,6 +2,7 @@ import BookCard from "../../cards/BookCard";
 import useBooks from "../../../hooks/useBooks";
 import { useEffect, useState } from "react";
 import { RiArrowDownSLine } from "react-icons/ri";
+import "./Books.css";
 
 const Books = () => {
   const { Books, getBooks } = useBooks();
@@ -41,7 +42,7 @@ const Books = () => {
   useEffect(() => {
     getBooks();
     // eslint-disable-next-line
-  }, []);
+  }, [Books]);
   return (
     <>
       <div className="service-container">
@@ -137,6 +138,7 @@ const Books = () => {
               shortDescription={book.shortDescription}
               longDescription={book.longDescription}
               key={book.id}
+              studentId={book.studentId}
             />
           ))}
         </div>

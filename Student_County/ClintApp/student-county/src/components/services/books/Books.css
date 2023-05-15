@@ -1,18 +1,11 @@
-.form-create {
+.cards {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
-  justify-content: flex-start;
-  gap: var(--gap-mini);
-  color: var(--color-blueviolet-100);
-  width: -webkit-fill-available;
-  border-radius: var(--br-3xs) var(--br-3xs) 0px 0px;
-  background-color: var(--color-whitesmoke-200);
-  box-shadow: 7.5px 7.5px 0#09072f;
-  border: 1px solid var(--color-gray-100);
-  flex-shrink: 0;
-  object-fit: cover;
-  padding: 30px;
+  align-self: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--gap-31xl);
 }
 
 .input-container {
@@ -52,20 +45,6 @@
 .input-container:focus-within {
   border: 1.5px solid var(--color-blueviolet-100);
 }
-.Create-section {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  padding: var(--padding-31xl) var(--padding-81xl);
-  box-sizing: border-box;
-  align-items: center;
-  justify-content: center;
-  gap: var(--gap-mini);
-  width: 50%;
-  margin-left: 30%;
-  min-height: 100vh;
-  z-index: 10;
-}
 
 .sign-button {
   width: -webkit-fill-available;
@@ -78,16 +57,6 @@
   .Create-section {
     width: 100%;
   }
-}
-
-input::-webkit-outer-spin-button,
-.input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.input[type="number"] {
-  -moz-appearance: textfield;
 }
 
 .custom-select {
