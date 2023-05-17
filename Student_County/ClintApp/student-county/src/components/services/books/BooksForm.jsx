@@ -3,10 +3,16 @@ import useComponent from "../../../hooks/useComponent";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import useBooks from "../../../hooks/useBooks";
+import DialogConfirmation from "../../dialog_confirmation/DialogConfirmation";
 import "./BooksForm.css";
 
 const CreateBooks = () => {
-  const { setButtonCards, ButtonCards } = useComponent();
+  const {
+    setButtonCards,
+    ButtonCards,
+    deleteDialogState,
+    setDeleteDialogState,
+  } = useComponent();
   const {
     Success,
     createBook,
@@ -15,7 +21,6 @@ const CreateBooks = () => {
     updateBook,
     Book,
     setBook,
-    deleteBook,
   } = useBooks();
   // State Hook
   const [name, setName] = useState("");
@@ -153,7 +158,7 @@ const CreateBooks = () => {
   };
   const handleDelete = (event) => {
     event.preventDefault();
-    deleteBook(Book.id);
+    setDeleteDialogState(true);
   };
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -162,193 +167,196 @@ const CreateBooks = () => {
   };
   return (
     <>
-      <div className="Create-section">
-        <form className="form-create" onSubmit={handleSubmit}>
-          <div className="input-container">
-            <input
-              maxLength={40}
-              type="text"
-              name="name"
-              defaultValue={name ? name : book.name}
-              onChange={handleSetName}
-              required
-            />
-            <div
-              className="input-container-option"
-              onClick={() => document.getElementsByName("name")[0].focus()}
-            >
-              Name
+      {deleteDialogState && <DialogConfirmation id={Book.id} />}
+      <div className={`${deleteDialogState ? "opacity" : ""}`}>
+        <div className="Create-section">
+          <form className="form-create" onSubmit={handleSubmit}>
+            <div className="input-container">
+              <input
+                maxLength={40}
+                type="text"
+                name="name"
+                defaultValue={name ? name : book.name}
+                onChange={handleSetName}
+                required
+              />
+              <div
+                className="input-container-option"
+                onClick={() => document.getElementsByName("name")[0].focus()}
+              >
+                Name
+              </div>
             </div>
-          </div>
-          {nameError && (
-            <span className="wrong-info">
-              <AiFillExclamationCircle />
-              {nameError}
-            </span>
-          )}
-          <div className="input-container">
-            <input
-              type="text"
-              name="shortdescription"
-              defaultValue={
-                shortDescription ? shortDescription : book.shortDescription
-              }
-              onChange={handleShortDescription}
-              maxLength={40}
-              required
-            />
-            <div
-              className="input-container-option"
-              onClick={() =>
-                document.getElementsByName("shortdescription")[0].focus()
-              }
-            >
-              Short Description
+            {nameError && (
+              <span className="wrong-info">
+                <AiFillExclamationCircle />
+                {nameError}
+              </span>
+            )}
+            <div className="input-container">
+              <input
+                type="text"
+                name="shortdescription"
+                defaultValue={
+                  shortDescription ? shortDescription : book.shortDescription
+                }
+                onChange={handleShortDescription}
+                maxLength={40}
+                required
+              />
+              <div
+                className="input-container-option"
+                onClick={() =>
+                  document.getElementsByName("shortdescription")[0].focus()
+                }
+              >
+                Short Description
+              </div>
             </div>
-          </div>
-          {shortDescriptionError && (
-            <span className="wrong-info">
-              <AiFillExclamationCircle />
-              {shortDescriptionError}
-            </span>
-          )}
-          <div className="input-container ">
-            <textarea
-              maxLength={300}
-              type="text"
-              defaultValue={
-                longDescription ? longDescription : book.longDescription
-              }
-              name="longdescription"
-              onChange={handleLongDescription}
-              className="input-container "
-              required
-            />
-            <div
-              className="input-container-option  "
-              onClick={() =>
-                document.getElementsByName("longdescription")[0].focus()
-              }
-            >
-              long Description
+            {shortDescriptionError && (
+              <span className="wrong-info">
+                <AiFillExclamationCircle />
+                {shortDescriptionError}
+              </span>
+            )}
+            <div className="input-container ">
+              <textarea
+                maxLength={300}
+                type="text"
+                defaultValue={
+                  longDescription ? longDescription : book.longDescription
+                }
+                name="longdescription"
+                onChange={handleLongDescription}
+                className="input-container "
+                required
+              />
+              <div
+                className="input-container-option  "
+                onClick={() =>
+                  document.getElementsByName("longdescription")[0].focus()
+                }
+              >
+                long Description
+              </div>
             </div>
-          </div>
-          {longDescriptionError && (
-            <span className="wrong-info">
-              <AiFillExclamationCircle />
-              {longDescriptionError}
-            </span>
-          )}
-          <div className="custom-select">
-            <div
-              className="selected-option"
-              onClick={() => setShowDropdownTheWay(!showDropdownTheWay)}
-            >
-              {!theWay ? (
-                <div className="input-container-option input-dropdown">
-                  Select The Way
-                </div>
-              ) : (
-                <div>
-                  <div className="input-container-option input-dropdown-title">
+            {longDescriptionError && (
+              <span className="wrong-info">
+                <AiFillExclamationCircle />
+                {longDescriptionError}
+              </span>
+            )}
+            <div className="custom-select">
+              <div
+                className="selected-option"
+                onClick={() => setShowDropdownTheWay(!showDropdownTheWay)}
+              >
+                {!theWay ? (
+                  <div className="input-container-option input-dropdown">
                     Select The Way
                   </div>
-                  <div className="input-container-option input-dropdown input-selected">
-                    {theWay}
+                ) : (
+                  <div>
+                    <div className="input-container-option input-dropdown-title">
+                      Select The Way
+                    </div>
+                    <div className="input-container-option input-dropdown input-selected">
+                      {theWay}
+                    </div>
+                  </div>
+                )}
+                <RiArrowDownSLine className="arrow-icon" />
+              </div>
+              {showDropdownTheWay && (
+                <div className="options" id="input-dropdown">
+                  <div className="option-title">Select The Way</div>
+                  <div
+                    className="option"
+                    onClick={() => handleTheWayChange("Sell")}
+                  >
+                    Sell
+                  </div>
+                  <div
+                    className="option"
+                    onClick={() => handleTheWayChange("Exchange")}
+                  >
+                    Exchange
                   </div>
                 </div>
               )}
-              <RiArrowDownSLine className="arrow-icon" />
             </div>
-            {showDropdownTheWay && (
-              <div className="options" id="input-dropdown">
-                <div className="option-title">Select The Way</div>
-                <div
-                  className="option"
-                  onClick={() => handleTheWayChange("Sell")}
-                >
-                  Sell
-                </div>
-                <div
-                  className="option"
-                  onClick={() => handleTheWayChange("Exchange")}
-                >
-                  Exchange
-                </div>
-              </div>
+            {theWayError && (
+              <span className="wrong-info">
+                {" "}
+                <AiFillExclamationCircle /> {theWayError}{" "}
+              </span>
             )}
-          </div>
-          {theWayError && (
-            <span className="wrong-info">
-              {" "}
-              <AiFillExclamationCircle /> {theWayError}{" "}
-            </span>
-          )}
-          <div
-            className={`input-container ${
-              theWay === "Sell" ? "show" : "unshow"
-            }`}
-          >
-            <input
-              type="number"
-              name="price"
-              defaultValue={price ? price : book.price}
-              onChange={handleSetPrice}
-            />
-
             <div
-              className="input-container-option"
-              onClick={() => document.getElementsByName("price")[0].focus()}
+              className={`input-container ${
+                theWay === "Sell" ? "show" : "unshow"
+              }`}
             >
-              Price
-            </div>
-            <div className="UnivSuffix"> {"₪"}</div>
-          </div>
-          {priceError && (
-            <span className="wrong-info">
-              {" "}
-              <AiFillExclamationCircle /> {priceError}{" "}
-            </span>
-          )}
+              <input
+                type="number"
+                name="price"
+                defaultValue={price ? price : book.price}
+                onChange={handleSetPrice}
+              />
 
-          {/* <button type="submit" className={`btn btn-primary sign ${!isFormValid ? 'disabled' : ''}`}>  */}
-          <div className="buttons">
-            {ButtonCards === "Update" ? (
-              <button type="submit" className={`btn btn-primary `}>
-                Update
-              </button>
-            ) : (
-              <button type="submit" className={`btn btn-primary `}>
-                Publish
-              </button>
+              <div
+                className="input-container-option"
+                onClick={() => document.getElementsByName("price")[0].focus()}
+              >
+                Price
+              </div>
+              <div className="UnivSuffix"> {"₪"}</div>
+            </div>
+            {priceError && (
+              <span className="wrong-info">
+                {" "}
+                <AiFillExclamationCircle /> {priceError}{" "}
+              </span>
             )}
-            {ButtonCards === "Update" ? (
-              <button onClick={handleDelete} className={`btn btn-primary `}>
-                Delete
+
+            {/* <button type="submit" className={`btn btn-primary sign ${!isFormValid ? 'disabled' : ''}`}>  */}
+            <div className="buttons">
+              {ButtonCards === "Update" ? (
+                <button type="submit" className={`btn btn-primary `}>
+                  Update
+                </button>
+              ) : (
+                <button type="submit" className={`btn btn-primary `}>
+                  Publish
+                </button>
+              )}
+              {ButtonCards === "Update" ? (
+                <button onClick={handleDelete} className={`btn btn-primary `}>
+                  Delete
+                </button>
+              ) : (
+                ""
+              )}
+              <button
+                onClick={() => setButtonCards("")}
+                className={`btn btn-secondary `}
+              >
+                Cancel
               </button>
-            ) : (
-              ""
+            </div>
+            {BookError && (
+              <span className="wrong-info">
+                <AiFillExclamationCircle />
+                {BookError}
+              </span>
             )}
-            <button
-              onClick={()=>setButtonCards("")}
-              className={`btn btn-secondary `}
-            >
-              Cancel
-            </button>
-          </div>
-          {BookError && (
-            <span className="wrong-info">
-              <AiFillExclamationCircle />
-              {BookError}
-            </span>
-          )}
-          {Success && (
-            <span className="success-info">
-              <AiFillExclamationCircle />
-              {Success}
-            </span>
-          )}
-        </form>
+            {Success && (
+              <span className="success-info">
+                <AiFillExclamationCircle />
+                {Success}
+              </span>
+            )}
+          </form>
+        </div>
       </div>
     </>
   );

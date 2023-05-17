@@ -4,7 +4,7 @@
   flex-direction: row;
   opacity: 1;
 }
-.oop {
+.opacity {
   opacity: 0.2;
   z-index: -1;
 }

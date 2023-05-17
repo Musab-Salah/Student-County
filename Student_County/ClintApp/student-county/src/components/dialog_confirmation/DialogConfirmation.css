@@ -1,0 +1,53 @@
+.Create-section {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-31xl) var(--padding-81xl);
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-mini);
+  width: 50%;
+  margin-left: 30%;
+  min-height: 100vh;
+  z-index: 2;
+}
+
+.form-create {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-mini);
+  width: -webkit-fill-available;
+  border-radius: var(--br-3xs) var(--br-3xs) 0px 0px;
+  background-color: var(--color-whitesmoke-200);
+  box-shadow: 7.5px 7.5px 0#09072f;
+  border: 1px solid var(--color-gray-100);
+  flex-shrink: 0;
+  object-fit: cover;
+  padding: 30px;
+  align-items: center !important;
+  color: var(--color-gray-100) !important;
+}
+.buttons {
+  justify-content: center;
+  width: -webkit-fill-available;
+  gap: var(--gap-xl);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.title {
+  justify-content: center;
+  width: -webkit-fill-available;
+  gap: var(--gap-xl);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 20px;
+  font-weight: 600;
+  color:var(--color-gray-100);
+  font-family:var(--font-poppins);
+  flex-shrink: 0;
+}

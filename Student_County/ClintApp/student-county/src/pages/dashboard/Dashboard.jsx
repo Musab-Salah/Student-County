@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Menu from "../../components/menu/menu";
 import Overview from "../../components/overview/Overview";
 import Books from "../../components/services/books/Books";
-import CreateBooks from "../../components/services/books/BooksForm";
+import BooksForm from "../../components/services/books/BooksForm";
 // import PortalDrawer from "../../components/portal-drawer";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { FiSearch } from "react-icons/fi";
@@ -51,8 +51,8 @@ const Dashboard = () => {
 
   return (
     <>
-      {(ButtonCards === "Create" || ButtonCards === "Update") && <CreateBooks />}
-      <div className={`${ButtonCards ? "oop" : ""}`}>
+      {(ButtonCards === "Create" || ButtonCards === "Update") && <BooksForm />}
+      <div className={`${ButtonCards ? "opacity" : ""}`}>
         <div className={`dashboard-container `}>
           <Menu isMenuOpen={isMenuOpen} isMenuOpenPhone={isMenuOpenPhone} />
           <div className={`dashboard  `}>

@@ -58,7 +58,7 @@ export function BooksProvider({ children }) {
     Bo.studentId = decodedJwt.uid;
     BookStoreServices.createBook(Bo, token)
       .then((res) => {
-        setSuccess(true);
+        setSuccess("Successfully Created The Book.");
         setError(null);
       })
       .catch(() => {
@@ -83,7 +83,7 @@ export function BooksProvider({ children }) {
     console.log(Bo);
     BookStoreServices.updateBook(id, Bo, token)
       .then((res) => {
-        setSuccess(true);
+        setSuccess("Successfully Updated The Book.");
         setError(null);
       })
       .catch(() => {

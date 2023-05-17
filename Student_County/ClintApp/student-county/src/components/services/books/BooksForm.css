@@ -64,7 +64,7 @@
   width: 50%;
   margin-left: 30%;
   min-height: 100vh;
-  z-index: 10;
+  z-index: 1;
 }
 
 .sign-button {
@@ -223,4 +223,7 @@ textarea-container:focus-within {
   justify-content: center;
   flex-wrap: wrap;
   gap: var(--gap-31xl);
+}
+.opacity {
+  opacity: 0.2;
 }
