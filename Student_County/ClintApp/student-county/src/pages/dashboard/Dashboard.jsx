@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Menu from "../../components/menu/menu";
 import Overview from "../../components/overview/Overview";
 import Books from "../../components/services/books/Books";
-import CreateBooks from "../../components/services/books/CreateBooks";
+import CreateBooks from "../../components/services/books/BooksForm";
 // import PortalDrawer from "../../components/portal-drawer";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { FiSearch } from "react-icons/fi";
@@ -13,7 +13,7 @@ import useComponent from "../../hooks/useComponent";
 import useAuth from "../../hooks/useAuth";
 import "./Dashboard.css";
 const Dashboard = () => {
-  const { Option, setCreate, Create } = useComponent();
+  const { OptionMenu, setButtonCards, ButtonCards } = useComponent();
   const { decodedJwt } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -51,8 +51,8 @@ const Dashboard = () => {
 
   return (
     <>
-      {Create === "CreateBooks" && <CreateBooks />}
-      <div className={`${Create ? "oop" : ""}`}>
+      {(ButtonCards === "Create" || ButtonCards === "Update") && <CreateBooks />}
+      <div className={`${ButtonCards ? "oop" : ""}`}>
         <div className={`dashboard-container `}>
           <Menu isMenuOpen={isMenuOpen} isMenuOpenPhone={isMenuOpenPhone} />
           <div className={`dashboard  `}>
@@ -67,7 +67,9 @@ const Dashboard = () => {
                 <div className="welcome-container">
                   <div className="horizontal-line" />
                   <div className="welcome-info">
-                    <div className="welcome-text">Welcome, {decodedJwt.name} 👋</div>
+                    <div className="welcome-text">
+                      Welcome, {decodedJwt.name} 👋
+                    </div>
                     <div className="welcome-description">
                       Manage your services on the Student County dashboard.
                     </div>
@@ -77,10 +79,10 @@ const Dashboard = () => {
               <div className="right-navbar">
                 <div className="tools">
                   <FiSearch className="btn btn-icon btn-icon-active" />
-                  {Option === "Books" && (
+                  {OptionMenu === "Books" && (
                     <AiOutlinePlus
                       className="btn btn-icon"
-                      onClick={() => setCreate("CreateBooks")}
+                      onClick={() => setButtonCards("Create")}
                     />
                   )}
 
@@ -109,8 +111,8 @@ const Dashboard = () => {
               </div>
             </div>
 
-            {Option === "Overview" && <Overview />}
-            {Option === "Books" && <Books />}
+            {OptionMenu === "Overview" && <Overview />}
+            {OptionMenu === "Books" && <Books />}
           </div>
           {/* {isDrawerOpen && (
           <PortalDrawer placement="Left" onOutsideClick={closeDrawer}>

@@ -3,25 +3,34 @@ import useComponent from "../../../hooks/useComponent";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import useBooks from "../../../hooks/useBooks";
-import "./CreateBooks.css";
+import "./BooksForm.css";
 
 const CreateBooks = () => {
-  const { setCreate } = useComponent();
-  const { Success, BookBo, createBook, BookError, setSuccess } = useBooks();
+  const { setButtonCards, ButtonCards } = useComponent();
+  const {
+    Success,
+    createBook,
+    BookError,
+    setSuccess,
+    updateBook,
+    Book,
+    setBook,
+    deleteBook,
+  } = useBooks();
   // State Hook
-  const [name] = useState();
-  const [shortDescription] = useState();
-  const [longDescription] = useState();
-  const [price] = useState();
+  const [name, setName] = useState("");
+  const [shortDescription, setShortDescription] = useState("");
+  const [longDescription, setLongDescription] = useState("");
+  const [price, setPrice] = useState("");
   const [theWay, setTheWay] = useState("");
-  const [book, setBook] = useState(BookBo);
+  const [book, setBookBo] = useState({});
 
   // Error Hook
   const [theWayError, setTheWayError] = useState("");
-  const [nameError, setNameError] = useState();
-  const [shortDescriptionError, setShortDescriptionError] = useState();
-  const [longDescriptionError, setLongDescriptionError] = useState();
-  const [priceError, setPriceError] = useState();
+  const [nameError, setNameError] = useState("");
+  const [shortDescriptionError, setShortDescriptionError] = useState("");
+  const [longDescriptionError, setLongDescriptionError] = useState("");
+  const [priceError, setPriceError] = useState("");
 
   const [showDropdownTheWay, setShowDropdownTheWay] = useState(false);
 
@@ -42,18 +51,44 @@ const CreateBooks = () => {
     };
   }, [showDropdownTheWay]);
 
+  useEffect(() => {
+    setName(Book.name);
+    setShortDescription(Book.shortDescription);
+    setLongDescription(Book.longDescription);
+    setPrice(Book.price);
+    setTheWay(Book.theWay);
+    setBookBo({
+      ...book,
+      studentId: Book.studentId,
+      id: Book.id,
+      name: Book.name,
+      shortDescription: Book.shortDescription,
+      longDescription: Book.longDescription,
+      price: Book.price,
+      theWay: Book.theWay,
+    });
+    // eslint-disable-next-line
+  }, [Book]);
   useMemo(() => {
     if (Success) {
-      sleep(3000).then(() => {
+      sleep(2000).then(() => {
         setSuccess();
-        setCreate("");
+        setButtonCards("");
       });
     }
     // eslint-disable-next-line
   }, [Success]);
 
+  useEffect(() => {
+    return function cleanup() {
+      setButtonCards("");
+      setBook("");
+    };
+    // eslint-disable-next-line
+  }, []);
+
   const handleTheWayChange = (value) => {
-    setBook({
+    setBookBo({
       ...book,
       theWay: value,
     });
@@ -69,7 +104,7 @@ const CreateBooks = () => {
         "Please enter a valid name, for example: Software Engineering"
       );
     } else {
-      setBook({
+      setBookBo({
         ...book,
         name: e.target.value,
       });
@@ -83,7 +118,7 @@ const CreateBooks = () => {
         "Please lengthen this text to 10 characters or more"
       );
     } else {
-      setBook({
+      setBookBo({
         ...book,
         shortDescription: e.target.value,
       });
@@ -97,7 +132,7 @@ const CreateBooks = () => {
         "Please lengthen this text to 10 characters or more"
       );
     } else {
-      setBook({
+      setBookBo({
         ...book,
         longDescription: e.target.value,
       });
@@ -109,17 +144,21 @@ const CreateBooks = () => {
     if (!nameRegex.test(e.target.value)) {
       setPriceError("Please lengthen this number to 1 or more");
     } else {
-      setBook({
+      setBookBo({
         ...book,
         price: e.target.value,
       });
       setPriceError(false);
     }
   };
-
+  const handleDelete = (event) => {
+    event.preventDefault();
+    deleteBook(Book.id);
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
-    createBook(book);
+    if (ButtonCards === "Update") updateBook(Book.id, book);
+    else if (ButtonCards === "Create") createBook(book);
   };
   return (
     <>
@@ -130,7 +169,7 @@ const CreateBooks = () => {
               maxLength={40}
               type="text"
               name="name"
-              value={name}
+              defaultValue={name ? name : book.name}
               onChange={handleSetName}
               required
             />
@@ -151,7 +190,9 @@ const CreateBooks = () => {
             <input
               type="text"
               name="shortdescription"
-              value={shortDescription}
+              defaultValue={
+                shortDescription ? shortDescription : book.shortDescription
+              }
               onChange={handleShortDescription}
               maxLength={40}
               required
@@ -175,7 +216,9 @@ const CreateBooks = () => {
             <textarea
               maxLength={300}
               type="text"
-              value={longDescription}
+              defaultValue={
+                longDescription ? longDescription : book.longDescription
+              }
               name="longdescription"
               onChange={handleLongDescription}
               className="input-container "
@@ -249,7 +292,7 @@ const CreateBooks = () => {
             <input
               type="number"
               name="price"
-              value={price}
+              defaultValue={price ? price : book.price}
               onChange={handleSetPrice}
             />
 
@@ -270,11 +313,24 @@ const CreateBooks = () => {
 
           {/* <button type="submit" className={`btn btn-primary sign ${!isFormValid ? 'disabled' : ''}`}>  */}
           <div className="buttons">
-            <button type="submit" className={`btn btn-primary `}>
-              Publish
-            </button>
+            {ButtonCards === "Update" ? (
+              <button type="submit" className={`btn btn-primary `}>
+                Update
+              </button>
+            ) : (
+              <button type="submit" className={`btn btn-primary `}>
+                Publish
+              </button>
+            )}
+            {ButtonCards === "Update" ? (
+              <button onClick={handleDelete} className={`btn btn-primary `}>
+                Delete
+              </button>
+            ) : (
+              ""
+            )}
             <button
-              onClick={() => setCreate("")}
+              onClick={()=>setButtonCards("")}
               className={`btn btn-secondary `}
             >
               Cancel
@@ -289,7 +345,7 @@ const CreateBooks = () => {
           {Success && (
             <span className="success-info">
               <AiFillExclamationCircle />
-              {"Added successfully"}
+              {Success}
             </span>
           )}
         </form>

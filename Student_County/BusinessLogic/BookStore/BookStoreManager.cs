@@ -19,7 +19,7 @@ namespace Student_County.BusinessLogic.BookStore
 
         public async Task<List<BookStoreEntity>> GetMyAllBooks(string userid) => await _context.Books.Where(entity => !entity.IsDeleted && entity.StudentId == userid).ToListAsync();
 
-        public async Task<BookStoreEntity> Delete(int id)
+        public async Task Delete(int id)
         {
             var entity = await _context.Books.FirstOrDefaultAsync(entity => entity.Id == id);
             if (entity == null)
@@ -29,9 +29,7 @@ namespace Student_County.BusinessLogic.BookStore
                 entity.IsDeleted = true;
                 _context.Update(entity);
                 await _context.SaveChangesAsync();
-                throw new Exception("BookStore Is Deleted");
-            }
-            return entity;
+            }          
         }
         public async Task<BookStoreEntity> GetBookStore(int id)
         {

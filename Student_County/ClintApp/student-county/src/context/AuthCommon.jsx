@@ -12,7 +12,7 @@ const parseJwt = (token) => {
 };
 
 export function AuthProvider({ children }) {
-  const [isLogout, setIsLogout] = useState(true);
+  const [isLogout, setIsLogout] = useState();
   const [isLogin, setIsLogin] = useState(false);
   const [AuthError, setError] = useState("");
   const [token, setToken] = useState();
@@ -20,6 +20,10 @@ export function AuthProvider({ children }) {
   const [Roles, setRoles] = useState();
   const [SendEmailResetPass, setSendEmailResetPass] = useState(false);
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const cleanup = () =>
+    sleep(5000).then(() => {
+      setError("");
+    });
   let navigate = useNavigate();
   const [Option, setOption] = useState(null);
 
@@ -76,9 +80,7 @@ export function AuthProvider({ children }) {
       })
       .catch((res) => {
         setError(res.response.data);
-        sleep(5000).then(() => {
-          setError();
-        });
+        cleanup();
       });
   };
 
@@ -94,9 +96,7 @@ export function AuthProvider({ children }) {
       })
       .catch((res) => {
         setError(res.response.data);
-        sleep(5000).then(() => {
-          setError();
-        });
+        cleanup();
       });
   };
 
@@ -115,9 +115,7 @@ export function AuthProvider({ children }) {
       })
       .catch(() => {
         setError("Failed Login");
-        sleep(5000).then(() => {
-          setError();
-        });
+        cleanup();
       });
   };
 
@@ -143,9 +141,7 @@ export function AuthProvider({ children }) {
       })
       .catch(() => {
         setError("Failed Logout");
-        sleep(5000).then(() => {
-          setError();
-        });
+        cleanup();
       });
   };
   const getRoles = () => {
@@ -171,7 +167,7 @@ export function AuthProvider({ children }) {
         setError(res.response.data);
         setSendEmailResetPass(false);
         sleep(5000).then(() => {
-          setError();
+          setError("");
           navigate("/forgot_password");
         });
       });
@@ -190,7 +186,7 @@ export function AuthProvider({ children }) {
         setError(res.response.data);
         setSendEmailResetPass(false);
         sleep(5000).then(() => {
-          setError();
+          setError("");
           navigate("/reset_password");
         });
       });

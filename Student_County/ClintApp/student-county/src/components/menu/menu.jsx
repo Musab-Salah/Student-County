@@ -12,7 +12,7 @@ import useComponent from "../../hooks/useComponent";
 import useAuth from "./../../hooks/useAuth";
 const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
   const [navLinksVisible, setNavLinksVisible] = useState([true, true]);
-  const { setOption, Option } = useComponent();
+  const { setOptionMenu, OptionMenu } = useComponent();
   const { logout } = useAuth();
 
   const handleTitleClick = (index) => (event) => {
@@ -95,8 +95,8 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                 <div
                   className={`dash-nav-link ${
                     isMenuOpen ? "padding-resize" : ""
-                  } ${Option === "Overview" ? "active" : ""} `}
-                  onClick={() => setOption("Overview")}
+                  } ${OptionMenu === "Overview" ? "active" : ""} `}
+                  onClick={() => setOptionMenu("Overview")}
                 >
                   <RxDashboard className="dash-nav-link-icon" />
 
@@ -111,8 +111,8 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                 <div
                   className={`dash-nav-link ${
                     isMenuOpen ? "padding-resize" : ""
-                  } ${Option === "Messages" ? "active" : ""} `}
-                  onClick={() => setOption("Messages")}
+                  } ${OptionMenu === "Messages" ? "active" : ""} `}
+                  onClick={() => setOptionMenu("Messages")}
                 >
                   <TbMessageCircle className="dash-nav-link-icon" />
                   <div
@@ -144,8 +144,8 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                 <div
                   className={`dash-nav-link ${
                     isMenuOpen ? "padding-resize" : ""
-                  } ${Option === "Books" ? "active" : ""} `}
-                  onClick={() => setOption("Books")}
+                  } ${OptionMenu === "Books" ? "active" : ""} `}
+                  onClick={() => setOptionMenu("Books")}
                 >
                   <BiBook className="dash-nav-link-icon" />
                   <div
@@ -159,8 +159,8 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                 <div
                   className={`dash-nav-link ${
                     isMenuOpen ? "padding-resize" : ""
-                  } ${Option === "Housing" ? "selected" : ""} `}
-                  onClick={() => setOption("Housing")}
+                  } ${OptionMenu === "Housing" ? "selected" : ""} `}
+                  onClick={() => setOptionMenu("Housing")}
                 >
                   <AiOutlineHome className="dash-nav-link-icon" />
                   <div
@@ -174,8 +174,8 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                 <div
                   className={`dash-nav-link ${
                     isMenuOpen ? "padding-resize" : ""
-                  } ${Option === "Rides" ? "selected" : ""} `}
-                  onClick={() => setOption("Rides")}
+                  } ${OptionMenu === "Rides" ? "selected" : ""} `}
+                  onClick={() => setOptionMenu("Rides")}
                 >
                   <IoCarOutline className="dash-nav-link-icon" />
                   <div
@@ -189,8 +189,8 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                 <div
                   className={`dash-nav-link ${
                     isMenuOpen ? "padding-resize" : ""
-                  } ${Option === "Tools" ? "selected" : ""} `}
-                  onClick={() => setOption("Tools")}
+                  } ${OptionMenu === "Tools" ? "selected" : ""} `}
+                  onClick={() => setOptionMenu("Tools")}
                 >
                   <TbTools className="dash-nav-link-icon" />
                   <div
@@ -204,8 +204,8 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                 <div
                   className={`dash-nav-link ${
                     isMenuOpen ? "padding-resize" : ""
-                  } ${Option === "Patients" ? "selected" : ""} `}
-                  onClick={() => setOption("Patients")}
+                  } ${OptionMenu === "Patients" ? "selected" : ""} `}
+                  onClick={() => setOptionMenu("Patients")}
                 >
                   <AiOutlineUser className="dash-nav-link-icon" />
                   <div
@@ -225,9 +225,9 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
         <div className="dash-menu-items">
           <div
             className={`dash-nav-link ${isMenuOpen ? "padding-resize" : ""} ${
-              Option === "Setting" ? "selected" : ""
+              OptionMenu === "Setting" ? "selected" : ""
             } `}
-            onClick={() => setOption("Setting")}
+            onClick={() => setOptionMenu("Setting")}
           >
             <RxGear className="dash-nav-link-icon" />
             <div className="dash-title-description">
@@ -240,9 +240,9 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
           </div>
           <div
             className={`dash-nav-link ${isMenuOpen ? "padding-resize" : ""} ${
-              Option === "Support" ? "selected" : ""
+              OptionMenu === "Support" ? "selected" : ""
             } `}
-            onClick={() => setOption("Support")}
+            onClick={() => setOptionMenu("Support")}
           >
             <HiOutlineSupport className="dash-nav-link-icon" />
             <div className="dash-title-description">

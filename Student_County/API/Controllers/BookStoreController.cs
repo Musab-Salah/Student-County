@@ -27,7 +27,7 @@ namespace Student_County.API.Controller
         public async Task<IActionResult> Index() => Ok(await _manager.GetAll());
 
         [HttpGet]
-        public async Task<IActionResult> GetMyAllBooks(string userid) => Ok(await _manager.GetMyAllBooks(userid));
+        public async Task<IActionResult> GetMyAllBooks( string userid) => Ok(await _manager.GetMyAllBooks(userid));
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] BookStoreBo bo)
         {
@@ -43,7 +43,7 @@ namespace Student_County.API.Controller
             return Ok("Is Deleted");
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id) => Ok(await _manager.GetBookStore(id));
+        public async Task<IActionResult> Get([FromRoute]  int id) => Ok(await _manager.GetBookStore(id));
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromBody] BookStoreBo bo, [FromRoute] int id)

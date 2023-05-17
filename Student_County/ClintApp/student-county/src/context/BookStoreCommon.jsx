@@ -10,9 +10,10 @@ export function BooksProvider({ children }) {
   const [Books, setBooks] = useState([]);
   const [MyBooks, setMyBooks] = useState([]);
 
-  const [BookError, setError] = useState();
-  const [Book, setBook] = useState("Loading");
-  const [Success, setSuccess] = useState();
+  const [BookError, setError] = useState("");
+  const [Book, setBook] = useState("");
+  const [BookById, setBookById] = useState("");
+  const [Success, setSuccess] = useState("");
 
   const [BookBo] = useState({
     id: "0",
@@ -24,12 +25,12 @@ export function BooksProvider({ children }) {
     studentId: "",
   });
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-  const timer = () =>
-    sleep(3000).then(() => {
+  const cleanup = () =>
+    sleep(5000).then(() => {
       setError("");
     });
   useEffect(() => {
-        // eslint-disable-next-line
+    // eslint-disable-next-line
   }, []);
   useMemo(() => {
     // eslint-disable-next-line
@@ -57,45 +58,50 @@ export function BooksProvider({ children }) {
     Bo.studentId = decodedJwt.uid;
     BookStoreServices.createBook(Bo, token)
       .then((res) => {
-        setBook(res.data);
-        getMyAllBooks();
-        getMyAllBooks();
         setSuccess(true);
         setError(null);
       })
-      .catch(() =>{
-        setError("Failed create the book...")
-        timer();
-      }
-  )};
+      .catch(() => {
+        setError("Failed create the book...");
+        cleanup();
+      });
+  };
 
   const getBookById = (id) => {
-    BookStoreServices.getBookStoreById(id)
+    BookStoreServices.getBookById(id, token)
       .then((res) => {
         setBook(res.data);
         setError(null);
       })
-      .catch(() => setError("Failed bring the book..."));
+      .catch(() => {
+        setError("Failed bring the book...");
+        cleanup();
+      });
   };
 
   const updateBook = (id, Bo) => {
-    BookStoreServices.updateBookStore(id, Bo)
+    console.log(Bo);
+    BookStoreServices.updateBook(id, Bo, token)
       .then((res) => {
-        setBook(res.data);
         setSuccess(true);
         setError(null);
       })
-      .catch(() => setError("Failed update the book..."));
+      .catch(() => {
+        setError("Failed update the book...");
+        cleanup();
+      });
   };
 
   const deleteBook = (id) => {
-    BookStoreServices.deleteBookStore(id)
+    BookStoreServices.deleteBook(id, token)
       .then((res) => {
-        setBook(res.data);
-        setSuccess(true);
+        setSuccess("Successfully Deleted The Book.");
         setError(null);
       })
-      .catch(() => setError("Failed delete the book..."));
+      .catch(() => {
+        setError("Failed delete the book...");
+        cleanup();
+      });
   };
 
   return (
@@ -114,6 +120,9 @@ export function BooksProvider({ children }) {
         setSuccess,
         MyBooks,
         getMyAllBooks,
+        setBook,
+        BookById,
+        setBookById,
       }}
     >
       {children}

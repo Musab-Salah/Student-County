@@ -5,7 +5,7 @@ import { RiArrowDownSLine } from "react-icons/ri";
 import "./Books.css";
 
 const Books = () => {
-  const { Books, getBooks } = useBooks();
+  const { Books, getBooks, Success } = useBooks();
   const TYPES = ["All", "Book", "Ride", "House", "Patient", "Tools"];
   const SORT_TYPES = ["Name", "Date", "Price"];
   const [selectType, setSelectType] = useState(false);
@@ -42,7 +42,8 @@ const Books = () => {
   useEffect(() => {
     getBooks();
     // eslint-disable-next-line
-  }, [Books]);
+  }, [Success]);
+
   return (
     <>
       <div className="service-container">
@@ -138,6 +139,7 @@ const Books = () => {
               shortDescription={book.shortDescription}
               longDescription={book.longDescription}
               key={book.id}
+              id={book.id}
               studentId={book.studentId}
             />
           ))}

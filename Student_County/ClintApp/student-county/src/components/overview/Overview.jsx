@@ -9,7 +9,7 @@ import BookCard from "../cards/BookCard";
 const Overview = () => {
   const TYPES = ["All", "Book", "Ride", "House", "Patient", "Tools"];
   const SORT_TYPES = ["Name", "Date", "Price"];
-  const { MyBooks, getMyAllBooks } = useBooks();
+  const { MyBooks, getMyAllBooks, Success } = useBooks();
   const [selectType, setSelectType] = useState(false);
   const [showDropdownType, setShowDropdownType] = useState(false);
   const [sortType, setSortType] = useState(false);
@@ -45,7 +45,7 @@ const Overview = () => {
     getMyAllBooks();
 
     // eslint-disable-next-line
-  }, [MyBooks]);
+  }, [Success]);
 
   return (
     <>
@@ -181,57 +181,9 @@ const Overview = () => {
               longDescription={book.longDescription}
               key={book.id}
               studentId={book.studentId}
+              id={book.id}
             />
           ))}
-
-          {/* <div className="card">
-            <img
-              className="card-picture"
-              alt=""
-              src="./assets/images/services/riding.svg"
-            />
-            <div className="card-info">
-              <div className="card-text">
-                <div className="card-title">Rides</div>
-                <div className="card-description">
-                  Lorem Ipsum is simply dummy text of the printing...
-                </div>
-              </div>
-              <button className="btn btn-small">Manage</button>
-            </div>
-          </div>
-          <div className="card">
-            <img
-              className="card-picture"
-              alt=""
-              src="./assets/images/services/book-store.svg"
-            />
-            <div className="card-info">
-              <div className="card-text">
-                <div className="card-title">book</div>
-                <div className="card-description">
-                  Lorem Ipsum is simply dummy text of the printing...
-                </div>
-              </div>
-              <button className="btn btn-small">Manage</button>
-            </div>
-          </div>
-          <div className="card">
-            <img
-              className="card-picture"
-              alt=""
-              src="./assets/images/services/housing.svg"
-            />
-            <div className="card-info">
-              <div className="card-text">
-                <div className="card-title">Patient</div>
-                <div className="card-description">
-                  Lorem Ipsum is simply dummy text of the printing...
-                </div>
-              </div>
-              <button className="btn btn-small">Manage</button>
-            </div>
-          </div> */}
         </div>
       </div>
     </>

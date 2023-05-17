@@ -3,16 +3,16 @@ import React, { createContext, useState } from "react";
 const ComponentCxt = createContext();
 
 export function ComponentProvider({ children }) {
-  const [Option, setOption] = useState("Overview");
-  const [Create, setCreate] = useState("");
+  const [OptionMenu, setOptionMenu] = useState("Overview");
+  const [ButtonCards, setButtonCards] = useState("");
 
   return (
     <ComponentCxt.Provider
       value={{
-        setOption,
-        Option,
-        Create,
-        setCreate,
+        setOptionMenu,
+        OptionMenu,
+        ButtonCards,
+        setButtonCards,
       }}
     >
       {children}
