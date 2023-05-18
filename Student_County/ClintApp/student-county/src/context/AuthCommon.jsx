@@ -12,7 +12,7 @@ const parseJwt = (token) => {
 };
 
 export function AuthProvider({ children }) {
-  const [isLogout, setIsLogout] = useState();
+  const [isLogout, setIsLogout] = useState(true);
   const [isLogin, setIsLogin] = useState(false);
   const [AuthError, setError] = useState("");
   const [token, setToken] = useState();

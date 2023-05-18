@@ -13,15 +13,8 @@ const CreateBooks = () => {
     deleteDialogState,
     setDeleteDialogState,
   } = useComponent();
-  const {
-    Success,
-    createBook,
-    BookError,
-    setSuccess,
-    updateBook,
-    Book,
-    setBook,
-  } = useBooks();
+  const { Success, createBook, BookError, updateBook, Book, setBook } =
+    useBooks();
   // State Hook
   const [name, setName] = useState("");
   const [shortDescription, setShortDescription] = useState("");
@@ -77,7 +70,6 @@ const CreateBooks = () => {
   useMemo(() => {
     if (Success) {
       sleep(2000).then(() => {
-        setSuccess();
         setButtonCards("");
       });
     }

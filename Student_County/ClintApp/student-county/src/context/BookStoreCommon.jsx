@@ -15,6 +15,7 @@ export function BooksProvider({ children }) {
   const [BookById, setBookById] = useState("");
   const [Success, setSuccess] = useState("");
 
+
   const [BookBo] = useState({
     id: "0",
     name: "",
@@ -25,9 +26,13 @@ export function BooksProvider({ children }) {
     studentId: "",
   });
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-  const cleanup = () =>
+  const cleanupError = () =>
     sleep(5000).then(() => {
       setError("");
+    });
+  const cleanupSuccess = () =>
+    sleep(2000).then(() => {
+      setSuccess("");
     });
   useEffect(() => {
     // eslint-disable-next-line
@@ -42,7 +47,10 @@ export function BooksProvider({ children }) {
         setBooks(res.data);
         setError(null);
       })
-      .catch(() => setError("Failed bring the books..."));
+      .catch(() => {
+        setError("Failed bring the books...");
+        cleanupError();
+      });
   };
 
   const getMyAllBooks = () => {
@@ -59,11 +67,12 @@ export function BooksProvider({ children }) {
     BookStoreServices.createBook(Bo, token)
       .then((res) => {
         setSuccess("Successfully Created The Book.");
+        cleanupSuccess();
         setError(null);
       })
       .catch(() => {
         setError("Failed create the book...");
-        cleanup();
+        cleanupError();
       });
   };
 
@@ -75,7 +84,7 @@ export function BooksProvider({ children }) {
       })
       .catch(() => {
         setError("Failed bring the book...");
-        cleanup();
+        cleanupError();
       });
   };
 
@@ -84,11 +93,12 @@ export function BooksProvider({ children }) {
     BookStoreServices.updateBook(id, Bo, token)
       .then((res) => {
         setSuccess("Successfully Updated The Book.");
+        cleanupSuccess();
         setError(null);
       })
       .catch(() => {
         setError("Failed update the book...");
-        cleanup();
+        cleanupError();
       });
   };
 
@@ -96,11 +106,12 @@ export function BooksProvider({ children }) {
     BookStoreServices.deleteBook(id, token)
       .then((res) => {
         setSuccess("Successfully Deleted The Book.");
+        cleanupSuccess();
         setError(null);
       })
       .catch(() => {
         setError("Failed delete the book...");
-        cleanup();
+        cleanupError();
       });
   };
 

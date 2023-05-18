@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Menu from "../../components/menu/menu";
 import Overview from "../../components/overview/Overview";
-import Books from "../../components/services/books/Books";
+import BooksSection from "../../components/services/books/BooksSection";
+import useBooks from "../../hooks/useBooks";
 import BooksForm from "../../components/services/books/BooksForm";
 // import PortalDrawer from "../../components/portal-drawer";
 import { HiMenuAlt2 } from "react-icons/hi";
@@ -13,9 +14,11 @@ import useComponent from "../../hooks/useComponent";
 import useAuth from "../../hooks/useAuth";
 import "./Dashboard.css";
 const Dashboard = () => {
+  const { Books } = useBooks();
   const { OptionMenu, setButtonCards, ButtonCards } = useComponent();
   const { decodedJwt } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [filteredValue, setFilteredValue] = useState("");
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -49,6 +52,21 @@ const Dashboard = () => {
     };
   }, []);
 
+  const handleSearch = (e) => {
+    if (!e.target.value) return setFilteredValue("");
+    const resultsArray = Books.filter(
+      (Book) =>
+        Book.name.includes(e.target.value) ||
+        Book.shortDescription.includes(e.target.value) ||
+        Book.longDescription.includes(e.target.value)
+    );
+
+    setFilteredValue(resultsArray);
+    console.log(resultsArray + "in dash");
+  };
+
+  useMemo(() => {}, []);
+
   return (
     <>
       {(ButtonCards === "Create" || ButtonCards === "Update") && <BooksForm />}
@@ -78,10 +96,22 @@ const Dashboard = () => {
               </div>
               <div className="right-navbar">
                 <div className="tools">
-                  <FiSearch className="btn btn-icon btn-icon-active" />
+                  {OptionMenu === "Books" && (
+                    <div className="input-wrapper-search">
+                      <FiSearch className="btn btn-icon btn-icon-active " />
+                      <input
+                        placeholder="search.."
+                        className="input-search"
+                        name="text"
+                        type="text"
+                        onChange={handleSearch}
+                      />
+                    </div>
+                  )}
+
                   {OptionMenu === "Books" && (
                     <AiOutlinePlus
-                      className="btn btn-icon"
+                      className="btn btn-icon "
                       onClick={() => setButtonCards("Create")}
                     />
                   )}
@@ -112,7 +142,11 @@ const Dashboard = () => {
             </div>
 
             {OptionMenu === "Overview" && <Overview />}
-            {OptionMenu === "Books" && <Books />}
+            {OptionMenu === "Books" && (
+              <BooksSection
+                filteredValue={filteredValue === "" ? false : filteredValue}
+              />
+            )}
           </div>
           {/* {isDrawerOpen && (
           <PortalDrawer placement="Left" onOutsideClick={closeDrawer}>

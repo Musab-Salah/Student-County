@@ -12,7 +12,10 @@ const AuthVerify = (props, { children }) => {
     useAuth();
   let location = props.router.location;
   useEffect(() => {
+    console.log(isLogout + " " + isLogin + " " + userInLocal + " " + isIdle);
+
     if (!isLogout && isLogin) {
+      console.log(isLogout + " " + isLogin + " " + userInLocal + " " + isIdle);
       if (userInLocal && !isIdle) {
         idleTimer.reset();
         const dexp = decodedJwt.exp * 1000;

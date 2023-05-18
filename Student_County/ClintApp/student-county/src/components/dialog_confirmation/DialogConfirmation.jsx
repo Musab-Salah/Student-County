@@ -14,10 +14,10 @@ const DialogConfirmation = ({ id }) => {
   };
   return (
     <>
-      <div className="Create-section">
-        <form className="form-create title" onSubmit={handleSubmit}>
+      <div className="Create-section-dialog">
+        <form className="form-create-dialog title-dialog " onSubmit={handleSubmit}>
           Are you sure to do this process?
-          <div className="buttons">
+          <div className="buttons-dialog">
             <button type="submit" className={`btn btn-primary `}>
               Yes
             </button>

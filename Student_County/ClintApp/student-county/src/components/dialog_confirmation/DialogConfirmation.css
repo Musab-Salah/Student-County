@@ -1,4 +1,4 @@
-.Create-section {
+.Create-section-dialog {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@
   z-index: 2;
 }
 
-.form-create {
+.form-create-dialog {
   display: flex;
   flex-direction: column;
   gap: var(--gap-mini);
@@ -28,7 +28,7 @@
   align-items: center !important;
   color: var(--color-gray-100) !important;
 }
-.buttons {
+.buttons-dialog {
   justify-content: center;
   width: -webkit-fill-available;
   gap: var(--gap-xl);
@@ -37,7 +37,7 @@
   align-items: center;
   flex-wrap: wrap;
 }
-.title {
+.title-dialog {
   justify-content: center;
   width: -webkit-fill-available;
   gap: var(--gap-xl);
