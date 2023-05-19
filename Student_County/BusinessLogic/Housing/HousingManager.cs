@@ -11,8 +11,9 @@ namespace Student_County.BusinessLogic.Housing
             _context = context;
         }
         public async Task<List<HousingEntity>> GetAll() => await _context.Housings.Where(entity => !entity.IsDeleted).ToListAsync();
+        public async Task<List<HousingEntity>> GetMyAllHousings(string userid) => await _context.Housings.Where(entity => !entity.IsDeleted && entity.StudentId == userid).ToListAsync();
 
-        public async Task<HousingEntity> Delete(int id)
+        public async Task Delete(int id)
         {
             var entity = await _context.Housings.FirstOrDefaultAsync(entity => entity.Id == id);
             if (entity == null)
@@ -22,9 +23,7 @@ namespace Student_County.BusinessLogic.Housing
                 entity.IsDeleted = true;
                 _context.Update(entity);
                 await _context.SaveChangesAsync();
-                throw new Exception("Housing Is Deleted");
             }
-            return entity;
         }
         public async Task<HousingEntity> GetHousing(int id)
         {
@@ -35,13 +34,20 @@ namespace Student_County.BusinessLogic.Housing
                 throw new Exception("Housing Is Deleted");
             return entity;
         }
-        public async Task<HousingEntity> CreateUpdate(HousingBo bo, int id = 0)
+        public async Task<HousingEntity> CreateUpdate(HousingBo bo, string userName, int id = 0)
         {
             var entity = bo.MapBoToEntity();
             if (id == 0)
+            {
+                entity.CreatedBy = userName;
                 _context.Add(entity);
+            }
             else if (id != 0)
+            {
+                entity.ModifiedBy = userName;
+                entity.ModifiedOn = DateTime.UtcNow;
                 _context.Update(entity);
+            }
             await _context.SaveChangesAsync();
             return entity;
         }

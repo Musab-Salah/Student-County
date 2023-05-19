@@ -6,8 +6,9 @@ namespace Student_County.BusinessLogic.Tools
     public interface IToolsManager
     {
         Task<List<ToolsEntity>> GetAll();
-        Task<ToolsEntity> Delete(int id);
+        Task<List<ToolsEntity>> GetMyAllTools(string userid);
+        Task Delete(int id);
         Task<ToolsEntity> GetTools(int id);
-        Task<ToolsEntity> CreateUpdate(ToolsBo bo, int id = 0);
+        Task<ToolsEntity> CreateUpdate(ToolsBo bo, string userName, int id = 0);
     }
 }

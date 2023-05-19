@@ -11,8 +11,9 @@ namespace Student_County.BusinessLogic.Ride
             _context = context;
         }
         public async Task<List<RideEntity>> GetAll() => await _context.Rides.Where(entity => !entity.IsDeleted).ToListAsync();
+        public async Task<List<RideEntity>> GetMyAllRides(string userid) => await _context.Rides.Where(entity => !entity.IsDeleted && entity.StudentId == userid).ToListAsync();
 
-        public async Task<RideEntity> Delete(int id)
+        public async Task Delete(int id)
         {
             var entity = await _context.Rides.FirstOrDefaultAsync(entity => entity.Id == id);
             if (entity == null)
@@ -22,9 +23,7 @@ namespace Student_County.BusinessLogic.Ride
                 entity.IsDeleted = true;
                 _context.Update(entity);
                 await _context.SaveChangesAsync();
-                throw new Exception("Ride Is Deleted");
             }
-            return entity;
         }
         public async Task<RideEntity> GetRide(int id)
         {
@@ -35,13 +34,20 @@ namespace Student_County.BusinessLogic.Ride
                 throw new Exception("Ride Is Deleted");
             return entity;
         }
-        public async Task<RideEntity> CreateUpdate(RideBo bo, int id = 0)
+        public async Task<RideEntity> CreateUpdate(RideBo bo, string userName, int id = 0)
         {
             var entity = bo.MapBoToEntity();
             if (id == 0)
+            {
+                entity.CreatedBy = userName;
                 _context.Add(entity);
+            }
             else if (id != 0)
+            {
+                entity.ModifiedBy = userName;
+                entity.ModifiedOn = DateTime.UtcNow;
                 _context.Update(entity);
+            }
             await _context.SaveChangesAsync();
             return entity;
         }

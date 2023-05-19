@@ -5,8 +5,9 @@ namespace Student_County.BusinessLogic.Patient
     public interface IPatientManager
     {
         Task<List<PatientEntity>> GetAll();
-        Task<PatientEntity> Delete(int id);
+        Task<List<PatientEntity>> GetMyAllPatients(string userid);
+        Task Delete(int id);
         Task<PatientEntity> GetPatient(int id);
-        Task<PatientEntity> CreateUpdate(PatientBo bo, int id = 0);
+        Task<PatientEntity> CreateUpdate(PatientBo bo, string userName, int id = 0);
     }
 }

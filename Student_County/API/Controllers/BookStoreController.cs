@@ -11,7 +11,7 @@ namespace Student_County.API.Controller
 {
     [Route("[controller]/[action]")]
     [ApiController]
-    [Authorize(Roles = "Student,DentistryStudent,Admin")]
+    [Authorize(Roles = "Student,Dentistry Student,Admin")]
     public class BookStoreController : ControllerBase
     {
         private readonly IBookStoreManager _manager;
