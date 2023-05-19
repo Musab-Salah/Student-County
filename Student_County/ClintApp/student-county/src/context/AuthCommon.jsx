@@ -25,7 +25,6 @@ export function AuthProvider({ children }) {
       setError("");
     });
   let navigate = useNavigate();
-  const [Option, setOption] = useState(null);
 
   const [isSuccessfully, setSuccessfully] = useState(false);
   const [userInLocal, setUserInLocal] = useState();
@@ -130,6 +129,7 @@ export function AuthProvider({ children }) {
   };
 
   const logout = () => {
+    debugger
     AuthServices.logout()
       .then(() => {
         localStorage.removeItem("user");
@@ -214,8 +214,7 @@ export function AuthProvider({ children }) {
         decodedJwt,
         userInLocal,
         SendEmailResetPass,
-        setOption,
-        Option,
+
         token,
       }}
     >

@@ -7,16 +7,12 @@ import DialogConfirmation from "../../dialog_confirmation/DialogConfirmation";
 import "./BooksForm.css";
 
 const CreateBooks = () => {
-  const {
-    setButtonCards,
-    ButtonCards,
-    deleteDialogState,
-    setDeleteDialogState,
-  } = useComponent();
+  const { setButtonCards, ButtonCards } = useComponent();
   const { Success, createBook, BookError, updateBook, Book, setBook } =
     useBooks();
   // State Hook
   const [name, setName] = useState("");
+  const [deleteDialogState, setDeleteDialogState] = useState("");
   const [shortDescription, setShortDescription] = useState("");
   const [longDescription, setLongDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -159,7 +155,12 @@ const CreateBooks = () => {
   };
   return (
     <>
-      {deleteDialogState && <DialogConfirmation id={Book.id} />}
+      {deleteDialogState && (
+        <DialogConfirmation
+          setDeleteDialogState={setDeleteDialogState}
+          id={Book.id}
+        />
+      )}
       <div className={`${deleteDialogState ? "opacity" : ""}`}>
         <div className="Create-section">
           <form className="form-create" onSubmit={handleSubmit}>

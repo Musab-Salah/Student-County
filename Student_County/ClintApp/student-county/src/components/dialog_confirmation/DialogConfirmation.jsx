@@ -1,9 +1,7 @@
-import useComponent from "../../hooks/useComponent";
 import useBooks from "../../hooks/useBooks";
 import "./DialogConfirmation.css";
 
-const DialogConfirmation = ({ id }) => {
-  const { setDeleteDialogState } = useComponent();
+const DialogConfirmation = ({ id ,setDeleteDialogState}) => {
 
   const { deleteBook } = useBooks();
 

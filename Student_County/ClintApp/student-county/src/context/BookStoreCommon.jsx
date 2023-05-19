@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useMemo, useState } from "react";
+import React, { createContext, useState } from "react";
 import BookStoreServices from "../services/BookStoreServices";
 import useAuth from "../hooks/useAuth";
 
@@ -7,14 +7,12 @@ const BooksCxt = createContext();
 export function BooksProvider({ children }) {
   const { decodedJwt, token } = useAuth();
 
-  const [Books, setBooks] = useState([]);
-  const [MyBooks, setMyBooks] = useState([]);
+  const [Books, setBooks] = useState([]); //all books
+  const [MyBooks, setMyBooks] = useState([]); //all user books
+  const [Book, setBook] = useState("");
 
   const [BookError, setError] = useState("");
-  const [Book, setBook] = useState("");
-  const [BookById, setBookById] = useState("");
   const [Success, setSuccess] = useState("");
-
 
   const [BookBo] = useState({
     id: "0",
@@ -34,12 +32,6 @@ export function BooksProvider({ children }) {
     sleep(2000).then(() => {
       setSuccess("");
     });
-  useEffect(() => {
-    // eslint-disable-next-line
-  }, []);
-  useMemo(() => {
-    // eslint-disable-next-line
-  }, []);
 
   const getBooks = () => {
     BookStoreServices.getBooks(token)
@@ -122,18 +114,16 @@ export function BooksProvider({ children }) {
         Book,
         BookBo,
         BookError,
+        Success,
+        MyBooks,
         getBookById,
         getBooks,
         createBook,
         updateBook,
         deleteBook,
-        Success,
         setSuccess,
-        MyBooks,
         getMyAllBooks,
         setBook,
-        BookById,
-        setBookById,
       }}
     >
       {children}

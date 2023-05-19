@@ -3,19 +3,16 @@ import { withRouter } from "./WithRouter";
 import useIdle from "../hooks/useIdleTimeout";
 import useAuth from "../hooks/useAuth";
 import useComponent from "../hooks/useComponent";
-
 const AuthVerify = (props, { children }) => {
   const { isIdle, idleTimer, setIdle } = useIdle({});
-  const { Create, Option } = useComponent();
+  const { OptionMenu, ButtonCards } = useComponent();
 
   const { refresh, isLogout, logout, isLogin, decodedJwt, userInLocal } =
     useAuth();
   let location = props.router.location;
   useEffect(() => {
-    console.log(isLogout + " " + isLogin + " " + userInLocal + " " + isIdle);
-
+    
     if (!isLogout && isLogin) {
-      console.log(isLogout + " " + isLogin + " " + userInLocal + " " + isIdle);
       if (userInLocal && !isIdle) {
         idleTimer.reset();
         const dexp = decodedJwt.exp * 1000;
@@ -28,7 +25,7 @@ const AuthVerify = (props, { children }) => {
       }
     }
     // eslint-disable-next-line
-  }, [location, Create, Option]);
+  }, [location, ButtonCards, OptionMenu]);
 
   return <></>;
 };

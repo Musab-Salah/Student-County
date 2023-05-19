@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import Menu from "../../components/menu/menu";
 import Overview from "../../components/overview/Overview";
 import BooksSection from "../../components/services/books/BooksSection";
@@ -65,8 +65,6 @@ const Dashboard = () => {
     console.log(resultsArray + "in dash");
   };
 
-  useMemo(() => {}, []);
-
   return (
     <>
       {(ButtonCards === "Create" || ButtonCards === "Update") && <BooksForm />}
@@ -96,9 +94,8 @@ const Dashboard = () => {
               </div>
               <div className="right-navbar">
                 <div className="tools">
-                  {OptionMenu === "Books" && (
-                    <div className="input-wrapper-search">
-                      <FiSearch className="btn btn-icon btn-icon-active " />
+                  {OptionMenu === "Overview" && (
+                    <div className="input-wrapper">
                       <input
                         placeholder="search.."
                         className="input-search"
@@ -106,6 +103,19 @@ const Dashboard = () => {
                         type="text"
                         onChange={handleSearch}
                       />
+                      <FiSearch className="btn icon btn-icon  btn-icon-active" />
+                    </div>
+                  )}
+                  {OptionMenu === "Books" && (
+                    <div className="input-wrapper">
+                      <input
+                        placeholder="search.."
+                        className="input-search"
+                        name="text"
+                        type="text"
+                        onChange={handleSearch}
+                      />
+                      <FiSearch className="btn icon btn-icon  btn-icon-active" />
                     </div>
                   )}
 
@@ -141,9 +151,15 @@ const Dashboard = () => {
               </div>
             </div>
 
-            {OptionMenu === "Overview" && <Overview />}
+            {OptionMenu === "Overview" && (
+              <Overview
+                setFilteredValue={setFilteredValue}
+                filteredValue={filteredValue === "" ? false : filteredValue}
+              />
+            )}
             {OptionMenu === "Books" && (
               <BooksSection
+                setFilteredValue={setFilteredValue}
                 filteredValue={filteredValue === "" ? false : filteredValue}
               />
             )}

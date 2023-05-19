@@ -18,11 +18,11 @@ import "./Global.css";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <UniversitiesProvider>
-      <CollegesProvider>
-        <ComponentProvider>
-          <AuthProvider>
-            <AuthVerify />
+    <ComponentProvider>
+      <AuthProvider>
+        <AuthVerify />
+        <UniversitiesProvider>
+          <CollegesProvider>
             <ToolsProvider>
               <PatientsProvider>
                 <DestinationsProvider>
@@ -40,9 +40,9 @@ root.render(
                 </DestinationsProvider>
               </PatientsProvider>
             </ToolsProvider>
-          </AuthProvider>
-        </ComponentProvider>
-      </CollegesProvider>
-    </UniversitiesProvider>
+          </CollegesProvider>
+        </UniversitiesProvider>
+      </AuthProvider>
+    </ComponentProvider>
   </BrowserRouter>
 );

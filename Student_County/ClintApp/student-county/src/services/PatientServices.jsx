@@ -3,19 +3,53 @@ import axios from "../api/axios";
 const PATIENT_API_BASE_URL = "/Patient";
 
 class PatientServices {
-  getPatients = async () => await axios.get(PATIENT_API_BASE_URL + "/Index");
+  getPatients = async (token) =>
+    await axios.get(PATIENT_API_BASE_URL + "/Index", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  createPatient = async (patient) =>
-    await axios.post(PATIENT_API_BASE_URL + "/Create", patient);
+  getMyAllPatients = async (userid, token) =>
+    await axios.get(
+      PATIENT_API_BASE_URL + "/GetMyAllPatients?userid=" + userid,
+      {
+        params: {
+          userid: userid,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-  getPatientById = async (patientId) =>
-    await axios.get(PATIENT_API_BASE_URL + "/Get/" + patientId);
+  createPatient = async (patient, token) =>
+    await axios.post(PATIENT_API_BASE_URL + "/Create", patient, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  updatePatient = async (patientId, patient) =>
-    await axios.put(PATIENT_API_BASE_URL + "/Update/" + patientId, patient);
+  getPatientById = async (patientId, token) =>
+    await axios.get(PATIENT_API_BASE_URL + "/Get/" + patientId, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  deletePatient = async (patientId) =>
-    await axios.delete(PATIENT_API_BASE_URL + "/Delete/" + patientId);
+  updatePatient = async (patientId, patient, token) =>
+    await axios.put(PATIENT_API_BASE_URL + "/Update/" + patientId, patient, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+  deletePatient = async (patientId, token) =>
+    await axios.delete(PATIENT_API_BASE_URL + "/Delete/" + patientId, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 }
 // eslint-disable-next-line
 export default new PatientServices();
