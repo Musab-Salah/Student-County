@@ -37,12 +37,12 @@ const BookCard = ({
             className="btn btn-small"
             onClick={() => {
               setButtonCards(
-                (decodedJwt.uid === studentId ? true : false) ? "Update" : ""
+                (decodedJwt.uid === studentId ? true : false) ? "Update" : "View"
               );
               getBookById(id);
             }}
           >
-            {decodedJwt.uid === studentId ? "Manage" : "View"}{" "}
+            {decodedJwt.uid === studentId ? "Manage" : "View"}
           </button>
         </div>
       </div>

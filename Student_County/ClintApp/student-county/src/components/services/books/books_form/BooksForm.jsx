@@ -1,12 +1,12 @@
 import { useState, useEffect, useMemo } from "react";
-import useComponent from "../../../hooks/useComponent";
+import useComponent from "../../../../hooks/useComponent";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { AiFillExclamationCircle } from "react-icons/ai";
-import useBooks from "../../../hooks/useBooks";
-import DialogConfirmation from "../../dialog_confirmation/DialogConfirmation";
+import useBooks from "../../../../hooks/useBooks";
+import DialogConfirmation from "../../../dialog_confirmation/DialogConfirmation";
 import "./BooksForm.css";
 
-const CreateBooks = () => {
+const BooksForm = () => {
   const { setButtonCards, ButtonCards } = useComponent();
   const { Success, createBook, BookError, updateBook, Book, setBook } =
     useBooks();
@@ -355,4 +355,4 @@ const CreateBooks = () => {
   );
 };
 
-export default CreateBooks;
+export default BooksForm;

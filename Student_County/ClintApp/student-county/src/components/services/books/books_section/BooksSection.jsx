@@ -1,10 +1,10 @@
-import BookCard from "../../cards/BookCard";
-import useBooks from "../../../hooks/useBooks";
+import BookCard from "../../../cards/BookCard";
+import useBooks from "../../../../hooks/useBooks";
 import { useEffect, useState } from "react";
 import { RiArrowDownSLine } from "react-icons/ri";
 import "./BooksSection.css";
 
-const Section = ({ filteredValue ,setFilteredValue}) => {
+const BooksSection = ({ filteredValue, setFilteredValue }) => {
   const { Books, getBooks, Success } = useBooks();
   const SORT_TYPES = ["Name", "Date", "Price"];
   const [showDropdownType, setShowDropdownType] = useState("");
@@ -34,9 +34,8 @@ const Section = ({ filteredValue ,setFilteredValue}) => {
   useEffect(() => {
     return function cleanup() {
       setSortType("");
-
-          setFilteredValue("");
-    }
+      setFilteredValue("");
+    };
     // eslint-disable-next-line
   }, []);
   const handleSortChange = (sort) => {
@@ -208,4 +207,4 @@ const Section = ({ filteredValue ,setFilteredValue}) => {
   );
 };
 
-export default Section;
+export default BooksSection;

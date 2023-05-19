@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import Menu from "../../components/menu/menu";
 import Overview from "../../components/overview/Overview";
-import BooksSection from "../../components/services/books/BooksSection";
+import BooksSection from "../../components/services/books/books_section/BooksSection";
 import useBooks from "../../hooks/useBooks";
-import BooksForm from "../../components/services/books/BooksForm";
 // import PortalDrawer from "../../components/portal-drawer";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { FiSearch } from "react-icons/fi";
@@ -12,7 +11,10 @@ import { RiNotification2Line, RiArrowDownSLine } from "react-icons/ri";
 import { FaUserCircle } from "react-icons/fa";
 import useComponent from "../../hooks/useComponent";
 import useAuth from "../../hooks/useAuth";
+import BooksView from "../../components/services/books/books_view/BooksView";
+import BooksForm from "../../components/services/books/books_form/BooksForm";
 import "./Dashboard.css";
+
 const Dashboard = () => {
   const { Books } = useBooks();
   const { OptionMenu, setButtonCards, ButtonCards } = useComponent();
@@ -67,7 +69,9 @@ const Dashboard = () => {
 
   return (
     <>
-      {(ButtonCards === "Create" || ButtonCards === "Update") && <BooksForm />}
+      {(ButtonCards === "Create" || ButtonCards === "Update") &&
+        OptionMenu === "Books" && <BooksForm />}
+      {ButtonCards === "View" && OptionMenu === "Books" && <BooksView />}
       <div className={`${ButtonCards ? "opacity" : ""}`}>
         <div className={`dashboard-container `}>
           <Menu isMenuOpen={isMenuOpen} isMenuOpenPhone={isMenuOpenPhone} />

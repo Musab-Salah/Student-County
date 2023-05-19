@@ -1,0 +1,28 @@
+/*view*/
+.section-view {
+  border-radius: var(--br-3xs) var(--br-3xs);
+  background-color: var(--color-whitesmoke-200);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-gray-100);
+  font-family: var(--font-poppins);
+  margin: 5px;
+}
+
+.text-field {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  
+}
+
+.label-view {
+  margin: 5px;
+  font-weight: bold;
+}
+
+.price-field{
+float: right;
+margin-left: 40px;
+}
