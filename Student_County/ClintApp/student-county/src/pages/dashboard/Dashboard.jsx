@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Menu from "../../components/menu/menu";
 import Overview from "../../components/overview/Overview";
 import BooksSection from "../../components/services/books/books_section/BooksSection";
@@ -20,7 +20,7 @@ const Dashboard = () => {
   const { OptionMenu, setButtonCards, ButtonCards } = useComponent();
   const { decodedJwt } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [filteredValue, setFilteredValue] = useState("");
+  const [query, setQuery] = useState("");
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -54,18 +54,15 @@ const Dashboard = () => {
     };
   }, []);
 
-  const handleSearch = (e) => {
-    if (!e.target.value) return setFilteredValue("");
-    const resultsArray = Books.filter(
-      (Book) =>
-        Book.name.includes(e.target.value) ||
-        Book.shortDescription.includes(e.target.value) ||
-        Book.longDescription.includes(e.target.value)
-    );
-
-    setFilteredValue(resultsArray);
-    console.log(resultsArray + "in dash");
-  };
+  const filteredValue = useMemo(() => {
+    return Books.filter((Book) => {
+      return (
+        Book.name.toLowerCase().includes(query.toLowerCase()) ||
+        Book.shortDescription.toLowerCase().includes(query.toLowerCase()) ||
+        Book.longDescription.toLowerCase().includes(query.toLowerCase())
+      );
+    });
+  }, [Books, query]);
 
   return (
     <>
@@ -105,7 +102,8 @@ const Dashboard = () => {
                         className="input-search"
                         name="text"
                         type="text"
-                        onChange={handleSearch}
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
                       />
                       <FiSearch className="btn icon btn-icon  btn-icon-active" />
                     </div>
@@ -117,7 +115,8 @@ const Dashboard = () => {
                         className="input-search"
                         name="text"
                         type="text"
-                        onChange={handleSearch}
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
                       />
                       <FiSearch className="btn icon btn-icon  btn-icon-active" />
                     </div>
@@ -157,13 +156,11 @@ const Dashboard = () => {
 
             {OptionMenu === "Overview" && (
               <Overview
-                setFilteredValue={setFilteredValue}
                 filteredValue={filteredValue === "" ? false : filteredValue}
               />
             )}
             {OptionMenu === "Books" && (
               <BooksSection
-                setFilteredValue={setFilteredValue}
                 filteredValue={filteredValue === "" ? false : filteredValue}
               />
             )}

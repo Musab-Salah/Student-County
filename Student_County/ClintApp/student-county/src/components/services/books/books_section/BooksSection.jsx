@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { RiArrowDownSLine } from "react-icons/ri";
 import "./BooksSection.css";
 
-const BooksSection = ({ filteredValue, setFilteredValue }) => {
+const BooksSection = ({ filteredValue }) => {
   const { Books, getBooks, Success } = useBooks();
   const SORT_TYPES = ["Name", "Date", "Price"];
   const [showDropdownType, setShowDropdownType] = useState("");
@@ -34,7 +34,6 @@ const BooksSection = ({ filteredValue, setFilteredValue }) => {
   useEffect(() => {
     return function cleanup() {
       setSortType("");
-      setFilteredValue("");
     };
     // eslint-disable-next-line
   }, []);

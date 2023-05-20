@@ -6,7 +6,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import useBooks from "../../hooks/useBooks";
 import BookCard from "../cards/BookCard";
 
-const Overview = ({ filteredValue, setFilteredValue }) => {
+const Overview = ({ filteredValue }) => {
   const TYPES = ["All", "Book", "Ride", "House", "Patient", "Tools"];
   const SORT_TYPES = ["Name", "Date", "Price"];
   const { MyBooks, getMyAllBooks, Success } = useBooks();
