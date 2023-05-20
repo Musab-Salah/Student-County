@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Student_County.Migrations
 {
     /// <inheritdoc />
-    public partial class Final : Migration
+    public partial class EdLast : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -253,12 +253,13 @@ namespace Student_County.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BookStore",
+                name: "Book",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StudentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TheWay = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
                     ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -272,9 +273,9 @@ namespace Student_County.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookStore", x => x.Id);
+                    table.PrimaryKey("PK_Book", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BookStore_AspNetUsers_StudentId",
+                        name: "FK_Book_AspNetUsers_StudentId",
                         column: x => x.StudentId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -293,6 +294,7 @@ namespace Student_County.Migrations
                     Price = table.Column<int>(type: "int", nullable: false),
                     ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LongDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StudentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -329,6 +331,7 @@ namespace Student_County.Migrations
                     CurrentlyUsedMedicines = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -380,6 +383,7 @@ namespace Student_County.Migrations
                     CarDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LongDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StudentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     DestinationId = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -416,6 +420,7 @@ namespace Student_County.Migrations
                     Price = table.Column<int>(type: "int", nullable: false),
                     ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LongDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StudentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -448,12 +453,12 @@ namespace Student_County.Migrations
             migrationBuilder.InsertData(
                 table: "College",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "IsDeleted", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 1, "Ini", new DateTime(2023, 4, 27, 18, 38, 27, 714, DateTimeKind.Utc).AddTicks(1695), false, "Ini", new DateTime(2023, 4, 27, 18, 38, 27, 714, DateTimeKind.Utc).AddTicks(1696), "EIT" });
+                values: new object[] { 1, "Ini", new DateTime(2023, 5, 20, 9, 15, 29, 220, DateTimeKind.Utc).AddTicks(2502), false, "Ini", new DateTime(2023, 5, 20, 9, 15, 29, 220, DateTimeKind.Utc).AddTicks(2502), "EIT" });
 
             migrationBuilder.InsertData(
                 table: "University",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "EmailDomainName", "IsDeleted", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 1, "Ini", new DateTime(2023, 4, 27, 18, 38, 27, 714, DateTimeKind.Utc).AddTicks(1668), "@AAUP.COM", false, "Ini", new DateTime(2023, 4, 27, 18, 38, 27, 714, DateTimeKind.Utc).AddTicks(1669), "AAUP" });
+                values: new object[] { 1, "Ini", new DateTime(2023, 5, 20, 9, 15, 29, 220, DateTimeKind.Utc).AddTicks(2478), "@AAUP.COM", false, "Ini", new DateTime(2023, 5, 20, 9, 15, 29, 220, DateTimeKind.Utc).AddTicks(2479), "AAUP" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -505,8 +510,8 @@ namespace Student_County.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookStore_StudentId",
-                table: "BookStore",
+                name: "IX_Book_StudentId",
+                table: "Book",
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
@@ -554,7 +559,7 @@ namespace Student_County.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "BookStore");
+                name: "Book");
 
             migrationBuilder.DropTable(
                 name: "Chat");

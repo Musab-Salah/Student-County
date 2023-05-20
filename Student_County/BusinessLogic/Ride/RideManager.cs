@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Student_County.BusinessLogic.Auth.Models;
 using Student_County.DAL;
 
 namespace Student_County.BusinessLogic.Ride
@@ -6,9 +8,13 @@ namespace Student_County.BusinessLogic.Ride
     public class RideManager : IRideManager
     {
         protected readonly StudentCountyContext _context;
-        public RideManager(StudentCountyContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public RideManager(StudentCountyContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
+
         }
         public async Task<List<RideEntity>> GetAll() => await _context.Rides.Where(entity => !entity.IsDeleted).ToListAsync();
         public async Task<List<RideEntity>> GetMyAllRides(string userid) => await _context.Rides.Where(entity => !entity.IsDeleted && entity.StudentId == userid).ToListAsync();
@@ -34,17 +40,20 @@ namespace Student_County.BusinessLogic.Ride
                 throw new Exception("Ride Is Deleted");
             return entity;
         }
-        public async Task<RideEntity> CreateUpdate(RideBo bo, string userName, int id = 0)
+        public async Task<RideEntity> CreateUpdate(RideBo bo, int id = 0)
         {
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == bo.StudentId);
             var entity = bo.MapBoToEntity();
+            entity.StudentName = user.FirstName + " " + user.LastName;
+
             if (id == 0)
             {
-                entity.CreatedBy = userName;
+                entity.CreatedBy = user.UserName;
                 _context.Add(entity);
             }
             else if (id != 0)
             {
-                entity.ModifiedBy = userName;
+                entity.ModifiedBy = user.UserName;
                 entity.ModifiedOn = DateTime.UtcNow;
                 _context.Update(entity);
             }

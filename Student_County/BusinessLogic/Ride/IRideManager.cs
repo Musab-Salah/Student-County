@@ -8,6 +8,6 @@ namespace Student_County.BusinessLogic.Ride
         Task<List<RideEntity>> GetMyAllRides(string userid);
         Task Delete(int id);
         Task<RideEntity> GetRide(int id);
-        Task<RideEntity> CreateUpdate(RideBo bo, string userName, int id = 0);
+        Task<RideEntity> CreateUpdate(RideBo bo, int id = 0);
     }
 }

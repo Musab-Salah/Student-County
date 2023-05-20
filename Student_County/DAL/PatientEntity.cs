@@ -35,6 +35,8 @@ namespace Student_County.DAL
         [Required]
         public string? Gender { get; set; }
         [Required]
+        public string? UserName { get; set; }
+        [Required]
         public string UserId { get; set; }
         public ApplicationUser? User { get; set; }
 

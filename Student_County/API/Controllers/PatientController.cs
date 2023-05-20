@@ -13,12 +13,10 @@ namespace Student_County.API.Controllers
     public class PatientController : ControllerBase
     {
         private readonly IPatientManager _manager;
-        private readonly UserManager<ApplicationUser> _userManager;
 
-        public PatientController(IPatientManager manager, UserManager<ApplicationUser> userManager)
+        public PatientController(IPatientManager manager)
         {
             _manager = manager;
-            _userManager = userManager;
         }
 
         [Authorize(Roles = "Dentistry Student,Admin")]
@@ -33,9 +31,8 @@ namespace Student_County.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] PatientBo bo)
         {
-            var userName = _userManager.GetUserId(HttpContext.User);
             if (ModelState.IsValid)
-                return Ok(await _manager.CreateUpdate(bo, userName));
+                return Ok(await _manager.CreateUpdate(bo));
             return BadRequest("Wrong Information");
         }
 
@@ -55,11 +52,10 @@ namespace Student_County.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromBody] PatientBo bo, [FromRoute] int id)
         {
-            var userName = _userManager.GetUserId(HttpContext.User);
             if (bo == null)
                 return BadRequest("Patient Not Found");
             if (!bo.IsDeleted)
-                return Ok(await _manager.CreateUpdate(bo, userName, id));
+                return Ok(await _manager.CreateUpdate(bo, id));
             return NotFound("Patient Is Deleted");
         }
     }

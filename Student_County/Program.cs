@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Student_County.BusinessLogic.Auth;
 using Student_County.BusinessLogic.Auth.Models;
-using Student_County.BusinessLogic.BookStore;
+using Student_County.BusinessLogic.Book;
 using Student_County.BusinessLogic.Chat;
 using Student_County.BusinessLogic.College;
 using Student_County.BusinessLogic.Destination;
@@ -20,7 +20,7 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddScoped<IBookStoreManager, BookStoreManager>();
+builder.Services.AddScoped<IBookManager, BookManager>();
 builder.Services.AddScoped<IUniversityManager, UniversityManager>();
 builder.Services.AddScoped<IChatManager, ChatManager>();
 builder.Services.AddScoped<ICollegeManager, CollegeManager>();

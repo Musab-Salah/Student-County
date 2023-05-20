@@ -4,7 +4,7 @@ import App from "./App";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UniversitiesProvider } from "./context/UniversityCommon";
 import { CollegesProvider } from "./context/CollegeCommon";
-import { BooksProvider } from "./context/BookStoreCommon";
+import { BooksProvider } from "./context/BooksCommon";
 import { AuthProvider } from "./context/AuthCommon";
 import { ComponentProvider } from "./context/ComponentCommon";
 import { HousingsProvider } from "./context/HousingCommon";

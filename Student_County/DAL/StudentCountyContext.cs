@@ -14,7 +14,7 @@ namespace Student_County.DAL
         {
         }
 
-        public DbSet<BookStoreEntity> Books { get; set; }
+        public DbSet<BookEntity> Books { get; set; }
         public DbSet<ToolsEntity> Toolss { get; set; }
         public DbSet<ChatEntity> Chats { get; set; }
         public DbSet<CollegeEntity> Colleges { get; set; }

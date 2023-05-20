@@ -23,6 +23,8 @@ namespace Student_County.DAL
         [Required]
         public string? LongDescription { get; set; }
         [Required]
+        public string? StudentName { get; set; }
+        [Required]
         public string StudentId { get; set; }
         public ApplicationUser? Student { get; set; }
 

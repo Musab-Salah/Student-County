@@ -14,12 +14,10 @@ namespace Student_County.API.Controllers
     public class ToolsController : ControllerBase
     {
         private readonly IToolsManager _manager;
-        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ToolsController(IToolsManager manager, UserManager<ApplicationUser> userManager)
+        public ToolsController(IToolsManager manager)
         {
             _manager = manager;
-            _userManager = userManager;
 
         }
         [HttpGet]
@@ -31,9 +29,8 @@ namespace Student_County.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] ToolsBo bo)
         {
-            var userName = _userManager.GetUserId(HttpContext.User);
             if (ModelState.IsValid)
-                return Ok(await _manager.CreateUpdate(bo, userName));
+                return Ok(await _manager.CreateUpdate(bo));
             return BadRequest("Wrong Information");
         }
         [HttpDelete("{id}")]
@@ -48,11 +45,10 @@ namespace Student_County.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromBody] ToolsBo bo, [FromRoute] int id)
         {
-            var userName = _userManager.GetUserId(HttpContext.User);
             if (bo == null)
                 return BadRequest("Tools Not Found");
             if (!bo.IsDeleted)
-                return Ok(await _manager.CreateUpdate(bo, userName, id));
+                return Ok(await _manager.CreateUpdate(bo, id));
             return NotFound("Tools Is Deleted");
         }
     }

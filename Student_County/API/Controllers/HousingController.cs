@@ -14,12 +14,10 @@ namespace Student_County.API.Controllers
     public class HousingController : ControllerBase
     {
         private readonly IHousingManager _manager;
-        private readonly UserManager<ApplicationUser> _userManager;
 
-        public HousingController(IHousingManager manager, UserManager<ApplicationUser> userManager)
+        public HousingController(IHousingManager manager)
         {
             _manager = manager;
-            _userManager = userManager;
 
         }
         [HttpGet]
@@ -32,9 +30,8 @@ namespace Student_County.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] HousingBo bo)
         {
-            var userName = _userManager.GetUserId(HttpContext.User);
             if (ModelState.IsValid)
-                return Ok(await _manager.CreateUpdate(bo, userName));
+                return Ok(await _manager.CreateUpdate(bo));
             return BadRequest("Wrong Information");
         }
         [HttpDelete("{id}")]
@@ -49,11 +46,10 @@ namespace Student_County.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromBody] HousingBo bo, [FromRoute] int id)
         {
-            var userName = _userManager.GetUserId(HttpContext.User);
             if (bo == null)
                 return BadRequest("Housing Not Found");
             if (!bo.IsDeleted)
-                return Ok(await _manager.CreateUpdate(bo, userName, id));
+                return Ok(await _manager.CreateUpdate(bo, id));
             return NotFound("Housing Is Deleted");
         }
     }

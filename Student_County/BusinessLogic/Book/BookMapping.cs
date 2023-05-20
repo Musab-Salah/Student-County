@@ -1,13 +1,13 @@
 ﻿using Student_County.DAL;
 
-namespace Student_County.BusinessLogic.BookStore
+namespace Student_County.BusinessLogic.Book
 {
-    public static class BookStoreMapping
+    public static class BookMapping
     {
-        public static BookStoreEntity? MapBoToEntity(this BookStoreBo bo)
+        public static BookEntity? MapBoToEntity(this BookBo bo)
         {
             if (bo == null) return null;
-            return new BookStoreEntity
+            return new BookEntity
             {
                 Id = bo.Id,
                 Name = bo.Name,

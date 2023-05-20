@@ -278,7 +278,7 @@ namespace Student_County.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Student_County.DAL.BookStoreEntity", b =>
+            modelBuilder.Entity("Student_County.DAL.BookEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -320,6 +320,10 @@ namespace Student_County.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("StudentName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("TheWay")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -328,7 +332,7 @@ namespace Student_County.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("BookStore");
+                    b.ToTable("Book");
                 });
 
             modelBuilder.Entity("Student_County.DAL.ChatEntity", b =>
@@ -405,10 +409,10 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTime(2023, 5, 15, 10, 41, 45, 324, DateTimeKind.Utc).AddTicks(5017),
+                            CreatedOn = new DateTime(2023, 5, 20, 9, 15, 29, 220, DateTimeKind.Utc).AddTicks(2502),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTime(2023, 5, 15, 10, 41, 45, 324, DateTimeKind.Utc).AddTicks(5018),
+                            ModifiedOn = new DateTime(2023, 5, 20, 9, 15, 29, 220, DateTimeKind.Utc).AddTicks(2502),
                             Name = "EIT"
                         });
                 });
@@ -490,6 +494,10 @@ namespace Student_County.Migrations
                     b.Property<string>("StudentId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("StudentName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TypeOfContract")
                         .IsRequired()
@@ -576,6 +584,10 @@ namespace Student_County.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
@@ -628,6 +640,10 @@ namespace Student_County.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("StudentName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DestinationId");
@@ -678,6 +694,10 @@ namespace Student_County.Migrations
                     b.Property<string>("StudentId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("StudentName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TheWay")
                         .IsRequired()
@@ -730,11 +750,11 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTime(2023, 5, 15, 10, 41, 45, 324, DateTimeKind.Utc).AddTicks(4993),
+                            CreatedOn = new DateTime(2023, 5, 20, 9, 15, 29, 220, DateTimeKind.Utc).AddTicks(2478),
                             EmailDomainName = "@AAUP.COM",
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTime(2023, 5, 15, 10, 41, 45, 324, DateTimeKind.Utc).AddTicks(4995),
+                            ModifiedOn = new DateTime(2023, 5, 20, 9, 15, 29, 220, DateTimeKind.Utc).AddTicks(2479),
                             Name = "AAUP"
                         });
                 });
@@ -843,7 +863,7 @@ namespace Student_County.Migrations
                     b.Navigation("University");
                 });
 
-            modelBuilder.Entity("Student_County.DAL.BookStoreEntity", b =>
+            modelBuilder.Entity("Student_County.DAL.BookEntity", b =>
                 {
                     b.HasOne("Student_County.BusinessLogic.Auth.Models.ApplicationUser", "Student")
                         .WithMany()

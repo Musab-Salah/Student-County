@@ -1,10 +1,10 @@
 import axios from "../api/axios";
 
-const BOOKSTORE_API_BASE_URL = "/BookStore";
+const BOOK_API_BASE_URL = "/Book";
 
-class BookStoreServices {
+class BookServices {
   getBooks = async (token) =>
-    await axios.get(BOOKSTORE_API_BASE_URL + "/Index", {
+    await axios.get(BOOK_API_BASE_URL + "/Index", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -12,7 +12,7 @@ class BookStoreServices {
 
   getMyAllBooks = async (userid, token) =>
     await axios.get(
-      BOOKSTORE_API_BASE_URL + "/GetMyAllBooks?userid=" + userid,
+      BOOK_API_BASE_URL + "/GetMyAllBooks?userid=" + userid,
       {
         params: {
           userid: userid,
@@ -24,32 +24,32 @@ class BookStoreServices {
     );
 
   createBook = async (book, token) =>
-    await axios.post(BOOKSTORE_API_BASE_URL + "/Create", book, {
+    await axios.post(BOOK_API_BASE_URL + "/Create", book, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
   getBookById = async (bookId, token) =>
-    await axios.get(BOOKSTORE_API_BASE_URL + "/Get/" + bookId, {
+    await axios.get(BOOK_API_BASE_URL + "/Get/" + bookId, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
   updateBook = async (bookId, book, token) =>
-    await axios.put(BOOKSTORE_API_BASE_URL + "/Update/" + bookId, book, {
+    await axios.put(BOOK_API_BASE_URL + "/Update/" + bookId, book, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
   deleteBook = async (bookId, token) =>
-    await axios.delete(BOOKSTORE_API_BASE_URL + "/Delete/" + bookId, {
+    await axios.delete(BOOK_API_BASE_URL + "/Delete/" + bookId, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 }
 // eslint-disable-next-line
-export default new BookStoreServices();
+export default new BookServices();

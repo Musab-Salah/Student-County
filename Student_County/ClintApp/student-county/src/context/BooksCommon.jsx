@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import BookStoreServices from "../services/BookStoreServices";
+import BookServices from "../services/BookServices";
 import useAuth from "../hooks/useAuth";
 
 const BooksCxt = createContext();
@@ -34,7 +34,7 @@ export function BooksProvider({ children }) {
     });
 
   const getBooks = () => {
-    BookStoreServices.getBooks(token)
+    BookServices.getBooks(token)
       .then((res) => {
         setBooks(res.data);
         setError(null);
@@ -46,7 +46,7 @@ export function BooksProvider({ children }) {
   };
 
   const getMyAllBooks = () => {
-    BookStoreServices.getMyAllBooks(decodedJwt.uid, token)
+    BookServices.getMyAllBooks(decodedJwt.uid, token)
       .then((res) => {
         setMyBooks(res.data);
         setError(null);
@@ -56,7 +56,7 @@ export function BooksProvider({ children }) {
 
   const createBook = (Bo) => {
     Bo.studentId = decodedJwt.uid;
-    BookStoreServices.createBook(Bo, token)
+    BookServices.createBook(Bo, token)
       .then((res) => {
         setSuccess("Successfully Created The Book.");
         cleanupSuccess();
@@ -69,7 +69,7 @@ export function BooksProvider({ children }) {
   };
 
   const getBookById = (id) => {
-    BookStoreServices.getBookById(id, token)
+    BookServices.getBookById(id, token)
       .then((res) => {
         setBook(res.data);
         setError(null);
@@ -82,7 +82,7 @@ export function BooksProvider({ children }) {
 
   const updateBook = (id, Bo) => {
     console.log(Bo);
-    BookStoreServices.updateBook(id, Bo, token)
+    BookServices.updateBook(id, Bo, token)
       .then((res) => {
         setSuccess("Successfully Updated The Book.");
         cleanupSuccess();
@@ -95,7 +95,7 @@ export function BooksProvider({ children }) {
   };
 
   const deleteBook = (id) => {
-    BookStoreServices.deleteBook(id, token)
+    BookServices.deleteBook(id, token)
       .then((res) => {
         setSuccess("Successfully Deleted The Book.");
         cleanupSuccess();

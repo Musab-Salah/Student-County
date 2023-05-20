@@ -5,13 +5,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Student_County.DAL
 {
-    [Table("BookStore")]
-    public class BookStoreEntity : TrackableData
+    [Table("Book")]
+    public class BookEntity : TrackableData
     {
         [Key]
         public int Id { get; set; }
         [Required]
         public string? Name { get; set; }
+        [Required]
+        public string? StudentName { get; set; }
         [Required]
         public string? TheWay { get; set; }
         [Required]

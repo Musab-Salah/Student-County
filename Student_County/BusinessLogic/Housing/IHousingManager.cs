@@ -8,6 +8,6 @@ namespace Student_County.BusinessLogic.Housing
         Task<List<HousingEntity>> GetMyAllHousings(string userid);
         Task Delete(int id);
         Task<HousingEntity> GetHousing(int id);
-        Task<HousingEntity> CreateUpdate(HousingBo bo, string userName, int id = 0);
+        Task<HousingEntity> CreateUpdate(HousingBo bo, int id = 0);
     }
 }

@@ -2,9 +2,9 @@
 using Student_County.DAL;
 using System.ComponentModel.DataAnnotations;
 
-namespace Student_County.BusinessLogic.BookStore
+namespace Student_County.BusinessLogic.Book
 {
-    public class BookStoreBo : TrackableData
+    public class BookBo : TrackableData
     {
         [Key]
         public int Id { get; set; }
