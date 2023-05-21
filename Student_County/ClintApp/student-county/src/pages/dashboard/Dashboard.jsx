@@ -16,8 +16,9 @@ import BooksForm from "../../components/services/books/books_form/BooksForm";
 import "./Dashboard.css";
 
 const Dashboard = () => {
-  const { Books } = useBooks();
-  const { OptionMenu, setButtonCards, ButtonCards } = useComponent();
+  const { Books, setBooks, setMyBooks } = useBooks();
+  const { OptionMenu, setOptionMenu, setButtonCards, ButtonCards } =
+    useComponent();
   const { decodedJwt } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -55,7 +56,7 @@ const Dashboard = () => {
   }, []);
 
   const filteredValue = useMemo(() => {
-    return Books.filter((Book) => {
+    return Object.values(Books).filter((Book) => {
       return (
         Book.name.toLowerCase().includes(query.toLowerCase()) ||
         Book.shortDescription.toLowerCase().includes(query.toLowerCase()) ||
@@ -64,12 +65,23 @@ const Dashboard = () => {
     });
   }, [Books, query]);
 
+  useEffect(() => {
+    return function cleanup() {
+      setOptionMenu("Overview");
+      setButtonCards("");
+      setBooks("");
+      setMyBooks("");
+    };
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <>
-      {(ButtonCards === "Create" || ButtonCards === "Update") &&
-        OptionMenu === "Books" && <BooksForm />}
-      {ButtonCards === "View" && OptionMenu === "Books" && <BooksView />}
-      <div className={`${ButtonCards ? "opacity" : ""}`}>
+      {(ButtonCards === "CreateBook" || ButtonCards === "UpdateBook") && (
+        <BooksForm />
+      )}
+      {ButtonCards === "ViewBook" && <BooksView />}
+      <div style={{ opacity: ButtonCards ? 0.2 : 1 }}>
         <div className={`dashboard-container `}>
           <Menu isMenuOpen={isMenuOpen} isMenuOpenPhone={isMenuOpenPhone} />
           <div className={`dashboard  `}>
@@ -125,7 +137,7 @@ const Dashboard = () => {
                   {OptionMenu === "Books" && (
                     <AiOutlinePlus
                       className="btn btn-icon "
-                      onClick={() => setButtonCards("Create")}
+                      onClick={() => setButtonCards("CreateBook")}
                     />
                   )}
 

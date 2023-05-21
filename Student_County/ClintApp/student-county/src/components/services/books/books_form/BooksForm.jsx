@@ -150,8 +150,8 @@ const BooksForm = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (ButtonCards === "Update") updateBook(Book.id, book);
-    else if (ButtonCards === "Create") createBook(book);
+    if (ButtonCards === "UpdateBook") updateBook(Book.id, book);
+    else if (ButtonCards === "CreateBook") createBook(book);
   };
   return (
     <>
@@ -161,7 +161,7 @@ const BooksForm = () => {
           id={Book.id}
         />
       )}
-      <div className={`${deleteDialogState ? "opacity" : ""}`}>
+      <div style={{ opacity: deleteDialogState ? 0.2 : 1 }}>
         <div className="Create-section">
           <form className="form-create" onSubmit={handleSubmit}>
             <div className="input-container">
@@ -313,7 +313,7 @@ const BooksForm = () => {
 
             {/* <button type="submit" className={`btn btn-primary sign ${!isFormValid ? 'disabled' : ''}`}>  */}
             <div className="buttons">
-              {ButtonCards === "Update" ? (
+              {ButtonCards === "UpdateBook" ? (
                 <button type="submit" className={`btn btn-primary `}>
                   Update
                 </button>
@@ -322,7 +322,7 @@ const BooksForm = () => {
                   Publish
                 </button>
               )}
-              {ButtonCards === "Update" ? (
+              {ButtonCards === "UpdateBook" ? (
                 <button onClick={handleDelete} className={`btn btn-primary `}>
                   Delete
                 </button>

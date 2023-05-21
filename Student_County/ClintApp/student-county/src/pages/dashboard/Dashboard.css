@@ -4,10 +4,7 @@
   flex-direction: row;
   opacity: 1;
 }
-.opacity {
-  opacity: 0.2;
-  z-index: -1;
-}
+
 .dashboard {
   padding: var(--padding-31xl);
   background-color: var(--color-whitesmoke-200);

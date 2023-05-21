@@ -129,7 +129,6 @@ export function AuthProvider({ children }) {
   };
 
   const logout = () => {
-    debugger
     AuthServices.logout()
       .then(() => {
         localStorage.removeItem("user");

@@ -92,7 +92,7 @@ const BooksSection = ({ filteredValue }) => {
         <div className="cards">
           {!filteredValue
             ? sortType === "" &&
-              Books.map((book) => (
+            Object.values(Books).map((book) => (
                 <BookCard
                   name={book.name}
                   price={book.price}
@@ -104,7 +104,7 @@ const BooksSection = ({ filteredValue }) => {
                 />
               ))
             : sortType === "" &&
-              filteredValue.map((book) => (
+            Object.values(filteredValue).map((book) => (
                 <BookCard
                   name={book.name}
                   price={book.price}
@@ -117,7 +117,7 @@ const BooksSection = ({ filteredValue }) => {
               ))}
           {!filteredValue
             ? sortType === "Name" &&
-              Books.sort((a, b) => (a.name > b.name ? 1 : -1)).map((book) => (
+            Object.values(Books).sort((a, b) => (a.name > b.name ? 1 : -1)).map((book) => (
                 <BookCard
                   name={book.name}
                   price={book.price}
@@ -129,7 +129,7 @@ const BooksSection = ({ filteredValue }) => {
                 />
               ))
             : sortType === "Name" &&
-              filteredValue
+            Object.values(filteredValue)
                 .sort((a, b) => (a.name > b.name ? 1 : -1))
                 .map((book) => (
                   <BookCard
@@ -144,7 +144,7 @@ const BooksSection = ({ filteredValue }) => {
                 ))}
           {!filteredValue
             ? sortType === "Date" &&
-              Books.sort(
+            Object.values(Books).sort(
                 (a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn)
               ).map((book) => (
                 <BookCard
@@ -158,7 +158,7 @@ const BooksSection = ({ filteredValue }) => {
                 />
               ))
             : sortType === "Date" &&
-              filteredValue
+            Object.values(filteredValue)
                 .sort(
                   (a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn)
                 )
@@ -175,7 +175,7 @@ const BooksSection = ({ filteredValue }) => {
                 ))}
           {!filteredValue
             ? sortType === "Price" &&
-              Books.sort((a, b) => b.price - a.price).map((book) => (
+            Object.values(Books).sort((a, b) => b.price - a.price).map((book) => (
                 <BookCard
                   name={book.name}
                   price={book.price}
@@ -187,7 +187,7 @@ const BooksSection = ({ filteredValue }) => {
                 />
               ))
             : sortType === "Price" &&
-              filteredValue
+            Object.values(filteredValue)
                 .sort((a, b) => b.price - a.price)
                 .map((book) => (
                   <BookCard

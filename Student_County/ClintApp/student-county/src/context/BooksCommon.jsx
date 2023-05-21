@@ -124,6 +124,8 @@ export function BooksProvider({ children }) {
         setSuccess,
         getMyAllBooks,
         setBook,
+        setBooks,
+        setMyBooks,
       }}
     >
       {children}

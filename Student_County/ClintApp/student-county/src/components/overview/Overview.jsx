@@ -173,7 +173,7 @@ const Overview = ({ filteredValue }) => {
           </div>
         </div>
         <div className="cards">
-          {MyBooks.map((book) => (
+          {Object.values(MyBooks).map((book) => (
             <BookCard
               name={book.name}
               price={book.price}

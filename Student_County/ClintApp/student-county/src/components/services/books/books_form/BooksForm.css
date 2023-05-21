@@ -224,7 +224,3 @@ textarea-container:focus-within {
   flex-wrap: wrap;
   gap: var(--gap-31xl);
 }
-.opacity {
-  opacity: 0.2;
-}
-
