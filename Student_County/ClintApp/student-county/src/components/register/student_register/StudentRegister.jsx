@@ -16,6 +16,7 @@ const Students = () => {
   // State Hooks
   const { Universities } = useUniversities();
   const { UserBo, studentRegister, AuthError, isSuccessfully } = useAuth();
+  const { AuthLoader } = useAuth();
   const { Colleges } = useCollege();
   const [username, setUsername] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -597,6 +598,7 @@ const Students = () => {
       )}
 
       <button type="submit" className={`btn btn-primary sign`}>
+      <div className="loader" style={{display: AuthLoader ? "block":"none" }}/>
         Sign Up
       </button>
       {AuthError && (

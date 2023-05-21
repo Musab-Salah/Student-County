@@ -7,6 +7,7 @@ export function CollegesProvider({ children }) {
   const [Colleges, setColleges] = useState([]);
   const [CollegeError, setError] = useState("Loading");
   const [College, setCollege] = useState("Loading");
+  const [CollegesLoader, setCollegesLoader] = useState("");
 
   const [CollegeBo] = useState({
     id: "0",
@@ -14,12 +15,14 @@ export function CollegesProvider({ children }) {
   });
 
   useEffect(() => {
+    setCollegesLoader(true);
     getColleges();
   }, []);
   const getColleges = () => {
     CollegeServices.getColleges()
       .then((res) => {
         setColleges(res.data);
+        setCollegesLoader(false);
         setError(null);
       })
       .catch(() => setError("Failed bring the Colleges..."));
@@ -68,6 +71,7 @@ export function CollegesProvider({ children }) {
         College,
         CollegeBo,
         CollegeError,
+        CollegesLoader,
         getCollegeById,
         createCollege,
         updateCollege,

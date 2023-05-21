@@ -28,6 +28,7 @@ export function AuthProvider({ children }) {
 
   const [isSuccessfully, setSuccessfully] = useState(false);
   const [userInLocal, setUserInLocal] = useState();
+  const [AuthLoader, setAuthLoader] = useState("");
 
   const [StudentBo] = useState({
     firstName: "",
@@ -68,9 +69,11 @@ export function AuthProvider({ children }) {
   }, []);
 
   const studentRegister = (Bo) => {
+    setAuthLoader(true);
     AuthServices.studentRegister(Bo)
       .then((res) => {
         setSuccessfully(true);
+        setAuthLoader(false);
         setError(null);
         sleep(5000).then(() => {
           setSuccessfully(false);
@@ -79,13 +82,16 @@ export function AuthProvider({ children }) {
       })
       .catch((res) => {
         setError(res.response.data);
+        setAuthLoader(false);
         cleanup();
       });
   };
 
   const patientRegister = (Bo) => {
+    setAuthLoader(true);
     AuthServices.patientRegister(Bo)
       .then((res) => {
+        setAuthLoader(false);
         setSuccessfully(true);
         setError(null);
         sleep(5000).then(() => {
@@ -94,14 +100,17 @@ export function AuthProvider({ children }) {
         });
       })
       .catch((res) => {
+        setAuthLoader(false);
         setError(res.response.data);
         cleanup();
       });
   };
 
   const login = (Bo) => {
+    setAuthLoader(true);
     AuthServices.login(Bo)
       .then((response) => {
+        setAuthLoader(false);
         setIsLogin(true);
         setIsLogout(false);
         localStorage.setItem("user", JSON.stringify(response.data));
@@ -113,6 +122,7 @@ export function AuthProvider({ children }) {
         navigate("/dashboard");
       })
       .catch(() => {
+        setAuthLoader(false);
         setError("Failed Login");
         cleanup();
       });
@@ -213,7 +223,7 @@ export function AuthProvider({ children }) {
         decodedJwt,
         userInLocal,
         SendEmailResetPass,
-
+        AuthLoader,
         token,
       }}
     >

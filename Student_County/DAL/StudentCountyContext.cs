@@ -67,8 +67,8 @@ namespace Student_County.DAL
             builder.Entity<UniversityEntity>().HasData(new UniversityEntity
             {
                 Id = 1,
-                Name = "AAUP",
-                EmailDomainName= "@AAUP.COM",
+                Name = "Arab American University",
+                EmailDomainName= "@student.aaup.edu",
                 CreatedBy = "Ini",
                 CreatedOn = DateTime.UtcNow,
                 IsDeleted = false,

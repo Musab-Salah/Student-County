@@ -14,9 +14,11 @@ import { PatientsProvider } from "./context/PatientCommon";
 import { ToolsProvider } from "./context/ToolsCommon";
 import AuthVerify from "./utils/AuthVerify";
 import "./Global.css";
+import { LoaderProvider } from "./context/LoaderCommon";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
+  <React.StrictMode>
   <BrowserRouter>
     <ComponentProvider>
       <AuthProvider>
@@ -29,11 +31,13 @@ root.render(
                   <RidesProvider>
                     <HousingsProvider>
                       <BooksProvider>
-                        <Suspense fallback={<div>lod</div>}>
-                          <Routes>
-                            <Route path="/*" element={<App />} />
-                          </Routes>
-                        </Suspense>
+                        <LoaderProvider>
+                          <Suspense fallback={<div>lod</div>}>
+                            <Routes>
+                              <Route path="/*" element={<App />} />
+                            </Routes>
+                          </Suspense>
+                        </LoaderProvider>
                       </BooksProvider>
                     </HousingsProvider>
                   </RidesProvider>
@@ -45,4 +49,5 @@ root.render(
       </AuthProvider>
     </ComponentProvider>
   </BrowserRouter>
+  </React.StrictMode>
 );

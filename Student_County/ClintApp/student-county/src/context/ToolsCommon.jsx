@@ -10,6 +10,8 @@ export function ToolsProvider({ children }) {
   const [Tools, setTools] = useState([]); //all tools
   const [MyTools, setMyTools] = useState([]); //all my tools
   const [Tool, setTool] = useState("");
+  const [ToolsLoader, setToolsLoader] = useState("");
+
 
   const [ToolsError, setError] = useState("");
   const [Success, setSuccess] = useState("");

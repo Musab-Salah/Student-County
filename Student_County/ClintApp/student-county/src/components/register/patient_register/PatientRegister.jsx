@@ -9,10 +9,12 @@ import {
 import useAuth from "../../../hooks/useAuth";
 
 import "../../../pages/sign_up/SignUp.css";
+import useLoader from "../../../hooks/useLoader";
 
 const Patients = () => {
   // State Hook
   const { patientRegister, AuthError, isSuccessfully } = useAuth();
+  const { AuthLoader } = useLoader();
   const [showPassword, setShowPassword] = useState(false);
   const [phonePrefix, setPhonePrefix] = useState("+970");
   const [acceptPolicy, setAcceptPolicy] = useState(false);
@@ -31,6 +33,7 @@ const Patients = () => {
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [AcceptPolicyError, setAcceptPolicyError] = useState("");
   const [genderError, setGenderError] = useState("");
+
   const eyeIcon = showPassword ? (
     <AiFillEyeInvisible size={20} />
   ) : (
@@ -52,7 +55,6 @@ const Patients = () => {
       document.removeEventListener("click", handleOutsideClick);
     };
   }, [showDropdownPrefix, showDropdownGender]);
-
 
   const handleFirstNameChange = (event) => {
     const nameRegex = /^([a-zA-Z])(?=.{3,})/;
@@ -470,6 +472,10 @@ const Patients = () => {
         </span>
       )}
       <button type="submit" className={`btn btn-primary sign`}>
+        <div
+          className="loader"
+          style={{ display: AuthLoader ? "block" : "none" }}
+        />
         Sign Up
       </button>
       {isSuccessfully && (

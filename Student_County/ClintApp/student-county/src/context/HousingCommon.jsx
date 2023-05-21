@@ -10,6 +10,7 @@ export function HousingsProvider({ children }) {
   const [Housings, setHousings] = useState([]); //all Housings
   const [MyHousings, setMyHousings] = useState([]); //all user Housings
   const [Housing, setHousing] = useState("");
+  const [HousingsLoader, setHousingsLoader] = useState("");
 
   const [HousingError, setError] = useState("");
   const [Success, setSuccess] = useState("");

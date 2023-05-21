@@ -10,6 +10,7 @@ export function PatientsProvider({ children }) {
   const [Patients, setPatients] = useState([]); //all Patients
   const [MyPatients, setMyPatients] = useState([]); //all user Patients
   const [Patient, setPatient] = useState("");
+  const [PatientsLoader, setPatientsLoader] = useState("");
 
   const [PatientError, setError] = useState("");
   const [Success, setSuccess] = useState("");

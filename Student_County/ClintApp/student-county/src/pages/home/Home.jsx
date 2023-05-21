@@ -7,14 +7,26 @@ import { HiShieldCheck } from "react-icons/hi";
 import "./Home.css";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
+import useLoader from "../../hooks/useLoader";
 
 const Home = () => {
+  const { UniversityLoader, CollegesLoader } = useLoader();
+
   return (
     <>
       <Helmet>
         <title>Home</title>
       </Helmet>
-      <div className="home">
+      <div
+        className={`${
+          UniversityLoader && CollegesLoader ? "spinner" : "spinnerOpacity"
+        } `}
+      />
+      <div
+        className={`${
+          UniversityLoader && CollegesLoader ? "homeOpacity" : "home"
+        }`}
+      >
         <div className="header">
           <Navbar />
           <div className="hero">

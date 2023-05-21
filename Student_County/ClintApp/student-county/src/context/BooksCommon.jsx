@@ -10,6 +10,7 @@ export function BooksProvider({ children }) {
   const [Books, setBooks] = useState([]); //all books
   const [MyBooks, setMyBooks] = useState([]); //all user books
   const [Book, setBook] = useState("");
+  const [BooksLoader, setBooksLoader] = useState("");
 
   const [BookError, setError] = useState("");
   const [Success, setSuccess] = useState("");

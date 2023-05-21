@@ -20,7 +20,7 @@ namespace Student_County.API.Controllers
         }
 
         [HttpPost("StudentRegister")]
-        public async Task<IActionResult> RegisterStudentAsync([FromBody] StudentRegisterModel model)
+        public async Task<IActionResult> RegisterSsdtudentAsync([FromBody] StudentRegisterModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

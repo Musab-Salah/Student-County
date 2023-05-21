@@ -7,6 +7,7 @@ export function UniversitiesProvider({ children }) {
   const [Universities, setUniversities] = useState([]);
   const [UniversityError, setError] = useState("Loading");
   const [University, setUniversity] = useState("Loading");
+  const [UniversityLoader, setUniversityLoader] = useState("");
 
   const [UniversityBo] = useState({
     id: "0",
@@ -15,11 +16,13 @@ export function UniversitiesProvider({ children }) {
   });
 
   useEffect(() => {
+    setUniversityLoader(true);
     getUniversites();
   }, []);
   const getUniversites = () => {
     UniversityServices.getUniversities()
       .then((res) => {
+        setUniversityLoader(false);
         setUniversities(res.data);
         setError(null);
       })
@@ -69,10 +72,12 @@ export function UniversitiesProvider({ children }) {
         University,
         UniversityBo,
         UniversityError,
+        UniversityLoader,
         getUniversityById,
         createUniversity,
         updateUniversity,
         deleteUniversity,
+        setUniversityLoader,
       }}
     >
       {children}

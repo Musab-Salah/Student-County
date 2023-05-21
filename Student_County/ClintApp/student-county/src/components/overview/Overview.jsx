@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { FaBook, FaHome } from "react-icons/fa";
 import { HiUserGroup } from "react-icons/hi";
 import { AiOutlinePlus } from "react-icons/ai";
 import useBooks from "../../hooks/useBooks";
 import BookCard from "../cards/BookCard";
+import { Helmet } from "react-helmet";
 
 const Overview = ({ filteredValue }) => {
   const TYPES = ["All", "Book", "Ride", "House", "Patient", "Tools"];
@@ -26,7 +27,7 @@ const Overview = ({ filteredValue }) => {
     setShowDropdownSort(false);
   }
 
-  useEffect(() => {
+  useMemo(() => {
     const handleOutsideClick = (event) => {
       if (
         !event.target.closest(".custom-select") &&
@@ -40,14 +41,19 @@ const Overview = ({ filteredValue }) => {
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
+    // eslint-disable-next-line
   }, [showDropdownType, showDropdownSort]);
   useEffect(() => {
     getMyAllBooks();
     // eslint-disable-next-line
   }, [Success]);
 
+
   return (
     <>
+      <Helmet>
+        <title>Overview</title>
+      </Helmet>
       <div className="info-container">
         <div className="stats-container">
           <div className="stats">
@@ -173,7 +179,7 @@ const Overview = ({ filteredValue }) => {
         </div>
         <div className="cards">
           {!filteredValue
-            ? !sortType  &&
+            ? !sortType &&
               Object.values(MyBooks).map((book) => (
                 <BookCard
                   name={book.name}

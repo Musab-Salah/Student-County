@@ -1,17 +1,18 @@
 import BookCard from "../../../cards/BookCard";
 import useBooks from "../../../../hooks/useBooks";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { RiArrowDownSLine } from "react-icons/ri";
 import "./BooksSection.css";
+import { Helmet } from "react-helmet";
 
-const BooksSection = ({filteredValue}) => {
+const BooksSection = ({ filteredValue }) => {
   const { Books, getBooks, Success, setBooks } = useBooks();
   const SORT_TYPES = ["Name", "Date", "Price"];
   const [showDropdownType, setShowDropdownType] = useState("");
   const [sortType, setSortType] = useState("");
   const [showDropdownSort, setShowDropdownSort] = useState("");
 
-  useEffect(() => {
+  useMemo(() => {
     const handleOutsideClick = (event) => {
       if (
         !event.target.closest(".custom-select") &&
@@ -25,6 +26,7 @@ const BooksSection = ({filteredValue}) => {
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
+    // eslint-disable-next-line
   }, [showDropdownType, showDropdownSort]);
 
   useEffect(() => {
@@ -44,6 +46,9 @@ const BooksSection = ({filteredValue}) => {
 
   return (
     <>
+      <Helmet>
+        <title>Books</title>
+      </Helmet>
       <div className="service-container">
         <div className="services-head">
           <div className="services-head-title">Find Services</div>

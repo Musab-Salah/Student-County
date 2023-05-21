@@ -16,13 +16,12 @@ import BooksForm from "../../components/services/books/books_form/BooksForm";
 import "./Dashboard.css";
 
 const Dashboard = () => {
-  const { Books, setBooks, setMyBooks, MyBooks } = useBooks();
+  const { Books, MyBooks } = useBooks();
   const { OptionMenu, setOptionMenu, setButtonCards, ButtonCards } =
     useComponent();
   const { decodedJwt } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
-  //const [filteredValue,setFilteredValue]=useState("");
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -75,6 +74,7 @@ const Dashboard = () => {
         );
       });
     }
+        // eslint-disable-next-line
   }, [MyBooks, Books, query]);
 
   useEffect(() => {

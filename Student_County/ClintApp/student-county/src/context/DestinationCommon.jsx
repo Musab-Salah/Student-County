@@ -7,6 +7,8 @@ export function DestinationsProvider({ children }) {
   const [Destinations, setDestinations] = useState([]);
   const [DestinationError, setError] = useState("Loading");
   const [Destination, setDestination] = useState("Loading");
+  const [DestinationsLoader, setDestinationsLoader] = useState("");
+
 
   const [DestinationBo] = useState({
     id: "0",

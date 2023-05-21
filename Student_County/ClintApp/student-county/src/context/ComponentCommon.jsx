@@ -9,9 +9,9 @@ export function ComponentProvider({ children }) {
   return (
     <ComponentCxt.Provider
       value={{
-        setOptionMenu,
         OptionMenu,
         ButtonCards,
+        setOptionMenu,
         setButtonCards,
       }}
     >

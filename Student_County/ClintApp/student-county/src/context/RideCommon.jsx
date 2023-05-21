@@ -10,6 +10,8 @@ export function RidesProvider({ children }) {
   const [Rides, setRides] = useState([]); //all Rids
   const [MyRides, setMyRides] = useState([]); //all MyRides
   const [Ride, setRide] = useState("");
+  const [RidesLoader, setRidesLoader] = useState("");
+
 
   const [RideError, setError] = useState("");
   const [Success, setSuccess] = useState("");

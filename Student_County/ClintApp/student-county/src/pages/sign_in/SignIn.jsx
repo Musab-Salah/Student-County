@@ -4,6 +4,7 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import useAuth from "../../hooks/useAuth";
+import useLoader from "../../hooks/useLoader";
 
 import "./SignIn.css";
 
@@ -11,6 +12,7 @@ const SignIn = () => {
   const { login, AuthError } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const { AuthLoader } = useLoader();
   const [bo, setbo] = useState();
   const eyeIcon = showPassword ? (
     <AiFillEyeInvisible size={20} />
@@ -39,7 +41,6 @@ const SignIn = () => {
     event.preventDefault();
     login(bo);
   };
-
   return (
     <>
       <Helmet>
@@ -123,6 +124,10 @@ const SignIn = () => {
             </div>
             {/* <button type="submit" className={`btn btn-primary sign ${!isFormValid ? 'disabled' : ''}`}>  */}
             <button type="submit" className={`btn btn-primary sign`}>
+              <div
+                className="loader"
+                style={{ display: AuthLoader ? "block" : "none" }}
+              />
               Sign In
             </button>
           </form>

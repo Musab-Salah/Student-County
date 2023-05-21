@@ -12,7 +12,7 @@ import Cchat from "./components/chat/Cchat";
 function App() {
   return (
     <Routes>
-      <Route exact path="/" element={<Home />} />
+      <Route exact  path="/" element={<Home />} />
       <Route path="/chat" element={<Cchat />} />
       <Route path="/sign_in" element={<SignIn />} />
       <Route path="/sign_up" element={<SignUp />} />
