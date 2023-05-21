@@ -16,12 +16,13 @@ import BooksForm from "../../components/services/books/books_form/BooksForm";
 import "./Dashboard.css";
 
 const Dashboard = () => {
-  const { Books, setBooks, setMyBooks } = useBooks();
+  const { Books, setBooks, setMyBooks, MyBooks } = useBooks();
   const { OptionMenu, setOptionMenu, setButtonCards, ButtonCards } =
     useComponent();
   const { decodedJwt } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
+  //const [filteredValue,setFilteredValue]=useState("");
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -56,21 +57,30 @@ const Dashboard = () => {
   }, []);
 
   const filteredValue = useMemo(() => {
-    return Object.values(Books).filter((Book) => {
-      return (
-        Book.name.toLowerCase().includes(query.toLowerCase()) ||
-        Book.shortDescription.toLowerCase().includes(query.toLowerCase()) ||
-        Book.longDescription.toLowerCase().includes(query.toLowerCase())
-      );
-    });
-  }, [Books, query]);
+    if (OptionMenu === "Books") {
+      return Object.values(Books).filter((Book) => {
+        return (
+          Book.name.toLowerCase().includes(query.toLowerCase()) ||
+          Book.shortDescription.toLowerCase().includes(query.toLowerCase()) ||
+          Book.longDescription.toLowerCase().includes(query.toLowerCase())
+        );
+      });
+    }
+    if (OptionMenu === "Overview") {
+      return Object.values(MyBooks).filter((Book) => {
+        return (
+          Book.name.toLowerCase().includes(query.toLowerCase()) ||
+          Book.shortDescription.toLowerCase().includes(query.toLowerCase()) ||
+          Book.longDescription.toLowerCase().includes(query.toLowerCase())
+        );
+      });
+    }
+  }, [MyBooks, Books, query]);
 
   useEffect(() => {
     return function cleanup() {
       setOptionMenu("Overview");
       setButtonCards("");
-      setBooks("");
-      setMyBooks("");
     };
     // eslint-disable-next-line
   }, []);
@@ -168,12 +178,12 @@ const Dashboard = () => {
 
             {OptionMenu === "Overview" && (
               <Overview
-                filteredValue={filteredValue === "" ? false : filteredValue}
+                filteredValue={!filteredValue ? false : filteredValue}
               />
             )}
             {OptionMenu === "Books" && (
               <BooksSection
-                filteredValue={filteredValue === "" ? false : filteredValue}
+                filteredValue={!filteredValue ? false : filteredValue}
               />
             )}
           </div>

@@ -10,9 +10,9 @@ const Overview = ({ filteredValue }) => {
   const TYPES = ["All", "Book", "Ride", "House", "Patient", "Tools"];
   const SORT_TYPES = ["Name", "Date", "Price"];
   const { MyBooks, getMyAllBooks, Success } = useBooks();
-  const [selectType, setSelectType] = useState(false);
+  const [selectType, setSelectType] = useState("");
+  const [sortType, setSortType] = useState("");
   const [showDropdownType, setShowDropdownType] = useState(false);
-  const [sortType, setSortType] = useState(false);
   const [showDropdownSort, setShowDropdownSort] = useState(false);
   const Bookslength = MyBooks.length;
 
@@ -43,7 +43,6 @@ const Overview = ({ filteredValue }) => {
   }, [showDropdownType, showDropdownSort]);
   useEffect(() => {
     getMyAllBooks();
-
     // eslint-disable-next-line
   }, [Success]);
 
@@ -173,17 +172,122 @@ const Overview = ({ filteredValue }) => {
           </div>
         </div>
         <div className="cards">
-          {Object.values(MyBooks).map((book) => (
-            <BookCard
-              name={book.name}
-              price={book.price}
-              shortDescription={book.shortDescription}
-              longDescription={book.longDescription}
-              key={book.id}
-              studentId={book.studentId}
-              id={book.id}
-            />
-          ))}
+          {!filteredValue
+            ? !sortType  &&
+              Object.values(MyBooks).map((book) => (
+                <BookCard
+                  name={book.name}
+                  price={book.price}
+                  shortDescription={book.shortDescription}
+                  longDescription={book.longDescription}
+                  key={book.id}
+                  id={book.id}
+                  studentId={book.studentId}
+                />
+              ))
+            : !sortType &&
+              Object.values(filteredValue).map((book) => (
+                <BookCard
+                  name={book.name}
+                  price={book.price}
+                  shortDescription={book.shortDescription}
+                  longDescription={book.longDescription}
+                  key={book.id}
+                  id={book.id}
+                  studentId={book.studentId}
+                />
+              ))}
+          {!filteredValue
+            ? sortType === "Name" &&
+              Object.values(MyBooks)
+                .sort((a, b) => (a.name > b.name ? 1 : -1))
+                .map((book) => (
+                  <BookCard
+                    name={book.name}
+                    price={book.price}
+                    shortDescription={book.shortDescription}
+                    longDescription={book.longDescription}
+                    key={book.id}
+                    id={book.id}
+                    studentId={book.studentId}
+                  />
+                ))
+            : sortType === "Name" &&
+              Object.values(filteredValue)
+                .sort((a, b) => (a.name > b.name ? 1 : -1))
+                .map((book) => (
+                  <BookCard
+                    name={book.name}
+                    price={book.price}
+                    shortDescription={book.shortDescription}
+                    longDescription={book.longDescription}
+                    key={book.id}
+                    id={book.id}
+                    studentId={book.studentId}
+                  />
+                ))}
+          {!filteredValue
+            ? sortType === "Date" &&
+              Object.values(MyBooks)
+                .sort(
+                  (a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn)
+                )
+                .map((book) => (
+                  <BookCard
+                    name={book.name}
+                    price={book.price}
+                    shortDescription={book.shortDescription}
+                    longDescription={book.longDescription}
+                    key={book.id}
+                    id={book.id}
+                    studentId={book.studentId}
+                  />
+                ))
+            : sortType === "Date" &&
+              Object.values(filteredValue)
+                .sort(
+                  (a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn)
+                )
+                .map((book) => (
+                  <BookCard
+                    name={book.name}
+                    price={book.price}
+                    shortDescription={book.shortDescription}
+                    longDescription={book.longDescription}
+                    key={book.id}
+                    id={book.id}
+                    studentId={book.studentId}
+                  />
+                ))}
+          {!filteredValue
+            ? sortType === "Price" &&
+              Object.values(MyBooks)
+                .sort((a, b) => b.price - a.price)
+                .map((book) => (
+                  <BookCard
+                    name={book.name}
+                    price={book.price}
+                    shortDescription={book.shortDescription}
+                    longDescription={book.longDescription}
+                    key={book.id}
+                    id={book.id}
+                    studentId={book.studentId}
+                  />
+                ))
+            : sortType === "Price" &&
+              Object.values(filteredValue)
+                .sort((a, b) => b.price - a.price)
+                .map((book) => (
+                  <BookCard
+                    name={book.name}
+                    price={book.price}
+                    shortDescription={book.shortDescription}
+                    longDescription={book.longDescription}
+                    key={book.id}
+                    id={book.id}
+                    studentId={book.studentId}
+                  />
+                ))}
         </div>
       </div>
     </>
