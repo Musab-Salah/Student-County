@@ -11,12 +11,14 @@ const AuthVerify = (props, { children }) => {
     useAuth();
   let location = props.router.location;
   useEffect(() => {
-    
     if (!isLogout && isLogin) {
       if (userInLocal && !isIdle) {
         idleTimer.reset();
         const dexp = decodedJwt.exp * 1000;
-        if (dexp < Date.now()) {
+        const event = new Date(dexp);
+        event.setMinutes(event.getMinutes() - 5);
+        let nowtime = event.getTime();
+        if (Math.round(nowtime / 1000) < Math.round(Date.now() / 1000)) {
           refresh();
         }
       } else if (!userInLocal || isIdle) {

@@ -129,6 +129,7 @@ export function AuthProvider({ children }) {
   };
 
   const refresh = () => {
+    console.log("Refreshing");
     AuthServices.refresh().then((response) => {
       localStorage.setItem("user", JSON.stringify(response.data));
       setToken(response.data.token);
