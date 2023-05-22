@@ -11,6 +11,10 @@ export function BooksProvider({ children }) {
   const [MyBooks, setMyBooks] = useState([]); //all user books
   const [Book, setBook] = useState("");
   const [BooksLoader, setBooksLoader] = useState("");
+  const [FormBooksLoader, setFormBooksLoader] = useState("");
+  const [ButtonsFormBooksLoader, setButtonsFormBooksLoader] = useState("");
+  const [DeleteButtonsFormBooksLoader, setDeleteButtonsFormBooksLoader] =
+    useState("");
 
   const [BookError, setError] = useState("");
   const [Success, setSuccess] = useState("");
@@ -35,74 +39,93 @@ export function BooksProvider({ children }) {
     });
 
   const getBooks = () => {
+    setBooksLoader(true);
     BookServices.getBooks(token)
       .then((res) => {
+        setBooksLoader(false);
         setBooks(res.data);
         setError(null);
       })
       .catch(() => {
         setError("Failed bring the books...");
+        setBooksLoader(false);
         cleanupError();
       });
   };
 
   const getMyAllBooks = () => {
+    setBooksLoader(true);
     BookServices.getMyAllBooks(decodedJwt.uid, token)
       .then((res) => {
+        setBooksLoader(false);
         setMyBooks(res.data);
         setError(null);
       })
-      .catch(() => setError("Failed bring the books..."));
+      .catch(() => {
+        setBooksLoader(false);
+        setError("Failed bring the books...");
+      });
   };
 
   const createBook = (Bo) => {
+    setButtonsFormBooksLoader(true);
     Bo.studentId = decodedJwt.uid;
     BookServices.createBook(Bo, token)
       .then((res) => {
+        setButtonsFormBooksLoader(false);
         setSuccess("Successfully Created The Book.");
         cleanupSuccess();
         setError(null);
       })
       .catch(() => {
+        setButtonsFormBooksLoader(false);
         setError("Failed create the book...");
         cleanupError();
       });
   };
 
   const getBookById = (id) => {
+    setFormBooksLoader(true);
     BookServices.getBookById(id, token)
       .then((res) => {
+        setFormBooksLoader(false);
         setBook(res.data);
         setError(null);
       })
       .catch(() => {
+        setFormBooksLoader(false);
         setError("Failed bring the book...");
         cleanupError();
       });
   };
 
   const updateBook = (id, Bo) => {
-    console.log(Bo);
+    setButtonsFormBooksLoader(true);
     BookServices.updateBook(id, Bo, token)
       .then((res) => {
+        setButtonsFormBooksLoader(false);
         setSuccess("Successfully Updated The Book.");
         cleanupSuccess();
         setError(null);
       })
       .catch(() => {
+        setButtonsFormBooksLoader(false);
         setError("Failed update the book...");
         cleanupError();
       });
   };
 
   const deleteBook = (id) => {
+    setDeleteButtonsFormBooksLoader(true);
     BookServices.deleteBook(id, token)
       .then((res) => {
+        setDeleteButtonsFormBooksLoader(false);
         setSuccess("Successfully Deleted The Book.");
         cleanupSuccess();
         setError(null);
       })
       .catch(() => {
+        setDeleteButtonsFormBooksLoader(false);
         setError("Failed delete the book...");
         cleanupError();
       });
@@ -117,6 +140,10 @@ export function BooksProvider({ children }) {
         BookError,
         Success,
         MyBooks,
+        BooksLoader,
+        FormBooksLoader,
+        ButtonsFormBooksLoader,
+        DeleteButtonsFormBooksLoader,
         getBookById,
         getBooks,
         createBook,

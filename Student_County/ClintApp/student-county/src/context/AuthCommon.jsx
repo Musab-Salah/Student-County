@@ -139,8 +139,10 @@ export function AuthProvider({ children }) {
   };
 
   const logout = () => {
+    setAuthLoader(true);
     AuthServices.logout()
       .then(() => {
+        setAuthLoader(false);
         localStorage.removeItem("user");
         setDecodedJwt(false);
         setToken();
@@ -149,6 +151,7 @@ export function AuthProvider({ children }) {
         navigate("/sign_in");
       })
       .catch(() => {
+        setAuthLoader(false);
         setError("Failed Logout");
         cleanup();
       });

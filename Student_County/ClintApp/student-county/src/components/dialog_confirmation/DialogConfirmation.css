@@ -1,5 +1,5 @@
 .Create-section-dialog {
-  position: absolute;
+  position: fixed;
   display: flex;
   flex-direction: column;
   padding: var(--padding-31xl) var(--padding-81xl);

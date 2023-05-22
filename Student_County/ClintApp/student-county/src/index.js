@@ -18,7 +18,6 @@ import { LoaderProvider } from "./context/LoaderCommon";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
   <BrowserRouter>
     <ComponentProvider>
       <AuthProvider>
@@ -49,5 +48,4 @@ root.render(
       </AuthProvider>
     </ComponentProvider>
   </BrowserRouter>
-  </React.StrictMode>
 );

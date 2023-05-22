@@ -6,11 +6,14 @@ import { AiOutlinePlus } from "react-icons/ai";
 import useBooks from "../../hooks/useBooks";
 import BookCard from "../cards/BookCard";
 import { Helmet } from "react-helmet";
+import "./Overview.css";
+import useLoader from "./../../hooks/useLoader";
 
 const Overview = ({ filteredValue }) => {
   const TYPES = ["All", "Book", "Ride", "House", "Patient", "Tools"];
   const SORT_TYPES = ["Name", "Date", "Price"];
-  const { MyBooks, getMyAllBooks, Success } = useBooks();
+  const { MyBooks, getMyAllBooks, Success, setMyBooks } = useBooks();
+  const { BooksLoader } = useLoader();
   const [selectType, setSelectType] = useState("");
   const [sortType, setSortType] = useState("");
   const [showDropdownType, setShowDropdownType] = useState(false);
@@ -43,12 +46,17 @@ const Overview = ({ filteredValue }) => {
     };
     // eslint-disable-next-line
   }, [showDropdownType, showDropdownSort]);
+
   useEffect(() => {
     getMyAllBooks();
     // eslint-disable-next-line
   }, [Success]);
-
-
+  useEffect(() => {
+    return function cleanup() {
+      setMyBooks("");
+    };
+    // eslint-disable-next-line
+  }, []);
   return (
     <>
       <Helmet>
@@ -178,6 +186,18 @@ const Overview = ({ filteredValue }) => {
           </div>
         </div>
         <div className="cards">
+          <div
+            className="loader-overview"
+            style={{ display: BooksLoader ? "block" : "none" }}
+          >
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+          </div>
           {!filteredValue
             ? !sortType &&
               Object.values(MyBooks).map((book) => (

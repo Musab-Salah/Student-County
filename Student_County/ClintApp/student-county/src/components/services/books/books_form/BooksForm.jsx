@@ -5,6 +5,7 @@ import { AiFillExclamationCircle } from "react-icons/ai";
 import useBooks from "../../../../hooks/useBooks";
 import DialogConfirmation from "../../../dialog_confirmation/DialogConfirmation";
 import "./BooksForm.css";
+import useLoader from "../../../../hooks/useLoader";
 
 const BooksForm = () => {
   const { setButtonCards, ButtonCards } = useComponent();
@@ -18,6 +19,11 @@ const BooksForm = () => {
   const [price, setPrice] = useState("");
   const [theWay, setTheWay] = useState("");
   const [book, setBookBo] = useState({});
+  const {
+    FormBooksLoader,
+    ButtonsFormBooksLoader,
+    DeleteButtonsFormBooksLoader,
+  } = useLoader();
 
   // Error Hook
   const [theWayError, setTheWayError] = useState("");
@@ -163,7 +169,32 @@ const BooksForm = () => {
       )}
       <div style={{ opacity: deleteDialogState ? 0.2 : 1 }}>
         <div className="Create-section">
-          <form className="form-create" onSubmit={handleSubmit}>
+          <div
+            class="container-load-form"
+            style={{ display: FormBooksLoader ? "block" : "none" }}
+          >
+            <div className="block-load-form"></div>
+            <div className="block-load-form"></div>
+            <div className="block-load-form"></div>
+            <div className="block-load-form"></div>
+            <div className="block-load-form"></div>
+            <div className="block-load-form"></div>
+            <div className="block-load-form"></div>
+            <div className="block-load-form"></div>
+            <div className="block-load-form"></div>
+            <div className="block-load-form"></div>
+            <div className="block-load-form"></div>
+            <div className="block-load-form"></div>
+            <div className="block-load-form"></div>
+            <div className="block-load-form"></div>
+            <div className="block-load-form"></div>
+            <div className="block-load-form"></div>
+          </div>
+          <form
+            style={{ display: FormBooksLoader ? "none" : "flex" }}
+            className="form-create"
+            onSubmit={handleSubmit}
+          >
             <div className="input-container">
               <input
                 maxLength={40}
@@ -315,15 +346,33 @@ const BooksForm = () => {
             <div className="buttons">
               {ButtonCards === "UpdateBook" ? (
                 <button type="submit" className={`btn btn-primary `}>
+                  <div
+                    className="loader"
+                    style={{
+                      display: ButtonsFormBooksLoader ? "block" : "none",
+                    }}
+                  />
                   Update
                 </button>
               ) : (
                 <button type="submit" className={`btn btn-primary `}>
+                  <div
+                    className="loader"
+                    style={{
+                      display: ButtonsFormBooksLoader ? "block" : "none",
+                    }}
+                  />
                   Publish
                 </button>
               )}
               {ButtonCards === "UpdateBook" ? (
                 <button onClick={handleDelete} className={`btn btn-primary `}>
+                  <div
+                    className="loader"
+                    style={{
+                      display: DeleteButtonsFormBooksLoader ? "block" : "none",
+                    }}
+                  />
                   Delete
                 </button>
               ) : (

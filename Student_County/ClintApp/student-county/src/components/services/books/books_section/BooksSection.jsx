@@ -4,9 +4,11 @@ import { useEffect, useMemo, useState } from "react";
 import { RiArrowDownSLine } from "react-icons/ri";
 import "./BooksSection.css";
 import { Helmet } from "react-helmet";
+import useLoader from "../../../../hooks/useLoader";
 
 const BooksSection = ({ filteredValue }) => {
   const { Books, getBooks, Success, setBooks } = useBooks();
+  const { BooksLoader } = useLoader();
   const SORT_TYPES = ["Name", "Date", "Price"];
   const [showDropdownType, setShowDropdownType] = useState("");
   const [sortType, setSortType] = useState("");
@@ -95,6 +97,18 @@ const BooksSection = ({ filteredValue }) => {
           </div>
         </div>
         <div className="cards">
+          <div
+            className="loader-overview"
+            style={{ display: BooksLoader ? "block" : "none" }}
+          >
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+          </div>
           {!filteredValue
             ? !sortType &&
               Object.values(Books).map((book) => (

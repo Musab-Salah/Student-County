@@ -10,10 +10,12 @@ import { TbMessageCircle, TbTools } from "react-icons/tb";
 import { RxDashboard, RxGear } from "react-icons/rx";
 import useComponent from "../../hooks/useComponent";
 import useAuth from "./../../hooks/useAuth";
+import useLoader from "../../hooks/useLoader";
 const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
   const [navLinksVisible, setNavLinksVisible] = useState([true, true]);
   const { setOptionMenu, OptionMenu } = useComponent();
   const { logout } = useAuth();
+  const { AuthLoader } = useLoader();
 
   const handleTitleClick = (index) => (event) => {
     setNavLinksVisible((prevState) => {
@@ -261,6 +263,12 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
             isMenuOpen ? "padding-resize" : ""
           }`}
         >
+          <div
+            className="loader"
+            style={{
+              display: AuthLoader ? "block" : "none",
+            }}
+          />
           <BiLogOut className="dash-nav-link-icon" />
           <div className={`dash-sign-out ${isMenuOpen ? "hidden" : ""}`}>
             Sign Out
