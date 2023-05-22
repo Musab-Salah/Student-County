@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { TbCheck } from "react-icons/tb";
 import { RiArrowDownSLine } from "react-icons/ri";
 import {
@@ -40,7 +40,7 @@ const Patients = () => {
     <AiFillEye size={20} />
   );
 
-  useEffect(() => {
+  useMemo(() => {
     const handleOutsideClick = (event) => {
       if (
         !event.target.closest(".custom-select") &&

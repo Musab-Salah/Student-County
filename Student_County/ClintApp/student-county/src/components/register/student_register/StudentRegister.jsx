@@ -49,7 +49,7 @@ const Students = () => {
     <AiFillEye size={20} />
   );
 
-  useEffect(() => {
+  useMemo(() => {
     const handleOutsideClick = (event) => {
       if (
         !event.target.closest(".custom-select") &&

@@ -7,7 +7,7 @@ const PrivateRoutes = () => {
 
   const scopes = ["Dentistry Student", "Patient", "Student"];
 
-  let auth = decodedJwt ? decodedJwt.roles : "false";
+  let auth = decodedJwt ? decodedJwt.roles : "";
   return scopes.includes(auth) ? <Outlet /> : <Navigate to="/sign_in" />;
 };
 

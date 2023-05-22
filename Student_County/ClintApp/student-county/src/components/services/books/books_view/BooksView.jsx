@@ -2,10 +2,12 @@ import { useEffect } from "react";
 import useComponent from "../../../../hooks/useComponent";
 import useBooks from "../../../../hooks/useBooks";
 import "./BooksView.css";
+import useLoader from "../../../../hooks/useLoader";
 
 const BooksView = () => {
   const { setButtonCards } = useComponent();
   const { Book, setBook } = useBooks();
+  const { FormBooksLoader } = useLoader();
   // State Hook
 
   useEffect(() => {
@@ -19,7 +21,28 @@ const BooksView = () => {
   return (
     <>
       <div className="Create-section">
-        <div className="form-create">
+        <div
+          className="container-load-form"
+          style={{ display: FormBooksLoader ? "block" : "none" }}
+        >
+          <div className="block-load-form"></div>
+          <div className="block-load-form"></div>
+          <div className="block-load-form"></div>
+          <div className="block-load-form"></div>
+          <div className="block-load-form"></div>
+          <div className="block-load-form"></div>
+          <div className="block-load-form"></div>
+          <div className="block-load-form"></div>
+          <div className="block-load-form"></div>
+          <div className="block-load-form"></div>
+          <div className="block-load-form"></div>
+          <div className="block-load-form"></div>
+          <div className="block-load-form"></div>
+          <div className="block-load-form"></div>
+          <div className="block-load-form"></div>
+          <div className="block-load-form"></div>
+        </div>
+        <div className="form-create" style={{ display: FormBooksLoader ? "none" : "flex" }}>
           <div className="section-view">
             <span className="label-view">Name:</span>
             <span className="text-field">{Book.name}</span>

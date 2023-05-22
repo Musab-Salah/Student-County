@@ -36,7 +36,7 @@ const BooksForm = () => {
 
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  useEffect(() => {
+  useMemo(() => {
     const handleOutsideClick = (event) => {
       if (
         !event.target.closest(".custom-select") &&
@@ -51,7 +51,7 @@ const BooksForm = () => {
     };
   }, [showDropdownTheWay]);
 
-  useEffect(() => {
+  useMemo(() => {
     setName(Book.name);
     setShortDescription(Book.shortDescription);
     setLongDescription(Book.longDescription);
@@ -170,7 +170,7 @@ const BooksForm = () => {
       <div style={{ opacity: deleteDialogState ? 0.2 : 1 }}>
         <div className="Create-section">
           <div
-            class="container-load-form"
+            className="container-load-form"
             style={{ display: FormBooksLoader ? "block" : "none" }}
           >
             <div className="block-load-form"></div>

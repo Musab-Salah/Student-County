@@ -8,11 +8,13 @@ import BookCard from "../cards/BookCard";
 import { Helmet } from "react-helmet";
 import "./Overview.css";
 import useLoader from "./../../hooks/useLoader";
+import useAuth from "../../hooks/useAuth";
 
 const Overview = ({ filteredValue }) => {
   const TYPES = ["All", "Book", "Ride", "House", "Patient", "Tools"];
   const SORT_TYPES = ["Name", "Date", "Price"];
   const { MyBooks, getMyAllBooks, Success, setMyBooks } = useBooks();
+  const { decodedJwt } = useAuth();
   const { BooksLoader } = useLoader();
   const [selectType, setSelectType] = useState("");
   const [sortType, setSortType] = useState("");
@@ -48,7 +50,9 @@ const Overview = ({ filteredValue }) => {
   }, [showDropdownType, showDropdownSort]);
 
   useEffect(() => {
-    getMyAllBooks();
+    if (decodedJwt.roles !== "Patient") {
+      getMyAllBooks();
+    }
     // eslint-disable-next-line
   }, [Success]);
   useEffect(() => {
