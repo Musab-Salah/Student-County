@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { TbCheck } from "react-icons/tb";
 import { RiArrowDownSLine } from "react-icons/ri";
 import {
@@ -15,18 +15,18 @@ import "../../../pages/sign_up/SignUp.css";
 const Students = () => {
   // State Hooks
   const { Universities } = useUniversities();
-  const { UserBo, studentRegister, AuthError, isSuccessfully } = useAuth();
+  const { studentRegister, AuthError, isSuccessfully } = useAuth();
   const { AuthLoader } = useAuth();
   const { Colleges } = useCollege();
   const [username, setUsername] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [phonePrefix, setPhonePrefix] = useState("+970"); // need check when its empty
   const [acceptPolicy, setAcceptPolicy] = useState(false);
-  const [gender, setGender] = useState();
+  const [gender, setGender] = useState("");
   const [selectUniv, setSelectUniv] = useState("");
   const [selectCollege, setSelectCollege] = useState("");
-  const [userBo, setUser] = useState(UserBo);
-  const [emailDomainName, setEmailDomainName] = useState();
+  const [userBo, setUser] = useState({});
+  const [emailDomainName, setEmailDomainName] = useState("");
 
   const [showDropdownGender, setShowDropdownGender] = useState(false);
   const [showDropdownUniv, setShowDropdownUniv] = useState(false);
@@ -49,29 +49,37 @@ const Students = () => {
     <AiFillEye size={20} />
   );
 
-  useMemo(() => {
-    const handleOutsideClick = (event) => {
-      if (
-        !event.target.closest(".custom-select") &&
-        !event.target.closest(".input-container-option")
-      ) {
-        setShowDropdownGender(false);
-        setShowDropdownUniv(false);
-        setShowDropdownCollege(false);
-        setShowDropdownPrefix(false);
-      }
-    };
-    document.addEventListener("click", handleOutsideClick);
-    return () => {
-      document.removeEventListener("click", handleOutsideClick);
-    };
-  }, [
-    showDropdownGender,
-    showDropdownUniv,
-    showDropdownCollege,
-    showDropdownPrefix,
-  ]);
-  useMemo(() => setEmailDomainName(selectUniv.emailDomainName), [selectUniv]);
+  useMemo(
+    () => {
+      const handleOutsideClick = (event) => {
+        if (
+          !event.target.closest(".custom-select") &&
+          !event.target.closest(".input-container-option")
+        ) {
+          setShowDropdownGender(false);
+          setShowDropdownUniv(false);
+          setShowDropdownCollege(false);
+          setShowDropdownPrefix(false);
+        }
+      };
+      document.addEventListener("click", handleOutsideClick);
+      return () => {
+        document.removeEventListener("click", handleOutsideClick);
+      };
+    },
+    // eslint-disable-next-line
+    [
+      showDropdownGender,
+      showDropdownUniv,
+      showDropdownCollege,
+      showDropdownPrefix,
+    ]
+  );
+  useMemo(
+    () => setEmailDomainName(selectUniv.emailDomainName),
+    // eslint-disable-next-line
+    [selectUniv]
+  );
 
   const handleFirstNameChange = (event) => {
     const nameRegex = /^([a-zA-Z])(?=.{3,})/;
@@ -99,24 +107,24 @@ const Students = () => {
     }
   };
 
-  const handleUsernameChange = (event) => {
-    var result = event.target.value.replace(/[^a-z.0-9]/gi, "");
-    setUser({
-      ...userBo,
-      email: result + emailDomainName,
-      userName: result,
-    });
-    setUsername(result);
-  };
-
   const handleUniversityChange = (uni) => {
     setUser({
       ...userBo,
       universityId: uni.id,
     });
     setSelectUniv(uni);
+    setEmailDomainName(uni.emailDomainName);
     setSelectUnivError(false);
     setShowDropdownUniv(false);
+  };
+  const handleUsernameChange = (event) => {
+    const result = event.target.value.replace(/[^a-z.0-9]/gi, "");
+    setUser({
+      ...userBo,
+      email: result + emailDomainName,
+      userName: result,
+    });
+    setUsername(result);
   };
 
   const handleCollegeChange = (college) => {
@@ -293,7 +301,7 @@ const Students = () => {
             {showDropdownUniv && (
               <div className="options" id="input-dropdown">
                 <div className="option-title">Select University</div>
-                {Universities.map((university) => (
+                {Object.values(Universities).map((university) => (
                   <div
                     className="option"
                     key={university.id}
@@ -338,7 +346,7 @@ const Students = () => {
               <div className="options" id="input-dropdown">
                 <div className="option-title">College Or Faculty</div>
                 {emailDomainName ? (
-                  Colleges.map((college) => (
+                  Object.values(Colleges).map((college) => (
                     <div
                       className="option"
                       key={college.id}
@@ -457,6 +465,7 @@ const Students = () => {
           value={username}
           onChange={handleUsernameChange}
           maxLength={20}
+          autoComplete="off"
           required
         />
         <div
@@ -598,7 +607,10 @@ const Students = () => {
       )}
 
       <button type="submit" className={`btn btn-primary sign`}>
-      <div className="loader" style={{display: AuthLoader ? "block":"none" }}/>
+        <div
+          className="loader"
+          style={{ display: AuthLoader ? "block" : "none" }}
+        />
         Sign Up
       </button>
       {AuthError && (

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useTransition } from "react";
+import { useState, useEffect, useMemo, useDeferredValue } from "react";
 import Menu from "../../components/menu/menu";
 import Overview from "../../components/overview/Overview";
 import BooksSection from "../../components/services/books/books_section/BooksSection";
@@ -19,10 +19,11 @@ const Dashboard = () => {
   const { Books, MyBooks } = useBooks();
   const { OptionMenu, setOptionMenu, setButtonCards, ButtonCards } =
     useComponent();
-  const [isPending, startTransition] = useTransition();
   const { decodedJwt } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
+  //const [filteredValue, setFilteredValue] = useState("");
+  const deferredInput = useDeferredValue(query);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -55,32 +56,36 @@ const Dashboard = () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
-  const HandelSearch = (e) => {
-    startTransition(() => {
-      setQuery(e.target.value);
-    });
-  };
+
   const filteredValue = useMemo(() => {
     if (OptionMenu === "Books") {
       return Object.values(Books).filter((Book) => {
         return (
-          Book.name.toLowerCase().includes(query.toLowerCase()) ||
-          Book.shortDescription.toLowerCase().includes(query.toLowerCase()) ||
-          Book.longDescription.toLowerCase().includes(query.toLowerCase())
+          Book.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
+          Book.shortDescription
+            .toLowerCase()
+            .includes(deferredInput.toLowerCase()) ||
+          Book.longDescription
+            .toLowerCase()
+            .includes(deferredInput.toLowerCase())
         );
       });
     }
     if (OptionMenu === "Overview") {
       return Object.values(MyBooks).filter((Book) => {
         return (
-          Book.name.toLowerCase().includes(query.toLowerCase()) ||
-          Book.shortDescription.toLowerCase().includes(query.toLowerCase()) ||
-          Book.longDescription.toLowerCase().includes(query.toLowerCase())
+          Book.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
+          Book.shortDescription
+            .toLowerCase()
+            .includes(deferredInput.toLowerCase()) ||
+          Book.longDescription
+            .toLowerCase()
+            .includes(deferredInput.toLowerCase())
         );
       });
     }
     // eslint-disable-next-line
-  }, [MyBooks, Books, query]);
+  }, [MyBooks, Books, deferredInput]);
 
   useEffect(() => {
     return function cleanup() {
@@ -129,7 +134,7 @@ const Dashboard = () => {
                       name="text"
                       type="text"
                       value={query}
-                      onChange={HandelSearch}
+                      onChange={(e) => setQuery(e.target.value)}
                     />
                     <FiSearch className="btn icon btn-icon  btn-icon-active" />
                   </div>
@@ -168,13 +173,11 @@ const Dashboard = () => {
 
             {OptionMenu === "Overview" && (
               <Overview
-                isPending={isPending}
                 filteredValue={!filteredValue ? false : filteredValue}
               />
             )}
             {OptionMenu === "Books" && (
               <BooksSection
-                isPending={isPending}
                 filteredValue={!filteredValue ? false : filteredValue}
               />
             )}

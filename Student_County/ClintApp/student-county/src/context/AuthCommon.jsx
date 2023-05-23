@@ -118,8 +118,10 @@ export function AuthProvider({ children }) {
         setError("");
         navigate("/dashboard");
       })
-      .catch(() => {
-        setError("Failed Login");
+      .catch((res) => {
+        if (res.response.data === "Email Not Confirmed")
+          setError("Email Not Confirmed");
+        else setError("Failed Login");
         cleanup();
       })
       .finally(() => setAuthLoader(false));
