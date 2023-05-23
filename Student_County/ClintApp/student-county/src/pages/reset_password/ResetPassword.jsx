@@ -4,6 +4,7 @@ import useAuth from "../../hooks/useAuth";
 import { useParams } from "react-router-dom";
 
 import "./ResetPassword.css";
+import useLoader from "../../hooks/useLoader";
 
 const ResetPassword = () => {
   const { resetPassword, AuthError, SendEmailResetPass } = useAuth();
@@ -11,6 +12,7 @@ const ResetPassword = () => {
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const { param1, param2 } = useParams();
+  const { AuthLoader } = useLoader();
 
   useEffect(() => {
     setUser({
@@ -127,6 +129,10 @@ const ResetPassword = () => {
               confirmPasswordError ? "disabled" : ""
             }`}
           >
+            <div
+              className="loader"
+              style={{ display: AuthLoader ? "block" : "none" }}
+            />
             Reset Password
           </button>
         </form>

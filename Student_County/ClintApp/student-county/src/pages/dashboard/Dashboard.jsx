@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useTransition } from "react";
 import Menu from "../../components/menu/menu";
 import Overview from "../../components/overview/Overview";
 import BooksSection from "../../components/services/books/books_section/BooksSection";
@@ -19,6 +19,7 @@ const Dashboard = () => {
   const { Books, MyBooks } = useBooks();
   const { OptionMenu, setOptionMenu, setButtonCards, ButtonCards } =
     useComponent();
+  const [isPending, startTransition] = useTransition();
   const { decodedJwt } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -54,7 +55,11 @@ const Dashboard = () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
-
+  const HandelSearch = (e) => {
+    startTransition(() => {
+      setQuery(e.target.value);
+    });
+  };
   const filteredValue = useMemo(() => {
     if (OptionMenu === "Books") {
       return Object.values(Books).filter((Book) => {
@@ -74,7 +79,7 @@ const Dashboard = () => {
         );
       });
     }
-        // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [MyBooks, Books, query]);
 
   useEffect(() => {
@@ -117,32 +122,17 @@ const Dashboard = () => {
               </div>
               <div className="right-navbar">
                 <div className="tools">
-                  {OptionMenu === "Overview" && (
-                    <div className="input-wrapper">
-                      <input
-                        placeholder="search.."
-                        className="input-search"
-                        name="text"
-                        type="text"
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                      />
-                      <FiSearch className="btn icon btn-icon  btn-icon-active" />
-                    </div>
-                  )}
-                  {OptionMenu === "Books" && (
-                    <div className="input-wrapper">
-                      <input
-                        placeholder="search.."
-                        className="input-search"
-                        name="text"
-                        type="text"
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                      />
-                      <FiSearch className="btn icon btn-icon  btn-icon-active" />
-                    </div>
-                  )}
+                  <div className="input-wrapper">
+                    <input
+                      placeholder="search.."
+                      className="input-search"
+                      name="text"
+                      type="text"
+                      value={query}
+                      onChange={HandelSearch}
+                    />
+                    <FiSearch className="btn icon btn-icon  btn-icon-active" />
+                  </div>
 
                   {OptionMenu === "Books" && (
                     <AiOutlinePlus
@@ -178,11 +168,13 @@ const Dashboard = () => {
 
             {OptionMenu === "Overview" && (
               <Overview
+                isPending={isPending}
                 filteredValue={!filteredValue ? false : filteredValue}
               />
             )}
             {OptionMenu === "Books" && (
               <BooksSection
+                isPending={isPending}
                 filteredValue={!filteredValue ? false : filteredValue}
               />
             )}

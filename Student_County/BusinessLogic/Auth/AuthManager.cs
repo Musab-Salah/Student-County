@@ -331,9 +331,6 @@ namespace Student_County.BusinessLogic.Auth
             using var generator = new RNGCryptoServiceProvider();
 
             generator.GetBytes(randomNumber);
-
-
-
             return new RefreshToken
             {
 
@@ -341,9 +338,7 @@ namespace Student_County.BusinessLogic.Auth
                 
                 ExpiresOn = DateTime.UtcNow.AddHours(12),
                 CreatedOn = DateTime.UtcNow,
-                
-
-        };
+            };
         }
 
         public async Task<List<IdentityRole>> GetAllRoles() =>  await _roleManager.Roles.ToListAsync();

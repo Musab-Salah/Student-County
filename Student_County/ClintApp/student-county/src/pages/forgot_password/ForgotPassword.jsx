@@ -4,12 +4,14 @@ import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 import "./ForgotPassword.css";
+import useLoader from "./../../hooks/useLoader";
 
 const ForgotPassword = () => {
   const [bo, setbo] = useState("");
   const [emailError, setEmailError] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
   const { forgetPassword, AuthError, SendEmailResetPass } = useAuth();
+  const { AuthLoader } = useLoader();
 
   const handleEmailChange = (event) => {
     setbo({
@@ -47,10 +49,10 @@ const ForgotPassword = () => {
     <div className="forgot-password">
       <div className="container">
         <div className="top-nav">
-        <Link className="button" to={"/sign_in"}>
-              <TbArrowNarrowLeft className="arrow" />
-              Go Back
-            </Link>
+          <Link className="button" to={"/sign_in"}>
+            <TbArrowNarrowLeft className="arrow" />
+            Go Back
+          </Link>
           <img className="logo" alt="" src="./logo-v2.svg" />
         </div>
         <img
@@ -86,7 +88,11 @@ const ForgotPassword = () => {
           </div>
           {emailError && <div className="wrong-info">{emailError}</div>}
           {AuthError && <div className="wrong-info">{AuthError}</div>}
-          {SendEmailResetPass && <div className="success-info">{"The email has been sent successfully"}</div>}
+          {SendEmailResetPass && (
+            <div className="success-info">
+              {"The email has been sent successfully"}
+            </div>
+          )}
 
           <button
             type="submit"
@@ -94,6 +100,10 @@ const ForgotPassword = () => {
               !isFormValid ? "disabled" : ""
             }`}
           >
+            <div
+              className="loader"
+              style={{ display: AuthLoader ? "block" : "none" }}
+            />
             Reset Password
           </button>
         </form>

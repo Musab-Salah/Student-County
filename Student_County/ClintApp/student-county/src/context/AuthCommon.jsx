@@ -73,7 +73,6 @@ export function AuthProvider({ children }) {
     AuthServices.studentRegister(Bo)
       .then((res) => {
         setSuccessfully(true);
-        setAuthLoader(false);
         setError(null);
         sleep(5000).then(() => {
           setSuccessfully(false);
@@ -82,16 +81,15 @@ export function AuthProvider({ children }) {
       })
       .catch((res) => {
         setError(res.response.data);
-        setAuthLoader(false);
         cleanup();
-      });
+      })
+      .finally(() => setAuthLoader(false));
   };
 
   const patientRegister = (Bo) => {
     setAuthLoader(true);
     AuthServices.patientRegister(Bo)
       .then((res) => {
-        setAuthLoader(false);
         setSuccessfully(true);
         setError(null);
         sleep(5000).then(() => {
@@ -100,17 +98,16 @@ export function AuthProvider({ children }) {
         });
       })
       .catch((res) => {
-        setAuthLoader(false);
         setError(res.response.data);
         cleanup();
-      });
+      })
+      .finally(() => setAuthLoader(false));
   };
 
   const login = (Bo) => {
     setAuthLoader(true);
     AuthServices.login(Bo)
       .then((response) => {
-        setAuthLoader(false);
         setIsLogin(true);
         setIsLogout(false);
         localStorage.setItem("user", JSON.stringify(response.data));
@@ -122,14 +119,13 @@ export function AuthProvider({ children }) {
         navigate("/dashboard");
       })
       .catch(() => {
-        setAuthLoader(false);
         setError("Failed Login");
         cleanup();
-      });
+      })
+      .finally(() => setAuthLoader(false));
   };
 
   const refresh = () => {
-    console.log("Refreshing");
     AuthServices.refresh().then((response) => {
       localStorage.setItem("user", JSON.stringify(response.data));
       setToken(response.data.token);
@@ -143,7 +139,6 @@ export function AuthProvider({ children }) {
     setAuthLoader(true);
     AuthServices.logout()
       .then(() => {
-        setAuthLoader(false);
         localStorage.removeItem("user");
         setDecodedJwt(false);
         setToken();
@@ -152,10 +147,10 @@ export function AuthProvider({ children }) {
         navigate("/sign_in");
       })
       .catch(() => {
-        setAuthLoader(false);
         setError("Failed Logout");
         cleanup();
-      });
+      })
+      .finally(() => setAuthLoader(false));
   };
   const getRoles = () => {
     AuthServices.getRoles()
@@ -168,6 +163,7 @@ export function AuthProvider({ children }) {
   };
 
   const forgetPassword = (Bo) => {
+    setAuthLoader(true);
     AuthServices.forgetPassword(Bo)
       .then((res) => {
         setError(null);
@@ -183,9 +179,11 @@ export function AuthProvider({ children }) {
           setError("");
           navigate("/forgot_password");
         });
-      });
+      })
+      .finally(() => setAuthLoader(false));
   };
   const resetPassword = (Bo) => {
+    setAuthLoader(true);
     AuthServices.resetPassword(Bo)
       .then((res) => {
         setError(null);
@@ -202,7 +200,8 @@ export function AuthProvider({ children }) {
           setError("");
           navigate("/reset_password");
         });
-      });
+      })
+      .finally(() => setAuthLoader(false));
   };
 
   return (

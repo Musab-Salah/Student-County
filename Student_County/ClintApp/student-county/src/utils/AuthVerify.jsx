@@ -16,7 +16,7 @@ const AuthVerify = (props, { children }) => {
         idleTimer.reset();
         const dexp = decodedJwt.exp * 1000;
         const event = new Date(dexp);
-        event.setMinutes(event.getMinutes() - 5);
+        event.setMinutes(event.getMinutes() - 10);
         let nowtime = event.getTime();
         if (Math.round(nowtime / 1000) < Math.round(Date.now() / 1000)) {
           refresh();

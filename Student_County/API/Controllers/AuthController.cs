@@ -1,6 +1,8 @@
 ﻿using MailKit;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Student_County.BusinessLogic.Auth;
 using Student_County.BusinessLogic.Auth.Models;
 
@@ -123,7 +125,6 @@ namespace Student_County.API.Controllers
                 IsEssential = true,
                 SameSite = SameSiteMode.None //check which type is better
             };
-
             Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
         }
 
