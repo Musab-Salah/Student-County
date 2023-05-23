@@ -38,7 +38,7 @@ namespace Student_County.API.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id) => Ok(await _manager.GetDestination(id));
+        public async Task<IActionResult> Get([FromRoute] int id) => Ok(await _manager.GetDestination(id));
         
         [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]

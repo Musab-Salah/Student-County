@@ -36,7 +36,7 @@ namespace Student_County.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id) => Ok(await _manager.GetCollege(id));
+        public async Task<IActionResult> Get([FromRoute] int id) => Ok(await _manager.GetCollege(id));
 
         [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]

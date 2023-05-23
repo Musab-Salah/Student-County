@@ -12,8 +12,8 @@ using Student_County.DAL;
 namespace Student_County.Migrations
 {
     [DbContext(typeof(StudentCountyContext))]
-    [Migration("20230520091529_EdLast")]
-    partial class EdLast
+    [Migration("20230523143318_Fedit")]
+    partial class Fedit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -401,9 +401,12 @@ namespace Student_County.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("College");
 
@@ -412,10 +415,10 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTime(2023, 5, 20, 9, 15, 29, 220, DateTimeKind.Utc).AddTicks(2502),
+                            CreatedOn = new DateTime(2023, 5, 23, 14, 33, 18, 528, DateTimeKind.Utc).AddTicks(8221),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTime(2023, 5, 20, 9, 15, 29, 220, DateTimeKind.Utc).AddTicks(2502),
+                            ModifiedOn = new DateTime(2023, 5, 23, 14, 33, 18, 528, DateTimeKind.Utc).AddTicks(8222),
                             Name = "EIT"
                         });
                 });
@@ -427,6 +430,10 @@ namespace Student_County.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CityName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -443,11 +450,14 @@ namespace Student_County.Migrations
                     b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("TownName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CityName")
+                        .IsUnique();
 
                     b.ToTable("Destination");
                 });
@@ -729,7 +739,7 @@ namespace Student_County.Migrations
 
                     b.Property<string>("EmailDomainName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -742,9 +752,15 @@ namespace Student_County.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmailDomainName")
+                        .IsUnique();
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("University");
 
@@ -753,12 +769,12 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTime(2023, 5, 20, 9, 15, 29, 220, DateTimeKind.Utc).AddTicks(2478),
-                            EmailDomainName = "@AAUP.COM",
+                            CreatedOn = new DateTime(2023, 5, 23, 14, 33, 18, 528, DateTimeKind.Utc).AddTicks(8194),
+                            EmailDomainName = "@student.aaup.edu",
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTime(2023, 5, 20, 9, 15, 29, 220, DateTimeKind.Utc).AddTicks(2479),
-                            Name = "AAUP"
+                            ModifiedOn = new DateTime(2023, 5, 23, 14, 33, 18, 528, DateTimeKind.Utc).AddTicks(8196),
+                            Name = "Arab American University"
                         });
                 });
 

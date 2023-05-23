@@ -10,7 +10,8 @@ namespace Student_County.BusinessLogic.Destination
             return new DestinationEntity
             {
                 Id = bo.Id,
-                Name = bo.Name,                              
+                CityName = bo.CityName,  
+                TownName = bo.TownName,
             };
         }
     }

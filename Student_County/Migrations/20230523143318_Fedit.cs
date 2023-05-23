@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Student_County.Migrations
 {
     /// <inheritdoc />
-    public partial class EdLast : Migration
+    public partial class Fedit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -53,7 +53,7 @@ namespace Student_County.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -71,7 +71,8 @@ namespace Student_County.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CityName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TownName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -89,8 +90,8 @@ namespace Student_County.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EmailDomainName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    EmailDomainName = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -453,12 +454,12 @@ namespace Student_County.Migrations
             migrationBuilder.InsertData(
                 table: "College",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "IsDeleted", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 1, "Ini", new DateTime(2023, 5, 20, 9, 15, 29, 220, DateTimeKind.Utc).AddTicks(2502), false, "Ini", new DateTime(2023, 5, 20, 9, 15, 29, 220, DateTimeKind.Utc).AddTicks(2502), "EIT" });
+                values: new object[] { 1, "Ini", new DateTime(2023, 5, 23, 14, 33, 18, 528, DateTimeKind.Utc).AddTicks(8221), false, "Ini", new DateTime(2023, 5, 23, 14, 33, 18, 528, DateTimeKind.Utc).AddTicks(8222), "EIT" });
 
             migrationBuilder.InsertData(
                 table: "University",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "EmailDomainName", "IsDeleted", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 1, "Ini", new DateTime(2023, 5, 20, 9, 15, 29, 220, DateTimeKind.Utc).AddTicks(2478), "@AAUP.COM", false, "Ini", new DateTime(2023, 5, 20, 9, 15, 29, 220, DateTimeKind.Utc).AddTicks(2479), "AAUP" });
+                values: new object[] { 1, "Ini", new DateTime(2023, 5, 23, 14, 33, 18, 528, DateTimeKind.Utc).AddTicks(8194), "@student.aaup.edu", false, "Ini", new DateTime(2023, 5, 23, 14, 33, 18, 528, DateTimeKind.Utc).AddTicks(8196), "Arab American University" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -515,6 +516,18 @@ namespace Student_County.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_College_Name",
+                table: "College",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Destination_CityName",
+                table: "Destination",
+                column: "CityName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Housing_StudentId",
                 table: "Housing",
                 column: "StudentId");
@@ -538,6 +551,18 @@ namespace Student_County.Migrations
                 name: "IX_Tools_StudentId",
                 table: "Tools",
                 column: "StudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_University_EmailDomainName",
+                table: "University",
+                column: "EmailDomainName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_University_Name",
+                table: "University",
+                column: "Name",
+                unique: true);
         }
 
         /// <inheritdoc />

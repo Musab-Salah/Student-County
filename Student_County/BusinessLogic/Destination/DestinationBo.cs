@@ -8,6 +8,8 @@ namespace Student_County.BusinessLogic.Destination
         [Key]
         public int Id { get; set; }
         [Required]
-        public string? Name { get; set; }
+        public string? CityName { get; set; }
+        [Required]
+        public string? TownName { get; set; }
     }
 }

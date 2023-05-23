@@ -1,4 +1,5 @@
-﻿using Student_County.BusinessLogic.Auth.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Student_County.BusinessLogic.Auth.Models;
 using Student_County.BusinessLogic.Helpers.Common;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
