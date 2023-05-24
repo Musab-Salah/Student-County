@@ -363,3 +363,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /Student_County/appsettings.json
+/Student_County/Program.cs
