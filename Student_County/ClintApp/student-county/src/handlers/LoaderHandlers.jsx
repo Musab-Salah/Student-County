@@ -1,8 +1,8 @@
 import React, { createContext } from "react";
 import useUniversities from "../hooks/useUniversities";
-import useCollege from "./../hooks/useCollege";
+import useCollege from "../hooks/useCollege";
 import useAuth from "../hooks/useAuth";
-import useBooks from "./../hooks/useBooks";
+import useBooks from "../hooks/useBooks";
 
 const LoaderCxt = createContext();
 

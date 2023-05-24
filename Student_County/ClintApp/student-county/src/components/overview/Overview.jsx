@@ -4,7 +4,7 @@ import { FaBook, FaHome } from "react-icons/fa";
 import { HiUserGroup } from "react-icons/hi";
 import { AiOutlinePlus } from "react-icons/ai";
 import useBooks from "../../hooks/useBooks";
-import BookCard from "../cards/BookCard";
+import BookCard from "../services/books/book_card/BookCard";
 import { Helmet } from "react-helmet";
 import "./Overview.css";
 import useLoader from "./../../hooks/useLoader";

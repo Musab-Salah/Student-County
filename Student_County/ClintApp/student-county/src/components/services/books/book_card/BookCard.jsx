@@ -1,7 +1,7 @@
 import "./BookCard.css";
-import useAuth from "../../hooks/useAuth";
-import useComponent from "../../hooks/useComponent";
-import useBooks from "../../hooks/useBooks";
+import useAuth from "../../../../hooks/useAuth";
+import useComponent from "../../../../hooks/useComponent";
+import useBooks from "../../../../hooks/useBooks";
 
 const BookCard = ({
   studentId,
@@ -44,7 +44,6 @@ const BookCard = ({
               getBookById(id);
             }}
           >
-
             {decodedJwt.uid === studentId ? "Manage" : "View"}
           </button>
         </div>

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import UniversitiesCxt from "../context/UniversityCommon";
+import UniversitiesCxt from "../handlers/UniversityHandlers";
 
 const useUniversities = () => {
   return useContext(UniversitiesCxt);

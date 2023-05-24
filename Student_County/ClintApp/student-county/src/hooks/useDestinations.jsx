@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import DestinationsCxt from "../context/DestinationCommon";
+import DestinationsCxt from "../handlers/DestinationHandlers";
 
 const useDestinations = () => {
   return useContext(DestinationsCxt);

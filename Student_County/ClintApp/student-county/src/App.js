@@ -4,7 +4,7 @@ import SignUp from "./pages/sign_up/SignUp";
 import SignIn from "./pages/sign_in/SignIn.jsx";
 import ForgotPassword from "./pages/forgot_password/ForgotPassword";
 import Dashboard from "./pages/dashboard/Dashboard";
-import PrivateRoutes from "./utils/PrivateRoutes";
+import PrivateRoutes from "./certificates/PrivateRoutes";
 import Success from "./pages/success/Success.jsx";
 import ResetPassword from "./pages/reset_password/ResetPassword.jsx";
 import Cchat from "./components/chat/Cchat";

@@ -1,4 +1,4 @@
-import BookCard from "../../../cards/BookCard";
+import BookCard from "../book_card/BookCard";
 import useBooks from "../../../../hooks/useBooks";
 import { useEffect, useMemo, useState } from "react";
 import { RiArrowDownSLine } from "react-icons/ri";

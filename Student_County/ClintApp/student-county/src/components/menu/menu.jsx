@@ -11,7 +11,7 @@ import { RxDashboard, RxGear } from "react-icons/rx";
 import useComponent from "../../hooks/useComponent";
 import useAuth from "./../../hooks/useAuth";
 import useLoader from "../../hooks/useLoader";
-import WithPermission from "./../../utils/WithPermission";
+import WithPermission from "../../certificates/WithPermission";
 const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
   const [navLinksVisible, setNavLinksVisible] = useState([true, true]);
   const { setOptionMenu, OptionMenu } = useComponent();
@@ -145,7 +145,7 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
             {navLinksVisible[1] && (
               <div className="dash-nav-links">
                 <WithPermission
-                  scopeFOR={["Student", "Dentistry Student", "Admin"]}
+                  ScopeRole={["Student", "Dentistry Student", "Admin"]}
                 >
                   <div
                     className={`dash-nav-link ${
@@ -165,7 +165,7 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                 </WithPermission>
 
                 <WithPermission
-                  scopeFOR={["Student", "Dentistry Student", "Admin"]}
+                  ScopeRole={["Student", "Dentistry Student", "Admin"]}
                 >
                   <div
                     className={`dash-nav-link ${
@@ -184,7 +184,7 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                   </div>
                 </WithPermission>
                 <WithPermission
-                  scopeFOR={["Student", "Dentistry Student", "Admin"]}
+                  ScopeRole={["Student", "Dentistry Student", "Admin"]}
                 >
                   {" "}
                   <div
@@ -205,7 +205,7 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                 </WithPermission>
 
                 <WithPermission
-                  scopeFOR={["Student", "Dentistry Student", "Admin"]}
+                  ScopeRole={["Student", "Dentistry Student", "Admin"]}
                 >
                   {" "}
                   <div

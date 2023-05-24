@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import PatientsCxt from "../context/PatientCommon";
+import PatientsCxt from "../handlers/PatientHandlers";
 
 const usePatient = () => {
   return useContext(PatientsCxt);

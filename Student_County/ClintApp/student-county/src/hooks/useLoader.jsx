@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import LoaderCxt from "../context/LoaderCommon";
+import LoaderCxt from "../handlers/LoaderHandlers";
 
 const useLoader = () => {
   return useContext(LoaderCxt);

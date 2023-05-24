@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import AuthCxt from "../context/AuthCommon";
+import AuthCxt from "../handlers/AuthHandlers";
 
 const useAuth = () => {
   return useContext(AuthCxt);

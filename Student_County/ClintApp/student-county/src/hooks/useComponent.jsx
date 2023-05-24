@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import ComponentCxt from "../context/ComponentCommon";
+import ComponentCxt from "../handlers/ComponentHandlers";
 
 const useComponent = () => {
   return useContext(ComponentCxt);
