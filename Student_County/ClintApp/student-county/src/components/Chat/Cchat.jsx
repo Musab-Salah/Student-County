@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import Lobby from "./Lobby";
 import "./Cchat.css";
@@ -8,6 +8,7 @@ import Chat from "./Chat";
 const Cchat = () => {
   const [connection, setConnection] = useState();
   const [messages, setMessages] = useState([]);
+  const [previosMessages, setPreviosMessages] = useState([]);
   const [users, setUsers] = useState([]);
 
   const joinRoom = async (From, To) => {
@@ -17,8 +18,12 @@ const Cchat = () => {
         .configureLogging(LogLevel.Information)
         .build();
 
-      connection.on("ReceiveMessage", (From, message) => {
-        setMessages((messages) => [...messages, { From, message }]);
+      connection.on("ReceiveMessage", (from, message) => {
+        setMessages((messages) => [...messages, message]);
+      });
+
+      connection.on("ReceiveMessages", (From, Messages) => {
+        setPreviosMessages(Messages);
       });
 
       connection.on("UsersInRoom", (users) => {
@@ -39,7 +44,10 @@ const Cchat = () => {
       console.log(e);
     }
   };
-
+  useEffect(() => {
+    console.log(previosMessages);
+    console.log(messages);
+  }, [previosMessages, messages]);
   const sendMessage = async (message) => {
     try {
       await connection.invoke("SendMessage", message);
@@ -71,6 +79,7 @@ const Cchat = () => {
           messages={messages}
           users={users}
           closeConnection={closeConnection}
+          previosMessages={previosMessages}
         />
       )}
     </div>

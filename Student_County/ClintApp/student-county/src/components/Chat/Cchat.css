@@ -53,11 +53,32 @@ hr.line {
   margin-bottom: 2px;
 }
 
-.user-message {
-  text-align: right;
-  padding-right: 5px;
+.my-message {
+  text-align: left;
+  padding: 0.5rem 1rem;
   font-size: 18px;
   color: black;
+  background-color: rgb(0, 132, 255);
+  border-radius: 1.125rem 1.125rem 0 1.125rem;
+  margin: 1rem 1rem 1rem 1rem;
+  box-sizing: border-box;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.075),
+    0rem 1rem 1rem -1rem rgba(0, 0, 0, 0.1);
+  max-width: 66%;
+}
+
+.not-my-message {
+  text-align: right;
+  padding: 0.5rem 1rem;
+  font-size: 18px;
+  color: black;
+  background-color: rgb(194, 214, 233);
+  border-radius: 1.125rem 1.125rem 0 1.125rem;
+  margin: 1rem 1rem 1rem auto;
+  box-sizing: border-box;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.075),
+    0rem 1rem 1rem -1rem rgba(0, 0, 0, 0.1);
+  max-width: 66%;
 }
 
 .message {
@@ -70,8 +91,13 @@ hr.line {
   margin-top: 3px;
 }
 
-.from-user {
+.created-on {
+  display: none;
   font-size: small;
   margin-bottom: 3px;
   margin-right: 5px;
+}
+.my-message:hover .created-on,
+.not-my-message:hover .created-on {
+  display:block ;
 }

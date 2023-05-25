@@ -11,8 +11,8 @@ const Lobby = ({ joinRoom }) => {
       onSubmit={(e) => {
         e.preventDefault();
         joinRoom(
-          "0016dde9-86d2-4a24-b1b0-5b81504ea214",
-          "b36eb1b9-c7e3-4137-80d6-6f9ffe2180bd"
+          "b36eb1b9-c7e3-4137-80d6-6f9ffe2180bd",
+          "0016dde9-86d2-4a24-b1b0-5b81504ea214"
         );
       }}
     >

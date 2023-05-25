@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Student_County.BusinessLogic.Auth.Models;
 using Student_County.DAL;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Intrinsics.X86;
 using static MailKit.Net.Imap.ImapEvent;
@@ -68,7 +69,7 @@ namespace Student_County.BusinessLogic.Hubs
             //await Clients.Group(userConnection.RoomId).SendAsync("User joined room");
 
 
-            await Groups.AddToGroupAsync(Context.ConnectionId, userConnection.RoomId);
+            await Groups.AddToGroupAsync(Context.ConnectionId, room.Id);
 
             _connections[Context.ConnectionId] = userConnection;
 
@@ -82,12 +83,12 @@ namespace Student_County.BusinessLogic.Hubs
             var room = await _context.Room.FirstOrDefaultAsync(r => r.From == userConnection.From && r.To == userConnection.To || r.To == userConnection.From && r.From == userConnection.To);
             if (room is not null)
             {
-                var messages = await _context.Message
-                .Where(m => m.From == userConnection.From && m.RoomId == userConnection.RoomId).Select(x => new { x.Message})
+              var  messages = await _context.Message
+                .Where(m => m.RoomId == room.Id)
                 .ToListAsync();
                 // Format the messages as needed
                 // Send the messages to the specific user
-                await Clients.Group(userConnection.RoomId).SendAsync("ReceiveMessage", userConnection.From, messages);
+                await Clients.Group(userConnection.RoomId).SendAsync("ReceiveMessages", userConnection.From, messages);
             }
         }
         //public async Task SendMessage(string message)
@@ -127,7 +128,7 @@ namespace Student_County.BusinessLogic.Hubs
                 await _context.Message.AddAsync(messagee);
                 await _context.SaveChangesAsync();
 
-                await Clients.Group(userConnection.RoomId).SendAsync("ReceiveMessage", userConnection.From, message);
+                await Clients.Group(userConnection.RoomId).SendAsync("ReceiveMessage", userConnection.From, messagee);
                        // await Clients.Group(userConnection.RoomId).SendAsync("ReceiveMessage",message);
             }
                 // Check if the room exists
