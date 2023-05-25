@@ -10,15 +10,15 @@ const Cchat = () => {
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
 
-  const joinRoom = async (user, room) => {
+  const joinRoom = async (From, To) => {
     try {
       const connection = new HubConnectionBuilder()
         .withUrl("https://localhost:7245/chat")
         .configureLogging(LogLevel.Information)
         .build();
 
-      connection.on("ReceiveMessage", (user, message) => {
-        setMessages((messages) => [...messages, { user, message }]);
+      connection.on("ReceiveMessage", (From, message) => {
+        setMessages((messages) => [...messages, { From, message }]);
       });
 
       connection.on("UsersInRoom", (users) => {
@@ -30,9 +30,10 @@ const Cchat = () => {
         setMessages([]);
         setUsers([]);
       });
-
+      const roomid = "5aea6cf4-43cf-450d-b475-becc931b63af";
       await connection.start();
-      await connection.invoke("JoinRoom", { user, room });
+      await connection.invoke("JoinRoom", { roomid, From, To });
+      await connection.invoke("GetMessagesForUser", { roomid, From, To });
       setConnection(connection);
     } catch (e) {
       console.log(e);
@@ -42,6 +43,9 @@ const Cchat = () => {
   const sendMessage = async (message) => {
     try {
       await connection.invoke("SendMessage", message);
+      const roomid = "5aea6cf4-43cf-450d-b475-becc931b63af";
+      const From = "0016dde9-86d2-4a24-b1b0-5b81504ea214";
+      const To = "b36eb1b9-c7e3-4137-80d6-6f9ffe2180bd";
     } catch (e) {
       console.log(e);
     }

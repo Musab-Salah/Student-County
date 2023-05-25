@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Student_County.BusinessLogic.Chat;
 using Student_County.DAL;
 
 namespace Student_County.BusinessLogic.Destination

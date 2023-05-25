@@ -16,6 +16,16 @@ import AuthVerify from "./certificates/AuthVerify";
 import "./Global.css";
 import { LoaderProvider } from "./handlers/LoaderHandlers";
 
+
+let docTitle = document.title;
+window.addEventListener("blur", () => {
+  document.title = "Come Back :(";
+});
+
+window.addEventListener("focus", () => {
+  document.title = docTitle;
+});
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>

@@ -11,8 +11,8 @@ const MessageContainer = ({ messages }) => {
     }, [messages]);
 
     return <div ref={messageRef} className='message-container' >
-        {messages.map((m, index) =>
-            <div key={index} className='user-message'>
+        {messages.map((m, id) =>
+            <div key={id} className='user-message'>
                 <div className='message bg-primary'>{m.message}</div>
                 <div className='from-user'>{m.user}</div>
             </div>

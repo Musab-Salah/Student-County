@@ -12,8 +12,8 @@ using Student_County.DAL;
 namespace Student_County.Migrations
 {
     [DbContext(typeof(StudentCountyContext))]
-    [Migration("20230523143318_Fedit")]
-    partial class Fedit
+    [Migration("20230525102018_Terwdfdsf")]
+    partial class Terwdfdsf
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -338,44 +338,6 @@ namespace Student_County.Migrations
                     b.ToTable("Book");
                 });
 
-            modelBuilder.Entity("Student_County.DAL.ChatEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("From")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("To")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Chat");
-                });
-
             modelBuilder.Entity("Student_County.DAL.CollegeEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -415,10 +377,10 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTime(2023, 5, 23, 14, 33, 18, 528, DateTimeKind.Utc).AddTicks(8221),
+                            CreatedOn = new DateTime(2023, 5, 25, 10, 20, 18, 681, DateTimeKind.Utc).AddTicks(6304),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTime(2023, 5, 23, 14, 33, 18, 528, DateTimeKind.Utc).AddTicks(8222),
+                            ModifiedOn = new DateTime(2023, 5, 25, 10, 20, 18, 681, DateTimeKind.Utc).AddTicks(6305),
                             Name = "EIT"
                         });
                 });
@@ -521,6 +483,45 @@ namespace Student_County.Migrations
                     b.HasIndex("StudentId");
 
                     b.ToTable("Housing");
+                });
+
+            modelBuilder.Entity("Student_County.DAL.MessageEntity", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("From")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RoomId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("Message");
                 });
 
             modelBuilder.Entity("Student_County.DAL.PatientEntity", b =>
@@ -666,6 +667,39 @@ namespace Student_County.Migrations
                     b.ToTable("Ride");
                 });
 
+            modelBuilder.Entity("Student_County.DAL.RoomEntity", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("From")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("To")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Room");
+                });
+
             modelBuilder.Entity("Student_County.DAL.ToolsEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -769,11 +803,11 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTime(2023, 5, 23, 14, 33, 18, 528, DateTimeKind.Utc).AddTicks(8194),
+                            CreatedOn = new DateTime(2023, 5, 25, 10, 20, 18, 681, DateTimeKind.Utc).AddTicks(6276),
                             EmailDomainName = "@student.aaup.edu",
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTime(2023, 5, 23, 14, 33, 18, 528, DateTimeKind.Utc).AddTicks(8196),
+                            ModifiedOn = new DateTime(2023, 5, 25, 10, 20, 18, 681, DateTimeKind.Utc).AddTicks(6278),
                             Name = "Arab American University"
                         });
                 });
@@ -902,6 +936,17 @@ namespace Student_County.Migrations
                         .IsRequired();
 
                     b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("Student_County.DAL.MessageEntity", b =>
+                {
+                    b.HasOne("Student_County.DAL.RoomEntity", "Room")
+                        .WithMany()
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Room");
                 });
 
             modelBuilder.Entity("Student_County.DAL.PatientEntity", b =>

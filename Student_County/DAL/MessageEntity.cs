@@ -4,16 +4,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Student_County.DAL
 {
-    [Table("Chat")]
-    public class ChatEntity : TrackableData
+    [Table("Message")]
+    public class MessageEntity : TrackableData
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [Required]
-        public int From { get; set; }
-        [Required]
-        public int To { get; set; }
+        public string From { get; set; }
         [Required]
         public string? Message { get; set; }
+        [Required]
+        public string RoomId { get; set; }
+        public RoomEntity? Room { get; set; }
+
     }
 }

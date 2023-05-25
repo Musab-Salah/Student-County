@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Student_County.Migrations
 {
     /// <inheritdoc />
-    public partial class Fedit : Migration
+    public partial class Terwdfdsf : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -25,26 +25,6 @@ namespace Student_County.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Chat",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    From = table.Column<int>(type: "int", nullable: false),
-                    To = table.Column<int>(type: "int", nullable: false),
-                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Chat", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -85,6 +65,24 @@ namespace Student_County.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Room",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    From = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    To = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Room", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "University",
                 columns: table => new
                 {
@@ -120,6 +118,31 @@ namespace Student_County.Migrations
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Message",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    From = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RoomId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Message", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Message_Room_RoomId",
+                        column: x => x.RoomId,
+                        principalTable: "Room",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -454,12 +477,12 @@ namespace Student_County.Migrations
             migrationBuilder.InsertData(
                 table: "College",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "IsDeleted", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 1, "Ini", new DateTime(2023, 5, 23, 14, 33, 18, 528, DateTimeKind.Utc).AddTicks(8221), false, "Ini", new DateTime(2023, 5, 23, 14, 33, 18, 528, DateTimeKind.Utc).AddTicks(8222), "EIT" });
+                values: new object[] { 1, "Ini", new DateTime(2023, 5, 25, 10, 20, 18, 681, DateTimeKind.Utc).AddTicks(6304), false, "Ini", new DateTime(2023, 5, 25, 10, 20, 18, 681, DateTimeKind.Utc).AddTicks(6305), "EIT" });
 
             migrationBuilder.InsertData(
                 table: "University",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "EmailDomainName", "IsDeleted", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 1, "Ini", new DateTime(2023, 5, 23, 14, 33, 18, 528, DateTimeKind.Utc).AddTicks(8194), "@student.aaup.edu", false, "Ini", new DateTime(2023, 5, 23, 14, 33, 18, 528, DateTimeKind.Utc).AddTicks(8196), "Arab American University" });
+                values: new object[] { 1, "Ini", new DateTime(2023, 5, 25, 10, 20, 18, 681, DateTimeKind.Utc).AddTicks(6276), "@student.aaup.edu", false, "Ini", new DateTime(2023, 5, 25, 10, 20, 18, 681, DateTimeKind.Utc).AddTicks(6278), "Arab American University" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -533,6 +556,11 @@ namespace Student_County.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Message_RoomId",
+                table: "Message",
+                column: "RoomId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Patient_UserId",
                 table: "Patient",
                 column: "UserId");
@@ -587,10 +615,10 @@ namespace Student_County.Migrations
                 name: "Book");
 
             migrationBuilder.DropTable(
-                name: "Chat");
+                name: "Housing");
 
             migrationBuilder.DropTable(
-                name: "Housing");
+                name: "Message");
 
             migrationBuilder.DropTable(
                 name: "Patient");
@@ -606,6 +634,9 @@ namespace Student_County.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Room");
 
             migrationBuilder.DropTable(
                 name: "Destination");

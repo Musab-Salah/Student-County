@@ -16,15 +16,18 @@ namespace Student_County.DAL
 
         public DbSet<BookEntity> Books { get; set; }
         public DbSet<ToolsEntity> Toolss { get; set; }
-        public DbSet<ChatEntity> Chats { get; set; }
+        public DbSet<MessageEntity> Chats { get; set; }
         public DbSet<CollegeEntity> Colleges { get; set; }
         public DbSet<DestinationEntity> Destinations { get; set; }
         public DbSet<HousingEntity> Housings { get; set; }
         public DbSet<RideEntity> Rides { get; set; }
         public DbSet<UniversityEntity> Universities { get; set; }
         public DbSet<PatientEntity> Patients { get; set; }
+        public DbSet<RoomEntity> Room { get; set; }
+        public DbSet<MessageEntity> Message { get; set; }
 
-    
+
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
