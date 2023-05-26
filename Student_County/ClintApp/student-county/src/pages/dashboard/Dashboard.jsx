@@ -177,7 +177,7 @@ const Dashboard = () => {
                 filteredValue={!filteredValue ? false : filteredValue}
               />
             )}
-            {(OptionMenu === "Chat" || openChat) && <ChatController  From={decodedJwt.uid} To={ownerItem} />}
+            {(OptionMenu === "Chat" && openChat) && <ChatController  From={decodedJwt.uid} To={ownerItem} />}
             {OptionMenu === "Books" && (
               <BooksSection
                 filteredValue={!filteredValue ? false : filteredValue}

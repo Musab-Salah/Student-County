@@ -15,7 +15,7 @@ import { ToolsProvider } from "./handlers/ToolsHandlers";
 import AuthVerify from "./certificates/AuthVerify";
 import "./Global.css";
 import { LoaderProvider } from "./handlers/LoaderHandlers";
-
+import { ChatsProvider } from "./handlers/ChatHandlers";
 
 let docTitle = document.title;
 window.addEventListener("blur", () => {
@@ -30,32 +30,34 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <ComponentProvider>
-      <AuthProvider>
-        <AuthVerify />
-        <UniversitiesProvider>
-          <CollegesProvider>
-            <ToolsProvider>
-              <PatientsProvider>
-                <DestinationsProvider>
-                  <RidesProvider>
-                    <HousingsProvider>
-                      <BooksProvider>
-                        <LoaderProvider>
-                          <Suspense fallback={<div>lod</div>}>
-                            <Routes>
-                              <Route path="/*" element={<App />} />
-                            </Routes>
-                          </Suspense>
-                        </LoaderProvider>
-                      </BooksProvider>
-                    </HousingsProvider>
-                  </RidesProvider>
-                </DestinationsProvider>
-              </PatientsProvider>
-            </ToolsProvider>
-          </CollegesProvider>
-        </UniversitiesProvider>
-      </AuthProvider>
+      <ChatsProvider>
+        <AuthProvider>
+          <AuthVerify />
+          <UniversitiesProvider>
+            <CollegesProvider>
+              <ToolsProvider>
+                <PatientsProvider>
+                  <DestinationsProvider>
+                    <RidesProvider>
+                      <HousingsProvider>
+                        <BooksProvider>
+                          <LoaderProvider>
+                            <Suspense fallback={<div>lod</div>}>
+                              <Routes>
+                                <Route path="/*" element={<App />} />
+                              </Routes>
+                            </Suspense>
+                          </LoaderProvider>
+                        </BooksProvider>
+                      </HousingsProvider>
+                    </RidesProvider>
+                  </DestinationsProvider>
+                </PatientsProvider>
+              </ToolsProvider>
+            </CollegesProvider>
+          </UniversitiesProvider>
+        </AuthProvider>
+      </ChatsProvider>
     </ComponentProvider>
   </BrowserRouter>
 );
