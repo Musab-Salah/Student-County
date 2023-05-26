@@ -12,6 +12,7 @@ import useComponent from "../../hooks/useComponent";
 import useAuth from "./../../hooks/useAuth";
 import useLoader from "../../hooks/useLoader";
 import WithPermission from "../../certificates/WithPermission";
+
 const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
   const [navLinksVisible, setNavLinksVisible] = useState([true, true]);
   const { setOptionMenu, OptionMenu } = useComponent();
@@ -114,8 +115,8 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                 <div
                   className={`dash-nav-link ${
                     isMenuOpen ? "padding-resize" : ""
-                  } ${OptionMenu === "Messages" ? "active" : ""} `}
-                  onClick={() => setOptionMenu("Messages")}
+                  } ${OptionMenu === "Chat" ? "active" : ""} `}
+                  onClick={() => setOptionMenu("Chat")}
                 >
                   <TbMessageCircle className="dash-nav-link-icon" />
                   <div

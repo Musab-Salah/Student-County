@@ -23,9 +23,7 @@ const MessageContainer = ({ messages, previosMessages }) => {
           <div
             key={msg.id}
             className={`${
-              "b36eb1b9-c7e3-4137-80d6-6f9ffe2180bd" === msg.from
-                ? "my-message"
-                : "not-my-message"
+              decodedJwt.uid === msg.from ? "my-message" : "not-my-message"
             }`}
           >
             <div className="message">{msg.message}</div>
@@ -39,9 +37,7 @@ const MessageContainer = ({ messages, previosMessages }) => {
           <div
             key={id}
             className={`${
-              "b36eb1b9-c7e3-4137-80d6-6f9ffe2180bd" === msg.from
-                ? "my-message"
-                : "not-my-message"
+              decodedJwt.uid === msg.from ? "my-message" : "not-my-message"
             }`}
           >
             <div className="message">{msg.message}</div>

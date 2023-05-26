@@ -1,11 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useComponent from "../../../../hooks/useComponent";
 import useBooks from "../../../../hooks/useBooks";
 import "./BooksView.css";
 import useLoader from "../../../../hooks/useLoader";
+import ChatController from "../../../chat/ChatController";
 
 const BooksView = () => {
-  const { setButtonCards } = useComponent();
+  const { setButtonCards, setOpenChat, setOptionMenu, setOwnerItem } =
+    useComponent();
   const { Book, setBook } = useBooks();
   const { FormBooksLoader } = useLoader();
   // State Hook
@@ -42,7 +44,10 @@ const BooksView = () => {
           <div className="block-load-form"></div>
           <div className="block-load-form"></div>
         </div>
-        <div className="form-create" style={{ display: FormBooksLoader ? "none" : "flex" }}>
+        <div
+          className="form-create"
+          style={{ display: FormBooksLoader ? "none" : "flex" }}
+        >
           <div className="section-view">
             <span className="label-view">Name:</span>
             <span className="text-field">{Book.name}</span>
@@ -59,7 +64,17 @@ const BooksView = () => {
           </div>
           <div className="section-view"></div>
           <div className="buttons">
-            <button className={`btn btn-primary `}>Contact With Owner</button>
+            <button
+              onClick={() => {
+                setOpenChat(true);
+                setButtonCards("");
+                setOptionMenu("Chat");
+                setOwnerItem(Book.studentId);
+              }}
+              className={`btn btn-primary `}
+            >
+              Contact With Owner
+            </button>
             <button
               onClick={() => setButtonCards("")}
               className={`btn btn-secondary `}

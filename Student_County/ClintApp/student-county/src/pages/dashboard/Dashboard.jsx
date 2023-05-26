@@ -14,10 +14,11 @@ import useAuth from "../../hooks/useAuth";
 import BooksView from "../../components/services/books/books_view/BooksView";
 import BooksForm from "../../components/services/books/books_form/BooksForm";
 import "./Dashboard.css";
+import ChatController from "../../components/chat/ChatController";
 
 const Dashboard = () => {
   const { Books, MyBooks } = useBooks();
-  const { OptionMenu, setOptionMenu, setButtonCards, ButtonCards } =
+  const { OptionMenu, setOptionMenu, setButtonCards, ButtonCards, openChat ,ownerItem} =
     useComponent();
   const { decodedJwt } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -176,6 +177,7 @@ const Dashboard = () => {
                 filteredValue={!filteredValue ? false : filteredValue}
               />
             )}
+            {(OptionMenu === "Chat" || openChat) && <ChatController  From={decodedJwt.uid} To={ownerItem} />}
             {OptionMenu === "Books" && (
               <BooksSection
                 filteredValue={!filteredValue ? false : filteredValue}

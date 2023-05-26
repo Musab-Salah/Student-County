@@ -1,15 +1,28 @@
 import { useEffect, useState } from "react";
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import Lobby from "./Lobby";
-import "./Cchat.css";
+import "./ChatController.css";
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import Chat from "./Chat";
+import useComponent from "../../hooks/useComponent";
 
-const Cchat = () => {
+const ChatController = ({ From, To }) => {
   const [connection, setConnection] = useState();
   const [messages, setMessages] = useState([]);
   const [previosMessages, setPreviosMessages] = useState([]);
   const [users, setUsers] = useState([]);
+  const { setOpenChat, setOwnerItem } = useComponent();
+  useEffect(() => {
+    if (From && To) joinRoom(From, To);
+  }, []);
+
+  useEffect(() => {
+    return function cleanup() {
+      setOpenChat(false);
+      setOwnerItem(false);
+    };
+    // eslint-disable-next-line
+  }, []);
 
   const joinRoom = async (From, To) => {
     try {
@@ -22,7 +35,7 @@ const Cchat = () => {
         setMessages((messages) => [...messages, message]);
       });
 
-      connection.on("ReceiveMessages", (From, Messages) => {
+      connection.on("ReceiveMessages", (from, Messages) => {
         setPreviosMessages(Messages);
       });
 
@@ -71,19 +84,16 @@ const Cchat = () => {
     <div className="app">
       <h2>MyChat</h2>
       <hr className="line" />
-      {!connection ? (
-        <Lobby joinRoom={joinRoom} />
-      ) : (
-        <Chat
-          sendMessage={sendMessage}
-          messages={messages}
-          users={users}
-          closeConnection={closeConnection}
-          previosMessages={previosMessages}
-        />
-      )}
+
+      <Chat
+        sendMessage={sendMessage}
+        messages={messages}
+        users={users}
+        closeConnection={closeConnection}
+        previosMessages={previosMessages}
+      />
     </div>
   );
 };
 
-export default Cchat;
+export default ChatController;

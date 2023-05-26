@@ -7,13 +7,13 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import PrivateRoutes from "./certificates/PrivateRoutes";
 import Success from "./pages/success/Success.jsx";
 import ResetPassword from "./pages/reset_password/ResetPassword.jsx";
-import Cchat from "./components/chat/Cchat";
+import ChatController from "./components/chat/ChatController";
 
 function App() {
   return (
     <Routes>
-      <Route exact  path="/" element={<Home />} />
-      <Route path="/chat" element={<Cchat />} />
+      <Route exact path="/" element={<Home />} />
+      <Route path="/chat" element={<ChatController />} />
       <Route path="/sign_in" element={<SignIn />} />
       <Route path="/sign_up" element={<SignUp />} />
       <Route path="/forgot_password" element={<ForgotPassword />} />
@@ -25,7 +25,7 @@ function App() {
       <Route path="/success" element={<Success />} />
 
       <Route element={<PrivateRoutes />}>
-      <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Route>
     </Routes>
   );

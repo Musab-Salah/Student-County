@@ -20,6 +20,7 @@ hr.line {
   padding-top: 40px;
   width: 950px;
   text-align: center;
+  z-index: 100;
 }
 
 .lobby {
@@ -64,7 +65,7 @@ hr.line {
   box-sizing: border-box;
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.075),
     0rem 1rem 1rem -1rem rgba(0, 0, 0, 0.1);
-  max-width: 66%;
+  max-width: 60%;
 }
 
 .not-my-message {
@@ -78,7 +79,7 @@ hr.line {
   box-sizing: border-box;
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.075),
     0rem 1rem 1rem -1rem rgba(0, 0, 0, 0.1);
-  max-width: 66%;
+  max-width: 60%;
 }
 
 .message {
@@ -99,5 +100,5 @@ hr.line {
 }
 .my-message:hover .created-on,
 .not-my-message:hover .created-on {
-  display:block ;
+  display: block;
 }

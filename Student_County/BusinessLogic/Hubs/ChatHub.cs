@@ -88,7 +88,7 @@ namespace Student_County.BusinessLogic.Hubs
                 .ToListAsync();
                 // Format the messages as needed
                 // Send the messages to the specific user
-                await Clients.Group(userConnection.RoomId).SendAsync("ReceiveMessages", userConnection.From, messages);
+                await Clients.Group(room.Id).SendAsync("ReceiveMessages", userConnection.From, messages);
             }
         }
         //public async Task SendMessage(string message)
@@ -102,17 +102,19 @@ namespace Student_County.BusinessLogic.Hubs
         public async Task SendUsersConnected(UserConnection userConnection)
         {
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userConnection.To);
+            var room = await _context.Room.FirstOrDefaultAsync(r => r.From == userConnection.From && r.To == userConnection.To || r.To == userConnection.From && r.From == userConnection.To);
 
             var userName = user.FirstName + " " + user.LastName;
 
-            await Clients.Group(userConnection.RoomId).SendAsync("UsersInRoom", userName);
+            await Clients.Group(room.Id).SendAsync("UsersInRoom", userName);
         }
 
         public async Task SendMessage( string message)
         {
-     
+
             if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
                     {
+            var room = await _context.Room.FirstOrDefaultAsync(r => r.From == userConnection.From && r.To == userConnection.To || r.To == userConnection.From && r.From == userConnection.To);
                 var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userConnection.From);
 
                 var userName = user.FirstName + " " + user.LastName;
@@ -123,12 +125,12 @@ namespace Student_County.BusinessLogic.Hubs
                     From = userConnection.From,
                     Message = message,
                     CreatedBy = userName,
-                    RoomId = userConnection.RoomId
+                    RoomId = room.Id
                 };
                 await _context.Message.AddAsync(messagee);
                 await _context.SaveChangesAsync();
 
-                await Clients.Group(userConnection.RoomId).SendAsync("ReceiveMessage", userConnection.From, messagee);
+                await Clients.Group(room.Id).SendAsync("ReceiveMessage", userConnection.From, messagee);
                        // await Clients.Group(userConnection.RoomId).SendAsync("ReceiveMessage",message);
             }
                 // Check if the room exists
