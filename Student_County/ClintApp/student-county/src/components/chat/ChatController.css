@@ -102,3 +102,21 @@ hr.line {
 .not-my-message:hover .created-on {
   display: block;
 }
+
+.flex-container {
+  display: inline-flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+}
+
+.flex-items {
+  display: block;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+  align-self: auto;
+  order: 0;
+}

@@ -3,9 +3,9 @@
     public class TrackableData
     {
         public string? CreatedBy { get; set; } 
-        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+        public DateTimeOffset CreatedOn { get; set; } = DateTimeOffset.Now;
         public string? ModifiedBy { get; set; }
-        public DateTime ModifiedOn { get; set; }
+        public DateTimeOffset ModifiedOn { get; set; }
         public bool IsDeleted { get; set; }
     }
 }

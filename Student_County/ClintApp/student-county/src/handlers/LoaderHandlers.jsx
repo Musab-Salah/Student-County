@@ -9,7 +9,7 @@ const LoaderCxt = createContext();
 export function LoaderProvider({ children }) {
   const { CollegesLoader } = useCollege();
   const { UniversityLoader } = useUniversities();
-  const { AuthLoader } = useAuth();
+  const { AuthLoader, isLogin } = useAuth();
   const {
     BooksLoader,
     FormBooksLoader,
@@ -27,6 +27,7 @@ export function LoaderProvider({ children }) {
         FormBooksLoader,
         ButtonsFormBooksLoader,
         DeleteButtonsFormBooksLoader,
+        isLogin,
       }}
     >
       {children}

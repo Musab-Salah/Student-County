@@ -61,6 +61,7 @@ export function BooksProvider({ children }) {
       })
       .catch(() => {
         setError("Failed bring the books...");
+        cleanupError();
       })
       .finally(() => setBooksLoader(false));
   };

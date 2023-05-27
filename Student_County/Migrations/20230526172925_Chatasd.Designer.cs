@@ -12,8 +12,8 @@ using Student_County.DAL;
 namespace Student_County.Migrations
 {
     [DbContext(typeof(StudentCountyContext))]
-    [Migration("20230525102018_Terwdfdsf")]
-    partial class Terwdfdsf
+    [Migration("20230526172925_Chatasd")]
+    partial class Chatasd
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -292,8 +292,8 @@ namespace Student_County.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -305,8 +305,8 @@ namespace Student_County.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("ModifiedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -349,8 +349,8 @@ namespace Student_County.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -358,8 +358,8 @@ namespace Student_County.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("ModifiedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -377,10 +377,10 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTime(2023, 5, 25, 10, 20, 18, 681, DateTimeKind.Utc).AddTicks(6304),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 5, 26, 17, 29, 24, 923, DateTimeKind.Unspecified).AddTicks(3398), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTime(2023, 5, 25, 10, 20, 18, 681, DateTimeKind.Utc).AddTicks(6305),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 5, 26, 17, 29, 24, 923, DateTimeKind.Unspecified).AddTicks(3400), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "EIT"
                         });
                 });
@@ -400,8 +400,8 @@ namespace Student_County.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -409,8 +409,8 @@ namespace Student_County.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("ModifiedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("TownName")
                         .IsRequired()
@@ -435,8 +435,8 @@ namespace Student_County.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -452,8 +452,8 @@ namespace Student_County.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("ModifiedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -493,8 +493,8 @@ namespace Student_County.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("From")
                         .IsRequired()
@@ -510,8 +510,8 @@ namespace Student_County.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("ModifiedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("RoomId")
                         .IsRequired()
@@ -542,8 +542,8 @@ namespace Student_County.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("CurrentIllnesses")
                         .IsRequired()
@@ -575,8 +575,8 @@ namespace Student_County.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("ModifiedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NationalIdNumber")
                         .IsRequired()
@@ -624,8 +624,8 @@ namespace Student_County.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<int>("DestinationId")
                         .HasColumnType("int");
@@ -643,8 +643,8 @@ namespace Student_County.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("ModifiedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("ShortDescription")
                         .IsRequired()
@@ -675,8 +675,8 @@ namespace Student_County.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("From")
                         .IsRequired()
@@ -688,8 +688,8 @@ namespace Student_County.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("ModifiedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("To")
                         .IsRequired()
@@ -711,8 +711,8 @@ namespace Student_County.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -724,8 +724,8 @@ namespace Student_County.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("ModifiedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -768,8 +768,8 @@ namespace Student_County.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("EmailDomainName")
                         .IsRequired()
@@ -781,8 +781,8 @@ namespace Student_County.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("ModifiedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -803,11 +803,11 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTime(2023, 5, 25, 10, 20, 18, 681, DateTimeKind.Utc).AddTicks(6276),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 5, 26, 17, 29, 24, 923, DateTimeKind.Unspecified).AddTicks(3264), new TimeSpan(0, 0, 0, 0, 0)),
                             EmailDomainName = "@student.aaup.edu",
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTime(2023, 5, 25, 10, 20, 18, 681, DateTimeKind.Utc).AddTicks(6278),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 5, 26, 17, 29, 24, 923, DateTimeKind.Unspecified).AddTicks(3270), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Arab American University"
                         });
                 });

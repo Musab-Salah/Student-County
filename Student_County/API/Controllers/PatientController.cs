@@ -9,7 +9,7 @@ namespace Student_County.API.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
-
+    [Authorize(Roles = "Student,Dentistry Student,Admin,Patient")]
     public class PatientController : ControllerBase
     {
         private readonly IPatientManager _manager;

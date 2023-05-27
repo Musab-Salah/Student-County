@@ -55,7 +55,7 @@ namespace Student_County.BusinessLogic.Tools
             else if (id != 0)
             {
                 entity.ModifiedBy = user.UserName;
-                entity.ModifiedOn = DateTime.UtcNow;
+                entity.ModifiedOn = DateTimeOffset.Now;
                 _context.Update(entity);
             }
             await _context.SaveChangesAsync();

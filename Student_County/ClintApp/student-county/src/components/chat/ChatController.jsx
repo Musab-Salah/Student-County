@@ -10,11 +10,11 @@ const ChatController = ({ From, To }) => {
   const [messages, setMessages] = useState([]);
   const [previosMessages, setPreviosMessages] = useState([]);
   const [users, setUsers] = useState([]);
-  const { setOpenChat, setOwnerItem } = useComponent();
+  const { setOpenChat, setOwnerItem, openChat } = useComponent();
   useEffect(() => {
     if (From && To) joinRoom(From, To);
     // eslint-disable-next-line
-  }, []);
+  }, [To]);
 
   useEffect(() => {
     return function cleanup() {
@@ -26,15 +26,15 @@ const ChatController = ({ From, To }) => {
 
   const joinRoom = async (From, To) => {
     try {
-      connection.on("ReceiveMessage", (from, message) => {
+      await connection.on("ReceiveMessage", (from, message) => {
         setMessages((messages) => [...messages, message]);
       });
 
-      connection.on("ReceiveMessages", (from, Messages) => {
+      await connection.on("ReceiveMessages", (from, Messages) => {
         setPreviosMessages(Messages);
       });
 
-      connection.on("UsersInRoom", (users) => {
+      await connection.on("UsersInRoom", (users) => {
         setUsers(users);
       });
 
@@ -59,14 +59,13 @@ const ChatController = ({ From, To }) => {
 
   return (
     <div className="app">
-      <h2>MyChat</h2>
-      <hr className="line" />
 
       <Chat
         sendMessage={sendMessage}
         messages={messages}
         users={users}
         previosMessages={previosMessages}
+        openChat={openChat}
       />
     </div>
   );

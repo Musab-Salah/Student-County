@@ -9,18 +9,16 @@ const Chat = ({
   users,
   closeConnection,
   previosMessages,
+  openChat
 }) => (
   <div>
-    <div className="leave-room">
-      <Button variant="danger" onClick={() => closeConnection()}>
-        Leave Room
-      </Button>
-    </div>
+   
     <ConnectedUsers users={users} />
-    <div className="chat">
+    {openChat ?   <div className="chat">
       <MessageContainer previosMessages={previosMessages} messages={messages} />
       <SendMessageForm sendMessage={sendMessage} />
-    </div>
+    </div>:"" }
+  
   </div>
 );
 

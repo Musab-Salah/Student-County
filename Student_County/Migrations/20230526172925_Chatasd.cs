@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Student_County.Migrations
 {
     /// <inheritdoc />
-    public partial class Terwdfdsf : Migration
+    public partial class Chatasd : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,9 +35,9 @@ namespace Student_County.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -54,9 +54,9 @@ namespace Student_County.Migrations
                     CityName = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     TownName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -72,9 +72,9 @@ namespace Student_County.Migrations
                     From = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     To = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -91,9 +91,9 @@ namespace Student_County.Migrations
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     EmailDomainName = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -131,9 +131,9 @@ namespace Student_County.Migrations
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RoomId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -290,9 +290,9 @@ namespace Student_County.Migrations
                     LongDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -321,9 +321,9 @@ namespace Student_County.Migrations
                     StudentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -358,9 +358,9 @@ namespace Student_County.Migrations
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -411,9 +411,9 @@ namespace Student_County.Migrations
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     DestinationId = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -447,9 +447,9 @@ namespace Student_County.Migrations
                     StudentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -477,12 +477,12 @@ namespace Student_County.Migrations
             migrationBuilder.InsertData(
                 table: "College",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "IsDeleted", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 1, "Ini", new DateTime(2023, 5, 25, 10, 20, 18, 681, DateTimeKind.Utc).AddTicks(6304), false, "Ini", new DateTime(2023, 5, 25, 10, 20, 18, 681, DateTimeKind.Utc).AddTicks(6305), "EIT" });
+                values: new object[] { 1, "Ini", new DateTimeOffset(new DateTime(2023, 5, 26, 17, 29, 24, 923, DateTimeKind.Unspecified).AddTicks(3398), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 5, 26, 17, 29, 24, 923, DateTimeKind.Unspecified).AddTicks(3400), new TimeSpan(0, 0, 0, 0, 0)), "EIT" });
 
             migrationBuilder.InsertData(
                 table: "University",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "EmailDomainName", "IsDeleted", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 1, "Ini", new DateTime(2023, 5, 25, 10, 20, 18, 681, DateTimeKind.Utc).AddTicks(6276), "@student.aaup.edu", false, "Ini", new DateTime(2023, 5, 25, 10, 20, 18, 681, DateTimeKind.Utc).AddTicks(6278), "Arab American University" });
+                values: new object[] { 1, "Ini", new DateTimeOffset(new DateTime(2023, 5, 26, 17, 29, 24, 923, DateTimeKind.Unspecified).AddTicks(3264), new TimeSpan(0, 0, 0, 0, 0)), "@student.aaup.edu", false, "Ini", new DateTimeOffset(new DateTime(2023, 5, 26, 17, 29, 24, 923, DateTimeKind.Unspecified).AddTicks(3270), new TimeSpan(0, 0, 0, 0, 0)), "Arab American University" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
