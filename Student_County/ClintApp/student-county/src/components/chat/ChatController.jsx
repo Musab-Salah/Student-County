@@ -6,6 +6,7 @@ import useComponent from "../../hooks/useComponent";
 import useChat from "./../../hooks/useChat";
 
 const ChatController = ({ From, To }) => {
+  const { getMyAllChats } = useChat();
   const { connection } = useChat();
   const [messages, setMessages] = useState([]);
   const [previosMessages, setPreviosMessages] = useState([]);
@@ -23,6 +24,11 @@ const ChatController = ({ From, To }) => {
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    getMyAllChats();
+    // eslint-disable-next-line
+  }, [previosMessages]);
+
   const joinRoom = async (From, To) => {
     try {
       await connection.on("ReceiveMessage", (from, message) => {
@@ -32,7 +38,6 @@ const ChatController = ({ From, To }) => {
       await connection.on("ReceiveMessages", (from, Messages) => {
         setPreviosMessages(Messages);
       });
-
 
       const roomid = "5aea6cf4-43cf-450d-b475-becc931b63af";
       await connection.invoke("JoinRoom", { roomid, From, To });
@@ -55,7 +60,6 @@ const ChatController = ({ From, To }) => {
 
   return (
     <div className="app">
-
       <Chat
         sendMessage={sendMessage}
         messages={messages}

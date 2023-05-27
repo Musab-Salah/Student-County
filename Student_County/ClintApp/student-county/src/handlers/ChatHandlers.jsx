@@ -9,7 +9,7 @@ const ChatCxt = createContext();
 export function ChatsProvider({ children }) {
   const [connection, setConnection] = useState();
   const { OptionMenu } = useComponent();
-  const { decodedJwt, token } = useAuth();
+  const { decodedJwt, token, isLogin } = useAuth();
   const [MyChat, setMyChat] = useState([]); //all user chat
   const [ChatLoader, setChatLoader] = useState("");
   const [ChatError, setError] = useState("");
@@ -20,9 +20,12 @@ export function ChatsProvider({ children }) {
       setError("");
     });
   useEffect(() => {
-    joinRoom();
+    if (isLogin) {
+      joinRoom();
+      getMyAllChats();
+    }
     // eslint-disable-next-line
-  }, []);
+  }, [isLogin]);
 
   const closeConnection = async () => {
     try {
