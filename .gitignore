@@ -364,3 +364,7 @@ MigrationBackup/
 FodyWeavers.xsd
 /Student_County/appsettings.json
 /Student_County/Program.cs
+/Student_County/ClintApp/student-county/package.json
+/Student_County/ClintApp/student-county/public/index.html
+/Student_County/ClintApp/student-county/src/index.js
+/Student_County/DAL/StudentCountyContext.cs
