@@ -16,8 +16,13 @@ namespace Student_County.BusinessLogic.Housing
             _userManager = userManager;
 
         }
-        public async Task<List<HousingEntity>> GetAll() => await _context.Housings.Where(entity => !entity.IsDeleted).ToListAsync();
-        public async Task<List<HousingEntity>> GetMyAllHousings(string userid) => await _context.Housings.Where(entity => !entity.IsDeleted && entity.StudentId == userid).ToListAsync();
+        public async Task<List<HousingEntity>> GetAll() => await _context.Housings
+            .Where(entity => !entity.IsDeleted).ToListAsync();
+        public async Task<List<HousingEntity>> GetMyAllHousings(string userid) => await _context.Housings
+            .Where(entity => !entity.IsDeleted && entity.StudentId == userid).ToListAsync();
+
+        public async Task<List<HousingEntity>> GetMyAllHousingsWithDeleted(string userid) => await _context.Housings
+         .Where(entity => entity.StudentId == userid).OrderByDescending(x=>x.CreatedOn).ToListAsync();
 
         public async Task Delete(int id)
         {

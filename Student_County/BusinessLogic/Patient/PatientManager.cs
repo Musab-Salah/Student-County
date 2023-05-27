@@ -17,8 +17,14 @@ namespace Student_County.BusinessLogic.Patient
             _userManager = userManager;
 
         }
-        public async Task<List<PatientEntity>> GetAll() => await _context.Patients.Where(entity => !entity.IsDeleted).ToListAsync();
-        public async Task<List<PatientEntity>> GetMyAllPatients(string userid) => await _context.Patients.Where(entity => !entity.IsDeleted && entity.UserId == userid).ToListAsync();
+        
+        public async Task<List<PatientEntity>> GetAll() => await _context.Patients
+            .Where(entity => !entity.IsDeleted).ToListAsync();
+        public async Task<List<PatientEntity>> GetMyAllPatients(string userid) => await _context.Patients
+            .Where(entity => !entity.IsDeleted && entity.UserId == userid).ToListAsync();
+
+        public async Task<List<PatientEntity>> GetMyAllPatientsWithDeleted(string userid) => await _context.Patients
+            .Where(entity => entity.UserId == userid).OrderByDescending(x=>x.CreatedOn).ToListAsync();
 
         public async Task Delete(int id)
         {

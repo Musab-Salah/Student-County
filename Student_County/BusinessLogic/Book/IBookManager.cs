@@ -6,6 +6,7 @@ namespace Student_County.BusinessLogic.Book
     {
         Task<List<BookEntity>> GetAll();
         Task<List<BookEntity>> GetMyAllBooks(string userid);
+        Task<List<BookEntity>> GetMyAllBooksWithDeleted(string userid);
         Task Delete(int id);
         Task<BookEntity> GetBookStore(int id);
         Task<BookEntity> CreateUpdate(BookBo bo , int id = 0);

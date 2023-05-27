@@ -16,8 +16,14 @@ namespace Student_County.BusinessLogic.Ride
             _userManager = userManager;
 
         }
-        public async Task<List<RideEntity>> GetAll() => await _context.Rides.Where(entity => !entity.IsDeleted).ToListAsync();
-        public async Task<List<RideEntity>> GetMyAllRides(string userid) => await _context.Rides.Where(entity => !entity.IsDeleted && entity.StudentId == userid).ToListAsync();
+        
+        public async Task<List<RideEntity>> GetAll() => await _context.Rides
+            .Where(entity => !entity.IsDeleted).ToListAsync();
+        public async Task<List<RideEntity>> GetMyAllRides(string userid) => await _context.Rides
+            .Where(entity => !entity.IsDeleted && entity.StudentId == userid).ToListAsync();
+
+        public async Task<List<RideEntity>> GetMyAllRidesWithDeleted(string userid) => await _context.Rides
+            .Where(entity => entity.StudentId == userid).OrderByDescending(x=>x.CreatedOn).ToListAsync();
 
         public async Task Delete(int id)
         {

@@ -9,7 +9,6 @@ const ChatController = ({ From, To }) => {
   const { connection } = useChat();
   const [messages, setMessages] = useState([]);
   const [previosMessages, setPreviosMessages] = useState([]);
-  const [users, setUsers] = useState([]);
   const { setOpenChat, setOwnerItem, openChat } = useComponent();
   useEffect(() => {
     if (From && To) joinRoom(From, To);
@@ -34,9 +33,6 @@ const ChatController = ({ From, To }) => {
         setPreviosMessages(Messages);
       });
 
-      await connection.on("UsersInRoom", (users) => {
-        setUsers(users);
-      });
 
       const roomid = "5aea6cf4-43cf-450d-b475-becc931b63af";
       await connection.invoke("JoinRoom", { roomid, From, To });
@@ -63,7 +59,6 @@ const ChatController = ({ From, To }) => {
       <Chat
         sendMessage={sendMessage}
         messages={messages}
-        users={users}
         previosMessages={previosMessages}
         openChat={openChat}
       />

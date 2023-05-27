@@ -17,8 +17,14 @@ namespace Student_County.BusinessLogic.Tools
             _userManager = userManager;
 
         }
-        public async Task<List<ToolsEntity>> GetAll() => await _context.Toolss.Where(entity => !entity.IsDeleted).ToListAsync();
-        public async Task<List<ToolsEntity>> GetMyAllTools(string userid) => await _context.Toolss.Where(entity => !entity.IsDeleted && entity.StudentId == userid).ToListAsync();
+        
+        public async Task<List<ToolsEntity>> GetAll() => await _context.Toolss
+            .Where(entity => !entity.IsDeleted).ToListAsync();
+        public async Task<List<ToolsEntity>> GetMyAllTools(string userid) => await _context.Toolss
+            .Where(entity => !entity.IsDeleted && entity.StudentId == userid).ToListAsync();
+
+        public async Task<List<ToolsEntity>> GetMyAllToolsWithDeleted(string userid) => await _context.Toolss
+            .Where(entity => entity.StudentId == userid).OrderByDescending(x=>x.CreatedOn).ToListAsync();
 
         public async Task Delete(int id)
         {

@@ -20,7 +20,12 @@ namespace Student_County.BusinessLogic.Book
         }
         public async Task<List<BookEntity>> GetAll() => await _context.Books.Where(entity => !entity.IsDeleted).ToListAsync();
 
-        public async Task<List<BookEntity>> GetMyAllBooks(string userid) => await _context.Books.Where(entity => !entity.IsDeleted && entity.StudentId == userid).ToListAsync();
+        public async Task<List<BookEntity>> GetMyAllBooks(string userid) => await _context.Books
+            .Where(entity => !entity.IsDeleted && entity.StudentId == userid).ToListAsync();
+
+        public async Task<List<BookEntity>> GetMyAllBooksWithDeleted(string userid) => await _context.Books
+            .Where(entity => entity.StudentId == userid).OrderByDescending(x => x.CreatedOn).ToListAsync();
+
 
         public async Task Delete(int id)
         {

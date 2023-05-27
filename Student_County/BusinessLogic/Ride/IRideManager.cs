@@ -6,6 +6,7 @@ namespace Student_County.BusinessLogic.Ride
     {
         Task<List<RideEntity>> GetAll();
         Task<List<RideEntity>> GetMyAllRides(string userid);
+        Task<List<RideEntity>> GetMyAllRidesWithDeleted(string userid);
         Task Delete(int id);
         Task<RideEntity> GetRide(int id);
         Task<RideEntity> CreateUpdate(RideBo bo, int id = 0);

@@ -7,6 +7,7 @@ namespace Student_County.BusinessLogic.Tools
     {
         Task<List<ToolsEntity>> GetAll();
         Task<List<ToolsEntity>> GetMyAllTools(string userid);
+        Task<List<ToolsEntity>> GetMyAllToolsWithDeleted(string userid);
         Task Delete(int id);
         Task<ToolsEntity> GetTools(int id);
         Task<ToolsEntity> CreateUpdate(ToolsBo bo, int id = 0);

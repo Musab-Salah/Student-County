@@ -15,6 +15,7 @@ namespace Student_County.API.Controllers
         private readonly IAuthManager _authService;
         private IConfiguration _configuration;
 
+
         public AuthController(IAuthManager authService, IConfiguration configuration)
         {
             _authService = authService;

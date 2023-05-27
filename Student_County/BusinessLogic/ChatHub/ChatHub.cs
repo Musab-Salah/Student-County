@@ -63,17 +63,12 @@ namespace Student_County.BusinessLogic.Hubs
             // Add the user to the room
     
 
-            // Broadcast a message to all users in the room
-            //await Clients.Group(userConnection.RoomId).SendAsync("User joined room");
-
-
+            // Add user to the room
+            
             await Groups.AddToGroupAsync(Context.ConnectionId, room.Id);
 
             _connections[Context.ConnectionId] = userConnection;
 
-            //await Clients.Group(userConnection.Room).SendAsync("ReceiveMessage", _botUser, $"{userConnection.User} has joined {userConnection.Room}");
-
-            await SendUsersConnected(userConnection);
            
         }
         public async Task GetMessagesForUser( UserConnection userConnection)
@@ -90,24 +85,7 @@ namespace Student_County.BusinessLogic.Hubs
                 await Clients.Group(room.Id).SendAsync("ReceiveMessages", userConnection.From, messages);
             }
         }
-        //public async Task SendMessage(string message)
-        //{
-        //    if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
-        //    {
-        //        await Clients.Group(userConnection.Room).SendAsync("ReceiveMessage", userConnection.User, message);
-        //    }
-        //}
 
-        public async Task SendUsersConnected(UserConnection userConnection)
-        {
-            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userConnection.To);
-            var room = await _context.Rooms
-                .FirstOrDefaultAsync(r => r.From == userConnection.From && r.To == userConnection.To || r.To == userConnection.From && r.From == userConnection.To);
-
-            var userName = user.FirstName + " " + user.LastName;
-
-            await Clients.Group(room.Id).SendAsync("UsersInRoom", userName);
-        }
 
         public async Task SendMessage( string message)
         {
@@ -132,18 +110,8 @@ namespace Student_County.BusinessLogic.Hubs
                 await _context.SaveChangesAsync();
 
                 await Clients.Group(room.Id).SendAsync("ReceiveMessage", userConnection.From, messagee);
-                       // await Clients.Group(userConnection.RoomId).SendAsync("ReceiveMessage",message);
             }
-                // Check if the room exists
-            //    var room = await _context.Room.FirstOrDefaultAsync(r => r.User1 == userConnection.User1 && r.User2 == userConnection.User2);
-            //if (room == null)
-            //{
-            //    // Room does not exist, do nothing
-            //    return;
-            //}
-
-            // Broadcast a message to all users in the room
-           // await Clients.Group(roomId).SendAsync(message);
+               
         }
 
 
