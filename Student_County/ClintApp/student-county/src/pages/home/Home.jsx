@@ -17,11 +17,7 @@ const Home = () => {
       <Helmet>
         <title>Home</title>
       </Helmet>
-      <div
-        className={`${
-          UniversityLoader && CollegesLoader ? "spinner" : "spinnerOpacity"
-        } `}
-      />
+   
       <div
         className={`${
           UniversityLoader && CollegesLoader ? "homeOpacity" : "home"

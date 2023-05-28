@@ -16,7 +16,11 @@ namespace Student_County.DAL
         [Required]
         public string? StudentName { get; set; }
         [Required]
+        public string? ServiceName { get; set; } = "Book"; 
+        [Required]
         public string? TheWay { get; set; }
+        [Required]
+        public string? Condition { get; set; }
         [Required]
         public int Price { get; set; }
         [Required]

@@ -11,6 +11,8 @@ namespace Student_County.DAL
         [Key]
         public int Id { get; set; }
         [Required]
+        public string? ServiceName { get; set; } = "Patient";
+        [Required]
         public string? FirstName { get; set; }
         [Required]
         public string? LastName { get; set; }

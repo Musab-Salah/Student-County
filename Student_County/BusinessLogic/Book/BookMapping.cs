@@ -15,7 +15,8 @@ namespace Student_County.BusinessLogic.Book
                 Price = bo.Price,
                 LongDescription = bo.LongDescription,
                 ShortDescription = bo.ShortDescription,
-                StudentId = bo.StudentId,        
+                StudentId = bo.StudentId,  
+                Condition = bo.Condition,   
             };
         }
     }

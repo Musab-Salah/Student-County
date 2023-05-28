@@ -15,10 +15,12 @@ import BooksView from "../../components/services/books/books_view/BooksView";
 import BooksForm from "../../components/services/books/books_form/BooksForm";
 import "./Dashboard.css";
 import ChatController from "../../components/chat/ChatController";
+import useUserRelationData from "../../hooks/UserRelationData";
 
 const Dashboard = () => {
   const { Books, MyBooks } = useBooks();
-  const { OptionMenu, setOptionMenu, setButtonCards, ButtonCards, openChat ,ownerItem} =
+  const { MyUserRelationData } = useUserRelationData();
+  const { OptionMenu, setOptionMenu, setButtonCards, ButtonCards, ownerItem } =
     useComponent();
   const { decodedJwt } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -72,8 +74,8 @@ const Dashboard = () => {
         );
       });
     }
-    if (OptionMenu === "Overview") {
-      return Object.values(MyBooks).filter((Book) => {
+    if (OptionMenu === "Overview" && MyUserRelationData[0]) {
+      return Object.values(MyUserRelationData[0]).filter((Book) => {
         return (
           Book.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
           Book.shortDescription
@@ -86,7 +88,7 @@ const Dashboard = () => {
       });
     }
     // eslint-disable-next-line
-  }, [MyBooks, Books, deferredInput]);
+  }, [MyBooks, Books, deferredInput, MyUserRelationData]);
 
   useEffect(() => {
     return function cleanup() {
@@ -173,14 +175,14 @@ const Dashboard = () => {
             </div>
 
             {OptionMenu === "Overview" && (
-              <Overview
-                filteredValue={!filteredValue ? false : filteredValue}
-              />
+              <Overview filteredValue={filteredValue ? filteredValue : false} />
             )}
-            {(OptionMenu === "Chat" ) && <ChatController  From={decodedJwt.uid} To={ownerItem} />}
+            {OptionMenu === "Chat" && (
+              <ChatController From={decodedJwt.uid} To={ownerItem} />
+            )}
             {OptionMenu === "Books" && (
               <BooksSection
-                filteredValue={!filteredValue ? false : filteredValue}
+                filteredValue={filteredValue ? filteredValue : false}
               />
             )}
           </div>

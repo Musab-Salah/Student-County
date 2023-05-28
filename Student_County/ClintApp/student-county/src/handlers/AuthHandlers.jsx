@@ -110,7 +110,6 @@ export function AuthProvider({ children }) {
     setAuthLoader(true);
     AuthServices.login(Bo)
       .then((response) => {
-        setIsLogin(true);
         setIsLogout(false);
         localStorage.setItem("user", JSON.stringify(response.data));
         setUserInLocal(response.data);
@@ -118,6 +117,7 @@ export function AuthProvider({ children }) {
         setToken(response.data.token);
         setDecodedJwt(decodedJwt);
         setError("");
+        setIsLogin(true);
         navigate("/dashboard");
       })
       .catch((res) => {

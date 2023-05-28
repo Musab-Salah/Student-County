@@ -51,7 +51,7 @@ namespace Student_County.API.Controllers
 
             List<object> myList = new List<object>();
 
-            if (user.RoleId is not "398a104f-4e07-470c-9781-07d9852fb00d")//net patient
+            if (user.RoleId is not "398a104f-4e07-470c-9781-07d9852fb00d")//not patient
             {
              var books = await _bookmanager.GetMyAllBooks(userid);
              var housings = await _housingmanager.GetMyAllHousings(userid);
@@ -76,7 +76,7 @@ namespace Student_County.API.Controllers
 
             List<object> myList = new List<object>();
 
-            if (user.RoleId is not "398a104f-4e07-470c-9781-07d9852fb00d")//net patient
+            if (user.RoleId is not "398a104f-4e07-470c-9781-07d9852fb00d")//not patient
             {
                 var books = await _bookmanager.GetMyAllBooksWithDeleted(userid);
                 var housings = await _housingmanager.GetMyAllHousingsWithDeleted(userid);

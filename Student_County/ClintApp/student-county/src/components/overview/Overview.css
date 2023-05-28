@@ -139,3 +139,69 @@
    .loader-square:nth-of-type(7) {
     animation-delay: -10s;
    }
+
+
+   .card-activity {
+    width: 250px;
+    height: 90px;
+    background: #262626;
+  }
+  
+  .smallIcon-activity {
+    width: 100%;
+    height: 100%;
+    background-color: #ff5858;
+  }
+  
+  .smallIcon-activity div {
+    background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 
+    40%, #e5e5e5 48%);
+    margin-top: 10px;
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    animation: load89234 2s infinite;
+    color: #262626;
+    font-weight: bold;
+    font-size: 15px;
+  }
+  
+  .icon-activity {
+    margin: 10px;
+    width: 70px;
+    height: 70px;
+    float: left;
+    border-radius: 5px;
+  }
+  
+  .name-activity {
+    width: 90px;
+    height: 20px;
+    float: left;
+    transform: translate(10px ,0px);
+    border-radius: 5px;
+  }
+  
+  .roles-activity {
+    width: 40px;
+    height: 20px;
+    float: left;
+    transform: translate(20px ,0px);
+    border-radius: 5px;
+  }
+  
+  .descripion-activity {
+    margin: 10px;
+    width: 140px;
+    height: 45px;
+    float: left;
+    transform: translate(0px ,-5px);
+    border-radius: 5px;
+  }
+  
+  @keyframes load89234 {
+    100% {
+      background-position: -100% 0;
+    }
+  }
+
+  

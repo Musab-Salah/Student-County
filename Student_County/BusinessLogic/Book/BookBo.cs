@@ -17,6 +17,8 @@ namespace Student_County.BusinessLogic.Book
         [Required]
         public string? ShortDescription { get; set; }
         [Required]
+        public string? Condition { get; set; }
+        [Required]
         public string? LongDescription { get; set; }
         public string StudentId { get; set; }
     }

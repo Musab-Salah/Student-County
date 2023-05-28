@@ -13,6 +13,8 @@ namespace Student_County.DAL
         [Required]
         public string? Name { get; set; }
         [Required]
+        public string? ServiceName { get; set; } = "Housing";
+        [Required]
         public string? Location { get; set; }
         [Required]
         public string? TypeOfContract { get; set; }

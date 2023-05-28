@@ -1,5 +1,5 @@
 import { Outlet, Navigate } from "react-router-dom";
-import React from "react";
+import React, { Suspense } from "react";
 import useAuth from "../hooks/useAuth";
 
 const PrivateRoutes = () => {

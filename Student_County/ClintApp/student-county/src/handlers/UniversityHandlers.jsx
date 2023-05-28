@@ -16,7 +16,7 @@ export function UniversitiesProvider({ children }) {
   });
 
   useEffect(() => {
-    setUniversityLoader(true);
+   // setUniversityLoader(true);
     getUniversites();
   }, []);
   const getUniversites = () => {

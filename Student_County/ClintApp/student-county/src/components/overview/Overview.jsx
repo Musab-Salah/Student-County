@@ -3,24 +3,26 @@ import { RiArrowDownSLine } from "react-icons/ri";
 import { FaBook, FaHome } from "react-icons/fa";
 import { HiUserGroup } from "react-icons/hi";
 import { AiOutlinePlus } from "react-icons/ai";
-import useBooks from "../../hooks/useBooks";
 import BookCard from "../services/books/book_card/BookCard";
 import { Helmet } from "react-helmet";
 import "./Overview.css";
-import useLoader from "./../../hooks/useLoader";
-import useAuth from "../../hooks/useAuth";
+import useUserRelationData from "../../hooks/UserRelationData";
 
 const Overview = ({ filteredValue }) => {
   const TYPES = ["All", "Book", "Ride", "House", "Patient", "Tools"];
   const SORT_TYPES = ["Name", "Date", "Price"];
-  const { MyBooks, getMyAllBooks, Success, setMyBooks } = useBooks();
-  const { decodedJwt } = useAuth();
-  const { BooksLoader } = useLoader();
+  const {
+    getMyAllUserRelationDatas,
+    MyUserRelationData,
+    getAllRecentActivity,
+    UserRelationDataLoader,
+  } = useUserRelationData(); //[0]books ,[1]housings,[2]rides,[3]tools,[4]patients
   const [selectType, setSelectType] = useState("");
-  const [sortType, setSortType] = useState("");
+  const [sortType, setSortType] = useState(false);
   const [showDropdownType, setShowDropdownType] = useState(false);
   const [showDropdownSort, setShowDropdownSort] = useState(false);
-  const Bookslength = MyBooks.length;
+  const [MyBooks, setMyBooks] = useState(""); //all user books
+  const [Bookslength, setBookslength] = useState("");
 
   function handleTypeChange(type) {
     setSelectType(type);
@@ -50,17 +52,27 @@ const Overview = ({ filteredValue }) => {
   }, [showDropdownType, showDropdownSort]);
 
   useEffect(() => {
-    if (decodedJwt.roles !== "Patient") {
-      getMyAllBooks();
-    }
+    getMyAllUserRelationDatas();
+    getAllRecentActivity();
     // eslint-disable-next-line
-  }, [Success]);
+  }, []);
+  useMemo(() => {
+    if (MyUserRelationData) setMyBooks(MyUserRelationData[0]);
+    // eslint-disable-next-line
+  }, [MyUserRelationData]);
+  useMemo(() => {
+    //console.log(MyBooks);
+    if (MyBooks) setBookslength(MyBooks.length ? MyBooks.length : "");
+    // eslint-disable-next-line
+  }, [MyBooks]);
+
   useEffect(() => {
     return function cleanup() {
       setMyBooks("");
     };
     // eslint-disable-next-line
   }, []);
+
   return (
     <>
       <Helmet>
@@ -96,8 +108,16 @@ const Overview = ({ filteredValue }) => {
             </div>
           </div>
         </div>
-        <div className="activities-container">
+        <div className="activities-container" style={{ display: "block" }}>
           <div className="activities-title">Recent Activities</div>
+          <div className="card-activity">
+            <div className="smallIcon-activity">
+              <div className="icon-activity"></div>
+              <div className="name-activity"></div>
+              <div className="roles-activity"></div>
+              <div className="descripion-activity"></div>
+            </div>
+          </div>
         </div>
         <div className="add-container">
           <AiOutlinePlus className="btn add-icon" />
@@ -192,7 +212,7 @@ const Overview = ({ filteredValue }) => {
         <div className="cards">
           <div
             className="loader-overview"
-            style={{ display: BooksLoader ? "block" : "none" }}
+            style={{ display: UserRelationDataLoader ? "block" : "none" }}
           >
             <div className="loader-square"></div>
             <div className="loader-square"></div>
@@ -203,15 +223,15 @@ const Overview = ({ filteredValue }) => {
             <div className="loader-square"></div>
           </div>
 
-          {!filteredValue
+          {MyBooks && !filteredValue
             ? !sortType &&
-              Object.values(MyBooks).map((book) => (
+              Object.values(MyBooks).map((book, index) => (
                 <BookCard
                   name={book.name}
                   price={book.price}
                   shortDescription={book.shortDescription}
                   longDescription={book.longDescription}
-                  key={book.id}
+                  key={index}
                   id={book.id}
                   studentId={book.studentId}
                 />
@@ -228,7 +248,7 @@ const Overview = ({ filteredValue }) => {
                   studentId={book.studentId}
                 />
               ))}
-          {!filteredValue
+          {MyBooks && !filteredValue
             ? sortType === "Name" &&
               Object.values(MyBooks)
                 .sort((a, b) => (a.name > b.name ? 1 : -1))
@@ -257,7 +277,7 @@ const Overview = ({ filteredValue }) => {
                     studentId={book.studentId}
                   />
                 ))}
-          {!filteredValue
+          {MyBooks && !filteredValue
             ? sortType === "Date" &&
               Object.values(MyBooks)
                 .sort(
@@ -290,7 +310,7 @@ const Overview = ({ filteredValue }) => {
                     studentId={book.studentId}
                   />
                 ))}
-          {!filteredValue
+          {MyBooks && !filteredValue
             ? sortType === "Price" &&
               Object.values(MyBooks)
                 .sort((a, b) => b.price - a.price)

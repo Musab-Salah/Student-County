@@ -11,6 +11,8 @@ namespace Student_County.DAL
         [Key]
         public int Id { get; set; }
         [Required]
+        public string? ServiceName { get; set; } = "Ride";
+        [Required]
         public int EmptySeats { get; set; }
         [Required]
         public string? CarDescription { get; set; }
