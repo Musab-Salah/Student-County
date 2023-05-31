@@ -22,19 +22,10 @@ export function ChatsProvider({ children }) {
   useEffect(() => {
     if (isLogin) {
       joinRoom();
-      getMyAllChats();
+      //getMyAllChats();
     }
     // eslint-disable-next-line
   }, [isLogin]);
-
-  const closeConnection = async () => {
-    try {
-      await connection.stop();
-      setConnection();
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   const joinRoom = async () => {
     try {
@@ -45,6 +36,15 @@ export function ChatsProvider({ children }) {
 
       await connection.start();
       setConnection(connection);
+      getMyAllChats();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const closeConnection = async () => {
+    try {
+      //await connection.stop();
     } catch (e) {
       console.log(e);
     }

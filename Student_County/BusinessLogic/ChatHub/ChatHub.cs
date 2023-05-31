@@ -31,6 +31,17 @@ namespace Student_County.BusinessLogic.Hubs
 
 
         }
+        //public override Task OnDisconnectedAsync(Exception exception)
+        //{
+        //    if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
+        //    {
+        //        _connections.Remove(Context.ConnectionId);
+        //    }
+
+        //    return base.OnDisconnectedAsync(exception);
+
+        //}
+
 
 
         public async Task JoinRoom(UserConnection userConnection)
@@ -43,9 +54,15 @@ namespace Student_County.BusinessLogic.Hubs
             if (room is null)
             {
                 var userFrom = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userConnection.From);
-                var frname = userFrom.FirstName + " " + userFrom.LastName;
+                 var frname = userFrom.FirstName + " " + userFrom.LastName;
                 var userTo = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userConnection.To);
-                var toname = userTo.FirstName + " " + userTo.LastName;
+                 var toname = userTo.FirstName + " " + userTo.LastName;
+                var userFromRole = await _context.UserRoles.FirstOrDefaultAsync(x => x.UserId == userConnection.From);
+                 var FromIdRole = await _context.Roles.FirstOrDefaultAsync(x => x.Id == userFromRole.RoleId);
+                var userToRole = await _context.UserRoles.FirstOrDefaultAsync(x => x.UserId == userConnection.To);
+                var ToIdRole = await _context.Roles.FirstOrDefaultAsync(x => x.Id == userToRole.RoleId);
+
+
                 // Room does not exist, create it
                 room = new RoomEntity
                 {
@@ -54,7 +71,9 @@ namespace Student_County.BusinessLogic.Hubs
                     To=userConnection.To,
                     CreatedBy= userConnection.From,
                     FromName= frname,
-                    ToName= toname
+                    ToName= toname,
+                    FromRole = FromIdRole.Name,
+                    ToRole= ToIdRole.Name
                 };
                 await _context.Rooms.AddAsync(room);
                 await _context.SaveChangesAsync();

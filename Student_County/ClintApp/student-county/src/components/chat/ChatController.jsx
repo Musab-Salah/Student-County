@@ -6,7 +6,7 @@ import useComponent from "../../hooks/useComponent";
 import useChat from "./../../hooks/useChat";
 
 const ChatController = ({ From, To }) => {
-  const { getMyAllChats } = useChat();
+  const { getMyAllChats, setConnection, closeConnection } = useChat();
   const { connection } = useChat();
   const [messages, setMessages] = useState([]);
   const [previosMessages, setPreviosMessages] = useState([]);
@@ -20,6 +20,7 @@ const ChatController = ({ From, To }) => {
     return function cleanup() {
       setOpenChat(false);
       setOwnerItem(false);
+      console.log("in cleanup");
     };
     // eslint-disable-next-line
   }, []);
@@ -37,6 +38,14 @@ const ChatController = ({ From, To }) => {
 
       await connection.on("ReceiveMessages", (from, Messages) => {
         setPreviosMessages(Messages);
+      });
+
+      connection.onclose((e) => {
+        //setConnection();
+        //setOpenChat(false);
+       // setOwnerItem(false);
+        //setMessages([]);
+        //setPreviosMessages([]);
       });
 
       const roomid = "5aea6cf4-43cf-450d-b475-becc931b63af";
@@ -59,12 +68,14 @@ const ChatController = ({ From, To }) => {
   };
 
   return (
-    <div className="app">
+    <div className="messages-container">
       <Chat
+        setMessages={setMessages}
         sendMessage={sendMessage}
         messages={messages}
         previosMessages={previosMessages}
         openChat={openChat}
+        closeConnection={closeConnection}
       />
     </div>
   );

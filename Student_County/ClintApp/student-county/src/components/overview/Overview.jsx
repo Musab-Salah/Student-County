@@ -108,7 +108,7 @@ const Overview = ({ filteredValue }) => {
             </div>
           </div>
         </div>
-        <div className="activities-container" style={{ display: "block" }}>
+        {/* <div className="activities-container" style={{ display: "block" }}>
           <div className="activities-title">Recent Activities</div>
           <div className="card-activity">
             <div className="smallIcon-activity">
@@ -118,7 +118,7 @@ const Overview = ({ filteredValue }) => {
               <div className="descripion-activity"></div>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="add-container">
           <AiOutlinePlus className="btn add-icon" />
           <div className="add-title">ADD SERVICE</div>

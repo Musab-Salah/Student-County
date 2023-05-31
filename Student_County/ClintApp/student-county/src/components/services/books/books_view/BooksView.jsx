@@ -1,16 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useComponent from "../../../../hooks/useComponent";
 import useBooks from "../../../../hooks/useBooks";
 import "./BooksView.css";
 import useLoader from "../../../../hooks/useLoader";
 import ChatController from "../../../chat/ChatController";
+import { TbCrown } from "react-icons/tb";
 
 const BooksView = () => {
   const { setButtonCards, setOpenChat, setOptionMenu, setOwnerItem } =
     useComponent();
   const { Book, setBook } = useBooks();
   const { FormBooksLoader } = useLoader();
+  const [date, setDate] = useState();
   // State Hook
+  useMemo(() => {
+    const d = new Date(Date.parse(Book.createdOn));
+    setDate(d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getUTCDate());
+  }, [Book]);
 
   useEffect(() => {
     return function cleanup() {
@@ -45,43 +51,57 @@ const BooksView = () => {
           <div className="block-load-form"></div>
         </div>
         <div
-          className="form-create"
+          className="form-create-view"
           style={{ display: FormBooksLoader ? "none" : "flex" }}
         >
           <div className="section-view">
-            <span className="label-view">Name:</span>
-            <span className="text-field">{Book.name}</span>
-            <div className="price-field">
-              Price: {Book.price === 0 ? "Free" : `₪${Book.price}`}
+            <div className="book-image-container">
+              <div className="book-image" />
+              <div className="book-owner">
+                <TbCrown className="book-owner-icon" />
+                <div className="book-owner-name">{Book.studentName}</div>
+              </div>
+            </div>
+            <div className="book-info">
+              <div className="book-main-info-container">
+                <div className="book-main-info">
+                  <div className="title-book-name">{Book.name}</div>
+                  <div className="price-field">
+                    {Book.price === 0 ? "Free" : `₪${Book.price}`}
+                  </div>
+                </div>
+                <div className="description-book-view">
+                  {Book.longDescription}
+                </div>
+              </div>
+              <div className="book-additional-info-container">
+                <div className="book-additional-info">{Book.condition}</div>
+                <div className="book-additional-info">{Book.university}</div>
+                <div className="book-additional-info">{date}</div>
+              </div>
+              <div className="buttons">
+                <button
+                  onClick={() => {
+                    setOpenChat(true);
+                    setButtonCards("");
+                    setOptionMenu("Chat");
+                    setOwnerItem(Book.studentId);
+                  }}
+                  className={`btn btn-primary `}
+                >
+                  Contact With Owner
+                </button>
+                <button
+                  onClick={() => setButtonCards("")}
+                  className={`btn btn-secondary `}
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
           </div>
-          <div className="section-view">
-            <span className="label-view">Description:</span>
-            <span className="text-field">
-              {Book.longDescription}
-              <div className="price-field">Owner Name: {Book.studentName} </div>
-            </span>
-          </div>
-          <div className="section-view"></div>
-          <div className="buttons">
-            <button
-              onClick={() => {
-                setOpenChat(true);
-                setButtonCards("");
-                setOptionMenu("Chat");
-                setOwnerItem(Book.studentId);
-              }}
-              className={`btn btn-primary `}
-            >
-              Contact With Owner
-            </button>
-            <button
-              onClick={() => setButtonCards("")}
-              className={`btn btn-secondary `}
-            >
-              Cancel
-            </button>
-          </div>
+
+          {/* <div className="price-field">Owner Name: {Book.studentName} </div> */}
         </div>
       </div>
     </>

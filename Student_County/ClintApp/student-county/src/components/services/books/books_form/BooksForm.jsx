@@ -18,6 +18,7 @@ const BooksForm = () => {
   const [longDescription, setLongDescription] = useState("");
   const [price, setPrice] = useState("");
   const [theWay, setTheWay] = useState("");
+  const [condition, setCondition] = useState("");
   const [book, setBookBo] = useState({});
   const {
     FormBooksLoader,
@@ -27,12 +28,15 @@ const BooksForm = () => {
 
   // Error Hook
   const [theWayError, setTheWayError] = useState("");
+  const [conditionError, setConditionError] = useState("");
+
   const [nameError, setNameError] = useState("");
   const [shortDescriptionError, setShortDescriptionError] = useState("");
   const [longDescriptionError, setLongDescriptionError] = useState("");
   const [priceError, setPriceError] = useState("");
 
   const [showDropdownTheWay, setShowDropdownTheWay] = useState(false);
+  const [showDropdownCondition, setShowDropdownCondition] = useState(false);
 
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -43,13 +47,18 @@ const BooksForm = () => {
         !event.target.closest(".input-container-option")
       ) {
         setShowDropdownTheWay(false);
+        setShowDropdownCondition(false);
+
       }
     };
     document.addEventListener("click", handleOutsideClick);
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
-  }, [showDropdownTheWay]);
+  }, [showDropdownTheWay,showDropdownCondition]);
+
+  
+
 
   useMemo(() => {
     setName(Book.name);
@@ -57,6 +66,7 @@ const BooksForm = () => {
     setLongDescription(Book.longDescription);
     setPrice(Book.price);
     setTheWay(Book.theWay);
+    setCondition(Book.ConditionCondition);
     setBookBo({
       ...book,
       studentId: Book.studentId,
@@ -66,6 +76,7 @@ const BooksForm = () => {
       longDescription: Book.longDescription,
       price: Book.price,
       theWay: Book.theWay,
+      condition: Book.condition,
     });
     // eslint-disable-next-line
   }, [Book]);
@@ -95,6 +106,15 @@ const BooksForm = () => {
     setTheWayError(false);
     setShowDropdownTheWay(false);
   };
+  const handleTheConditionChange = (value) => {
+    setBookBo({
+      ...book,
+      condition: value,
+    });
+    setCondition(value);
+    setConditionError(false);
+    setShowDropdownCondition(false);
+  };
 
   const handleSetName = (e) => {
     const nameRegex = /^([a-zA-Z])(?=.{3,})/;
@@ -111,7 +131,7 @@ const BooksForm = () => {
     }
   };
   const handleShortDescription = (e) => {
-    const nameRegex = /^(?=.{10,})/;
+    const nameRegex = /^(?=.{0,})/;
     if (!nameRegex.test(e.target.value)) {
       setShortDescriptionError(
         "Please lengthen this text to 10 characters or more"
@@ -225,8 +245,7 @@ const BooksForm = () => {
                   shortDescription ? shortDescription : book.shortDescription
                 }
                 onChange={handleShortDescription}
-                maxLength={40}
-                required
+                  required
               />
               <div
                 className="input-container-option"
@@ -237,7 +256,7 @@ const BooksForm = () => {
                 Short Description
               </div>
             </div>
-            {shortDescriptionError && (
+             {shortDescriptionError && (
               <span className="wrong-info">
                 <AiFillExclamationCircle />
                 {shortDescriptionError}
@@ -261,13 +280,59 @@ const BooksForm = () => {
                   document.getElementsByName("longdescription")[0].focus()
                 }
               >
-                long Description
+                Long description
               </div>
             </div>
             {longDescriptionError && (
               <span className="wrong-info">
                 <AiFillExclamationCircle />
                 {longDescriptionError}
+              </span>
+            )}
+            {/* for condition */}
+            <div className="custom-select">
+              <div
+                className="selected-option"
+                onClick={() => setShowDropdownCondition(!showDropdownCondition)}
+              >
+                {!condition ? (
+                  <div className="input-container-option input-dropdown">
+                    Select The Condition
+                  </div>
+                ) : (
+                  <div>
+                    <div className="input-container-option input-dropdown-title">
+                      Select The Condition
+                    </div>
+                    <div className="input-container-option input-dropdown input-selected">
+                      {condition}
+                    </div>
+                  </div>
+                )}
+                <RiArrowDownSLine className="arrow-icon" />
+              </div>
+              {showDropdownCondition && (
+                <div className="options" id="input-dropdown">
+                  <div className="option-title">Select The Condition</div>
+                  <div
+                    className="option"
+                    onClick={() => handleTheConditionChange("New")}
+                  >
+                    New
+                  </div>
+                  <div
+                    className="option"
+                    onClick={() => handleTheConditionChange("Used")}
+                  >
+                    Used
+                  </div>
+                </div>
+              )}
+            </div>
+            {conditionError && (
+              <span className="wrong-info">
+                <AiFillExclamationCircle />
+                {conditionError}
               </span>
             )}
             <div className="custom-select">

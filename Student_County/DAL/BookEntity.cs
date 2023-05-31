@@ -20,6 +20,8 @@ namespace Student_County.DAL
         [Required]
         public string? TheWay { get; set; }
         [Required]
+        public string? University { get; set; }
+        [Required]
         public string? Condition { get; set; }
         [Required]
         public int Price { get; set; }

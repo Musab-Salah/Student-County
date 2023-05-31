@@ -139,7 +139,11 @@ h6 {
 .btn-small:hover {
   box-shadow: 3px 3px 0#09072f;
 }
-
+.small-btn-icon {
+  height: 12.5px!important;
+  padding: var(--padding-5xs-5)!important;
+  box-shadow: 2px 2px 0#09072f!important;
+}
 /* lines styles */
 .horizontal-line {
   display: flex;
@@ -201,4 +205,14 @@ a:active,
 a:link {
   text-decoration: none;
   color: inherit;
+}
+
+/* textarea */
+textarea {
+  font-family: var(--font-poppins);
+  font-size: 14px;
+  padding: var(--padding-3xs) var(--padding-xl);
+  color: var(--color-gray-100);
+  min-height: 44px;
+  max-height: 350px!important;
 }

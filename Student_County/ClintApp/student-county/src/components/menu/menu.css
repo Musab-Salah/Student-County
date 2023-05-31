@@ -105,7 +105,36 @@
 .dash-btn {
   width: -webkit-fill-available;
 }
-
+.user-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0 0;
+}
+.profile-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-mini);
+  margin-top: 5px;
+}
+.avatar-icon {
+  height: 50px;
+  width: auto;
+  color: var(--color-gray-100);
+}
+.username {
+  color: var(--color-gray-100);
+  font-size: 14px;
+  font-weight: 600;
+}
+.role {
+  color: var(--color-blueviolet-100);
+  font-size: 12px;
+  font-weight: 400;
+}
 @keyframes slide-in-left {
   0% {
     transform: translateX(-200px);

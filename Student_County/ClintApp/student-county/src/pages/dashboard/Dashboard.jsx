@@ -28,6 +28,19 @@ const Dashboard = () => {
   //const [filteredValue, setFilteredValue] = useState("");
   const deferredInput = useDeferredValue(query);
 
+
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const handleIconClick = () => {
+    setIsSearchOpen(!isSearchOpen);
+  };
+
+  const handleOutsideClick = (event) => {
+    if (!event.target.closest('.input-wrapper')) {
+      setIsSearchOpen(false);
+    }
+  };
+
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -130,17 +143,23 @@ const Dashboard = () => {
               </div>
               <div className="right-navbar">
                 <div className="tools">
-                  <div className="input-wrapper">
-                    <input
-                      placeholder="search.."
-                      className="input-search"
-                      name="text"
-                      type="text"
-                      value={query}
-                      onChange={(e) => setQuery(e.target.value)}
-                    />
-                    <FiSearch className="btn icon btn-icon  btn-icon-active" />
-                  </div>
+                <div className="input-wrapper" onClick={handleOutsideClick}>
+                <div className={`search-box ${isSearchOpen ? 'searchOpen' : ''}`}>
+                  <input
+                    placeholder="Search..."
+                    className="input-search"
+                    name="text"
+                    type="text"
+                    value={query}
+                    maxLength={20}
+                    onChange={(e) => setQuery(e.target.value)}
+                  />
+                </div>
+                <FiSearch
+                  className="btn icon btn-icon btn-icon-active"
+                  onClick={handleIconClick}
+                />
+              </div>
 
                   {OptionMenu === "Books" && (
                     <AiOutlinePlus
@@ -151,7 +170,7 @@ const Dashboard = () => {
 
                   <RiNotification2Line className="btn btn-icon" />
                 </div>
-                <div className="horizontal-line" />
+                {/* <div className="horizontal-line" />
                 <div className="profile">
                   <div className="profile-info" onClick={handleToggleDropdown}>
                     <FaUserCircle className="avatar-icon" />
@@ -170,7 +189,7 @@ const Dashboard = () => {
                       </ul>
                     </div>
                   )}
-                </div>
+                </div> */}
               </div>
             </div>
 

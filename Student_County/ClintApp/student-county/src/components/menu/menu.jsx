@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./menu.css";
 import { RiCloseLine, RiArrowDownSLine } from "react-icons/ri";
-
+import { FaUserCircle } from "react-icons/fa";
 import { AiOutlineHome, AiOutlineUser } from "react-icons/ai";
 import { IoCarOutline } from "react-icons/io5";
 import { BiLogOut, BiBook } from "react-icons/bi";
@@ -16,7 +16,7 @@ import WithPermission from "../../certificates/WithPermission";
 const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
   const [navLinksVisible, setNavLinksVisible] = useState([true, true]);
   const { setOptionMenu, OptionMenu } = useComponent();
-  const { logout } = useAuth();
+  const { logout, decodedJwt } = useAuth();
   const { AuthLoader } = useLoader();
 
   const handleTitleClick = (index) => (event) => {
@@ -60,7 +60,7 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
       }
     };
   }, []);
-
+  console.log(OptionMenu);
   return (
     <div
       className={`dash-menu ${
@@ -279,23 +279,38 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
           </div>
         </div>
         <div className="vertical-line" />
-        <button
-          onClick={() => logout()}
-          className={`btn btn-primary dash-btn ${
-            isMenuOpen ? "padding-resize" : ""
-          }`}
-        >
-          <div
-            className="loader"
-            style={{
-              display: AuthLoader ? "block" : "none",
-            }}
-          />
-          <BiLogOut className="dash-nav-link-icon" />
-          <div className={`dash-sign-out ${isMenuOpen ? "hidden" : ""}`}>
-            Sign Out
+        <div className="user-container">
+          <div className="profile">
+            <div className="profile-info">
+              <FaUserCircle className="avatar-icon" />
+              <div className="user-info">
+                <div
+                  className={`username ${isMenuOpen ? "hidden" : ""}`}
+                >{`${decodedJwt.name} ${decodedJwt.family_name}`}</div>
+                <div className={`role ${isMenuOpen ? "hidden" : ""}`}>
+                  {decodedJwt.roles}
+                </div>
+              </div>
+            </div>
           </div>
-        </button>
+          <button
+            onClick={() => logout()}
+            className={`btn btn-primary dash-btn ${
+              isMenuOpen ? "padding-resize" : ""
+            }`}
+          >
+            <div
+              className="loader"
+              style={{
+                display: AuthLoader ? "block" : "none",
+              }}
+            />
+            <BiLogOut className="dash-nav-link-icon" />
+            <div className={`dash-sign-out ${isMenuOpen ? "hidden" : ""}`}>
+              Sign Out
+            </div>
+          </button>
+        </div>
       </div>
     </div>
   );

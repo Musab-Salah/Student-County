@@ -1,6 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import PrivateRoutes from "./certificates/PrivateRoutes";
 import { lazy, Suspense } from "react";
+// import Home from "./pages/home/Home";
+// import SignUp from "./pages/sign_up/SignUp";
+// import SignIn from "./pages/sign_in/SignIn.jsx";
+// import ForgotPassword from "./pages/forgot_password/ForgotPassword";
+// import Dashboard from "./pages/dashboard/Dashboard";
+// import Success from "./pages/success/Success.jsx";
+// import ResetPassword from "./pages/reset_password/ResetPassword.jsx";
 
 const Home = lazy(() => import("./pages/home/Home"));
 const SignUp = lazy(() => import("./pages/sign_up/SignUp"));
@@ -28,10 +35,8 @@ function App() {
           element={<ResetPassword />}
         />
         <Route path="/success" element={<Success />} />
-
-        <Route element={<PrivateRoutes />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Route>
+         <Route path="/dashboard" element={<Dashboard />} />
+        <Route element={<PrivateRoutes />}></Route>
       </Routes>
     </Suspense>
   );

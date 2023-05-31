@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Student_County.BusinessLogic.Auth.Models;
+using Student_County.BusinessLogic.University;
 using Student_County.DAL;
 using System.Security.Claims;
 
@@ -10,11 +11,14 @@ namespace Student_County.BusinessLogic.Book
     {
         protected readonly StudentCountyContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUniversityManager _university;
 
-        public BookManager(StudentCountyContext context, UserManager<ApplicationUser> userManager)
+
+        public BookManager(StudentCountyContext context, UserManager<ApplicationUser> userManager,IUniversityManager university)
         {
             _context = context;
             _userManager = userManager;
+            _university = university;
 
 
         }
@@ -53,10 +57,11 @@ namespace Student_County.BusinessLogic.Book
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == bo.StudentId); 
             var entity = bo.MapBoToEntity();
             entity.StudentName = user.FirstName + " " + user.LastName;
-
             if (id == 0)
             {
                 entity.CreatedBy = user.UserName;
+                var uni = await _university.GetUniversity(user.UniversityId);
+                entity.University = uni.Name;
                 _context.Add(entity);
             }
             else if (id != 0)

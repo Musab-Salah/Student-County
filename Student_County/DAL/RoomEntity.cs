@@ -17,6 +17,10 @@ namespace Student_County.DAL
         public string? FromName { get; set; }
         [Required]
         public string? ToName { get; set; }
+        [Required]
+        public string? FromRole { get; set; }
+        [Required]
+        public string? ToRole { get; set; }
 
 
     }
