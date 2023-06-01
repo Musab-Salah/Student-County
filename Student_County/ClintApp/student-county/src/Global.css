@@ -143,6 +143,10 @@ h6 {
   height: 12.5px!important;
   padding: var(--padding-5xs-5)!important;
   box-shadow: 2px 2px 0#09072f!important;
+  transition: .3s ease;
+}
+.small-btn-icon:hover {
+  box-shadow: 3px 3px 0#09072f!important;
 }
 /* lines styles */
 .horizontal-line {

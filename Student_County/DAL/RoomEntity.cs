@@ -23,6 +23,10 @@ namespace Student_County.DAL
         public string? ToRole { get; set; }
         public string? LastMessage { get; set; }
         public DateTimeOffset? CreatedOnLastMessage { get; set; }
+        public string? DeletedFromFirstUser { get; set; }
+        public string? DeletedFromSecondUser { get; set; }
+
+
 
 
 

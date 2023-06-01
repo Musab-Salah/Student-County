@@ -82,10 +82,10 @@ const BooksView = () => {
               <div className="buttons">
                 <button
                   onClick={() => {
+                    setOwnerItem(Book.studentId);
+                    setOptionMenu("Chat");
                     setOpenChat(true);
                     setButtonCards("");
-                    setOptionMenu("Chat");
-                    setOwnerItem(Book.studentId);
                   }}
                   className={`btn btn-primary `}
                 >

@@ -32,18 +32,6 @@ namespace Student_County.BusinessLogic.Hubs
 
         }
 
-        //public override Task OnDisconnectedAsync(Exception exception)
-        //{
-        //    if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
-        //    {
-        //        _connections.Remove(Context.ConnectionId);
-        //    }
-
-        //    return base.OnDisconnectedAsync(exception);
-
-        //}
-
-
 
         public async Task JoinRoom(UserConnection userConnection)
         {
@@ -77,19 +65,28 @@ namespace Student_County.BusinessLogic.Hubs
                     ToRole= ToIdRole.Name
                 };
                 await _context.Rooms.AddAsync(room);
-                await _context.SaveChangesAsync();
             }
 
-            // Add the user to the room
-    
+            else if(room.DeletedFromFirstUser == userConnection.From )
+            {
+                room.DeletedFromFirstUser = null;
+                room.DeletedFromSecondUser = null;
+                _context.Rooms.Update(room);
+            }
+            else if (room.DeletedFromSecondUser == userConnection.From )
+            {
+                room.DeletedFromSecondUser = null;
+                room.DeletedFromFirstUser = null;
+                _context.Rooms.Update(room);
+            }
+            await _context.SaveChangesAsync();
 
             // Add user to the room
-            
+
             await Groups.AddToGroupAsync(Context.ConnectionId, room.Id);
 
             _connections[Context.ConnectionId] = userConnection;
-
-           
+     
         }
         public async Task GetMessagesForUser( UserConnection userConnection)
         {

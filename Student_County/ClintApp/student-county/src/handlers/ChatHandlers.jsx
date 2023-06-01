@@ -43,7 +43,6 @@ export function ChatsProvider({ children }) {
 
       connection.on("ReceiveMessage", (roomId, message) => {
         setMessages((messages) => [...messages, message]);
-        console.log(message);
       });
 
       connection.on("ReceiveMessages", (from, Messages) => {
@@ -80,6 +79,20 @@ export function ChatsProvider({ children }) {
       .finally(() => setChatLoader(false));
   };
 
+  const deleteChat = (roomid) => {
+    setChatLoader(true);
+    ChatServices.deleteChat(decodedJwt.uid, roomid, token)
+      .then((res) => {
+        getMyAllChats();
+        setError(null);
+      })
+      .catch(() => {
+        setError("Failed delete chat...");
+        cleanupError();
+      })
+      .finally(() => setChatLoader(false));
+  };
+
   return (
     <ChatCxt.Provider
       value={{
@@ -97,6 +110,7 @@ export function ChatsProvider({ children }) {
         previosMessages,
         setMessages,
         setPreviosMessages,
+        deleteChat,
       }}
     >
       {children}

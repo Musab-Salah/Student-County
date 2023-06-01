@@ -4,6 +4,7 @@ import "./ChatController.css";
 import Chat from "./Chat";
 import useComponent from "../../hooks/useComponent";
 import useChat from "./../../hooks/useChat";
+import useAuth from "../../hooks/useAuth";
 
 const ChatController = ({ From, To }) => {
   const {
@@ -15,29 +16,28 @@ const ChatController = ({ From, To }) => {
     previosMessages,
     setMessages,
     setPreviosMessages,
+    connection,
   } = useChat();
-  const { connection } = useChat();
-
-  const { setOpenChat, setOwnerItem, openChat } = useComponent();
-
+  const { setOpenChat, setOwnerItem, openChat, ownerItem } = useComponent();
+  const { decodedJwt } = useAuth();
 
   useEffect(() => {
     return function cleanup() {
       setOpenChat(false);
       setOwnerItem(false);
-      console.log("in cleanup");
     };
     // eslint-disable-next-line
   }, []);
-
+  useEffect(() => {
+    if (From && To) joinRoom();
+  }, [To]);
   useEffect(() => {
     getMyAllChats();
     // eslint-disable-next-line
   }, [previosMessages]);
 
-  const joinRoom = async (From, To) => {
+  const joinRoom = async () => {
     try {
-
       const roomid = "5aea6cf4-43cf-450d-b475-becc931b63af";
       await connection.invoke("JoinRoom", { roomid, From, To });
       await connection.invoke("GetMessagesForUser", { roomid, From, To });
@@ -45,11 +45,8 @@ const ChatController = ({ From, To }) => {
       console.log(e);
     }
   };
-  useEffect(() => {
-
-  }, [previosMessages, messages]);
+  useEffect(() => {}, [previosMessages, messages]);
   const sendMessage = async (message) => {
-
     try {
       await connection.invoke("SendMessage", message);
     } catch (e) {
@@ -69,6 +66,7 @@ const ChatController = ({ From, To }) => {
         joinRoom={joinRoom}
         setMessages={setMessages}
         setPreviosMessages={setPreviosMessages}
+        decodedJwt={decodedJwt}
       />
     </div>
   );
