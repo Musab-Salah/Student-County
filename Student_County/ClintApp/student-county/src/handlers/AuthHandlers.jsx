@@ -1,7 +1,6 @@
 import React, { useState, createContext, useEffect } from "react";
 import AuthServices from "../services/AuthServices";
 import { useNavigate } from "react-router-dom";
-//import useChat from "../hooks/useChat";
 const AuthCxt = createContext();
 
 const parseJwt = (token) => {
@@ -13,7 +12,6 @@ const parseJwt = (token) => {
 };
 
 export function AuthProvider({ children }) {
-  //const { closeConnection } = useChat();
   const [isLogout, setIsLogout] = useState(true);
   const [isLogin, setIsLogin] = useState(false);
   const [AuthError, setError] = useState("");
@@ -146,7 +144,6 @@ export function AuthProvider({ children }) {
         localStorage.removeItem("user");
         setDecodedJwt(false);
         setToken();
-        //closeConnection();
         setIsLogout(true);
         setIsLogin(false);
         navigate("/sign_in");
