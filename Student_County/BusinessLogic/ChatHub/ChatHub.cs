@@ -31,6 +31,7 @@ namespace Student_County.BusinessLogic.Hubs
 
 
         }
+
         //public override Task OnDisconnectedAsync(Exception exception)
         //{
         //    if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
@@ -123,12 +124,14 @@ namespace Student_County.BusinessLogic.Hubs
                     From = userConnection.From,
                     Message = message,
                     CreatedBy = userName,
-                    RoomId = room.Id
+                    RoomId = room.Id,
                 };
+                room.LastMessage = messagee.Message;
+                room.CreatedOnLastMessage= DateTimeOffset.Now;
                 await _context.Messages.AddAsync(messagee);
                 await _context.SaveChangesAsync();
 
-                await Clients.Group(room.Id).SendAsync("ReceiveMessage", userConnection.From, messagee);
+                await Clients.Group(room.Id).SendAsync("ReceiveMessage", room.Id, messagee);
             }
                
         }

@@ -32,7 +32,6 @@ export function UserRelationDatasProvider({ children }) {
       setToolsActivity(AllRecentActivity[3]);
       setPatientsActivity(AllRecentActivity[4]);
       const newArray = [...BooksActivity, ...ToolsActivity];
-      console.log(newArray);
     }
   }, [AllRecentActivity]);
 

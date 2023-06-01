@@ -60,7 +60,6 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
       }
     };
   }, []);
-  console.log(OptionMenu);
   return (
     <div
       className={`dash-menu ${

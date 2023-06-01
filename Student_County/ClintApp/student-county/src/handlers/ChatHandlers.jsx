@@ -12,7 +12,11 @@ export function ChatsProvider({ children }) {
   const { decodedJwt, token, isLogin } = useAuth();
   const [MyChat, setMyChat] = useState([]); //all user chat
   const [ChatLoader, setChatLoader] = useState("");
+  const [ChatOpened, setChatOpened] = useState("");
   const [ChatError, setError] = useState("");
+  const [messages, setMessages] = useState([]);
+
+  const [previosMessages, setPreviosMessages] = useState([]);
 
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const cleanupError = () =>
@@ -33,6 +37,15 @@ export function ChatsProvider({ children }) {
         .withUrl("https://localhost:7245/chat")
         .configureLogging(LogLevel.Information)
         .build();
+
+      connection.on("ReceiveMessage", (roomId, message) => {
+        setMessages((messages) => [...messages, message]);
+        console.log(message);
+      });
+
+      connection.on("ReceiveMessages", (from, Messages) => {
+        setPreviosMessages(Messages);
+      });
 
       await connection.start();
       setConnection(connection);
@@ -75,6 +88,12 @@ export function ChatsProvider({ children }) {
         MyChat,
         ChatLoader,
         ChatError,
+        ChatOpened,
+        setChatOpened,
+        messages,
+        previosMessages,
+        setMessages,
+        setPreviosMessages,
       }}
     >
       {children}

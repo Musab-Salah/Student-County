@@ -21,6 +21,10 @@ namespace Student_County.DAL
         public string? FromRole { get; set; }
         [Required]
         public string? ToRole { get; set; }
+        public string? LastMessage { get; set; }
+        public DateTimeOffset? CreatedOnLastMessage { get; set; }
+
+
 
 
     }

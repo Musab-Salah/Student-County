@@ -6,15 +6,20 @@ import useComponent from "../../hooks/useComponent";
 import useChat from "./../../hooks/useChat";
 
 const ChatController = ({ From, To }) => {
-  const { getMyAllChats, setConnection, closeConnection } = useChat();
+  const {
+    getMyAllChats,
+    setConnection,
+    closeConnection,
+    ChatOpened,
+    messages,
+    previosMessages,
+    setMessages,
+    setPreviosMessages,
+  } = useChat();
   const { connection } = useChat();
-  const [messages, setMessages] = useState([]);
-  const [previosMessages, setPreviosMessages] = useState([]);
+
   const { setOpenChat, setOwnerItem, openChat } = useComponent();
-  useEffect(() => {
-    if (From && To) joinRoom(From, To);
-    // eslint-disable-next-line
-  }, [To]);
+
 
   useEffect(() => {
     return function cleanup() {
@@ -32,21 +37,6 @@ const ChatController = ({ From, To }) => {
 
   const joinRoom = async (From, To) => {
     try {
-      await connection.on("ReceiveMessage", (from, message) => {
-        setMessages((messages) => [...messages, message]);
-      });
-
-      await connection.on("ReceiveMessages", (from, Messages) => {
-        setPreviosMessages(Messages);
-      });
-
-      connection.onclose((e) => {
-        //setConnection();
-        //setOpenChat(false);
-       // setOwnerItem(false);
-        //setMessages([]);
-        //setPreviosMessages([]);
-      });
 
       const roomid = "5aea6cf4-43cf-450d-b475-becc931b63af";
       await connection.invoke("JoinRoom", { roomid, From, To });
@@ -56,10 +46,10 @@ const ChatController = ({ From, To }) => {
     }
   };
   useEffect(() => {
-    console.log(previosMessages);
-    console.log(messages);
+
   }, [previosMessages, messages]);
   const sendMessage = async (message) => {
+
     try {
       await connection.invoke("SendMessage", message);
     } catch (e) {
@@ -70,12 +60,15 @@ const ChatController = ({ From, To }) => {
   return (
     <div className="messages-container">
       <Chat
-        setMessages={setMessages}
         sendMessage={sendMessage}
         messages={messages}
         previosMessages={previosMessages}
         openChat={openChat}
         closeConnection={closeConnection}
+        setOpenChat={setOpenChat}
+        joinRoom={joinRoom}
+        setMessages={setMessages}
+        setPreviosMessages={setPreviosMessages}
       />
     </div>
   );
