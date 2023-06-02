@@ -10,7 +10,11 @@ export function PatientsProvider({ children }) {
   const [Patients, setPatients] = useState([]); //all Patients
   const [MyPatients, setMyPatients] = useState([]); //all user Patients
   const [Patient, setPatient] = useState("");
-  const [PatientsLoader, setPatientsLoader] = useState("");
+  const [PatientLoader, setPatientLoader] = useState("");
+  const [FormPatientLoader, setFormPatientLoader] = useState("");
+  const [ButtonsFormPatientLoader, setButtonsFormPatientLoader] = useState("");
+  const [DeleteButtonsFormPatientLoader, setDeleteButtonsFormPatientLoader] =
+    useState("");
 
   const [PatientError, setError] = useState("");
   const [Success, setSuccess] = useState("");
@@ -21,7 +25,7 @@ export function PatientsProvider({ children }) {
     lastName: "",
     phoneNumber: "",
     nationalIdNumber: "",
-    description: "",
+    AdditionalInformation: "",
     age: 0,
     typeOfTreatment: "",
     currentIllnesses: "",
@@ -44,7 +48,7 @@ export function PatientsProvider({ children }) {
   ];
   //can select more than one
   const currentIllnessess = [
-    "diabetes",
+    "Diabetes",
     "Pressure",
     "Heart Disease",
     "Respiratory Diseases",
@@ -62,7 +66,8 @@ export function PatientsProvider({ children }) {
       setSuccess("");
     });
 
-  const getPatients = () => {
+  const getPatient = () => {
+    setPatientLoader(true);
     PatientServices.getPatients(token)
       .then((res) => {
         setPatients(res.data);
@@ -71,17 +76,24 @@ export function PatientsProvider({ children }) {
       .catch(() => {
         setError("Failed bring the Patients...");
         cleanupError();
-      });
+      })
+      .finally(() => setPatientLoader(false));
   };
-  const getMyAllPatients = () => {
+  const getMyAllPatient = () => {
+    setPatientLoader(true);
     PatientServices.getMyAllPatients(decodedJwt.uid, token)
       .then((res) => {
         setMyPatients(res.data);
         setError(null);
       })
-      .catch(() => setError("Failed bring the Patients..."));
+      .catch(() => {
+        setError("Failed bring the Patients...");
+        cleanupError();
+      })
+      .finally(() => setPatientLoader(false));
   };
   const createPatient = (Bo) => {
+    setButtonsFormPatientLoader(true);
     Bo.studentId = decodedJwt.uid;
     PatientServices.createPatient(Bo, token)
       .then((res) => {
@@ -92,10 +104,12 @@ export function PatientsProvider({ children }) {
       .catch(() => {
         setError("Failed create the Patient...");
         cleanupError();
-      });
+      })
+      .finally(() => setButtonsFormPatientLoader(false));
   };
 
   const getPatientById = (id) => {
+    setFormPatientLoader(true);
     PatientServices.getPatientById(id, token)
       .then((res) => {
         setPatient(res.data);
@@ -104,10 +118,12 @@ export function PatientsProvider({ children }) {
       .catch(() => {
         setError("Failed bring the Patient...");
         cleanupError();
-      });
+      })
+      .finally(() => setFormPatientLoader(false));
   };
 
   const updatePatient = (id, Bo) => {
+    setButtonsFormPatientLoader(true);
     PatientServices.updatePatient(id, Bo, token)
       .then((res) => {
         setSuccess("Successfully Updated The Patient.");
@@ -117,10 +133,12 @@ export function PatientsProvider({ children }) {
       .catch(() => {
         setError("Failed update the Patient...");
         cleanupError();
-      });
+      })
+      .finally(() => setButtonsFormPatientLoader(false));
   };
 
   const deletePatient = (id) => {
+    setDeleteButtonsFormPatientLoader(true);
     PatientServices.deletePatient(id, token)
       .then((res) => {
         setSuccess("Successfully Deleted The Patient.");
@@ -130,7 +148,8 @@ export function PatientsProvider({ children }) {
       .catch(() => {
         setError("Failed delete the Patient...");
         cleanupError();
-      });
+      })
+      .finally(() => setDeleteButtonsFormPatientLoader(false));
   };
 
   return (
@@ -143,13 +162,19 @@ export function PatientsProvider({ children }) {
         Success,
         MyPatients,
         getPatientById,
-        getPatients,
+        getPatient,
         createPatient,
         updatePatient,
         deletePatient,
         setSuccess,
-        getMyAllPatients,
+        getMyAllPatient,
         setPatient,
+        PatientLoader,
+        FormPatientLoader,
+        ButtonsFormPatientLoader,
+        DeleteButtonsFormPatientLoader,
+        typeOfTreatments,
+        currentIllnessess,
       }}
     >
       {children}

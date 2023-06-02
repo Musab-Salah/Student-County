@@ -20,7 +20,6 @@ namespace Student_County.DAL
         public string? TypeOfContract { get; set; }
         [Required]
         public int Price { get; set; }
-        [Required]
         public string? ShortDescription { get; set; }
         [Required]
         public string? LongDescription { get; set; }

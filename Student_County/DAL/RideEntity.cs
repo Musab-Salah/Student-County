@@ -16,7 +16,6 @@ namespace Student_County.DAL
         public int EmptySeats { get; set; }
         [Required]
         public string? CarDescription { get; set; }
-        [Required]
         public string? ShortDescription { get; set; }
         [Required]
         public string? LongDescription { get; set; }

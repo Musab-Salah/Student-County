@@ -1,5 +1,5 @@
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
-import React, { useState, createContext, useEffect } from "react";
+import React, { useState, createContext, useEffect, useMemo } from "react";
 import useComponent from "./../hooks/useComponent";
 import useAuth from "../hooks/useAuth";
 import ChatServices from "../services/ChatServices";
@@ -33,6 +33,11 @@ export function ChatsProvider({ children }) {
   useEffect(() => {
     if (isLogout) closeConnection();
   }, [isLogout]);
+
+  useEffect(() => {
+    getMyAllChats();
+    // eslint-disable-next-line
+  }, [messages]);
 
   const joinRoom = async () => {
     try {
@@ -96,7 +101,6 @@ export function ChatsProvider({ children }) {
   const sendMessage = async (message) => {
     try {
       await connection.invoke("SendMessage", message);
-      getMyAllChats();
     } catch (e) {
       console.log(e);
     }

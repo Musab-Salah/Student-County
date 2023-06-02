@@ -63,7 +63,6 @@ namespace Student_County.API.Controllers
                 myList.Add(tools);
             }
             var patients = await _patientmanager.GetMyAllPatients(userid);
-
              myList.Add(patients);
             return Ok(myList);
 

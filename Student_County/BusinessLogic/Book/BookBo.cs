@@ -14,7 +14,6 @@ namespace Student_County.BusinessLogic.Book
         public string? TheWay { get; set; }
         [Required]
         public int Price { get; set; }
-        [Required]
         public string? ShortDescription { get; set; }
         [Required]
         public string? Condition { get; set; }

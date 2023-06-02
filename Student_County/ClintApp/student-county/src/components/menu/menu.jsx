@@ -227,8 +227,8 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                 <div
                   className={`dash-nav-link ${
                     isMenuOpen ? "padding-resize" : ""
-                  } ${OptionMenu === "Patients" ? "selected" : ""} `}
-                  onClick={() => setOptionMenu("Patients")}
+                  } ${OptionMenu === "Patient" ? "active" : ""} `}
+                  onClick={() => setOptionMenu("Patient")}
                 >
                   <AiOutlineUser className="dash-nav-link-icon" />
                   <div
@@ -281,12 +281,12 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
         <div className="user-container">
           <div className="profile">
             <div className="profile-info">
-              <FaUserCircle className="avatar-icon" />
-              <div className="user-info">
-                <div
-                  className={`username ${isMenuOpen ? "hidden" : ""}`}
-                >{`${decodedJwt.name} ${decodedJwt.family_name}`}</div>
-                <div className={`role ${isMenuOpen ? "hidden" : ""}`}>
+              <FaUserCircle className={`avatar-icon ${isMenuOpen ? "small-icon" : ""}`} />
+              <div className={`user-info ${isMenuOpen ? "hidden" : ""}`}>
+                <div className="username">
+                  {`${decodedJwt.name} ${decodedJwt.family_name}`}
+                </div>
+                <div className="role">
                   {decodedJwt.roles}
                 </div>
               </div>

@@ -14,7 +14,7 @@ namespace Student_County.BusinessLogic.Patient
                 LastName = bo.LastName,
                 PhoneNumber = bo.PhoneNumber,
                 NationalIdNumber = bo.NationalIdNumber,
-                Description = bo.Description,
+                AdditionalInformation = bo.AdditionalInformation,
                 Age = bo.Age,
                 Address = bo.Address,
                 Gender = bo.Gender,

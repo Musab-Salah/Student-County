@@ -12,7 +12,6 @@ namespace Student_County.BusinessLogic.Ride
         public int EmptySeats { get; set; }
         [Required]
         public string? CarDescription { get; set; }
-        [Required]
         public string? ShortDescription { get; set; }
         [Required]
         public string? LongDescription { get; set; }

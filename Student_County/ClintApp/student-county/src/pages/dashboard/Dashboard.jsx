@@ -16,6 +16,8 @@ import BooksForm from "../../components/services/books/books_form/BooksForm";
 import "./Dashboard.css";
 import ChatController from "../../components/chat/ChatController";
 import useUserRelationData from "../../hooks/UserRelationData";
+import PatientForm from "../../components/services/Patient/patient_form/PatientForm";
+import PatientSection from "../../components/services/Patient/patient_section/PatientSection";
 
 const Dashboard = () => {
   const { Books, MyBooks } = useBooks();
@@ -28,18 +30,16 @@ const Dashboard = () => {
   //const [filteredValue, setFilteredValue] = useState("");
   const deferredInput = useDeferredValue(query);
 
-
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const handleIconClick = () => {
     setIsSearchOpen(!isSearchOpen);
   };
 
   const handleOutsideClick = (event) => {
-    if (!event.target.closest('.input-wrapper')) {
+    if (!event.target.closest(".input-wrapper")) {
       setIsSearchOpen(false);
     }
   };
-
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -113,6 +113,9 @@ const Dashboard = () => {
 
   return (
     <>
+      {(ButtonCards === "CreatePatient" || ButtonCards === "UpdatePatient") && (
+        <PatientForm />
+      )}
       {(ButtonCards === "CreateBook" || ButtonCards === "UpdateBook") && (
         <BooksForm />
       )}
@@ -143,23 +146,27 @@ const Dashboard = () => {
               </div>
               <div className="right-navbar">
                 <div className="tools">
-                <div className="input-wrapper" onClick={handleOutsideClick}>
-                <div className={`search-box ${isSearchOpen ? 'searchOpen' : ''}`}>
-                  <input
-                    placeholder="Search..."
-                    className="input-search"
-                    name="text"
-                    type="text"
-                    value={query}
-                    maxLength={20}
-                    onChange={(e) => setQuery(e.target.value)}
-                  />
-                </div>
-                <FiSearch
-                  className="btn icon btn-icon btn-icon-active"
-                  onClick={handleIconClick}
-                />
-              </div>
+                  <div className="input-wrapper" onClick={handleOutsideClick}>
+                    <div
+                      className={`search-box ${
+                        isSearchOpen ? "searchOpen" : ""
+                      }`}
+                    >
+                      <input
+                        placeholder="Search..."
+                        className="input-search"
+                        name="text"
+                        type="text"
+                        value={query}
+                        maxLength={20}
+                        onChange={(e) => setQuery(e.target.value)}
+                      />
+                    </div>
+                    <FiSearch
+                      className="btn icon btn-icon btn-icon-active"
+                      onClick={handleIconClick}
+                    />
+                  </div>
 
                   {OptionMenu === "Books" && (
                     <AiOutlinePlus
@@ -167,7 +174,12 @@ const Dashboard = () => {
                       onClick={() => setButtonCards("CreateBook")}
                     />
                   )}
-
+                  {OptionMenu === "Patient" && (
+                    <AiOutlinePlus
+                      className="btn btn-icon "
+                      onClick={() => setButtonCards("CreatePatient")}
+                    />
+                  )}
                   <RiNotification2Line className="btn btn-icon" />
                 </div>
                 {/* <div className="horizontal-line" />
@@ -196,11 +208,14 @@ const Dashboard = () => {
             {OptionMenu === "Overview" && (
               <Overview filteredValue={filteredValue ? filteredValue : false} />
             )}
-            {OptionMenu === "Chat" && (
-              <ChatController  />
-            )}
+            {OptionMenu === "Chat" && <ChatController />}
             {OptionMenu === "Books" && (
               <BooksSection
+                filteredValue={filteredValue ? filteredValue : false}
+              />
+            )}
+            {OptionMenu === "Patient" && (
+              <PatientSection
                 filteredValue={filteredValue ? filteredValue : false}
               />
             )}
