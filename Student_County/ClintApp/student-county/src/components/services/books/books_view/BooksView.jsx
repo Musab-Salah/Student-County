@@ -5,12 +5,16 @@ import "./BooksView.css";
 import useLoader from "../../../../hooks/useLoader";
 import ChatController from "../../../chat/ChatController";
 import { TbCrown } from "react-icons/tb";
+import useChat from "../../../../hooks/useChat";
+import useAuth from "../../../../hooks/useAuth";
 
 const BooksView = () => {
-  const { setButtonCards, setOpenChat, setOptionMenu, setOwnerItem } =
+  const { setButtonCards, setOpenChatArea, setOptionMenu, setOwnerItem } =
     useComponent();
   const { Book, setBook } = useBooks();
+  const { reJoinRoom, setChatOpened } = useChat();
   const { FormBooksLoader } = useLoader();
+  const { decodedJwt } = useAuth();
   const [date, setDate] = useState();
   // State Hook
   useMemo(() => {
@@ -82,9 +86,11 @@ const BooksView = () => {
               <div className="buttons">
                 <button
                   onClick={() => {
+                    reJoinRoom(decodedJwt.uid, Book.studentId);
                     setOwnerItem(Book.studentId);
+                    setChatOpened(Book.studentName);
                     setOptionMenu("Chat");
-                    setOpenChat(true);
+                   // setOpenChatArea(true);
                     setButtonCards("");
                   }}
                   className={`btn btn-primary `}

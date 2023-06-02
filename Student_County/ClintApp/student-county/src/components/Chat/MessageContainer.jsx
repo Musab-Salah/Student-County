@@ -2,10 +2,10 @@ import { useEffect, useMemo, useRef } from "react";
 import useAuth from "./../../hooks/useAuth";
 import useChat from "../../hooks/useChat";
 
-const MessageContainer = ({ messages, previosMessages }) => {
+const MessageContainer = () => {
   const messageRef = useRef();
   const { decodedJwt } = useAuth();
-  const { ChatOpened } = useChat();
+  const { ChatOpened, messages, previosMessages } = useChat();
   useEffect(() => {
     if (messageRef && messageRef.current) {
       const { scrollHeight, clientHeight } = messageRef.current;
@@ -61,29 +61,25 @@ const MessageContainer = ({ messages, previosMessages }) => {
 
       {Object.values(messages)
         .sort((a, b) => Date.parse(a.createdOn) - Date.parse(b.createdOn))
-        .map((msg, id) =>
-          msg.roomId === ChatOpened.id ? (
+        .map((msg, id) => (
+          <div
+            key={id}
+            className={`${
+              decodedJwt.uid === msg.from
+                ? "my-message-container"
+                : "not-my-message-container"
+            }`}
+          >
             <div
-              key={id}
               className={`${
-                decodedJwt.uid === msg.from
-                  ? "my-message-container"
-                  : "not-my-message-container"
+                decodedJwt.uid === msg.from ? "my-message" : "not-my-message"
               }`}
             >
-              <div
-                className={`${
-                  decodedJwt.uid === msg.from ? "my-message" : "not-my-message"
-                }`}
-              >
-                <div className="message">{msg.message}</div>
-              </div>
-              <div className="created-on">{formatDate(msg.createdOn)}</div>
+              <div className="message">{msg.message}</div>
             </div>
-          ) : (
-            ""
-          )
-        )}
+            <div className="created-on">{formatDate(msg.createdOn)}</div>
+          </div>
+        ))}
     </div>
   );
 };

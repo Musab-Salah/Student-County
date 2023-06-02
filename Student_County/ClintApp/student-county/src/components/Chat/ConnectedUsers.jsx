@@ -11,21 +11,22 @@ const ConnectedUsers = ({
   users,
   setMessages,
   closeConnection,
-  joinRoom,
   setPreviosMessages,
 }) => {
-  const { getMyAllChats, MyChat, setChatOpened, deleteChat } = useChat();
+  const { getMyAllChats, MyChat, setChatOpened, deleteChat, reJoinRoom } =
+    useChat();
   const { decodedJwt } = useAuth();
-  const { setOwnerItem, setOpenChat } = useComponent();
-  const [changeToDeleteMode, setChangeToDeleteMode] = useState(false);
+  const { setOwnerItem, setOpenChatArea } = useComponent();
+  const [toDelete, setToDelete] = useState(false);
   const [openDeleteMode, setOpenDeleteMode] = useState(false);
+  const [chatIdToDelete, setChatIdToDelete] = useState("");
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
-  
+
     if (
       date.getDate() === today.getDate() &&
       date.getMonth() === today.getMonth() &&
@@ -51,8 +52,6 @@ const ConnectedUsers = ({
       return formattedDate;
     }
   };
-  
-  
 
   return (
     <div className="user-list">
@@ -60,7 +59,12 @@ const ConnectedUsers = ({
         <div className="messages-title">Messages</div>
         <div className="messages-icons">
           <HiTrash
-            onClick={() => setOpenDeleteMode(!openDeleteMode)}
+            onClick={() => {
+              {
+                setOpenDeleteMode(!openDeleteMode);
+                setToDelete(false);
+              }
+            }}
             className="trash-menu btn btn-icon small-btn-icon"
           />
           <AiOutlinePlus className="btn btn-icon small-btn-icon" />
@@ -68,31 +72,26 @@ const ConnectedUsers = ({
       </div>
       <div className="vertical-line" />
       <div className="users-list flex-container">
-        {/* <button onClick={() => closeConnection()}>close</button> */}
         {Object.values(MyChat).map((chat) => (
           <div
             onClick={() => {
               setPreviosMessages([]);
               setMessages([]);
-              //joinRoom()
+
               {
-                !changeToDeleteMode && setChatOpened(chat);
+                !toDelete && !openDeleteMode && setChatOpened(chat);
               }
               {
-                !changeToDeleteMode &&
-                  joinRoom(
+                !toDelete &&
+                  !openDeleteMode &&
+                  reJoinRoom(
                     decodedJwt.uid,
                     decodedJwt.uid !== chat.from ? chat.from : chat.to
                   );
               }
+
               {
-                !changeToDeleteMode &&
-                  setOwnerItem(
-                    decodedJwt.uid !== chat.from ? chat.from : chat.to
-                  );
-              }
-              {
-                !changeToDeleteMode && setOpenChat(true);
+                !toDelete && !openDeleteMode && setOpenChatArea(true);
               }
             }}
             key={chat.id}
@@ -114,26 +113,32 @@ const ConnectedUsers = ({
             {openDeleteMode ? (
               <HiTrash
                 onClick={() => {
-                  setChangeToDeleteMode(!openDeleteMode);
-                  setOpenDeleteMode(!openDeleteMode)
+                  setToDelete(true);
+                  setChatIdToDelete(chat.id);
+                  setOpenDeleteMode(!openDeleteMode);
                 }}
                 className="btn btn-icon small-btn-icon trash-list-red"
               />
             ) : (
-              <div className="conversation-user-lastmessage-time">
-                {" "}
-                {formatDate(chat.createdOnLastMessage)}
-              </div>
+              !toDelete && (
+                <div className="conversation-user-lastmessage-time">
+                  {" "}
+                  {formatDate(chat.createdOnLastMessage)}
+                </div>
+              )
             )}
-             {changeToDeleteMode ? (
+            {chatIdToDelete === chat.id && toDelete ? (
               <BsCheckLg
                 onClick={() => {
-                  setOpenChat(false);
+                  setOpenChatArea(false);
                   deleteChat(chat.id);
+                  setToDelete(false);
                 }}
                 className="btn btn-icon small-btn-icon trash-list-green"
               />
-            ) : ""}
+            ) : (
+              ""
+            )}
           </div>
         ))}
       </div>

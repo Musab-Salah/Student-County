@@ -5,70 +5,50 @@ import Chat from "./Chat";
 import useComponent from "../../hooks/useComponent";
 import useChat from "./../../hooks/useChat";
 import useAuth from "../../hooks/useAuth";
+import { Helmet } from "react-helmet";
 
-const ChatController = ({ From, To }) => {
+const ChatController = () => {
   const {
     getMyAllChats,
     setConnection,
     closeConnection,
     ChatOpened,
-    messages,
     previosMessages,
     setMessages,
     setPreviosMessages,
-    connection,
   } = useChat();
-  const { setOpenChat, setOwnerItem, openChat, ownerItem } = useComponent();
+  const { setOpenChatArea, setOwnerItem, openChatArea, ownerItem } = useComponent();
   const { decodedJwt } = useAuth();
 
   useEffect(() => {
     return function cleanup() {
-      setOpenChat(false);
-      setOwnerItem(false);
+      setOpenChatArea(false);
+      //setOwnerItem(false);
     };
     // eslint-disable-next-line
   }, []);
-  useEffect(() => {
-    if (From && To) joinRoom();
-  }, [To]);
+
   useEffect(() => {
     getMyAllChats();
     // eslint-disable-next-line
   }, [previosMessages]);
 
-  const joinRoom = async () => {
-    try {
-      const roomid = "5aea6cf4-43cf-450d-b475-becc931b63af";
-      await connection.invoke("JoinRoom", { roomid, From, To });
-      await connection.invoke("GetMessagesForUser", { roomid, From, To });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  useEffect(() => {}, [previosMessages, messages]);
-  const sendMessage = async (message) => {
-    try {
-      await connection.invoke("SendMessage", message);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   return (
+    <>
+    <Helmet>
+        <title>Messages</title>
+      </Helmet>
+   
     <div className="messages-container">
       <Chat
-        sendMessage={sendMessage}
-        messages={messages}
-        previosMessages={previosMessages}
-        openChat={openChat}
+        openChatArea={openChatArea}
         closeConnection={closeConnection}
-        setOpenChat={setOpenChat}
-        joinRoom={joinRoom}
+        setOpenChatArea={setOpenChatArea}
         setMessages={setMessages}
         setPreviosMessages={setPreviosMessages}
         decodedJwt={decodedJwt}
       />
-    </div>
+    </div> </>
   );
 };
 

@@ -32,6 +32,16 @@ namespace Student_County.BusinessLogic.Hubs
 
         }
 
+        public override Task OnDisconnectedAsync(Exception exception)
+        {
+            if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
+            {
+                _connections.Remove(Context.ConnectionId);
+            }
+
+            return base.OnDisconnectedAsync(exception);
+
+        }
 
         public async Task JoinRoom(UserConnection userConnection)
         {
@@ -108,8 +118,8 @@ namespace Student_County.BusinessLogic.Hubs
         {
 
             if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
-                    {
-            var room = await _context.Rooms
+            {
+                var room = await _context.Rooms
                     .FirstOrDefaultAsync(r => r.From == userConnection.From && r.To == userConnection.To || r.To == userConnection.From && r.From == userConnection.To);
                 var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userConnection.From);
 

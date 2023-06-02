@@ -16,7 +16,6 @@ class ChatServices {
   deleteChat = async (userid, roomid, token) =>
     await axios.delete(
       BOOK_API_BASE_URL + "/Delete?userid=" + userid + "&roomid=" + roomid,
-      null,
       {
         params: {
           userid: userid,

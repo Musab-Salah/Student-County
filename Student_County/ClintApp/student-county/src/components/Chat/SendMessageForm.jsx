@@ -2,9 +2,11 @@ import { Form, Button, FormControl, InputGroup } from "react-bootstrap";
 import { useState } from "react";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { ImAttachment } from "react-icons/im";
+import useChat from "../../hooks/useChat";
 
-const SendMessageForm = ({ sendMessage }) => {
+const SendMessageForm = ({}) => {
   const [message, setMessage] = useState("");
+  const { sendMessage } = useChat();
 
   return (
     <Form
@@ -23,14 +25,10 @@ const SendMessageForm = ({ sendMessage }) => {
           onChange={(e) => setMessage(e.target.value)}
           value={message}
         />
-           <ImAttachment className="send-attachment-icon" /> 
+        <ImAttachment className="send-attachment-icon" />
       </InputGroup>
 
-      <button
-        type="submit"
-        disabled={!message}
-        className="send-message-button"
-      >
+      <button type="submit" disabled={!message} className="send-message-button">
         <RiSendPlaneFill className="send-message-icon" />
       </button>
     </Form>

@@ -8,7 +8,7 @@ const ChatCxt = createContext();
 
 export function ChatsProvider({ children }) {
   const [connection, setConnection] = useState();
-  const { OptionMenu } = useComponent();
+  const { OptionMenu, setOpenChatArea } = useComponent();
   const { decodedJwt, token, isLogin, isLogout } = useAuth();
   const [MyChat, setMyChat] = useState([]); //all user chat
   const [ChatLoader, setChatLoader] = useState("");
@@ -93,6 +93,26 @@ export function ChatsProvider({ children }) {
       .finally(() => setChatLoader(false));
   };
 
+  const sendMessage = async (message) => {
+    try {
+      await connection.invoke("SendMessage", message);
+      getMyAllChats();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const reJoinRoom = async (From, To) => {
+    setOpenChatArea(true);
+    try {
+      const roomid = "5aea6cf4-43cf-450d-b475-becc931b63af";
+      await connection.invoke("JoinRoom", { roomid, From, To });
+      await connection.invoke("GetMessagesForUser", { roomid, From, To });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <ChatCxt.Provider
       value={{
@@ -111,6 +131,8 @@ export function ChatsProvider({ children }) {
         setMessages,
         setPreviosMessages,
         deleteChat,
+        reJoinRoom,
+        sendMessage,
       }}
     >
       {children}

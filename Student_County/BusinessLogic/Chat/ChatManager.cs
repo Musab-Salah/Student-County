@@ -14,7 +14,7 @@ namespace Student_County.BusinessLogic.Chat
 
         public async Task<List<RoomEntity>> GetMyAllChats(string userid) => await _context.Rooms.Where(entity =>  entity.From == userid || entity.To == userid)
             .Where(entity => entity.DeletedFromFirstUser != userid && entity.DeletedFromSecondUser != userid)
-            .OrderByDescending(x => x.CreatedOn).ToListAsync();
+            .OrderByDescending(x => x.CreatedOnLastMessage).ToListAsync();
 
         public async Task Delete(string userId, string roomId)
         {

@@ -8,7 +8,7 @@ namespace Student_County.API.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
-    //[Authorize(Roles = "Student,Dentistry Student,Admin,Patient")]
+    [Authorize(Roles = "Student,Dentistry Student,Admin,Patient")]
     public class ChatController : ControllerBase
     {
         private readonly IChatManager _manager;

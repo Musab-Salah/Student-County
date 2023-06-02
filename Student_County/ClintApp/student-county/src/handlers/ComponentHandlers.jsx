@@ -5,7 +5,7 @@ const ComponentCxt = createContext();
 export function ComponentProvider({ children }) {
   const [OptionMenu, setOptionMenu] = useState("Overview");
   const [ButtonCards, setButtonCards] = useState("");
-  const [openChat, setOpenChat] = useState(false);
+  const [openChatArea, setOpenChatArea] = useState(false);
   const [ownerItem, setOwnerItem] = useState("");
 
   return (
@@ -15,8 +15,8 @@ export function ComponentProvider({ children }) {
         ButtonCards,
         setOptionMenu,
         setButtonCards,
-        setOpenChat,
-        openChat,
+        setOpenChatArea,
+        openChatArea,
         setOwnerItem,
         ownerItem,
       }}
