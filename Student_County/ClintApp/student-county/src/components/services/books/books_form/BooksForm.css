@@ -27,8 +27,8 @@
   transition: 0.3s ease;
   width: -webkit-fill-available;
   gap: 10px;
-  max-width: 392.31px;
-  min-width: 100%;
+  /* max-width: 392.31px; */
+  /*min-width: 100%;*/
 }
 .input-container-option {
   position: absolute;

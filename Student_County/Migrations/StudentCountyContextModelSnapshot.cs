@@ -385,10 +385,10 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 2, 18, 1, 10, 254, DateTimeKind.Unspecified).AddTicks(2313), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 3, 13, 6, 13, 122, DateTimeKind.Unspecified).AddTicks(6013), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 2, 18, 1, 10, 254, DateTimeKind.Unspecified).AddTicks(2316), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 3, 13, 6, 13, 122, DateTimeKind.Unspecified).AddTicks(6014), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "EIT"
                         });
                 });
@@ -855,11 +855,11 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 2, 18, 1, 10, 254, DateTimeKind.Unspecified).AddTicks(2182), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 3, 13, 6, 13, 122, DateTimeKind.Unspecified).AddTicks(5976), new TimeSpan(0, 0, 0, 0, 0)),
                             EmailDomainName = "@student.aaup.edu",
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 2, 18, 1, 10, 254, DateTimeKind.Unspecified).AddTicks(2188), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 3, 13, 6, 13, 122, DateTimeKind.Unspecified).AddTicks(5980), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Arab American University"
                         });
                 });

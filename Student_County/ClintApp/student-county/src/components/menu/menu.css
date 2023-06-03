@@ -84,6 +84,10 @@
   background-color: #eaecf1;
   color: #3c3e4b;
 }
+.dash-nav-link.active {
+  background-color: #eaecf1;
+  color: #3c3e4b;
+}
 .selected {
   background-color: #eaecf1;
 }

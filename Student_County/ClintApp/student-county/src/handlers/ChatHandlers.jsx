@@ -35,7 +35,7 @@ export function ChatsProvider({ children }) {
   }, [isLogout]);
 
   useEffect(() => {
-    getMyAllChats();
+    if (isLogin) getMyAllChats();
     // eslint-disable-next-line
   }, [messages]);
 

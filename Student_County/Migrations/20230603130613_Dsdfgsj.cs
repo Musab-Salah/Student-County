@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Student_County.Migrations
 {
     /// <inheritdoc />
-    public partial class Chatasd : Migration
+    public partial class Dsdfgsj : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -71,6 +71,14 @@ namespace Student_County.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     From = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     To = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FromName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ToName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FromRole = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ToRole = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastMessage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedOnLastMessage = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    DeletedFromFirstUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeletedFromSecondUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -284,9 +292,12 @@ namespace Student_County.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ServiceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TheWay = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    University = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Condition = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
-                    ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LongDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -313,10 +324,11 @@ namespace Student_County.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ServiceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TypeOfContract = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
-                    ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LongDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -343,11 +355,12 @@ namespace Student_County.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ServiceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NationalIdNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AdditionalInformation = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Age = table.Column<int>(type: "int", nullable: false),
                     TypeOfTreatment = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CurrentIllnesses = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -403,9 +416,10 @@ namespace Student_County.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ServiceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EmptySeats = table.Column<int>(type: "int", nullable: false),
                     CarDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LongDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -439,10 +453,12 @@ namespace Student_County.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ServiceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TheWay = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Condition = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
-                    ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LongDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -477,12 +493,12 @@ namespace Student_County.Migrations
             migrationBuilder.InsertData(
                 table: "College",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "IsDeleted", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 1, "Ini", new DateTimeOffset(new DateTime(2023, 5, 26, 17, 29, 24, 923, DateTimeKind.Unspecified).AddTicks(3398), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 5, 26, 17, 29, 24, 923, DateTimeKind.Unspecified).AddTicks(3400), new TimeSpan(0, 0, 0, 0, 0)), "EIT" });
+                values: new object[] { 1, "Ini", new DateTimeOffset(new DateTime(2023, 6, 3, 13, 6, 13, 122, DateTimeKind.Unspecified).AddTicks(6013), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 3, 13, 6, 13, 122, DateTimeKind.Unspecified).AddTicks(6014), new TimeSpan(0, 0, 0, 0, 0)), "EIT" });
 
             migrationBuilder.InsertData(
                 table: "University",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "EmailDomainName", "IsDeleted", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 1, "Ini", new DateTimeOffset(new DateTime(2023, 5, 26, 17, 29, 24, 923, DateTimeKind.Unspecified).AddTicks(3264), new TimeSpan(0, 0, 0, 0, 0)), "@student.aaup.edu", false, "Ini", new DateTimeOffset(new DateTime(2023, 5, 26, 17, 29, 24, 923, DateTimeKind.Unspecified).AddTicks(3270), new TimeSpan(0, 0, 0, 0, 0)), "Arab American University" });
+                values: new object[] { 1, "Ini", new DateTimeOffset(new DateTime(2023, 6, 3, 13, 6, 13, 122, DateTimeKind.Unspecified).AddTicks(5976), new TimeSpan(0, 0, 0, 0, 0)), "@student.aaup.edu", false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 3, 13, 6, 13, 122, DateTimeKind.Unspecified).AddTicks(5980), new TimeSpan(0, 0, 0, 0, 0)), "Arab American University" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

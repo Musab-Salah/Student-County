@@ -18,8 +18,12 @@ namespace Student_County.BusinessLogic.Patient
                 Age = bo.Age,
                 Address = bo.Address,
                 Gender = bo.Gender,
-                UserId = bo.UserId
-                   
+                UserId = bo.UserId,
+                TypeOfTreatment = bo.TypeOfTreatment,
+                CurrentIllnesses = bo.CurrentIllnesses,
+                CurrentlyUsedMedicines = bo.CurrentlyUsedMedicines,
+                Sensitivity=bo.Sensitivity
+
             };
         }
     }

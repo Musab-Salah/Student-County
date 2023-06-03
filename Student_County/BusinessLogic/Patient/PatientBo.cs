@@ -21,6 +21,14 @@ namespace Student_County.BusinessLogic.Patient
         [Required]
         public int Age { get; set; }
         [Required]
+        public string? TypeOfTreatment { get; set; }
+        [Required]
+        public string? CurrentIllnesses { get; set; }
+        [Required]
+        public string? Sensitivity { get; set; }
+        [Required]
+        public string? CurrentlyUsedMedicines { get; set; }
+        [Required]
         public string? Address { get; set; }
         [Required]
         public string? Gender { get; set; }

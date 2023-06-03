@@ -4,7 +4,7 @@ import ConnectedUsers from "./ConnectedUsers";
 import { ImAttachment } from "react-icons/im";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { TiArrowBack } from "react-icons/ti";
-
+import { FaUserCircle } from "react-icons/fa";
 import useChat from "../../hooks/useChat";
 
 const Chat = ({
@@ -16,7 +16,18 @@ const Chat = ({
   setPreviosMessages,
   decodedJwt,
 }) => {
-  const { ChatOpened } = useChat();
+  const { ChatOpened, setChatOpened } = useChat();
+
+  /*const ChatOpened = {
+    from: "user1",
+    fromName: "John",
+    toName: "Alice",
+    toRole: "Admin",
+  };
+
+  const decodedJwt = {
+    uid: "user2",
+  };*/
 
   return (
     <>
@@ -27,27 +38,35 @@ const Chat = ({
       />
       {openChatArea ? (
         <div className="chat">
-          <div className="conversation-user-info">
-            <div className="conversation-user-name">
-              {" "}
-              {ChatOpened.from &&
-                (decodedJwt.uid !== ChatOpened.from
-                  ? ChatOpened.fromName
-                  : ChatOpened.toName)}
-              {!ChatOpened.from && !ChatOpened.from && ChatOpened}
+          <div className="conversation-selected-user-info-container">
+            <div className="conversation-selected-user-profile">
+              <FaUserCircle className="conversation-selected-user-avatar" />
+              <div className="conversation-selected-user-info">
+                <div className="conversation-selected-user-name">
+                  {ChatOpened.from &&
+                    (decodedJwt.uid !== ChatOpened.from
+                      ? ChatOpened.fromName
+                      : ChatOpened.toName)}
+                  {!ChatOpened.from && !ChatOpened.from && ChatOpened}
+                </div>
+                <div className="conversation-selected-user-role">
+                  {ChatOpened.toRole}
+                </div>
+              </div>
             </div>
-            <div className="conversation-user-lastmessage-time">
-              {ChatOpened.toRole}
-            </div>
-            <div className={"back-btn"}>
+            <div className="back-btn">
               <TiArrowBack
-                onClick={() => setOpenChatArea(false)}
-                className="btn btn-icon small-btn-icon "
+                onClick={() => {
+                  setChatOpened("");
+                  setOpenChatArea(false);
+                }}
+                className="btn btn-icon small-btn-icon"
               />
             </div>
           </div>
-
+          <div className="vertical-line" />
           <MessageContainer />
+          <div className="vertical-line" />
           <SendMessageForm />
         </div>
       ) : (

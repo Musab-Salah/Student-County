@@ -262,7 +262,7 @@ const BooksForm = () => {
                 {shortDescriptionError}
               </span>
             )}
-            <div className="input-container ">
+            <div className="input-container" style={{ minWidth: '100%', maxWidth: '392.31px' }}>
               <textarea
                 maxLength={300}
                 type="text"

@@ -94,7 +94,11 @@ export function PatientsProvider({ children }) {
   };
   const createPatient = (Bo) => {
     setButtonsFormPatientLoader(true);
-    Bo.studentId = decodedJwt.uid;
+    Bo.userId = decodedJwt.uid;
+    //Bo.id = 0;
+    //Bo.currentIllnesses = "sdfsd";
+    //Bo.typeOfTreatment = "sdfg";
+    console.log(Bo);
     PatientServices.createPatient(Bo, token)
       .then((res) => {
         setSuccess("Successfully Created The Patient.");

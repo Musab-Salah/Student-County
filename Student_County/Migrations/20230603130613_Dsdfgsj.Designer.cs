@@ -12,8 +12,8 @@ using Student_County.DAL;
 namespace Student_County.Migrations
 {
     [DbContext(typeof(StudentCountyContext))]
-    [Migration("20230602101749_Sfgvmn")]
-    partial class Sfgvmn
+    [Migration("20230603130613_Dsdfgsj")]
+    partial class Dsdfgsj
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -324,7 +324,6 @@ namespace Student_County.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShortDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StudentId")
@@ -389,10 +388,10 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 2, 10, 17, 49, 175, DateTimeKind.Unspecified).AddTicks(2006), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 3, 13, 6, 13, 122, DateTimeKind.Unspecified).AddTicks(6013), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 2, 10, 17, 49, 175, DateTimeKind.Unspecified).AddTicks(2007), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 3, 13, 6, 13, 122, DateTimeKind.Unspecified).AddTicks(6014), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "EIT"
                         });
                 });
@@ -479,7 +478,6 @@ namespace Student_County.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShortDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StudentId")
@@ -548,6 +546,9 @@ namespace Student_County.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AdditionalInformation")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -566,10 +567,6 @@ namespace Student_County.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CurrentlyUsedMedicines")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -671,7 +668,6 @@ namespace Student_County.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShortDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StudentId")
@@ -795,7 +791,6 @@ namespace Student_County.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShortDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StudentId")
@@ -863,11 +858,11 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 2, 10, 17, 49, 175, DateTimeKind.Unspecified).AddTicks(1972), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 3, 13, 6, 13, 122, DateTimeKind.Unspecified).AddTicks(5976), new TimeSpan(0, 0, 0, 0, 0)),
                             EmailDomainName = "@student.aaup.edu",
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 2, 10, 17, 49, 175, DateTimeKind.Unspecified).AddTicks(1977), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 3, 13, 6, 13, 122, DateTimeKind.Unspecified).AddTicks(5980), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Arab American University"
                         });
                 });

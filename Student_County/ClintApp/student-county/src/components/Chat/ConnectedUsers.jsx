@@ -13,8 +13,14 @@ const ConnectedUsers = ({
   closeConnection,
   setPreviosMessages,
 }) => {
-  const { getMyAllChats, MyChat, setChatOpened, deleteChat, reJoinRoom } =
-    useChat();
+  const {
+    getMyAllChats,
+    MyChat,
+    setChatOpened,
+    deleteChat,
+    reJoinRoom,
+    ChatOpened,
+  } = useChat();
   const { decodedJwt } = useAuth();
   const { setOwnerItem, setOpenChatArea } = useComponent();
   const [toDelete, setToDelete] = useState(false);
@@ -67,7 +73,7 @@ const ConnectedUsers = ({
             }}
             className="trash-menu btn btn-icon small-btn-icon"
           />
-          <AiOutlinePlus className="btn btn-icon small-btn-icon" />
+          {/* <AiOutlinePlus className="btn btn-icon small-btn-icon" /> */}
         </div>
       </div>
       <div className="vertical-line" />
@@ -95,7 +101,9 @@ const ConnectedUsers = ({
               }
             }}
             key={chat.id}
-            className={`conversation`}
+            className={`conversation ${
+              chat.id === ChatOpened.id ? "conversation-selected" : ""
+            } `}
           >
             <div className="conversation-user-profile">
               <FaUserCircle className="conversation-user-avatar" />

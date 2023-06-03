@@ -341,9 +341,12 @@ input:-webkit-autofill {
   gap: 15px;
 }
 .checking {
-  display: -webkit-inline-box;
-  -webkit-box-align: center;
+  display: flex;
   gap: 10px;
+  align-items: flex-start;
+  /*display: -webkit-inline-box;
+  -webkit-box-align: center;
+  gap: 10px;*/
 }
 .checkbox {
   width: 20px;
