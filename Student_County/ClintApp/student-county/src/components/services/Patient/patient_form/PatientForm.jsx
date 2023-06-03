@@ -20,6 +20,7 @@ const PatientForm = () => {
     currentIllnessess,
   } = usePatient();
   // State Hook
+  const [step, setStep] = useState(1); // Current step of the form
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -68,6 +69,10 @@ const PatientForm = () => {
     useState(false);
   const [showDropdownGender, setShowDropdownGender] = useState(false);
   ///////////////////////////////////////////////////////////////////
+  const [validatePersonalInformation, setValidatePersonalInformation] =
+    useState();
+  const [validateMedicalInformation, setValidateMedicalInformation] =
+    useState();
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   useMemo(() => {
@@ -152,6 +157,7 @@ const PatientForm = () => {
         ...patient,
         firstName: e.target.value,
       });
+      setFirstName(e.target.value);
       setFirstNameError(false);
     }
   };
@@ -165,6 +171,7 @@ const PatientForm = () => {
         ...patient,
         lastName: e.target.value,
       });
+      setLastName(e.target.value);
       setLastNameError(false);
     }
   };
@@ -177,6 +184,7 @@ const PatientForm = () => {
         ...patient,
         phoneNumber: e.target.value,
       });
+      setPhoneNumber(e.target.value);
       setPhoneNumberError(false);
     }
   };
@@ -190,6 +198,7 @@ const PatientForm = () => {
         ...patient,
         nationalIdNumber: e.target.value,
       });
+      setNationalIdNumber(e.target.value);
       setNationalIdNumberError(false);
     }
   };
@@ -205,6 +214,7 @@ const PatientForm = () => {
         ...patient,
         additionalInformation: e.target.value,
       });
+      setAdditionalInformation(e.target.value);
       setAdditionalInformationError(false);
     }
   };
@@ -218,6 +228,7 @@ const PatientForm = () => {
         ...patient,
         age: e.target.value,
       });
+      setAge(e.target.value);
       setAgeError(false);
     }
   };
@@ -230,6 +241,7 @@ const PatientForm = () => {
         ...patient,
         sensitivity: e.target.value,
       });
+      setSensitivity(e.target.value);
       setSensitivityError(false);
     }
   };
@@ -243,6 +255,7 @@ const PatientForm = () => {
         ...patient,
         currentlyUsedMedicines: e.target.value,
       });
+      setCurrentlyUsedMedicines(e.target.value);
       setCurrentlyUsedMedicinesError(false);
     }
   };
@@ -256,6 +269,7 @@ const PatientForm = () => {
         ...patient,
         address: e.target.value,
       });
+      setAddress(e.target.value);
       setAddressError(false);
     }
   };
@@ -278,6 +292,7 @@ const PatientForm = () => {
       ...patient,
       typeOfTreatment: selectedTreatments.toString(),
     });
+    setTypeOfTreatment(selectedTreatments.toString());
   }, [selectedTreatments]);
 
   const handleCurrentIllnesses = (value) => {
@@ -299,6 +314,7 @@ const PatientForm = () => {
       ...patient,
       currentIllnesses: selectedIllnesses.toString(),
     });
+    setCurrentIllnesses(selectedIllnesses.toString());
   }, [selectedIllnesses]);
 
   const handleGender = (value) => {
@@ -309,11 +325,6 @@ const PatientForm = () => {
     setGender(value);
     setGenderError(false);
     setShowDropdownGender(false);
-  };
-
-  const handleDelete = (event) => {
-    event.preventDefault();
-    setDeleteDialogState(true);
   };
 
   useMemo(() => {
@@ -331,12 +342,65 @@ const PatientForm = () => {
     if (currentIllnessesError === "null") setCurrentIllnessesError(false);
     else if (selectedIllnesses.length === 0)
       setCurrentIllnessesError("Please select a current Illnesses");
-    console.log(genderError);
   }, [selectedIllnesses]);
 
-  const handleSubmit = (event) => {
+  const handleDelete = (event) => {
+    event.preventDefault();
+    setDeleteDialogState(true);
+  };
+  useMemo(() => {
+    // Validate personal information fields here
+    if (
+      firstName &&
+      lastName &&
+      phoneNumber &&
+      nationalIdNumber &&
+      age &&
+      address &&
+      gender
+    )
+      setValidatePersonalInformation(true);
+    else setValidatePersonalInformation(false);
+  }, [
+    firstName,
+    lastName,
+    phoneNumber,
+    nationalIdNumber,
+    age,
+    address,
+    gender,
+  ]);
+
+  useMemo(() => {
+    // Validate medical information fields here
+    if (
+      sensitivity &&
+      currentIllnesses &&
+      typeOfTreatment &&
+      currentlyUsedMedicines
+    )
+      setValidateMedicalInformation(true);
+    else setValidateMedicalInformation(false);
+  }, [sensitivity, currentlyUsedMedicines, typeOfTreatment, currentIllnesses]);
+
+  const handleNext = (event) => {
     event.preventDefault();
 
+    if (step === 1) {
+      // Validate the first part of the form and proceed to the next step if valid
+      if (validatePersonalInformation) {
+        setStep(2);
+      }
+    } else if (step === 2) {
+      // Validate the second part of the form and submit if valid
+      if (validateMedicalInformation) {
+        handleSubmit();
+      }
+    }
+  };
+
+  const handleSubmit = () => {
+    console.log(patient);
     if (
       gender &&
       selectedTreatments.length !== 0 &&
@@ -383,472 +447,529 @@ const PatientForm = () => {
             <div className="block-load-form"></div>
             <div className="block-load-form"></div>
           </div>
-          <form
-            style={{ display: FormPatientLoader ? "none" : "flex" }}
-            className="form-create"
-            onSubmit={handleSubmit}
-          >
-            <div className="input-group">
-              <div className="input-container-group">
-                <div className="input-container">
-                  <input
-                    maxLength={40}
-                    type="text"
-                    name="firstName"
-                    defaultValue={firstName ? firstName : patient.firstName}
-                    onChange={handleSetFirstName}
-                    required
-                  />
-                  <div
-                    className="input-container-option"
-                    onClick={() =>
-                      document.getElementsByName("firstName")[0].focus()
-                    }
-                  >
-                    FirstName
-                  </div>
-                </div>
-                {firstNameError && (
-                  <span className="wrong-info">
-                    <AiFillExclamationCircle />
-                    {firstNameError}
-                  </span>
-                )}
-              </div>
-              <div className="input-container-group">
-                <div className="input-container">
-                  <input
-                    maxLength={40}
-                    type="text"
-                    name="lastName"
-                    defaultValue={lastName ? lastName : patient.lastName}
-                    onChange={handleSetLastName}
-                    required
-                  />
-                  <div
-                    className="input-container-option"
-                    onClick={() =>
-                      document.getElementsByName("lastName")[0].focus()
-                    }
-                  >
-                    LastName
-                  </div>
-                </div>
-                {lastNameError && (
-                  <span className="wrong-info">
-                    <AiFillExclamationCircle />
-                    {lastNameError}
-                  </span>
-                )}
-              </div>
-            </div>
-            <div className="input-group">
-              <div className="input-container-group">
-                <div className={`input-container`}>
-                  <input
-                    type="number"
-                    name="phonenumber"
-                    maxLength={15}
-                    defaultValue={
-                      phoneNumber ? phoneNumber : patient.phoneNumber
-                    }
-                    onChange={handlePhoneNumber}
-                    required
-                  />
-
-                  <div
-                    className="input-container-option"
-                    onClick={() =>
-                      document.getElementsByName("phonenumber")[0].focus()
-                    }
-                  >
-                    Phone Number
-                  </div>
-                </div>
-                {phoneNumberError && (
-                  <span className="wrong-info">
-                    {" "}
-                    <AiFillExclamationCircle /> {phoneNumberError}{" "}
-                  </span>
-                )}
-              </div>
-              <div className="input-container-group">
-                <div className={`input-container`}>
-                  <input
-                    type="number"
-                    name="nationalidnumber"
-                    maxLength={15}
-                    defaultValue={
-                      nationalIdNumber
-                        ? nationalIdNumber
-                        : patient.nationalIdNumber
-                    }
-                    onChange={handleNationalIdNumber}
-                    required
-                  />
-
-                  <div
-                    className="input-container-option"
-                    onClick={() =>
-                      document.getElementsByName("nationalidnumber")[0].focus()
-                    }
-                  >
-                    National Id Number
-                  </div>
-                </div>
-                {nationalIdNumberError && (
-                  <span className="wrong-info">
-                    {" "}
-                    <AiFillExclamationCircle /> {nationalIdNumberError}{" "}
-                  </span>
-                )}
-              </div>
-            </div>
-            <div className="input-group">
-              <div className="input-container-group">
-                <div className="input-container">
-                  <input
-                    maxLength={40}
-                    type="text"
-                    name="sensitivity"
-                    defaultValue={
-                      sensitivity ? sensitivity : patient.sensitivity
-                    }
-                    onChange={handleSensitivity}
-                    required
-                  />
-                  <div
-                    className="input-container-option"
-                    onClick={() =>
-                      document.getElementsByName("sensitivity")[0].focus()
-                    }
-                  >
-                    Sensitivity
-                  </div>
-                </div>
-                {sensitivityError && (
-                  <span className="wrong-info">
-                    <AiFillExclamationCircle />
-                    {sensitivityError}
-                  </span>
-                )}
-              </div>
-              <div className="input-container-group">
-                <div className="input-container">
-                  <input
-                    maxLength={40}
-                    type="text"
-                    name="currentlyUsedMedicines"
-                    defaultValue={
-                      currentlyUsedMedicines
-                        ? currentlyUsedMedicines
-                        : patient.currentlyUsedMedicines
-                    }
-                    onChange={handleCurrentlyUsedMedicines}
-                    required
-                  />
-                  <div
-                    className="input-container-option"
-                    onClick={() =>
-                      document
-                        .getElementsByName("currentlyUsedMedicines")[0]
-                        .focus()
-                    }
-                  >
-                    Currently Used Medicines
-                  </div>
-                </div>
-                {currentlyUsedMedicinesError && (
-                  <span className="wrong-info">
-                    <AiFillExclamationCircle />
-                    {currentlyUsedMedicinesError}
-                  </span>
-                )}
-              </div>
-            </div>
-            <div className={`input-container`}>
-              <input
-                type="text"
-                name="address"
-                maxLength={30}
-                defaultValue={address ? address : patient.address}
-                onChange={handleAddress}
-                required
-              />
-
-              <div
-                className="input-container-option"
-                onClick={() => document.getElementsByName("address")[0].focus()}
+          {step === 1 && (
+            <>
+              <form
+                style={{ display: FormPatientLoader ? "none" : "flex" }}
+                className="form-create"
+                onSubmit={handleNext}
               >
-                Address
-              </div>
-            </div>
-            {addressError && (
-              <span className="wrong-info">
-                {" "}
-                <AiFillExclamationCircle /> {addressError}{" "}
-              </span>
-            )}
+                <div className="input-group">
+                  <div className="input-container-group">
+                    <div className="input-container">
+                      <input
+                        maxLength={40}
+                        type="text"
+                        name="firstName"
+                        defaultValue={firstName ? firstName : patient.firstName}
+                        onChange={handleSetFirstName}
+                        required
+                      />
+                      <div
+                        className="input-container-option"
+                        onClick={() =>
+                          document.getElementsByName("firstName")[0].focus()
+                        }
+                      >
+                        FirstName
+                      </div>
+                    </div>
+                    {firstNameError && (
+                      <span className="wrong-info">
+                        <AiFillExclamationCircle />
+                        {firstNameError}
+                      </span>
+                    )}
+                  </div>
+                  <div className="input-container-group">
+                    <div className="input-container">
+                      <input
+                        maxLength={40}
+                        type="text"
+                        name="lastName"
+                        defaultValue={lastName ? lastName : patient.lastName}
+                        onChange={handleSetLastName}
+                        required
+                      />
+                      <div
+                        className="input-container-option"
+                        onClick={() =>
+                          document.getElementsByName("lastName")[0].focus()
+                        }
+                      >
+                        LastName
+                      </div>
+                    </div>
+                    {lastNameError && (
+                      <span className="wrong-info">
+                        <AiFillExclamationCircle />
+                        {lastNameError}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className="input-group">
+                  <div className="input-container-group">
+                    <div className={`input-container`}>
+                      <input
+                        type="number"
+                        name="phonenumber"
+                        maxLength={15}
+                        defaultValue={
+                          phoneNumber ? phoneNumber : patient.phoneNumber
+                        }
+                        onChange={handlePhoneNumber}
+                        required
+                      />
 
-            <div className="input-group">
-              <div className="input-container-group">
+                      <div
+                        className="input-container-option"
+                        onClick={() =>
+                          document.getElementsByName("phonenumber")[0].focus()
+                        }
+                      >
+                        Phone Number
+                      </div>
+                    </div>
+                    {phoneNumberError && (
+                      <span className="wrong-info">
+                        {" "}
+                        <AiFillExclamationCircle /> {phoneNumberError}{" "}
+                      </span>
+                    )}
+                  </div>
+                  <div className="input-container-group">
+                    <div className={`input-container`}>
+                      <input
+                        type="number"
+                        name="nationalidnumber"
+                        maxLength={15}
+                        defaultValue={
+                          nationalIdNumber
+                            ? nationalIdNumber
+                            : patient.nationalIdNumber
+                        }
+                        onChange={handleNationalIdNumber}
+                        required
+                      />
+
+                      <div
+                        className="input-container-option"
+                        onClick={() =>
+                          document
+                            .getElementsByName("nationalidnumber")[0]
+                            .focus()
+                        }
+                      >
+                        National Id Number
+                      </div>
+                    </div>
+                    {nationalIdNumberError && (
+                      <span className="wrong-info">
+                        {" "}
+                        <AiFillExclamationCircle /> {nationalIdNumberError}{" "}
+                      </span>
+                    )}
+                  </div>
+                </div>
                 <div className={`input-container`}>
                   <input
-                    type="number"
-                    name="age"
-                    maxLength={2}
-                    defaultValue={age ? age : patient.age}
-                    onChange={handleAge}
+                    type="text"
+                    name="address"
+                    maxLength={30}
+                    defaultValue={address ? address : patient.address}
+                    onChange={handleAddress}
                     required
                   />
 
                   <div
                     className="input-container-option"
-                    onClick={() => document.getElementsByName("age")[0].focus()}
+                    onClick={() =>
+                      document.getElementsByName("address")[0].focus()
+                    }
                   >
-                    Age
+                    Address
                   </div>
                 </div>
-                {ageError && (
+                {addressError && (
                   <span className="wrong-info">
                     {" "}
-                    <AiFillExclamationCircle /> {ageError}{" "}
+                    <AiFillExclamationCircle /> {addressError}{" "}
                   </span>
                 )}
-              </div>
 
-              {/* for Gender */}
-              <div className="input-container-group">
+                <div className="input-group">
+                  <div className="input-container-group">
+                    <div className={`input-container`}>
+                      <input
+                        type="number"
+                        name="age"
+                        maxLength={2}
+                        defaultValue={age ? age : patient.age}
+                        onChange={handleAge}
+                        required
+                      />
+
+                      <div
+                        className="input-container-option"
+                        onClick={() =>
+                          document.getElementsByName("age")[0].focus()
+                        }
+                      >
+                        Age
+                      </div>
+                    </div>
+                    {ageError && (
+                      <span className="wrong-info">
+                        {" "}
+                        <AiFillExclamationCircle /> {ageError}{" "}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* for Gender */}
+                  <div className="input-container-group">
+                    <div className="custom-select">
+                      <div
+                        className="selected-option"
+                        onClick={() =>
+                          setShowDropdownGender(!showDropdownGender)
+                        }
+                      >
+                        {!gender ? (
+                          <div className="input-container-option input-dropdown">
+                            Gender
+                          </div>
+                        ) : (
+                          <div>
+                            <div className="input-container-option input-dropdown-title">
+                              Gender
+                            </div>
+                            <div className="input-container-option input-dropdown input-selected">
+                              {gender}
+                            </div>
+                          </div>
+                        )}
+                        <RiArrowDownSLine className="arrow-icon" />
+                      </div>
+                      {showDropdownGender && (
+                        <div className="options" id="input-dropdown">
+                          <div className="option-title">Select The Gender</div>
+                          <div
+                            className="option"
+                            onClick={() => handleGender("Male")}
+                          >
+                            Male
+                          </div>
+                          <div
+                            className="option"
+                            onClick={() => handleGender("Female")}
+                          >
+                            Female
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    {genderError && (
+                      <span className="wrong-info">
+                        <AiFillExclamationCircle />
+                        {genderError}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className="buttons">
+                  <button className="btn btn-primary" type="submit">
+                    Next
+                  </button>
+                  <button
+                    onClick={() => setButtonCards("")}
+                    className={`btn btn-secondary `}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </>
+          )}
+
+          {step === 2 && (
+            <>
+              <form
+                style={{ display: FormPatientLoader ? "none" : "flex" }}
+                className="form-create"
+                onSubmit={handleNext}
+              >
+                <div className="input-group">
+                  <div className="input-container-group">
+                    <div className="input-container">
+                      <input
+                        maxLength={40}
+                        type="text"
+                        name="sensitivity"
+                        defaultValue={
+                          sensitivity ? sensitivity : patient.sensitivity
+                        }
+                        onChange={handleSensitivity}
+                        required
+                      />
+                      <div
+                        className="input-container-option"
+                        onClick={() =>
+                          document.getElementsByName("sensitivity")[0].focus()
+                        }
+                      >
+                        Sensitivity
+                      </div>
+                    </div>
+                    {sensitivityError && (
+                      <span className="wrong-info">
+                        <AiFillExclamationCircle />
+                        {sensitivityError}
+                      </span>
+                    )}
+                  </div>
+                  <div className="input-container-group">
+                    <div className="input-container">
+                      <input
+                        maxLength={40}
+                        type="text"
+                        name="currentlyUsedMedicines"
+                        defaultValue={
+                          currentlyUsedMedicines
+                            ? currentlyUsedMedicines
+                            : patient.currentlyUsedMedicines
+                        }
+                        onChange={handleCurrentlyUsedMedicines}
+                        required
+                      />
+                      <div
+                        className="input-container-option"
+                        onClick={() =>
+                          document
+                            .getElementsByName("currentlyUsedMedicines")[0]
+                            .focus()
+                        }
+                      >
+                        Currently Used Medicines
+                      </div>
+                    </div>
+                    {currentlyUsedMedicinesError && (
+                      <span className="wrong-info">
+                        <AiFillExclamationCircle />
+                        {currentlyUsedMedicinesError}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* for TypeOfTreatment */}
                 <div className="custom-select">
                   <div
                     className="selected-option"
-                    onClick={() => setShowDropdownGender(!showDropdownGender)}
+                    onClick={() =>
+                      setShowDropdownTypeOfTreatment(
+                        !showDropdownTypeOfTreatment
+                      )
+                    }
                   >
-                    {!gender ? (
+                    {!selectedTreatments.length ? (
                       <div className="input-container-option input-dropdown">
-                        Gender
+                        Select Type Of Treatment
                       </div>
                     ) : (
                       <div>
                         <div className="input-container-option input-dropdown-title">
-                          Gender
+                          Select Type Of Treatment
                         </div>
                         <div className="input-container-option input-dropdown input-selected">
-                          {gender}
+                          {selectedTreatments.join(", ")}
                         </div>
                       </div>
                     )}
                     <RiArrowDownSLine className="arrow-icon" />
                   </div>
-                  {showDropdownGender && (
+                  {showDropdownTypeOfTreatment && (
                     <div className="options" id="input-dropdown">
-                      <div className="option-title">Select The Gender</div>
-                      <div
-                        className="option"
-                        onClick={() => handleGender("Male")}
-                      >
-                        Male
+                      <div className="option-title">
+                        Select Type Of Treatment
                       </div>
-                      <div
-                        className="option"
-                        onClick={() => handleGender("Female")}
-                      >
-                        Female
-                      </div>
+                      {Object.values(typeOfTreatments).map((treatment) => (
+                        <div
+                          className={`option${
+                            selectedTreatments.includes(treatment)
+                              ? " selected"
+                              : ""
+                          }`}
+                          key={treatment}
+                          onClick={() => handleTypeOfTreatment(treatment)}
+                        >
+                          {treatment}
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>
-                {genderError && (
+                {typeOfTreatmentError && (
                   <span className="wrong-info">
                     <AiFillExclamationCircle />
-                    {genderError}
+                    {typeOfTreatmentError}
                   </span>
                 )}
-              </div>
-            </div>
-            {/* for TypeOfTreatment */}
-            <div className="custom-select">
-              <div
-                className="selected-option"
-                onClick={() =>
-                  setShowDropdownTypeOfTreatment(!showDropdownTypeOfTreatment)
-                }
-              >
-                {!selectedTreatments.length ? (
-                  <div className="input-container-option input-dropdown">
-                    Select Type Of Treatment
+                {/* for CurrentIllnesses */}
+                <div className="custom-select">
+                  <div
+                    className="selected-option"
+                    onClick={() =>
+                      setShowDropdownCurrentIllnesses(
+                        !showDropdownCurrentIllnesses
+                      )
+                    }
+                  >
+                    {!selectedIllnesses.length ? (
+                      <div className="input-container-option input-dropdown">
+                        Select Current Illnesses
+                      </div>
+                    ) : (
+                      <div>
+                        <div className="input-container-option input-dropdown-title">
+                          Select Current Illnesses
+                        </div>
+                        <div className="input-container-option input-dropdown input-selected">
+                          {selectedIllnesses.join(", ")}
+                        </div>
+                      </div>
+                    )}
+                    <RiArrowDownSLine className="arrow-icon" />
                   </div>
-                ) : (
-                  <div>
-                    <div className="input-container-option input-dropdown-title">
-                      Select Type Of Treatment
+                  {showDropdownCurrentIllnesses && (
+                    <div className="options" id="input-dropdown">
+                      <div className="option-title">
+                        {" "}
+                        Select Current Illnesses
+                      </div>
+                      {Object.values(currentIllnessess).map((illnesses) => (
+                        <div
+                          className={`option${
+                            selectedIllnesses.includes(illnesses)
+                              ? " selected"
+                              : ""
+                          }`}
+                          key={illnesses}
+                          onClick={() => handleCurrentIllnesses(illnesses)}
+                        >
+                          {illnesses}
+                        </div>
+                      ))}
                     </div>
-                    <div className="input-container-option input-dropdown input-selected">
-                      {selectedTreatments.join(", ")}
-                    </div>
-                  </div>
-                )}
-                <RiArrowDownSLine className="arrow-icon" />
-              </div>
-              {showDropdownTypeOfTreatment && (
-                <div className="options" id="input-dropdown">
-                  <div className="option-title">Select Type Of Treatment</div>
-                  {Object.values(typeOfTreatments).map((treatment) => (
-                    <div
-                      className={`option${
-                        selectedTreatments.includes(treatment)
-                          ? " selected"
-                          : ""
-                      }`}
-                      key={treatment}
-                      onClick={() => handleTypeOfTreatment(treatment)}
-                    >
-                      {treatment}
-                    </div>
-                  ))}
+                  )}
                 </div>
-              )}
-            </div>
-            {typeOfTreatmentError && (
-              <span className="wrong-info">
-                <AiFillExclamationCircle />
-                {typeOfTreatmentError}
-              </span>
-            )}
-            {/* for CurrentIllnesses */}
-            <div className="custom-select">
-              <div
-                className="selected-option"
-                onClick={() =>
-                  setShowDropdownCurrentIllnesses(!showDropdownCurrentIllnesses)
-                }
-              >
-                {!selectedIllnesses.length ? (
-                  <div className="input-container-option input-dropdown">
-                    Select Current Illnesses
-                  </div>
-                ) : (
-                  <div>
-                    <div className="input-container-option input-dropdown-title">
-                      Select Current Illnesses
-                    </div>
-                    <div className="input-container-option input-dropdown input-selected">
-                      {selectedIllnesses.join(", ")}
-                    </div>
-                  </div>
+                {currentIllnessesError && (
+                  <span className="wrong-info">
+                    <AiFillExclamationCircle />
+                    {currentIllnessesError}
+                  </span>
                 )}
-                <RiArrowDownSLine className="arrow-icon" />
-              </div>
-              {showDropdownCurrentIllnesses && (
-                <div className="options" id="input-dropdown">
-                  <div className="option-title"> Select Current Illnesses</div>
-                  {Object.values(currentIllnessess).map((illnesses) => (
-                    <div
-                      className={`option${
-                        selectedIllnesses.includes(illnesses) ? " selected" : ""
-                      }`}
-                      key={illnesses}
-                      onClick={() => handleCurrentIllnesses(illnesses)}
-                    >
-                      {illnesses}
-                    </div>
-                  ))}
+                <div
+                  className="input-container"
+                  style={{ minWidth: "100%", maxWidth: "392.31px" }}
+                >
+                  <input
+                    type="text"
+                    name="additionalinformation"
+                    defaultValue={
+                      additionalInformation
+                        ? additionalInformation
+                        : patient.additionalInformation
+                    }
+                    onChange={handleAdditionalInformation}
+                  />
+                  <div
+                    className="input-container-option"
+                    onClick={() =>
+                      document
+                        .getElementsByName("additionalinformation")[0]
+                        .focus()
+                    }
+                  >
+                    Additional Information
+                  </div>
                 </div>
-              )}
-            </div>
-            {currentIllnessesError && (
-              <span className="wrong-info">
-                <AiFillExclamationCircle />
-                {currentIllnessesError}
-              </span>
-            )}
-            <div
-              className="input-container"
-              style={{ minWidth: "100%", maxWidth: "392.31px" }}
-            >
-              <input
-                type="text"
-                name="additionalinformation"
-                defaultValue={
-                  additionalInformation
-                    ? additionalInformation
-                    : patient.additionalInformation
-                }
-                onChange={handleAdditionalInformation}
-              />
-              <div
-                className="input-container-option"
-                onClick={() =>
-                  document.getElementsByName("additionalinformation")[0].focus()
-                }
-              >
-                Additional Information
-              </div>
-            </div>
-            {additionalInformationError && (
-              <span className="wrong-info">
-                <AiFillExclamationCircle />
-                {additionalInformationError}
-              </span>
-            )}
+                {additionalInformationError && (
+                  <span className="wrong-info">
+                    <AiFillExclamationCircle />
+                    {additionalInformationError}
+                  </span>
+                )}
 
-            <div className="buttons">
-              {ButtonCards === "UpdatePatient" ? (
-                <button type="submit" className={`btn btn-primary `}>
-                  <div
-                    className="loader"
-                    style={{
-                      display: ButtonsFormPatientLoader ? "block" : "none",
-                    }}
-                  />
-                  Update
-                </button>
-              ) : (
-                <button type="submit" className={`btn btn-primary `}>
-                  <div
-                    className="loader"
-                    style={{
-                      display: ButtonsFormPatientLoader ? "block" : "none",
-                    }}
-                  />
-                  Publish
-                </button>
-              )}
-              {ButtonCards === "UpdatePatient" ? (
-                <button onClick={handleDelete} className={`btn btn-primary `}>
-                  <div
-                    className="loader"
-                    style={{
-                      display: DeleteButtonsFormPatientLoader
-                        ? "block"
-                        : "none",
-                    }}
-                  />
-                  Delete
-                </button>
-              ) : (
-                ""
-              )}
-              <button
-                onClick={() => setButtonCards("")}
-                className={`btn btn-secondary `}
-              >
-                Cancel
-              </button>
-            </div>
-            {PatientError && (
-              <span className="wrong-info">
-                <AiFillExclamationCircle />
-                {PatientError}
-              </span>
-            )}
-            {Success && (
-              <span className="success-info">
-                <AiFillExclamationCircle />
-                {Success}
-              </span>
-            )}
-          </form>
+                <div className="buttons">
+                  {ButtonCards === "UpdatePatient" ? (
+                    <button type="submit" className={`btn btn-primary `}>
+                      <div
+                        className="loader"
+                        style={{
+                          display: ButtonsFormPatientLoader ? "block" : "none",
+                        }}
+                      />
+                      Update
+                    </button>
+                  ) : (
+                    <button type="submit" className={`btn btn-primary `}>
+                      <div
+                        className="loader"
+                        style={{
+                          display: ButtonsFormPatientLoader ? "block" : "none",
+                        }}
+                      />
+                      Publish
+                    </button>
+                  )}
+                  <button
+                    onClick={() => setStep(1)}
+                    className={`btn btn-secondary `}
+                  >
+                    Back
+                  </button>
+                  {ButtonCards === "UpdatePatient" ? (
+                    <button
+                      onClick={handleDelete}
+                      className={`btn btn-primary `}
+                    >
+                      <div
+                        className="loader"
+                        style={{
+                          display: DeleteButtonsFormPatientLoader
+                            ? "block"
+                            : "none",
+                        }}
+                      />
+                      Delete
+                    </button>
+                  ) : (
+                    ""
+                  )}
+                  <button
+                    onClick={() => setButtonCards("")}
+                    className={`btn btn-secondary `}
+                  >
+                    Cancel
+                  </button>
+                </div>
+                {PatientError && (
+                  <span className="wrong-info">
+                    <AiFillExclamationCircle />
+                    {PatientError}
+                  </span>
+                )}
+                {Success && (
+                  <span className="success-info">
+                    <AiFillExclamationCircle />
+                    {Success}
+                  </span>
+                )}
+              </form>
+            </>
+          )}
         </div>
       </div>
     </>
