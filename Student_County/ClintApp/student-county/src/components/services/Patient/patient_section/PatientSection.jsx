@@ -1,15 +1,15 @@
-import BookCard from "../../books/book_card/BookCard";
 import usePatient from "../../../../hooks/usePatient";
 import { useEffect, useMemo, useState } from "react";
 import { RiArrowDownSLine } from "react-icons/ri";
 import "./PatientSection.css";
 import { Helmet } from "react-helmet";
 import useLoader from "../../../../hooks/useLoader";
+import PatientCard from "../patient_card/PatientCard";
 
 const PatientSection = ({ filteredValue }) => {
-  const { Patient, getPatient, Success, setPatient } = usePatient();
+  const { getPatient, Success, setPatient, Patients } = usePatient();
   const { PatientLoader } = useLoader();
-  const SORT_TYPES = ["Name", "Date", "Price"];
+  const SORT_TYPES = ["Name", "Date", "Age"];
   const [showDropdownType, setShowDropdownType] = useState("");
   const [sortType, setSortType] = useState("");
   const [showDropdownSort, setShowDropdownSort] = useState("");
@@ -46,6 +46,37 @@ const PatientSection = ({ filteredValue }) => {
     setShowDropdownSort(false);
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    if (
+      date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
+    ) {
+      const formattedTime = date.toLocaleTimeString([], {
+        hour: "numeric",
+        minute: "numeric",
+      });
+      return formattedTime;
+    } else if (
+      date.getDate() === yesterday.getDate() &&
+      date.getMonth() === yesterday.getMonth() &&
+      date.getFullYear() === yesterday.getFullYear()
+    ) {
+      return "Yesterday";
+    } else {
+      const formattedDate = date.toLocaleDateString([], {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+      return formattedDate;
+    }
+  };
   return (
     <>
       <Helmet>
@@ -112,73 +143,78 @@ const PatientSection = ({ filteredValue }) => {
 
           {!filteredValue
             ? !sortType &&
-              Object.values(Patient).map((book) => (
-                <BookCard
-                  name={book.name}
-                  price={book.price}
-                  shortDescription={book.shortDescription}
-                  longDescription={book.longDescription}
-                  key={book.id}
-                  id={book.id}
-                  studentId={book.studentId}
+              Object.values(Patients).map((patient) => (
+                <PatientCard
+                  userName={patient.userName}
+                  age={patient.age}
+                  gender={patient.gender}
+                  typeOfTreatment={patient.typeOfTreatment}
+                  createdOn={formatDate(patient.createdOn)}
+                  key={patient.id}
+                  id={patient.id}
+                  studentId={patient.userId}
                 />
               ))
             : !sortType &&
-              Object.values(filteredValue).map((book) => (
-                <BookCard
-                  name={book.name}
-                  price={book.price}
-                  shortDescription={book.shortDescription}
-                  longDescription={book.longDescription}
-                  key={book.id}
-                  id={book.id}
-                  studentId={book.studentId}
+              Object.values(filteredValue).map((patient) => (
+                <PatientCard
+                  userName={patient.userName}
+                  age={patient.age}
+                  gender={patient.gender}
+                  typeOfTreatment={patient.typeOfTreatment}
+                  createdOn={formatDate(patient.createdOn)}
+                  key={patient.id}
+                  id={patient.id}
+                  studentId={patient.userId}
                 />
               ))}
           {!filteredValue
             ? sortType === "Name" &&
-              Object.values(Patient)
-                .sort((a, b) => (a.name > b.name ? 1 : -1))
-                .map((book) => (
-                  <BookCard
-                    name={book.name}
-                    price={book.price}
-                    shortDescription={book.shortDescription}
-                    longDescription={book.longDescription}
-                    key={book.id}
-                    id={book.id}
-                    studentId={book.studentId}
+              Object.values(Patients)
+                .sort((a, b) => (a.userName > b.userName ? 1 : -1))
+                .map((patient) => (
+                  <PatientCard
+                    userName={patient.userName}
+                    age={patient.age}
+                    gender={patient.gender}
+                    typeOfTreatment={patient.typeOfTreatment}
+                    createdOn={formatDate(patient.createdOn)}
+                    key={patient.id}
+                    id={patient.id}
+                    studentId={patient.userId}
                   />
                 ))
             : sortType === "Name" &&
               Object.values(filteredValue)
-                .sort((a, b) => (a.name > b.name ? 1 : -1))
-                .map((book) => (
-                  <BookCard
-                    name={book.name}
-                    price={book.price}
-                    shortDescription={book.shortDescription}
-                    longDescription={book.longDescription}
-                    key={book.id}
-                    id={book.id}
-                    studentId={book.studentId}
+                .sort((a, b) => (a.userName > b.userName ? 1 : -1))
+                .map((patient) => (
+                  <PatientCard
+                    userName={patient.userName}
+                    age={patient.age}
+                    gender={patient.gender}
+                    typeOfTreatment={patient.typeOfTreatment}
+                    createdOn={formatDate(patient.createdOn)}
+                    key={patient.id}
+                    id={patient.id}
+                    studentId={patient.userId}
                   />
                 ))}
           {!filteredValue
             ? sortType === "Date" &&
-              Object.values(Patient)
+              Object.values(Patients)
                 .sort(
                   (a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn)
                 )
-                .map((book) => (
-                  <BookCard
-                    name={book.name}
-                    price={book.price}
-                    shortDescription={book.shortDescription}
-                    longDescription={book.longDescription}
-                    key={book.id}
-                    id={book.id}
-                    studentId={book.studentId}
+                .map((patient) => (
+                  <PatientCard
+                    userName={patient.userName}
+                    age={patient.age}
+                    gender={patient.gender}
+                    typeOfTreatment={patient.typeOfTreatment}
+                    createdOn={formatDate(patient.createdOn)}
+                    key={patient.id}
+                    id={patient.id}
+                    studentId={patient.userId}
                   />
                 ))
             : sortType === "Date" &&
@@ -186,44 +222,47 @@ const PatientSection = ({ filteredValue }) => {
                 .sort(
                   (a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn)
                 )
-                .map((book) => (
-                  <BookCard
-                    name={book.name}
-                    price={book.price}
-                    shortDescription={book.shortDescription}
-                    longDescription={book.longDescription}
-                    key={book.id}
-                    id={book.id}
-                    studentId={book.studentId}
+                .map((patient) => (
+                  <PatientCard
+                    userName={patient.userName}
+                    age={patient.age}
+                    gender={patient.gender}
+                    typeOfTreatment={patient.typeOfTreatment}
+                    createdOn={formatDate(patient.createdOn)}
+                    key={patient.id}
+                    id={patient.id}
+                    studentId={patient.userId}
                   />
                 ))}
           {!filteredValue
-            ? sortType === "Price" &&
-              Object.values(Patient)
-                .sort((a, b) => b.price - a.price)
-                .map((book) => (
-                  <BookCard
-                    name={book.name}
-                    price={book.price}
-                    shortDescription={book.shortDescription}
-                    longDescription={book.longDescription}
-                    key={book.id}
-                    id={book.id}
-                    studentId={book.studentId}
+            ? sortType === "Age" &&
+              Object.values(Patients)
+                .sort((a, b) => b.age - a.age)
+                .map((patient) => (
+                  <PatientCard
+                    userName={patient.userName}
+                    age={patient.age}
+                    gender={patient.gender}
+                    typeOfTreatment={patient.typeOfTreatment}
+                    createdOn={formatDate(patient.createdOn)}
+                    key={patient.id}
+                    id={patient.id}
+                    studentId={patient.userId}
                   />
                 ))
-            : sortType === "Price" &&
+            : sortType === "Age" &&
               Object.values(filteredValue)
-                .sort((a, b) => b.price - a.price)
-                .map((book) => (
-                  <BookCard
-                    name={book.name}
-                    price={book.price}
-                    shortDescription={book.shortDescription}
-                    longDescription={book.longDescription}
-                    key={book.id}
-                    id={book.id}
-                    studentId={book.studentId}
+                .sort((a, b) => b.age - a.age)
+                .map((patient) => (
+                  <PatientCard
+                    userName={patient.userName}
+                    age={patient.age}
+                    gender={patient.gender}
+                    typeOfTreatment={patient.typeOfTreatment}
+                    createdOn={formatDate(patient.createdOn)}
+                    key={patient.id}
+                    id={patient.id}
+                    studentId={patient.userId}
                   />
                 ))}
         </div>

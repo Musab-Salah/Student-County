@@ -1,5 +1,5 @@
 import { Form, Button, FormControl, InputGroup } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { ImAttachment } from "react-icons/im";
 import useChat from "../../hooks/useChat";
@@ -7,6 +7,13 @@ import useChat from "../../hooks/useChat";
 const SendMessageForm = ({}) => {
   const [message, setMessage] = useState("");
   const { sendMessage } = useChat();
+
+  useEffect(() => {
+    return function cleanup() {
+      setMessage("");
+    };
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <Form

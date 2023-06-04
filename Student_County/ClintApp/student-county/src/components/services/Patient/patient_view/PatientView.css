@@ -1,5 +1,6 @@
-  .patient-card {
+  .patient-view {
     display: flex;
+    position: fixed;
     align-items: center;
     border-radius: var(--br-3xs);
     background-color: var(--color-white);
@@ -13,6 +14,7 @@
     text-align: left;
     font-size: var(--font-size-base);
     font-family: var(--font-poppins);
+    z-index: 10;
   }
 
   .patient-avatar-icon {

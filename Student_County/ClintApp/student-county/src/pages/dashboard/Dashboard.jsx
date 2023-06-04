@@ -18,12 +18,15 @@ import ChatController from "../../components/chat/ChatController";
 import useUserRelationData from "../../hooks/UserRelationData";
 import PatientForm from "../../components/services/Patient/patient_form/PatientForm";
 import PatientSection from "../../components/services/Patient/patient_section/PatientSection";
+import usePatient from "../../hooks/usePatient";
+import PatientView from "../../components/services/Patient/patient_view/PatientView";
 
 const Dashboard = () => {
   const { Books, MyBooks } = useBooks();
   const { MyUserRelationData } = useUserRelationData();
   const { OptionMenu, setOptionMenu, setButtonCards, ButtonCards, ownerItem } =
     useComponent();
+  const { Patients, MyPatients } = usePatient();
   const { decodedJwt } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -74,19 +77,6 @@ const Dashboard = () => {
   }, []);
 
   const filteredValue = useMemo(() => {
-    if (OptionMenu === "Books") {
-      return Object.values(Books).filter((Book) => {
-        return (
-          Book.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
-          Book.shortDescription
-            .toLowerCase()
-            .includes(deferredInput.toLowerCase()) ||
-          Book.longDescription
-            .toLowerCase()
-            .includes(deferredInput.toLowerCase())
-        );
-      });
-    }
     if (OptionMenu === "Overview" && MyUserRelationData[0]) {
       return Object.values(MyUserRelationData[0]).filter((Book) => {
         return (
@@ -100,8 +90,36 @@ const Dashboard = () => {
         );
       });
     }
+    if (OptionMenu === "Books") {
+      return Object.values(Books).filter((Book) => {
+        return (
+          Book.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
+          Book.shortDescription
+            .toLowerCase()
+            .includes(deferredInput.toLowerCase()) ||
+          Book.longDescription
+            .toLowerCase()
+            .includes(deferredInput.toLowerCase())
+        );
+      });
+    }
+    if (OptionMenu === "Patient") {
+      return Object.values(Patients).filter((patient) => {
+        return (
+          patient.userName
+            .toLowerCase()
+            .includes(deferredInput.toLowerCase()) ||
+          patient.typeOfTreatment
+            .toLowerCase()
+            .includes(deferredInput.toLowerCase()) ||
+          patient.currentIllnesses
+            .toLowerCase()
+            .includes(deferredInput.toLowerCase())
+        );
+      });
+    }
     // eslint-disable-next-line
-  }, [MyBooks, Books, deferredInput, MyUserRelationData]);
+  }, [MyBooks, Books, MyPatients, Patients, deferredInput, MyUserRelationData]);
 
   useEffect(() => {
     return function cleanup() {
@@ -120,6 +138,8 @@ const Dashboard = () => {
         <BooksForm />
       )}
       {ButtonCards === "ViewBook" && <BooksView />}
+      {ButtonCards === "ViewPatient" && <PatientView />}
+
       <div style={{ opacity: ButtonCards ? 0.2 : 1 }}>
         <div className={`dashboard-container `}>
           <Menu isMenuOpen={isMenuOpen} isMenuOpenPhone={isMenuOpenPhone} />

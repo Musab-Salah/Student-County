@@ -20,6 +20,9 @@ const MessageContainer = () => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+
     if (
       date.getDate() === today.getDate() &&
       date.getMonth() === today.getMonth() &&
@@ -29,9 +32,20 @@ const MessageContainer = () => {
         hour: "numeric",
         minute: "numeric",
       });
-      return `Today at ${formattedTime}`;
+      return formattedTime;
+    } else if (
+      date.getDate() === yesterday.getDate() &&
+      date.getMonth() === yesterday.getMonth() &&
+      date.getFullYear() === yesterday.getFullYear()
+    ) {
+      return "Yesterday";
     } else {
-      return date.toLocaleString();
+      const formattedDate = date.toLocaleDateString([], {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+      return formattedDate;
     }
   };
 

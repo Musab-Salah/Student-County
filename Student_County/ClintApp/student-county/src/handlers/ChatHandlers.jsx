@@ -8,7 +8,7 @@ const ChatCxt = createContext();
 
 export function ChatsProvider({ children }) {
   const [connection, setConnection] = useState();
-  const { OptionMenu, setOpenChatArea } = useComponent();
+  const { OptionMenu, setOpenChatArea, ownerItem } = useComponent();
   const { decodedJwt, token, isLogin, isLogout } = useAuth();
   const [MyChat, setMyChat] = useState([]); //all user chat
   const [ChatLoader, setChatLoader] = useState("");
@@ -137,6 +137,7 @@ export function ChatsProvider({ children }) {
         deleteChat,
         reJoinRoom,
         sendMessage,
+        setMyChat,
       }}
     >
       {children}

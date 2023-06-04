@@ -88,9 +88,8 @@ const BooksView = () => {
                   onClick={() => {
                     reJoinRoom(decodedJwt.uid, Book.studentId);
                     setOwnerItem(Book.studentId);
-                    setChatOpened(Book.studentName);
                     setOptionMenu("Chat");
-                   // setOpenChatArea(true);
+                    // setOpenChatArea(true);
                     setButtonCards("");
                   }}
                   className={`btn btn-primary `}
@@ -106,8 +105,6 @@ const BooksView = () => {
               </div>
             </div>
           </div>
-
-          {/* <div className="price-field">Owner Name: {Book.studentName} </div> */}
         </div>
       </div>
     </>

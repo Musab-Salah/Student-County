@@ -47,7 +47,7 @@ const Chat = ({
                     (decodedJwt.uid !== ChatOpened.from
                       ? ChatOpened.fromName
                       : ChatOpened.toName)}
-                  {!ChatOpened.from && !ChatOpened.from && ChatOpened}
+                  {/* {!ChatOpened.from && !ChatOpened.from && ChatOpened} */}
                 </div>
                 <div className="conversation-selected-user-role">
                   {ChatOpened.toRole}
