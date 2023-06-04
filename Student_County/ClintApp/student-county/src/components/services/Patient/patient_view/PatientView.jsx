@@ -24,25 +24,12 @@ const PatientView = () => {
   return (
     <>
       <div
-        className="container-load-form"
-        style={{ display: FormPatientLoader ? "block" : "none" }}
-      >
-        <div className="block-load-form"></div>
-        <div className="block-load-form"></div>
-        <div className="block-load-form"></div>
-        <div className="block-load-form"></div>
-        <div className="block-load-form"></div>
-        <div className="block-load-form"></div>
-        <div className="block-load-form"></div>
-        <div className="block-load-form"></div>
-        <div className="block-load-form"></div>
-        <div className="block-load-form"></div>
-        <div className="block-load-form"></div>
-        <div className="block-load-form"></div>
-        <div className="block-load-form"></div>
-        <div className="block-load-form"></div>
-        <div className="block-load-form"></div>
-        <div className="block-load-form"></div>
+          className="container-load-form"
+          style={{ display: FormPatientLoader ? "block" : "none" }}
+        >
+          {[...Array(16)].map((_, index) => (
+            <div key={index} className="block-load-form"></div>
+          ))}
       </div>
       <div
         className="patient-view "

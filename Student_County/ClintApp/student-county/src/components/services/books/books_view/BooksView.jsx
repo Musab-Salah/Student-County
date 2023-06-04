@@ -34,25 +34,12 @@ const BooksView = () => {
     <>
       <div className="Create-section">
         <div
-          className="container-load-form"
-          style={{ display: FormBooksLoader ? "block" : "none" }}
-        >
-          <div className="block-load-form"></div>
-          <div className="block-load-form"></div>
-          <div className="block-load-form"></div>
-          <div className="block-load-form"></div>
-          <div className="block-load-form"></div>
-          <div className="block-load-form"></div>
-          <div className="block-load-form"></div>
-          <div className="block-load-form"></div>
-          <div className="block-load-form"></div>
-          <div className="block-load-form"></div>
-          <div className="block-load-form"></div>
-          <div className="block-load-form"></div>
-          <div className="block-load-form"></div>
-          <div className="block-load-form"></div>
-          <div className="block-load-form"></div>
-          <div className="block-load-form"></div>
+            className="container-load-form"
+            style={{ display: FormBooksLoader ? "block" : "none" }}
+          >
+            {[...Array(16)].map((_, index) => (
+              <div key={index} className="block-load-form"></div>
+            ))}
         </div>
         <div
           className="form-create-view"

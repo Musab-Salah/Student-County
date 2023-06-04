@@ -209,7 +209,7 @@ const BooksForm = () => {
             <div className="block-load-form"></div>
             <div className="block-load-form"></div>
             <div className="block-load-form"></div>
-          </div>
+        </div>
           <form
             style={{ display: FormBooksLoader ? "none" : "flex" }}
             className="form-create"
