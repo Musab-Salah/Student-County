@@ -371,3 +371,9 @@ FodyWeavers.xsd
 /Student_County/BusinessLogic/ChatHub/
 /Student_County/ClintApp/student-county/src/components/chat/
 /Student_County/ClintApp/student-county/src/components/Chat/
+/Student_County/ClintApp/student-county/src/components/chat/Chat.jsx
+/Student_County/ClintApp/student-county/src/components/chat/ConnectedUsers.jsx
+/Student_County/ClintApp/student-county/src/components/chat/MessageContainer.jsx
+/Student_County/ClintApp/student-county/src/components/chat/SendMessageForm.jsx
+/Student_County/BusinessLogic/ChatHub/ChatHub.cs
+/Student_County/BusinessLogic/ChatHub/UserConnection.cs
