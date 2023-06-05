@@ -9,16 +9,31 @@ namespace Student_County.BusinessLogic.Housing
         [Key]
         public int Id { get; set; }
         [Required]
-        public string? Name { get; set; }
+        public string? PhoneNumber { get; set; }
         [Required]
-        public string? Location { get; set; }
+        public string? NationalId { get; set; }
+        [Required]
+        public string? Address { get; set; }
+        [Required]
+        public string? City { get; set; }
+        [Required]
+        public string? Province { get; set; }
         [Required]
         public string? TypeOfContract { get; set; }
         [Required]
-        public int Price { get; set; }
-        public string? ShortDescription { get; set; }
+        public int RentalPrice { get; set; }
         [Required]
-        public string? LongDescription { get; set; }
-        public string StudentId { get; set; }
+        public bool Furnishings { get; set; }
+        [Required]
+        public string? HouseType { get; set; }
+        [Required]
+        public string? RoomType { get; set; }
+        [Required]
+        public int Bedroom { get; set; }
+        [Required]
+        public int Bathroom { get; set; }
+
+        [Required]
+        public string? StudentId { get; set; }
     }
 }

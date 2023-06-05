@@ -170,7 +170,7 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                   <div
                     className={`dash-nav-link ${
                       isMenuOpen ? "padding-resize" : ""
-                    } ${OptionMenu === "Housing" ? "selected" : ""} `}
+                    } ${OptionMenu === "Housing" ? "active" : ""} `}
                     onClick={() => setOptionMenu("Housing")}
                   >
                     <AiOutlineHome className="dash-nav-link-icon" />

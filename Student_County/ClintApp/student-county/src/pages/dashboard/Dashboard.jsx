@@ -20,6 +20,8 @@ import PatientForm from "../../components/services/Patient/patient_form/PatientF
 import PatientSection from "../../components/services/Patient/patient_section/PatientSection";
 import usePatient from "../../hooks/usePatient";
 import PatientView from "../../components/services/Patient/patient_view/PatientView";
+import HousingSection from "../../components/services/Housing/housing_section/HousingSection";
+import HousingForm from "../../components/services/Housing/housing_form/HousingForm";
 
 const Dashboard = () => {
   const { Books, MyBooks } = useBooks();
@@ -137,6 +139,9 @@ const Dashboard = () => {
       {(ButtonCards === "CreateBook" || ButtonCards === "UpdateBook") && (
         <BooksForm />
       )}
+      {(ButtonCards === "CreateHousing" || ButtonCards === "UpdateHousing") && (
+        <HousingForm />
+      )}
       {ButtonCards === "ViewBook" && <BooksView />}
       {ButtonCards === "ViewPatient" && <PatientView />}
 
@@ -200,6 +205,12 @@ const Dashboard = () => {
                       onClick={() => setButtonCards("CreatePatient")}
                     />
                   )}
+                  {OptionMenu === "Housing" && (
+                    <AiOutlinePlus
+                      className="btn btn-icon "
+                      onClick={() => setButtonCards("CreateHousing")}
+                    />
+                  )}
                   <RiNotification2Line className="btn btn-icon" />
                 </div>
                 {/* <div className="horizontal-line" />
@@ -236,6 +247,11 @@ const Dashboard = () => {
             )}
             {OptionMenu === "Patient" && (
               <PatientSection
+                filteredValue={filteredValue ? filteredValue : false}
+              />
+            )}
+            {OptionMenu === "Housing" && (
+              <HousingSection
                 filteredValue={filteredValue ? filteredValue : false}
               />
             )}

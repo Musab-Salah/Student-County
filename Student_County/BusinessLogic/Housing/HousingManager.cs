@@ -50,7 +50,8 @@ namespace Student_County.BusinessLogic.Housing
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == bo.StudentId);
             var entity = bo.MapBoToEntity();
             entity.StudentName = user.FirstName + " " + user.LastName;
-            if (id == 0)
+            var numofhouse = _context.Housings.Where(entity => entity.StudentId == bo.StudentId).Count();
+            if (id == 0 && numofhouse<1)
             {
                 entity.CreatedBy = user.UserName;
                 _context.Add(entity);
@@ -61,6 +62,7 @@ namespace Student_County.BusinessLogic.Housing
                 entity.ModifiedOn = DateTimeOffset.Now;
                 _context.Update(entity);
             }
+            else throw new Exception("You cant create more than one Housing");
             await _context.SaveChangesAsync();
             return entity;
         }

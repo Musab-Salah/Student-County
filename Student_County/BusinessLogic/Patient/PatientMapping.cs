@@ -13,7 +13,7 @@ namespace Student_County.BusinessLogic.Patient
                 FirstName = bo.FirstName,
                 LastName = bo.LastName,
                 PhoneNumber = bo.PhoneNumber,
-                NationalIdNumber = bo.NationalIdNumber,
+                NationalId = bo.NationalId,
                 AdditionalInformation = bo.AdditionalInformation,
                 Age = bo.Age,
                 Address = bo.Address,

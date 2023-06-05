@@ -7,6 +7,7 @@
   box-shadow: 4px 4px 0px #09072f;
   border-radius: 5px;
   max-width: 320px;
+  min-width: 320px;
 }
 .patient-card-data {
   display: flex;

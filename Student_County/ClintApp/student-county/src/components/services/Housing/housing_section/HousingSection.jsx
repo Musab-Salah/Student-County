@@ -1,16 +1,15 @@
-import usePatient from "../../../../hooks/usePatient";
 import { useEffect, useMemo, useState } from "react";
 import { RiArrowDownSLine } from "react-icons/ri";
-import "./PatientSection.css";
+import "./HousingSection.css";
 import { Helmet } from "react-helmet";
 import useLoader from "../../../../hooks/useLoader";
-import PatientCard from "../patient_card/PatientCard";
-import HousingCard from "../../Housing/housing_card/HousingCard";
+import HousingCard from "../housing_card/HousingCard";
 import HousingForm from "../../Housing/housing_form/HousingForm";
+import useHousings from "../../../../hooks/useHousings";
 
-const PatientSection = ({ filteredValue }) => {
-  const { getPatient, Success, setPatient, Patients } = usePatient();
-  const { PatientLoader } = useLoader();
+const HousingSection = ({ filteredValue }) => {
+  const { getHousings, Success, setHousing, Housings } = useHousings();
+  const { HousingLoader } = useLoader();
   const SORT_TYPES = ["Name", "Date", "Age"];
   const [showDropdownType, setShowDropdownType] = useState("");
   const [sortType, setSortType] = useState("");
@@ -34,12 +33,12 @@ const PatientSection = ({ filteredValue }) => {
   }, [showDropdownType, showDropdownSort]);
 
   useEffect(() => {
-    getPatient();
+    getHousings();
     // eslint-disable-next-line
   }, [Success]);
   useEffect(() => {
     return function cleanup() {
-      setPatient("");
+      setHousing("");
     };
     // eslint-disable-next-line
   }, []);
@@ -81,10 +80,14 @@ const PatientSection = ({ filteredValue }) => {
   };
   return (
     <>
+      {/* test  */}
+      <HousingForm />
+      <HousingCard />
 
+      {/* test  */}
 
       <Helmet>
-        <title>Patient</title>
+        <title>Housing</title>
       </Helmet>
       <div className="service-container">
         <div className="services-head">
@@ -134,7 +137,7 @@ const PatientSection = ({ filteredValue }) => {
         <div className="cards">
           <div
             className="loader-overview"
-            style={{ display: PatientLoader ? "block" : "none" }}
+            style={{ display: HousingLoader ? "block" : "none" }}
           >
             <div className="loader-square"></div>
             <div className="loader-square"></div>
@@ -147,78 +150,78 @@ const PatientSection = ({ filteredValue }) => {
 
           {!filteredValue
             ? !sortType &&
-              Object.values(Patients).map((patient) => (
-                <PatientCard
-                  userName={patient.userName}
-                  age={patient.age}
-                  gender={patient.gender}
-                  typeOfTreatment={patient.typeOfTreatment}
-                  createdOn={formatDate(patient.createdOn)}
-                  key={patient.id}
-                  id={patient.id}
-                  studentId={patient.userId}
+              Object.values(Housings).map((housing) => (
+                <HousingCard
+                  userName={housing.userName}
+                  age={housing.age}
+                  gender={housing.gender}
+                  typeOfTreatment={housing.typeOfTreatment}
+                  createdOn={formatDate(housing.createdOn)}
+                  key={housing.id}
+                  id={housing.id}
+                  studentId={housing.userId}
                 />
               ))
             : !sortType &&
-              Object.values(filteredValue).map((patient) => (
-                <PatientCard
-                  userName={patient.userName}
-                  age={patient.age}
-                  gender={patient.gender}
-                  typeOfTreatment={patient.typeOfTreatment}
-                  createdOn={formatDate(patient.createdOn)}
-                  key={patient.id}
-                  id={patient.id}
-                  studentId={patient.userId}
+              Object.values(filteredValue).map((housing) => (
+                <HousingCard
+                  userName={housing.userName}
+                  age={housing.age}
+                  gender={housing.gender}
+                  typeOfTreatment={housing.typeOfTreatment}
+                  createdOn={formatDate(housing.createdOn)}
+                  key={housing.id}
+                  id={housing.id}
+                  studentId={housing.userId}
                 />
               ))}
           {!filteredValue
             ? sortType === "Name" &&
-              Object.values(Patients)
+              Object.values(Housings)
                 .sort((a, b) => (a.userName > b.userName ? 1 : -1))
-                .map((patient) => (
-                  <PatientCard
-                    userName={patient.userName}
-                    age={patient.age}
-                    gender={patient.gender}
-                    typeOfTreatment={patient.typeOfTreatment}
-                    createdOn={formatDate(patient.createdOn)}
-                    key={patient.id}
-                    id={patient.id}
-                    studentId={patient.userId}
+                .map((housing) => (
+                  <HousingCard
+                    userName={housing.userName}
+                    age={housing.age}
+                    gender={housing.gender}
+                    typeOfTreatment={housing.typeOfTreatment}
+                    createdOn={formatDate(housing.createdOn)}
+                    key={housing.id}
+                    id={housing.id}
+                    studentId={housing.userId}
                   />
                 ))
             : sortType === "Name" &&
               Object.values(filteredValue)
                 .sort((a, b) => (a.userName > b.userName ? 1 : -1))
-                .map((patient) => (
-                  <PatientCard
-                    userName={patient.userName}
-                    age={patient.age}
-                    gender={patient.gender}
-                    typeOfTreatment={patient.typeOfTreatment}
-                    createdOn={formatDate(patient.createdOn)}
-                    key={patient.id}
-                    id={patient.id}
-                    studentId={patient.userId}
+                .map((housing) => (
+                  <HousingCard
+                    userName={housing.userName}
+                    age={housing.age}
+                    gender={housing.gender}
+                    typeOfTreatment={housing.typeOfTreatment}
+                    createdOn={formatDate(housing.createdOn)}
+                    key={housing.id}
+                    id={housing.id}
+                    studentId={housing.userId}
                   />
                 ))}
           {!filteredValue
             ? sortType === "Date" &&
-              Object.values(Patients)
+              Object.values(Housings)
                 .sort(
                   (a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn)
                 )
-                .map((patient) => (
-                  <PatientCard
-                    userName={patient.userName}
-                    age={patient.age}
-                    gender={patient.gender}
-                    typeOfTreatment={patient.typeOfTreatment}
-                    createdOn={formatDate(patient.createdOn)}
-                    key={patient.id}
-                    id={patient.id}
-                    studentId={patient.userId}
+                .map((housing) => (
+                  <HousingCard
+                    userName={housing.userName}
+                    age={housing.age}
+                    gender={housing.gender}
+                    typeOfTreatment={housing.typeOfTreatment}
+                    createdOn={formatDate(housing.createdOn)}
+                    key={housing.id}
+                    id={housing.id}
+                    studentId={housing.userId}
                   />
                 ))
             : sortType === "Date" &&
@@ -226,47 +229,47 @@ const PatientSection = ({ filteredValue }) => {
                 .sort(
                   (a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn)
                 )
-                .map((patient) => (
-                  <PatientCard
-                    userName={patient.userName}
-                    age={patient.age}
-                    gender={patient.gender}
-                    typeOfTreatment={patient.typeOfTreatment}
-                    createdOn={formatDate(patient.createdOn)}
-                    key={patient.id}
-                    id={patient.id}
-                    studentId={patient.userId}
+                .map((housing) => (
+                  <HousingCard
+                    userName={housing.userName}
+                    age={housing.age}
+                    gender={housing.gender}
+                    typeOfTreatment={housing.typeOfTreatment}
+                    createdOn={formatDate(housing.createdOn)}
+                    key={housing.id}
+                    id={housing.id}
+                    studentId={housing.userId}
                   />
                 ))}
           {!filteredValue
             ? sortType === "Age" &&
-              Object.values(Patients)
+              Object.values(Housings)
                 .sort((a, b) => b.age - a.age)
-                .map((patient) => (
-                  <PatientCard
-                    userName={patient.userName}
-                    age={patient.age}
-                    gender={patient.gender}
-                    typeOfTreatment={patient.typeOfTreatment}
-                    createdOn={formatDate(patient.createdOn)}
-                    key={patient.id}
-                    id={patient.id}
-                    studentId={patient.userId}
+                .map((housing) => (
+                  <HousingCard
+                    userName={housing.userName}
+                    age={housing.age}
+                    gender={housing.gender}
+                    typeOfTreatment={housing.typeOfTreatment}
+                    createdOn={formatDate(housing.createdOn)}
+                    key={housing.id}
+                    id={housing.id}
+                    studentId={housing.userId}
                   />
                 ))
             : sortType === "Age" &&
               Object.values(filteredValue)
                 .sort((a, b) => b.age - a.age)
-                .map((patient) => (
-                  <PatientCard
-                    userName={patient.userName}
-                    age={patient.age}
-                    gender={patient.gender}
-                    typeOfTreatment={patient.typeOfTreatment}
-                    createdOn={formatDate(patient.createdOn)}
-                    key={patient.id}
-                    id={patient.id}
-                    studentId={patient.userId}
+                .map((housing) => (
+                  <HousingCard
+                    userName={housing.userName}
+                    age={housing.age}
+                    gender={housing.gender}
+                    typeOfTreatment={housing.typeOfTreatment}
+                    createdOn={formatDate(housing.createdOn)}
+                    key={housing.id}
+                    id={housing.id}
+                    studentId={housing.userId}
                   />
                 ))}
         </div>
@@ -275,4 +278,4 @@ const PatientSection = ({ filteredValue }) => {
   );
 };
 
-export default PatientSection;
+export default HousingSection;

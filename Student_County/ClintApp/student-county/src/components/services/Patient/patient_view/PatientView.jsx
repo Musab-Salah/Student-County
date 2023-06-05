@@ -23,122 +23,132 @@ const PatientView = () => {
 
   return (
     <>
-      <div
+      <div className="patient-section">
+        <div
           className="container-load-form"
           style={{ display: FormPatientLoader ? "block" : "none" }}
         >
           {[...Array(16)].map((_, index) => (
             <div key={index} className="block-load-form"></div>
           ))}
-      </div>
-      <div
-        className="patient-view "
-        style={{ display: FormPatientLoader ? "none" : "flex" }}
-      >
-        <div className="patient-top-info-container">
-          <div className="patient-profile">
-            <FaUserCircle className="patient-avatar-icon" />
-            <div className="patient-name">{Patient.userName}</div>
-          </div>
-          {/* <BsInfoCircle className="btn btn-primary btn-icon" alt="" /> */}
         </div>
-        <div className="vertical-line" />
-        <div className="patient-info-container">
-          <div className="patient-info">
-            <div className="patient-info-title">Patient Info:</div>
-            <div className="patient-info-items">
-              <div className="patient-info-item">
-                <div className="patient-info-item-title">Full Name</div>
-                <div className="patient-info-item-value">
-                  {Patient.userName}
+        <div
+          className="patient-view "
+          style={{ display: FormPatientLoader ? "none" : "flex" }}
+        >
+          <div className="patient-top-info-container">
+            <div className="patient-profile">
+              <FaUserCircle className="patient-avatar-icon" />
+              <div className="patient-name">{Patient.userName}</div>
+            </div>
+            {/* <BsInfoCircle className="btn btn-primary btn-icon" alt="" /> */}
+          </div>
+          <div className="vertical-line" />
+          <div className="patient-info-container">
+            <div className="patient-info">
+              <div className="patient-info-title">Patient Info:</div>
+              <div className="patient-info-items">
+                <div className="patient-info-item">
+                  <div className="patient-info-item-title">Full Name</div>
+                  <div className="patient-info-item-value">
+                    {Patient.userName}
+                  </div>
                 </div>
-              </div>
-              <div className="patient-info-item">
-                <div className="patient-info-item-title">Age</div>
-                <div className="patient-info-item-value">{Patient.age}</div>
-              </div>
-              <div className="patient-info-item">
-                <div className="patient-info-item-title">Address</div>
-                <div className="patient-info-item-value">{Patient.address}</div>
-              </div>
-              <div className="patient-info-item">
-                <div className="patient-info-item-title">Phone Number</div>
-                <div className="patient-info-item-value">
-                  {Patient.phoneNumber}
+                <div className="patient-info-item">
+                  <div className="patient-info-item-title">Age</div>
+                  <div className="patient-info-item-value">{Patient.age}</div>
                 </div>
-              </div>
-              <div className="patient-info-item">
-                <div className="patient-info-item-title">National id</div>
-                <div className="patient-info-item-value">
-                  {Patient.nationalIdNumber}
+                <div className="patient-info-item">
+                  <div className="patient-info-item-title">Address</div>
+                  <div className="patient-info-item-value">
+                    {Patient.address}
+                  </div>
                 </div>
-              </div>
-              <div className="patient-info-item">
-                <div className="patient-info-item-title">Gender</div>
-                <div className="patient-info-item-value">{Patient.gender}</div>
+                <div className="patient-info-item">
+                  <div className="patient-info-item-title">Phone Number</div>
+                  <div className="patient-info-item-value">
+                    {Patient.phoneNumber}
+                  </div>
+                </div>
+                <div className="patient-info-item">
+                  <div className="patient-info-item-title">National id</div>
+                  <div className="patient-info-item-value">
+                    {Patient.nationalIdNumber}
+                  </div>
+                </div>
+                <div className="patient-info-item">
+                  <div className="patient-info-item-title">Gender</div>
+                  <div className="patient-info-item-value">
+                    {Patient.gender}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="patient-info">
-            <div className="patient-info-title">Medical Status:</div>
-            <div className="patient-info-items">
-              <div className="patient-info-item">
-                <div className="patient-info-item-title">Type OF TREATMENT</div>
-                <div className="patient-info-item-value">
-                  {Patient.typeOfTreatment}
-                </div>
-              </div>
-              <div className="patient-info-item">
-                <div className="patient-info-item-title">SENSITIVITY</div>
-                <div className="patient-info-item-value">
-                  {Patient.sensitivity}
-                </div>
-              </div>
-              <div className="patient-info-item">
-                <div className="patient-info-item-title">CURRENT illnesses</div>
-                <div className="patient-info-item-value">
-                  {Patient.currentIllnesses}
-                </div>
-              </div>
-              <div className="patient-info-item">
-                <div className="patient-info-item-title">Current T.M</div>
-                <div className="patient-info-item-value">
-                  {Patient.currentlyUsedMedicines}
-                </div>
-              </div>
-              {Patient.additionalInformation ? (
+            <div className="patient-info">
+              <div className="patient-info-title">Medical Status:</div>
+              <div className="patient-info-items">
                 <div className="patient-info-item">
                   <div className="patient-info-item-title">
-                    Additional Information
+                    Type OF TREATMENT
                   </div>
                   <div className="patient-info-item-value">
-                    {Patient.additionalInformation}
+                    {Patient.typeOfTreatment}
                   </div>
                 </div>
-              ) : (
-                ""
-              )}
+                <div className="patient-info-item">
+                  <div className="patient-info-item-title">SENSITIVITY</div>
+                  <div className="patient-info-item-value">
+                    {Patient.sensitivity}
+                  </div>
+                </div>
+                <div className="patient-info-item">
+                  <div className="patient-info-item-title">
+                    CURRENT illnesses
+                  </div>
+                  <div className="patient-info-item-value">
+                    {Patient.currentIllnesses}
+                  </div>
+                </div>
+                <div className="patient-info-item">
+                  <div className="patient-info-item-title">Current T.M</div>
+                  <div className="patient-info-item-value">
+                    {Patient.currentlyUsedMedicines}
+                  </div>
+                </div>
+                {Patient.additionalInformation ? (
+                  <div className="patient-info-item">
+                    <div className="patient-info-item-title">
+                      Additional Information
+                    </div>
+                    <div className="patient-info-item-value">
+                      {Patient.additionalInformation}
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
           </div>
-        </div>
-        <div className="btns">
-          <button
-            onClick={() => {
-              reJoinRoom(decodedJwt.uid, Patient.userId);
-              setOwnerItem(Patient.userId);
-              setOptionMenu("Chat");
-              setButtonCards("");
-            }}
-            className="btn btn-primary btn-fill"
-          >
-            Contact The Patient
-          </button>
-          <button
-            onClick={() => setButtonCards("")}
-            className="btn btn-secondary btn-fill"
-          >
-            Cancel
-          </button>
+          <div className="btns">
+            <button
+              onClick={() => {
+                reJoinRoom(decodedJwt.uid, Patient.userId);
+                setOwnerItem(Patient.userId);
+                setOptionMenu("Chat");
+                setButtonCards("");
+              }}
+              className="btn btn-primary btn-fill"
+            >
+              Contact The Patient
+            </button>
+            <button
+              onClick={() => setButtonCards("")}
+              className="btn btn-secondary btn-fill"
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
     </>

@@ -426,27 +426,14 @@ const PatientForm = () => {
       )}
       <div style={{ opacity: deleteDialogState ? 0.2 : 1 }}>
         <div className="Create-section">
-          <div
+        <div
             className="container-load-form"
             style={{ display: FormPatientLoader ? "block" : "none" }}
           >
-            <div className="block-load-form"></div>
-            <div className="block-load-form"></div>
-            <div className="block-load-form"></div>
-            <div className="block-load-form"></div>
-            <div className="block-load-form"></div>
-            <div className="block-load-form"></div>
-            <div className="block-load-form"></div>
-            <div className="block-load-form"></div>
-            <div className="block-load-form"></div>
-            <div className="block-load-form"></div>
-            <div className="block-load-form"></div>
-            <div className="block-load-form"></div>
-            <div className="block-load-form"></div>
-            <div className="block-load-form"></div>
-            <div className="block-load-form"></div>
-            <div className="block-load-form"></div>
-          </div>
+            {[...Array(16)].map((_, index) => (
+              <div key={index} className="block-load-form"></div>
+            ))}
+        </div>
           {step === 1 && (
             <>
               <form
@@ -454,6 +441,19 @@ const PatientForm = () => {
                 className="form-create"
                 onSubmit={handleNext}
               >
+                <div class="steps-container">
+                  <div class="step-line"></div>
+                  <div class="step step-active">
+                      <div class="step-icon"></div>
+                      <div class="step-title">Patient Info</div>
+                  </div>
+                  <div class="step-line"></div>
+                  <div class="step">
+                      <div class="step-icon"></div>
+                      <div class="step-title">Medical Status</div>
+                  </div>
+                  <div class="step-line"></div>
+                </div>
                 <div className="input-group">
                   <div className="input-container-group">
                     <div className="input-container">

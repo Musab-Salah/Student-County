@@ -19,7 +19,7 @@ namespace Student_County.DAL
         [Required]
         public string? PhoneNumber { get; set; }
         [Required]
-        public string? NationalIdNumber { get; set; }
+        public string? NationalId { get; set; }
         public string? AdditionalInformation { get; set; }
         [Required]
         public int Age { get; set; }
