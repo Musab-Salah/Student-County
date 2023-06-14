@@ -61,7 +61,7 @@ const HousingView = () => {
                 </div>
 
                 <div className="housing-info-item">
-                  <div className="housing-info-item-title">Address</div>
+                  <div className="housing-info-item-title">Phone Number</div>
                   <div className="housing-info-item-value">
                     {Housing.phoneNumber}
                   </div>
@@ -79,43 +79,35 @@ const HousingView = () => {
               <div className="housing-info-title">House Info:</div>
               <div className="housing-info-items">
                 <div className="housing-info-item">
-                  <div className="housing-info-item-title">loc</div>
+                  <div className="housing-info-item-title">Address</div>
                   <div className="housing-info-item-value">
                     {Housing.address},{Housing.city}, {Housing.province}
                   </div>
                 </div>
                 <div className="housing-info-item">
-                  <div className="housing-info-item-title">SENSITIVITY</div>
+                  <div className="housing-info-item-title">RentalPrice</div>
                   <div className="housing-info-item-value">
-                    {Housing.sensitivity}
+                    {Housing.rentalPrice} {Housing.furnishings}
                   </div>
                 </div>
                 <div className="housing-info-item">
-                  <div className="housing-info-item-title">
-                    CURRENT illnesses
-                  </div>
+                  <div className="housing-info-item-title">Room Type</div>
                   <div className="housing-info-item-value">
-                    {Housing.currentIllnesses}
+                    {Housing.roomType}
                   </div>
                 </div>
                 <div className="housing-info-item">
-                  <div className="housing-info-item-title">Current T.M</div>
+                  <div className="housing-info-item-title">BedRoom</div>
                   <div className="housing-info-item-value">
-                    {Housing.currentlyUsedMedicines}
+                    {Housing.bedRoom}
+                  </div>
+                </div>{" "}
+                <div className="housing-info-item">
+                  <div className="housing-info-item-title">BathRoom</div>
+                  <div className="housing-info-item-value">
+                    {Housing.bathRoom}
                   </div>
                 </div>
-                {Housing.additionalInformation ? (
-                  <div className="housing-info-item">
-                    <div className="housing-info-item-title">
-                      Additional Information
-                    </div>
-                    <div className="housing-info-item-value">
-                      {Housing.additionalInformation}
-                    </div>
-                  </div>
-                ) : (
-                  ""
-                )}
               </div>
             </div>
           </div>
@@ -129,7 +121,7 @@ const HousingView = () => {
               }}
               className="btn btn-primary btn-fill"
             >
-              Contact The Housing
+              Contact The with owner
             </button>
             <button
               onClick={() => setButtonCards("")}

@@ -10,8 +10,11 @@ export function ToolsProvider({ children }) {
   const [Tools, setTools] = useState([]); //all tools
   const [MyTools, setMyTools] = useState([]); //all my tools
   const [Tool, setTool] = useState("");
-  const [ToolsLoader, setToolsLoader] = useState("");
-
+  const [ToolLoader, setToolLoader] = useState("");
+  const [FormToolLoader, setFormToolLoader] = useState("");
+  const [ButtonsFormToolLoader, setButtonsFormToolLoader] = useState("");
+  const [DeleteButtonsFormToolLoader, setDeleteButtonsFormToolLoader] =
+    useState("");
 
   const [ToolsError, setError] = useState("");
   const [Success, setSuccess] = useState("");
@@ -37,7 +40,7 @@ export function ToolsProvider({ children }) {
     });
 
   const getTools = () => {
-    ToolsServices.getTools()
+    ToolsServices.getTools(token)
       .then((res) => {
         setTools(res.data);
         setError(null);
@@ -120,6 +123,14 @@ export function ToolsProvider({ children }) {
         setSuccess,
         getMyAllTools,
         setTool,
+        ToolLoader,
+        setToolLoader,
+        FormToolLoader,
+        setFormToolLoader,
+        ButtonsFormToolLoader,
+        setButtonsFormToolLoader,
+        DeleteButtonsFormToolLoader,
+        setDeleteButtonsFormToolLoader,
       }}
     >
       {children}

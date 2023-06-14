@@ -1,17 +1,15 @@
-import usePatient from "../../../../hooks/usePatient";
+import ToolCard from "../tool_card/ToolCard";
+import useTools from "../../../../hooks/useTools";
 import { useEffect, useMemo, useState } from "react";
 import { RiArrowDownSLine } from "react-icons/ri";
-import "./PatientSection.css";
+import "./ToolSection.css";
 import { Helmet } from "react-helmet";
 import useLoader from "../../../../hooks/useLoader";
-import PatientCard from "../patient_card/PatientCard";
-import HousingCard from "../../Housing/housing_card/HousingCard";
-import HousingForm from "../../Housing/housing_form/HousingForm";
 
-const PatientSection = ({ filteredValue }) => {
-  const { getPatient, Success, setPatient, Patients } = usePatient();
-  const { PatientLoader } = useLoader();
-  const SORT_TYPES = ["Name", "Date", "Age"];
+const ToolSection = ({ filteredValue }) => {
+  const { Tools, getTools, Success, setTool } = useTools();
+  const { ToolLoader } = useLoader();
+  const SORT_TYPES = ["Name", "Date", "Price"];
   const [showDropdownType, setShowDropdownType] = useState("");
   const [sortType, setSortType] = useState("");
   const [showDropdownSort, setShowDropdownSort] = useState("");
@@ -34,12 +32,12 @@ const PatientSection = ({ filteredValue }) => {
   }, [showDropdownType, showDropdownSort]);
 
   useEffect(() => {
-    getPatient();
+    getTools();
     // eslint-disable-next-line
   }, [Success]);
   useEffect(() => {
     return function cleanup() {
-      setPatient("");
+      setTool("");
     };
     // eslint-disable-next-line
   }, []);
@@ -47,7 +45,6 @@ const PatientSection = ({ filteredValue }) => {
     setSortType(sort);
     setShowDropdownSort(false);
   };
-
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const today = new Date();
@@ -81,10 +78,8 @@ const PatientSection = ({ filteredValue }) => {
   };
   return (
     <>
-
-
       <Helmet>
-        <title>Patient</title>
+        <title>Tool</title>
       </Helmet>
       <div className="service-container">
         <div className="services-head">
@@ -134,7 +129,7 @@ const PatientSection = ({ filteredValue }) => {
         <div className="cards">
           <div
             className="loader-overview"
-            style={{ display: PatientLoader ? "block" : "none" }}
+            style={{ display: ToolLoader ? "block" : "none" }}
           >
             <div className="loader-square"></div>
             <div className="loader-square"></div>
@@ -147,78 +142,73 @@ const PatientSection = ({ filteredValue }) => {
 
           {!filteredValue
             ? !sortType &&
-              Object.values(Patients).map((patient) => (
-                <PatientCard
-                  userName={patient.userName}
-                  age={patient.age}
-                  gender={patient.gender}
-                  typeOfTreatment={patient.typeOfTreatment}
-                  createdOn={formatDate(patient.createdOn)}
-                  key={patient.id}
-                  id={patient.id}
-                  userId={patient.userId}
+              Object.values(Tools).map((tool) => (
+                <ToolCard
+                  createdOn={formatDate(tool.createdOn)}
+                  id={tool.id}
+                  studentId={tool.studentId}
+                  theWay={tool.theWay}
+                  condition={tool.condition}
+                  price={tool.price}
+                  shortDescription={tool.shortDescription}
                 />
               ))
             : !sortType &&
-              Object.values(filteredValue).map((patient) => (
-                <PatientCard
-                  userName={patient.userName}
-                  age={patient.age}
-                  gender={patient.gender}
-                  typeOfTreatment={patient.typeOfTreatment}
-                  createdOn={formatDate(patient.createdOn)}
-                  key={patient.id}
-                  id={patient.id}
-                  userId={patient.userId}
+              Object.values(filteredValue).map((tool) => (
+                <ToolCard
+                  createdOn={formatDate(tool.createdOn)}
+                  id={tool.id}
+                  studentId={tool.studentId}
+                  theWay={tool.theWay}
+                  condition={tool.condition}
+                  price={tool.price}
+                  shortDescription={tool.shortDescription}
                 />
               ))}
           {!filteredValue
             ? sortType === "Name" &&
-              Object.values(Patients)
-                .sort((a, b) => (a.userName > b.userName ? 1 : -1))
-                .map((patient) => (
-                  <PatientCard
-                    userName={patient.userName}
-                    age={patient.age}
-                    gender={patient.gender}
-                    typeOfTreatment={patient.typeOfTreatment}
-                    createdOn={formatDate(patient.createdOn)}
-                    key={patient.id}
-                    id={patient.id}
-                    userId={patient.userId}
+              Object.values(Tools)
+                .sort((a, b) => (a.name > b.name ? 1 : -1))
+                .map((tool) => (
+                  <ToolCard
+                    createdOn={formatDate(tool.createdOn)}
+                    id={tool.id}
+                    studentId={tool.studentId}
+                    theWay={tool.theWay}
+                    condition={tool.condition}
+                    price={tool.price}
+                    shortDescription={tool.shortDescription}
                   />
                 ))
             : sortType === "Name" &&
               Object.values(filteredValue)
-                .sort((a, b) => (a.userName > b.userName ? 1 : -1))
-                .map((patient) => (
-                  <PatientCard
-                    userName={patient.userName}
-                    age={patient.age}
-                    gender={patient.gender}
-                    typeOfTreatment={patient.typeOfTreatment}
-                    createdOn={formatDate(patient.createdOn)}
-                    key={patient.id}
-                    id={patient.id}
-                    userId={patient.userId}
+                .sort((a, b) => (a.name > b.name ? 1 : -1))
+                .map((tool) => (
+                  <ToolCard
+                    createdOn={formatDate(tool.createdOn)}
+                    id={tool.id}
+                    studentId={tool.studentId}
+                    theWay={tool.theWay}
+                    condition={tool.condition}
+                    price={tool.price}
+                    shortDescription={tool.shortDescription}
                   />
                 ))}
           {!filteredValue
             ? sortType === "Date" &&
-              Object.values(Patients)
+              Object.values(Tools)
                 .sort(
                   (a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn)
                 )
-                .map((patient) => (
-                  <PatientCard
-                    userName={patient.userName}
-                    age={patient.age}
-                    gender={patient.gender}
-                    typeOfTreatment={patient.typeOfTreatment}
-                    createdOn={formatDate(patient.createdOn)}
-                    key={patient.id}
-                    id={patient.id}
-                    userId={patient.userId}
+                .map((tool) => (
+                  <ToolCard
+                    createdOn={formatDate(tool.createdOn)}
+                    id={tool.id}
+                    studentId={tool.studentId}
+                    theWay={tool.theWay}
+                    condition={tool.condition}
+                    price={tool.price}
+                    shortDescription={tool.shortDescription}
                   />
                 ))
             : sortType === "Date" &&
@@ -226,47 +216,44 @@ const PatientSection = ({ filteredValue }) => {
                 .sort(
                   (a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn)
                 )
-                .map((patient) => (
-                  <PatientCard
-                    userName={patient.userName}
-                    age={patient.age}
-                    gender={patient.gender}
-                    typeOfTreatment={patient.typeOfTreatment}
-                    createdOn={formatDate(patient.createdOn)}
-                    key={patient.id}
-                    id={patient.id}
-                    userId={patient.userId}
+                .map((tool) => (
+                  <ToolCard
+                    createdOn={formatDate(tool.createdOn)}
+                    id={tool.id}
+                    studentId={tool.studentId}
+                    theWay={tool.theWay}
+                    condition={tool.condition}
+                    price={tool.price}
+                    shortDescription={tool.shortDescription}
                   />
                 ))}
           {!filteredValue
-            ? sortType === "Age" &&
-              Object.values(Patients)
-                .sort((a, b) => b.age - a.age)
-                .map((patient) => (
-                  <PatientCard
-                    userName={patient.userName}
-                    age={patient.age}
-                    gender={patient.gender}
-                    typeOfTreatment={patient.typeOfTreatment}
-                    createdOn={formatDate(patient.createdOn)}
-                    key={patient.id}
-                    id={patient.id}
-                    userId={patient.userId}
+            ? sortType === "Price" &&
+              Object.values(Tools)
+                .sort((a, b) => b.price - a.price)
+                .map((tool) => (
+                  <ToolCard
+                    createdOn={formatDate(tool.createdOn)}
+                    id={tool.id}
+                    studentId={tool.studentId}
+                    theWay={tool.theWay}
+                    condition={tool.condition}
+                    price={tool.price}
+                    shortDescription={tool.shortDescription}
                   />
                 ))
-            : sortType === "Age" &&
+            : sortType === "Price" &&
               Object.values(filteredValue)
-                .sort((a, b) => b.age - a.age)
-                .map((patient) => (
-                  <PatientCard
-                    userName={patient.userName}
-                    age={patient.age}
-                    gender={patient.gender}
-                    typeOfTreatment={patient.typeOfTreatment}
-                    createdOn={formatDate(patient.createdOn)}
-                    key={patient.id}
-                    id={patient.id}
-                    userId={patient.userId}
+                .sort((a, b) => b.price - a.price)
+                .map((tool) => (
+                  <ToolCard
+                    createdOn={formatDate(tool.createdOn)}
+                    id={tool.id}
+                    studentId={tool.studentId}
+                    theWay={tool.theWay}
+                    condition={tool.condition}
+                    price={tool.price}
+                    shortDescription={tool.shortDescription}
                   />
                 ))}
         </div>
@@ -275,4 +262,4 @@ const PatientSection = ({ filteredValue }) => {
   );
 };
 
-export default PatientSection;
+export default ToolSection;

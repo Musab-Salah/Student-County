@@ -5,6 +5,7 @@ import useAuth from "../hooks/useAuth";
 import useBooks from "../hooks/useBooks";
 import usePatient from "../hooks/usePatient";
 import useHousings from "../hooks/useHousings";
+import useTools from "../hooks/useTools";
 
 const LoaderCxt = createContext();
 
@@ -31,6 +32,12 @@ export function LoaderProvider({ children }) {
     ButtonsFormHousingLoader,
     DeleteButtonsFormHousingLoader,
   } = useHousings();
+  const {
+    ToolLoader,
+    FormToolLoader,
+    ButtonsFormToolLoader,
+    DeleteButtonsFormToolLoader,
+  } = useTools();
   return (
     <LoaderCxt.Provider
       value={{
@@ -50,6 +57,10 @@ export function LoaderProvider({ children }) {
         FormHousingLoader,
         ButtonsFormHousingLoader,
         DeleteButtonsFormHousingLoader,
+        ToolLoader,
+        FormToolLoader,
+        ButtonsFormToolLoader,
+        DeleteButtonsFormToolLoader,
       }}
     >
       {children}

@@ -385,51 +385,12 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 13, 19, 39, 58, 828, DateTimeKind.Unspecified).AddTicks(587), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 14, 18, 6, 44, 207, DateTimeKind.Unspecified).AddTicks(2084), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 13, 19, 39, 58, 828, DateTimeKind.Unspecified).AddTicks(588), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 14, 18, 6, 44, 207, DateTimeKind.Unspecified).AddTicks(2085), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "EIT"
                         });
-                });
-
-            modelBuilder.Entity("Student_County.DAL.DestinationEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CityName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("CreatedOn")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("ModifiedOn")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("TownName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CityName")
-                        .IsUnique();
-
-                    b.ToTable("Destination");
                 });
 
             modelBuilder.Entity("Student_County.DAL.HousingEntity", b =>
@@ -520,6 +481,42 @@ namespace Student_County.Migrations
                     b.HasIndex("StudentId");
 
                     b.ToTable("Housing");
+                });
+
+            modelBuilder.Entity("Student_County.DAL.LocationEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CityName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("ModifiedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("TownName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Location");
                 });
 
             modelBuilder.Entity("Student_County.DAL.MessageEntity", b =>
@@ -667,14 +664,14 @@ namespace Student_County.Migrations
                     b.Property<DateTimeOffset>("CreatedOn")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("DestinationId")
-                        .HasColumnType("int");
-
                     b.Property<int>("EmptySeats")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
 
                     b.Property<string>("LongDescription")
                         .IsRequired()
@@ -703,7 +700,7 @@ namespace Student_County.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DestinationId");
+                    b.HasIndex("LocationId");
 
                     b.HasIndex("StudentId");
 
@@ -881,11 +878,11 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 13, 19, 39, 58, 828, DateTimeKind.Unspecified).AddTicks(554), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 14, 18, 6, 44, 207, DateTimeKind.Unspecified).AddTicks(2035), new TimeSpan(0, 0, 0, 0, 0)),
                             EmailDomainName = "@student.aaup.edu",
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 13, 19, 39, 58, 828, DateTimeKind.Unspecified).AddTicks(558), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 14, 18, 6, 44, 207, DateTimeKind.Unspecified).AddTicks(2040), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Arab American University"
                         });
                 });
@@ -944,13 +941,13 @@ namespace Student_County.Migrations
             modelBuilder.Entity("Student_County.BusinessLogic.Auth.Models.ApplicationUser", b =>
                 {
                     b.HasOne("Student_County.DAL.CollegeEntity", "College")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("CollegeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Student_County.DAL.UniversityEntity", "University")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("UniversityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -997,7 +994,7 @@ namespace Student_County.Migrations
             modelBuilder.Entity("Student_County.DAL.BookEntity", b =>
                 {
                     b.HasOne("Student_County.BusinessLogic.Auth.Models.ApplicationUser", "Student")
-                        .WithMany()
+                        .WithMany("Books")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1008,7 +1005,7 @@ namespace Student_County.Migrations
             modelBuilder.Entity("Student_County.DAL.HousingEntity", b =>
                 {
                     b.HasOne("Student_County.BusinessLogic.Auth.Models.ApplicationUser", "Student")
-                        .WithMany()
+                        .WithMany("Housings")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1030,7 +1027,7 @@ namespace Student_County.Migrations
             modelBuilder.Entity("Student_County.DAL.PatientEntity", b =>
                 {
                     b.HasOne("Student_County.BusinessLogic.Auth.Models.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("Patients")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1040,19 +1037,19 @@ namespace Student_County.Migrations
 
             modelBuilder.Entity("Student_County.DAL.RideEntity", b =>
                 {
-                    b.HasOne("Student_County.DAL.DestinationEntity", "Destination")
-                        .WithMany()
-                        .HasForeignKey("DestinationId")
+                    b.HasOne("Student_County.DAL.LocationEntity", "Location")
+                        .WithMany("Rides")
+                        .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Student_County.BusinessLogic.Auth.Models.ApplicationUser", "Student")
-                        .WithMany()
+                        .WithMany("Rides")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Destination");
+                    b.Navigation("Location");
 
                     b.Navigation("Student");
                 });
@@ -1060,12 +1057,40 @@ namespace Student_County.Migrations
             modelBuilder.Entity("Student_County.DAL.ToolsEntity", b =>
                 {
                     b.HasOne("Student_County.BusinessLogic.Auth.Models.ApplicationUser", "Student")
-                        .WithMany()
+                        .WithMany("Tools")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("Student_County.BusinessLogic.Auth.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("Books");
+
+                    b.Navigation("Housings");
+
+                    b.Navigation("Patients");
+
+                    b.Navigation("Rides");
+
+                    b.Navigation("Tools");
+                });
+
+            modelBuilder.Entity("Student_County.DAL.CollegeEntity", b =>
+                {
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("Student_County.DAL.LocationEntity", b =>
+                {
+                    b.Navigation("Rides");
+                });
+
+            modelBuilder.Entity("Student_County.DAL.UniversityEntity", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

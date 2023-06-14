@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Student_County.BusinessLogic.Auth.Models;
 using Student_County.BusinessLogic.Helpers.Common;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -14,5 +15,8 @@ namespace Student_County.DAL
         public int Id { get; set; }
         [Required]
         public string? Name { get; set; }
+
+        public List<ApplicationUser> Users { get; set; }
+
     }
 }

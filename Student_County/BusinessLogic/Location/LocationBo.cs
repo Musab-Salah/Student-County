@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Student_County.BusinessLogic.Destination
 {
-    public class DestinationBo : TrackableData
+    public class LocationBo : TrackableData
     {
         [Key]
         public int Id { get; set; }

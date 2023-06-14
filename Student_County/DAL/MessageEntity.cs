@@ -12,10 +12,10 @@ namespace Student_County.DAL
         [Required]
         public string From { get; set; }
         [Required]
-        public string? Message { get; set; }
+        public string Message { get; set; }
         [Required]
         public string RoomId { get; set; }
-        public RoomEntity? Room { get; set; }
+        public RoomEntity Room { get; set; }
 
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Student_County.Migrations
 {
     /// <inheritdoc />
-    public partial class fD : Migration
+    public partial class Fsas : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -46,12 +46,12 @@ namespace Student_County.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Destination",
+                name: "Location",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CityName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CityName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TownName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
@@ -61,7 +61,7 @@ namespace Student_County.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Destination", x => x.Id);
+                    table.PrimaryKey("PK_Location", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -336,6 +336,7 @@ namespace Student_County.Migrations
                     BedRoom = table.Column<int>(type: "int", nullable: false),
                     BathRoom = table.Column<int>(type: "int", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -429,7 +430,7 @@ namespace Student_County.Migrations
                     LongDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    DestinationId = table.Column<int>(type: "int", nullable: false),
+                    LocationId = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -446,9 +447,9 @@ namespace Student_County.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Ride_Destination_DestinationId",
-                        column: x => x.DestinationId,
-                        principalTable: "Destination",
+                        name: "FK_Ride_Location_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "Location",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -499,12 +500,12 @@ namespace Student_County.Migrations
             migrationBuilder.InsertData(
                 table: "College",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "IsDeleted", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 1, "Ini", new DateTimeOffset(new DateTime(2023, 6, 13, 16, 37, 14, 563, DateTimeKind.Unspecified).AddTicks(7953), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 13, 16, 37, 14, 563, DateTimeKind.Unspecified).AddTicks(7954), new TimeSpan(0, 0, 0, 0, 0)), "EIT" });
+                values: new object[] { 1, "Ini", new DateTimeOffset(new DateTime(2023, 6, 14, 18, 6, 44, 207, DateTimeKind.Unspecified).AddTicks(2084), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 14, 18, 6, 44, 207, DateTimeKind.Unspecified).AddTicks(2085), new TimeSpan(0, 0, 0, 0, 0)), "EIT" });
 
             migrationBuilder.InsertData(
                 table: "University",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "EmailDomainName", "IsDeleted", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 1, "Ini", new DateTimeOffset(new DateTime(2023, 6, 13, 16, 37, 14, 563, DateTimeKind.Unspecified).AddTicks(7922), new TimeSpan(0, 0, 0, 0, 0)), "@student.aaup.edu", false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 13, 16, 37, 14, 563, DateTimeKind.Unspecified).AddTicks(7926), new TimeSpan(0, 0, 0, 0, 0)), "Arab American University" });
+                values: new object[] { 1, "Ini", new DateTimeOffset(new DateTime(2023, 6, 14, 18, 6, 44, 207, DateTimeKind.Unspecified).AddTicks(2035), new TimeSpan(0, 0, 0, 0, 0)), "@student.aaup.edu", false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 14, 18, 6, 44, 207, DateTimeKind.Unspecified).AddTicks(2040), new TimeSpan(0, 0, 0, 0, 0)), "Arab American University" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -567,12 +568,6 @@ namespace Student_County.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Destination_CityName",
-                table: "Destination",
-                column: "CityName",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Housing_StudentId",
                 table: "Housing",
                 column: "StudentId");
@@ -588,9 +583,9 @@ namespace Student_County.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ride_DestinationId",
+                name: "IX_Ride_LocationId",
                 table: "Ride",
-                column: "DestinationId");
+                column: "LocationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ride_StudentId",
@@ -661,7 +656,7 @@ namespace Student_County.Migrations
                 name: "Room");
 
             migrationBuilder.DropTable(
-                name: "Destination");
+                name: "Location");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

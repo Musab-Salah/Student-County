@@ -27,8 +27,8 @@ const HousingForm = () => {
   const [step, setStep] = useState(1); // Current step of the form
   const [nationalId, setNationalId] = useState("");
   const [furnishings, setFurnishings] = useState(false);
-  const [homeType, setHomeType] = useState("House");
-  const [roomType, setRoomType] = useState("Private");
+  const [homeType, setHomeType] = useState("");
+  const [roomType, setRoomType] = useState("");
   const [bedRoom, setBedRoom] = useState("");
   const [bathRoom, setBathRoom] = useState("");
   const [city, setCity] = useState("");

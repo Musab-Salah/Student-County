@@ -16,6 +16,6 @@ namespace Student_County.BusinessLogic.Ride
         [Required]
         public string? LongDescription { get; set; }
         public string StudentId { get; set; }
-        public int DestinationId { get; set; }
+        public int LocationId { get; set; }
     }
 }

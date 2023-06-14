@@ -23,9 +23,9 @@ namespace Student_County.DAL
         public string? StudentName { get; set; }
         [Required]
         public string? StudentId { get; set; }
+        public ApplicationUser Student { get; set; }
         [Required]
-        public int DestinationId { get; set; }
-        public ApplicationUser? Student { get; set; }
-        public DestinationEntity? Destination { get; set; }
+        public int LocationId { get; set; }
+        public LocationEntity Location { get; set; }
     }
 }

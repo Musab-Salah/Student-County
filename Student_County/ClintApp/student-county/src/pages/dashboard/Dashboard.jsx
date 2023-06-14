@@ -23,13 +23,26 @@ import PatientView from "../../components/services/Patient/patient_view/PatientV
 import HousingSection from "../../components/services/Housing/housing_section/HousingSection";
 import HousingForm from "../../components/services/Housing/housing_form/HousingForm";
 import HousingView from "../../components/services/Housing/housing_view/HousingView";
+import ToolSection from "../../components/services/Tools/tool_section/ToolSection";
+import ToolView from "../../components/services/Tools/tool_view/ToolView";
+import ToolForm from "../../components/services/Tools/tool_form/ToolForm";
+import useTools from "../../hooks/useTools";
+import useHousings from "../../hooks/useHousings";
+import useRides from "./../../hooks/useRides";
+import RideSection from "../../components/services/Ride/ride_section/RideSection";
+import RideView from "../../components/services/Ride/ride_view/RideView";
+import RideForm from "../../components/services/Ride/ride_form/RideForm";
 
 const Dashboard = () => {
   const { Books, MyBooks } = useBooks();
+  const { Tools, MyTools } = useTools();
+  const { Housings, MyHousings } = useHousings();
+
   const { MyUserRelationData } = useUserRelationData();
   const { OptionMenu, setOptionMenu, setButtonCards, ButtonCards, ownerItem } =
     useComponent();
   const { Patients, MyPatients } = usePatient();
+  const { Rides, MyRides } = useRides();
   const { decodedJwt } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -82,28 +95,24 @@ const Dashboard = () => {
   const filteredValue = useMemo(() => {
     if (OptionMenu === "Overview" && MyUserRelationData[0]) {
       return Object.values(MyUserRelationData[0]).filter((Book) => {
-        return (
-          Book.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
+        return Book.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
           Book.shortDescription
-            .toLowerCase()
-            .includes(deferredInput.toLowerCase()) ||
-          Book.longDescription
-            .toLowerCase()
-            .includes(deferredInput.toLowerCase())
-        );
+          ? Book.shortDescription
+          : "".toLowerCase().includes(deferredInput.toLowerCase()) ||
+              Book.longDescription
+                .toLowerCase()
+                .includes(deferredInput.toLowerCase());
       });
     }
     if (OptionMenu === "Books") {
       return Object.values(Books).filter((Book) => {
-        return (
-          Book.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
+        return Book.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
           Book.shortDescription
-            .toLowerCase()
-            .includes(deferredInput.toLowerCase()) ||
-          Book.longDescription
-            .toLowerCase()
-            .includes(deferredInput.toLowerCase())
-        );
+          ? Book.shortDescription
+          : "".toLowerCase().includes(deferredInput.toLowerCase()) ||
+              Book.longDescription
+                .toLowerCase()
+                .includes(deferredInput.toLowerCase());
       });
     }
     if (OptionMenu === "Patient") {
@@ -121,8 +130,53 @@ const Dashboard = () => {
         );
       });
     }
+    if (OptionMenu === "Housing") {
+      return Object.values(Housings).filter((housing) => {
+        return (
+          housing.city.toLowerCase().includes(deferredInput.toLowerCase()) ||
+          housing.province
+            .toLowerCase()
+            .includes(deferredInput.toLowerCase()) ||
+          housing.address.toLowerCase().includes(deferredInput.toLowerCase())
+        );
+      });
+    }
+    if (OptionMenu === "Tool") {
+      return Object.values(Tools).filter((tool) => {
+        return tool.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
+          tool.shortDescription
+          ? tool.shortDescription
+          : "".toLowerCase().includes(deferredInput.toLowerCase()) ||
+              tool.longDescription
+                .toLowerCase()
+                .includes(deferredInput.toLowerCase());
+      });
+    }
+    if (OptionMenu === "Ride") {
+      return Object.values(Rides).filter((ride) => {
+        return ride.shortDescription
+          ? ride.shortDescription
+          : "".toLowerCase().includes(deferredInput.toLowerCase()) ||
+              ride.longDescription
+                .toLowerCase()
+                .includes(deferredInput.toLowerCase());
+      });
+    }
     // eslint-disable-next-line
-  }, [MyBooks, Books, MyPatients, Patients, deferredInput, MyUserRelationData]);
+  }, [
+    MyBooks,
+    Books,
+    MyPatients,
+    Patients,
+    deferredInput,
+    MyUserRelationData,
+    Housings,
+    MyHousings,
+    Tools,
+    MyTools,
+    Rides,
+    MyRides,
+  ]);
 
   useEffect(() => {
     return function cleanup() {
@@ -143,9 +197,17 @@ const Dashboard = () => {
       {(ButtonCards === "CreateHousing" || ButtonCards === "UpdateHousing") && (
         <HousingForm />
       )}
+      {(ButtonCards === "CreateTool" || ButtonCards === "UpdateTool") && (
+        <ToolForm />
+      )}
+      {(ButtonCards === "CreateRide" || ButtonCards === "UpdateRide") && (
+        <RideForm />
+      )}
       {ButtonCards === "ViewBook" && <BooksView />}
       {ButtonCards === "ViewPatient" && <PatientView />}
       {ButtonCards === "ViewHousing" && <HousingView />}
+      {ButtonCards === "ViewTool" && <ToolView />}
+      {ButtonCards === "ViewRide" && <RideView />}
 
       <div style={{ opacity: ButtonCards ? 0.2 : 1 }}>
         <div className={`dashboard-container `}>
@@ -213,6 +275,18 @@ const Dashboard = () => {
                       onClick={() => setButtonCards("CreateHousing")}
                     />
                   )}
+                  {OptionMenu === "Tool" && (
+                    <AiOutlinePlus
+                      className="btn btn-icon "
+                      onClick={() => setButtonCards("CreateTool")}
+                    />
+                  )}
+                  {OptionMenu === "Ride" && (
+                    <AiOutlinePlus
+                      className="btn btn-icon "
+                      onClick={() => setButtonCards("CreateRide")}
+                    />
+                  )}
                   <RiNotification2Line className="btn btn-icon" />
                 </div>
                 {/* <div className="horizontal-line" />
@@ -254,6 +328,16 @@ const Dashboard = () => {
             )}
             {OptionMenu === "Housing" && (
               <HousingSection
+                filteredValue={filteredValue ? filteredValue : false}
+              />
+            )}
+            {OptionMenu === "Tool" && (
+              <ToolSection
+                filteredValue={filteredValue ? filteredValue : false}
+              />
+            )}
+            {OptionMenu === "Ride" && (
+              <RideSection
                 filteredValue={filteredValue ? filteredValue : false}
               />
             )}

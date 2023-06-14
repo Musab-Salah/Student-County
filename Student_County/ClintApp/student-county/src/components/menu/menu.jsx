@@ -190,8 +190,8 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                   <div
                     className={`dash-nav-link ${
                       isMenuOpen ? "padding-resize" : ""
-                    } ${OptionMenu === "Rides" ? "selected" : ""} `}
-                    onClick={() => setOptionMenu("Rides")}
+                    } ${OptionMenu === "Ride" ? "active" : ""} `}
+                    onClick={() => setOptionMenu("Ride")}
                   >
                     <IoCarOutline className="dash-nav-link-icon" />
                     <div
@@ -211,8 +211,8 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                   <div
                     className={`dash-nav-link ${
                       isMenuOpen ? "padding-resize" : ""
-                    } ${OptionMenu === "Tools" ? "selected" : ""} `}
-                    onClick={() => setOptionMenu("Tools")}
+                    } ${OptionMenu === "Tool" ? "active" : ""} `}
+                    onClick={() => setOptionMenu("Tool")}
                   >
                     <TbTools className="dash-nav-link-icon" />
                     <div

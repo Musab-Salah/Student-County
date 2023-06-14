@@ -30,7 +30,7 @@ class ToolsServices {
       },
     });
 
-  getToolsById = async (toolId, token) =>
+  getToolById = async (toolId, token) =>
     await axios.get(TOOLS_API_BASE_URL + "/Get/" + toolId, {
       headers: {
         Authorization: `Bearer ${token}`,

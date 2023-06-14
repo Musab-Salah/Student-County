@@ -53,7 +53,7 @@ namespace Student_County.BusinessLogic.Book
             return entity;
         }
         public async Task<BookEntity> CreateUpdate(BookBo bo, int id = 0)
-        {
+        {   
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == bo.StudentId); 
             var entity = bo.MapBoToEntity();
             entity.StudentName = user.FirstName + " " + user.LastName;

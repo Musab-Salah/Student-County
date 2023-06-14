@@ -8,10 +8,10 @@ namespace Student_County.API.Controllers
     [Route("[controller]/[action]")]
     [ApiController]
 
-    public class DestinationController : ControllerBase
+    public class LocationController : ControllerBase
     {
-        private readonly IDestinationManager _manager;
-        public DestinationController(IDestinationManager manager)
+        private readonly ILocationManager _manager;
+        public LocationController(ILocationManager manager)
         {
             _manager = manager;
         }
@@ -21,7 +21,7 @@ namespace Student_County.API.Controllers
         
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] DestinationBo bo)
+        public async Task<IActionResult> Create([FromBody] LocationBo bo)
         {
             if (ModelState.IsValid)
                 return Ok(await _manager.CreateUpdate(bo));
@@ -42,13 +42,13 @@ namespace Student_County.API.Controllers
         
         [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update([FromBody] DestinationBo bo, [FromRoute] int id)
+        public async Task<IActionResult> Update([FromBody] LocationBo bo, [FromRoute] int id)
         {
             if (bo == null)
-                return BadRequest("Destination Not Found");
+                return BadRequest("Location Not Found");
             if (!bo.IsDeleted)
                 return Ok(await _manager.CreateUpdate(bo, id));
-            return NotFound("Destination Is Deleted");
+            return NotFound("Location Is Deleted");
         }
     }
 }

@@ -14,8 +14,8 @@ namespace Student_County.BusinessLogic.Ride
                 CarDescription = bo.CarDescription,
                 ShortDescription = bo.ShortDescription,
                 LongDescription = bo.LongDescription,
-                DestinationId = bo.DestinationId,
-                StudentId = bo.StudentId,        
+                StudentId = bo.StudentId, 
+                LocationId = bo.LocationId,
             };
         }
     }

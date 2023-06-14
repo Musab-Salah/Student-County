@@ -167,7 +167,7 @@ const HousingSection = ({ filteredValue }) => {
                   createdOn={formatDate(housing.createdOn)}
                   key={housing.id}
                   id={housing.id}
-                  studentId={housing.userId}
+                  studentId={housing.studentId}
                   homeType={housing.homeType}
                   rentalPrice={housing.rentalPrice}
                   address={housing.address}
@@ -188,7 +188,7 @@ const HousingSection = ({ filteredValue }) => {
                     createdOn={formatDate(housing.createdOn)}
                     key={housing.id}
                     id={housing.id}
-                    studentId={housing.userId}
+                    studentId={housing.studentId}
                     homeType={housing.homeType}
                     rentalPrice={housing.rentalPrice}
                     address={housing.address}
@@ -208,7 +208,7 @@ const HousingSection = ({ filteredValue }) => {
                     createdOn={formatDate(housing.createdOn)}
                     key={housing.id}
                     id={housing.id}
-                    studentId={housing.userId}
+                    studentId={housing.studentId}
                     homeType={housing.homeType}
                     rentalPrice={housing.rentalPrice}
                     address={housing.address}
@@ -231,7 +231,7 @@ const HousingSection = ({ filteredValue }) => {
                     createdOn={formatDate(housing.createdOn)}
                     key={housing.id}
                     id={housing.id}
-                    studentId={housing.userId}
+                    studentId={housing.studentId}
                     homeType={housing.homeType}
                     rentalPrice={housing.rentalPrice}
                     address={housing.address}
@@ -253,7 +253,7 @@ const HousingSection = ({ filteredValue }) => {
                     createdOn={formatDate(housing.createdOn)}
                     key={housing.id}
                     id={housing.id}
-                    studentId={housing.userId}
+                    studentId={housing.studentId}
                     homeType={housing.homeType}
                     rentalPrice={housing.rentalPrice}
                     address={housing.address}
@@ -274,7 +274,7 @@ const HousingSection = ({ filteredValue }) => {
                     createdOn={formatDate(housing.createdOn)}
                     key={housing.id}
                     id={housing.id}
-                    studentId={housing.userId}
+                    studentId={housing.studentId}
                     homeType={housing.homeType}
                     rentalPrice={housing.rentalPrice}
                     address={housing.address}
@@ -294,7 +294,7 @@ const HousingSection = ({ filteredValue }) => {
                     createdOn={formatDate(housing.createdOn)}
                     key={housing.id}
                     id={housing.id}
-                    studentId={housing.userId}
+                    studentId={housing.studentId}
                     homeType={housing.homeType}
                     rentalPrice={housing.rentalPrice}
                     address={housing.address}

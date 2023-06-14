@@ -6,6 +6,7 @@ using Student_County.DAL;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
+using System.Text.Json.Serialization;
 
 namespace Student_County.BusinessLogic.Auth.Models
 {
@@ -29,6 +30,18 @@ namespace Student_County.BusinessLogic.Auth.Models
 
         public UniversityEntity? University { get; set; }
         public CollegeEntity? College { get; set; }
+
+        public List<BookEntity> Books { get; set; }
+
+        public List<HousingEntity> Housings { get; set; }
+
+        public List<PatientEntity> Patients { get; set; }
+
+        public List<RideEntity> Rides { get; set; }
+
+        public List<ToolsEntity> Tools { get; set; }
+
+
 
     }
 }

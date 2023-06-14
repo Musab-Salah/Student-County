@@ -2,12 +2,12 @@
 
 namespace Student_County.BusinessLogic.Destination
 {
-    public static class DestinationMapping
+    public static class LocationMapping
     {
-        public static DestinationEntity? MapBoToEntity(this DestinationBo bo)
+        public static LocationEntity? MapBoToEntity(this LocationBo bo)
         {
             if (bo == null) return null;
-            return new DestinationEntity
+            return new LocationEntity
             {
                 Id = bo.Id,
                 CityName = bo.CityName,  

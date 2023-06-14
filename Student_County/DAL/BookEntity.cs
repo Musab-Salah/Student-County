@@ -3,6 +3,7 @@ using Student_County.BusinessLogic.Auth.Models;
 using Student_County.BusinessLogic.Helpers.Common;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Student_County.DAL
 {
@@ -29,7 +30,7 @@ namespace Student_County.DAL
         [Required]
         public string? LongDescription { get; set; }
         [Required]
-        public string? StudentId { get; set; }
-        public ApplicationUser? Student { get; set; }
+        public string StudentId { get; set; }
+        public ApplicationUser Student { get; set; }
     }
 }
