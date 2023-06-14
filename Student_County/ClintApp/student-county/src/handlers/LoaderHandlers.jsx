@@ -4,6 +4,7 @@ import useCollege from "../hooks/useCollege";
 import useAuth from "../hooks/useAuth";
 import useBooks from "../hooks/useBooks";
 import usePatient from "../hooks/usePatient";
+import useHousings from "../hooks/useHousings";
 
 const LoaderCxt = createContext();
 
@@ -24,7 +25,12 @@ export function LoaderProvider({ children }) {
     ButtonsFormPatientLoader,
     DeleteButtonsFormPatientLoader,
   } = usePatient();
-
+  const {
+    HousingLoader,
+    FormHousingLoader,
+    ButtonsFormHousingLoader,
+    DeleteButtonsFormHousingLoader,
+  } = useHousings();
   return (
     <LoaderCxt.Provider
       value={{
@@ -40,6 +46,10 @@ export function LoaderProvider({ children }) {
         FormPatientLoader,
         ButtonsFormPatientLoader,
         DeleteButtonsFormPatientLoader,
+        HousingLoader,
+        FormHousingLoader,
+        ButtonsFormHousingLoader,
+        DeleteButtonsFormHousingLoader,
       }}
     >
       {children}

@@ -12,8 +12,8 @@ using Student_County.DAL;
 namespace Student_County.Migrations
 {
     [DbContext(typeof(StudentCountyContext))]
-    [Migration("20230603130613_Dsdfgsj")]
-    partial class Dsdfgsj
+    [Migration("20230613193959_fDjhb")]
+    partial class fDjhb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -388,10 +388,10 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 3, 13, 6, 13, 122, DateTimeKind.Unspecified).AddTicks(6013), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 13, 19, 39, 58, 828, DateTimeKind.Unspecified).AddTicks(587), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 3, 13, 6, 13, 122, DateTimeKind.Unspecified).AddTicks(6014), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 13, 19, 39, 58, 828, DateTimeKind.Unspecified).AddTicks(588), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "EIT"
                         });
                 });
@@ -443,22 +443,39 @@ namespace Student_County.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("BathRoom")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BedRoom")
+                        .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("CreatedOn")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("Furnishings")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Location")
+                    b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LongDescription")
+                    b.Property<string>("HomeType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
@@ -466,18 +483,27 @@ namespace Student_County.Migrations
                     b.Property<DateTimeOffset>("ModifiedOn")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("NationalId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Price")
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Province")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RentalPrice")
                         .HasColumnType("int");
+
+                    b.Property<string>("RoomType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ServiceName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ShortDescription")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StudentId")
@@ -591,7 +617,7 @@ namespace Student_County.Migrations
                     b.Property<DateTimeOffset>("ModifiedOn")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("NationalIdNumber")
+                    b.Property<string>("NationalId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -858,11 +884,11 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 3, 13, 6, 13, 122, DateTimeKind.Unspecified).AddTicks(5976), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 13, 19, 39, 58, 828, DateTimeKind.Unspecified).AddTicks(554), new TimeSpan(0, 0, 0, 0, 0)),
                             EmailDomainName = "@student.aaup.edu",
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 3, 13, 6, 13, 122, DateTimeKind.Unspecified).AddTicks(5980), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 13, 19, 39, 58, 828, DateTimeKind.Unspecified).AddTicks(558), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Arab American University"
                         });
                 });

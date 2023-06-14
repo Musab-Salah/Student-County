@@ -144,9 +144,9 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
             </div>
             {navLinksVisible[1] && (
               <div className="dash-nav-links">
-                <WithPermission
+                {/* <WithPermission
                   ScopeRole={["Student", "Dentistry Student", "Admin"]}
-                >
+                > */}
                   <div
                     className={`dash-nav-link ${
                       isMenuOpen ? "padding-resize" : ""
@@ -162,11 +162,11 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                       Books
                     </div>
                   </div>
-                </WithPermission>
+                {/* </WithPermission> */}
 
-                <WithPermission
+                {/* <WithPermission
                   ScopeRole={["Student", "Dentistry Student", "Admin"]}
-                >
+                > */}
                   <div
                     className={`dash-nav-link ${
                       isMenuOpen ? "padding-resize" : ""
@@ -182,7 +182,7 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                       Housing
                     </div>
                   </div>
-                </WithPermission>
+                {/* </WithPermission> */}
                 <WithPermission
                   ScopeRole={["Student", "Dentistry Student", "Admin"]}
                 >
@@ -224,6 +224,9 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                     </div>
                   </div>
                 </WithPermission>
+                {/* <WithPermission
+                  ScopeRole={[ "Dentistry Student", "Admin"]}
+                > */}
                 <div
                   className={`dash-nav-link ${
                     isMenuOpen ? "padding-resize" : ""
@@ -239,6 +242,7 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                     Patients
                   </div>
                 </div>
+                {/* </WithPermission> */}
               </div>
             )}
           </div>

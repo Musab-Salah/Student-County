@@ -80,7 +80,7 @@ const SignIn = () => {
                   document.getElementsByName("username")[0].focus()
                 }
               >
-                UserName
+                Username
               </div>
             </div>
             <div className="input-container">

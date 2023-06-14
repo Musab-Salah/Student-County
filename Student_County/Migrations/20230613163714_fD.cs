@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Student_County.Migrations
 {
     /// <inheritdoc />
-    public partial class Dsdfgsj : Migration
+    public partial class fD : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -323,13 +323,19 @@ namespace Student_County.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NationalId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ServiceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Province = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TypeOfContract = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LongDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RentalPrice = table.Column<int>(type: "int", nullable: false),
+                    Furnishings = table.Column<bool>(type: "bit", nullable: false),
+                    HomeType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RoomType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BedRoom = table.Column<int>(type: "int", nullable: false),
+                    BathRoom = table.Column<int>(type: "int", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -359,7 +365,7 @@ namespace Student_County.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NationalIdNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NationalId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AdditionalInformation = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Age = table.Column<int>(type: "int", nullable: false),
                     TypeOfTreatment = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -493,12 +499,12 @@ namespace Student_County.Migrations
             migrationBuilder.InsertData(
                 table: "College",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "IsDeleted", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 1, "Ini", new DateTimeOffset(new DateTime(2023, 6, 3, 13, 6, 13, 122, DateTimeKind.Unspecified).AddTicks(6013), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 3, 13, 6, 13, 122, DateTimeKind.Unspecified).AddTicks(6014), new TimeSpan(0, 0, 0, 0, 0)), "EIT" });
+                values: new object[] { 1, "Ini", new DateTimeOffset(new DateTime(2023, 6, 13, 16, 37, 14, 563, DateTimeKind.Unspecified).AddTicks(7953), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 13, 16, 37, 14, 563, DateTimeKind.Unspecified).AddTicks(7954), new TimeSpan(0, 0, 0, 0, 0)), "EIT" });
 
             migrationBuilder.InsertData(
                 table: "University",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "EmailDomainName", "IsDeleted", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 1, "Ini", new DateTimeOffset(new DateTime(2023, 6, 3, 13, 6, 13, 122, DateTimeKind.Unspecified).AddTicks(5976), new TimeSpan(0, 0, 0, 0, 0)), "@student.aaup.edu", false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 3, 13, 6, 13, 122, DateTimeKind.Unspecified).AddTicks(5980), new TimeSpan(0, 0, 0, 0, 0)), "Arab American University" });
+                values: new object[] { 1, "Ini", new DateTimeOffset(new DateTime(2023, 6, 13, 16, 37, 14, 563, DateTimeKind.Unspecified).AddTicks(7922), new TimeSpan(0, 0, 0, 0, 0)), "@student.aaup.edu", false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 13, 16, 37, 14, 563, DateTimeKind.Unspecified).AddTicks(7926), new TimeSpan(0, 0, 0, 0, 0)), "Arab American University" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

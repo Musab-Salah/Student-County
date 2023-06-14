@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Student_County.DAL;
 
@@ -11,9 +12,11 @@ using Student_County.DAL;
 namespace Student_County.Migrations
 {
     [DbContext(typeof(StudentCountyContext))]
-    partial class StudentCountyContextModelSnapshot : ModelSnapshot
+    [Migration("20230613163714_fD")]
+    partial class fD
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -385,10 +388,10 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 13, 19, 39, 58, 828, DateTimeKind.Unspecified).AddTicks(587), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 13, 16, 37, 14, 563, DateTimeKind.Unspecified).AddTicks(7953), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 13, 19, 39, 58, 828, DateTimeKind.Unspecified).AddTicks(588), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 13, 16, 37, 14, 563, DateTimeKind.Unspecified).AddTicks(7954), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "EIT"
                         });
                 });
@@ -462,10 +465,6 @@ namespace Student_County.Migrations
 
                     b.Property<bool>("Furnishings")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HomeType")
                         .IsRequired()
@@ -881,11 +880,11 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 13, 19, 39, 58, 828, DateTimeKind.Unspecified).AddTicks(554), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 13, 16, 37, 14, 563, DateTimeKind.Unspecified).AddTicks(7922), new TimeSpan(0, 0, 0, 0, 0)),
                             EmailDomainName = "@student.aaup.edu",
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 13, 19, 39, 58, 828, DateTimeKind.Unspecified).AddTicks(558), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 13, 16, 37, 14, 563, DateTimeKind.Unspecified).AddTicks(7926), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Arab American University"
                         });
                 });

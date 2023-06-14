@@ -32,7 +32,7 @@ const BooksView = () => {
 
   return (
     <>
-      <div className="Create-section">
+      <div className="create-section">
         <div
             className="container-load-form"
             style={{ display: FormBooksLoader ? "block" : "none" }}

@@ -12,7 +12,7 @@ const DialogConfirmation = ({ id ,setDeleteDialogState}) => {
   };
   return (
     <>
-      <div className="Create-section-dialog">
+      <div className="create-section-dialog">
         <form className="form-create-dialog title-dialog " onSubmit={handleSubmit}>
           Are you sure to do this process?
           <div className="buttons-dialog">

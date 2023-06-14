@@ -22,6 +22,7 @@ import usePatient from "../../hooks/usePatient";
 import PatientView from "../../components/services/Patient/patient_view/PatientView";
 import HousingSection from "../../components/services/Housing/housing_section/HousingSection";
 import HousingForm from "../../components/services/Housing/housing_form/HousingForm";
+import HousingView from "../../components/services/Housing/housing_view/HousingView";
 
 const Dashboard = () => {
   const { Books, MyBooks } = useBooks();
@@ -144,6 +145,7 @@ const Dashboard = () => {
       )}
       {ButtonCards === "ViewBook" && <BooksView />}
       {ButtonCards === "ViewPatient" && <PatientView />}
+      {ButtonCards === "ViewHousing" && <HousingView />}
 
       <div style={{ opacity: ButtonCards ? 0.2 : 1 }}>
         <div className={`dashboard-container `}>

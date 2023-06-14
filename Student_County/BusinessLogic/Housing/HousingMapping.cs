@@ -10,17 +10,16 @@ namespace Student_County.BusinessLogic.Housing
             return new HousingEntity
             {
                 Id = bo.Id,
-                PhoneNumber = bo.PhoneNumber,
                 NationalId = bo.NationalId,
                 Address = bo.Address,
                 City = bo.City,
                 Province = bo.Province,
-                HouseType = bo.HouseType,
+                HomeType = bo.HomeType,
                 RoomType = bo.RoomType,
                 RentalPrice = bo.RentalPrice,
                 Furnishings = bo.Furnishings,
-                Bathroom = bo.Bathroom,
-                Bedroom = bo.Bedroom,
+                BathRoom = bo.BathRoom,
+                BedRoom = bo.BedRoom,
                 TypeOfContract = bo.TypeOfContract,
                 StudentId = bo.StudentId,        
             };

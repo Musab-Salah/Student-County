@@ -476,7 +476,7 @@ const Students = () => {
         </div>
         <div className="UnivSuffix">
           {" "}
-          {emailDomainName && !AuthError ? emailDomainName : "@"}
+          {emailDomainName && !AuthError ? emailDomainName : "@mail.com"}
         </div>
       </div>
 

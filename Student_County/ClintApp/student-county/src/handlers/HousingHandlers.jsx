@@ -10,8 +10,11 @@ export function HousingsProvider({ children }) {
   const [Housings, setHousings] = useState([]); //all Housings
   const [MyHousings, setMyHousings] = useState([]); //all user Housings
   const [Housing, setHousing] = useState("");
-  const [HousingsLoader, setHousingsLoader] = useState("");
-
+  const [HousingLoader, setHousingLoader] = useState("");
+  const [FormHousingLoader, setFormHousingLoader] = useState("");
+  const [ButtonsFormHousingLoader, setButtonsFormHousingLoader] = useState("");
+  const [DeleteButtonsFormHousingLoader, setDeleteButtonsFormHousingLoader] =
+    useState("");
   const [HousingError, setError] = useState("");
   const [Success, setSuccess] = useState("");
 
@@ -37,6 +40,7 @@ export function HousingsProvider({ children }) {
     });
 
   const getHousings = () => {
+    setHousingLoader(true);
     HousingServices.getHousings(token)
       .then((res) => {
         setHousings(res.data);
@@ -45,18 +49,22 @@ export function HousingsProvider({ children }) {
       .catch(() => {
         setError("Failed bring the Housings...");
         cleanupError();
-      });
+      })
+      .finally(() => setHousingLoader(false));
   };
   const getMyAllHousings = () => {
+    setHousingLoader(true);
     HousingServices.getMyAllHousings(decodedJwt.uid, token)
       .then((res) => {
         setMyHousings(res.data);
         setError(null);
       })
-      .catch(() => setError("Failed bring the Housing..."));
+      .catch(() => setError("Failed bring the Housing..."))
+      .finally(() => setHousingLoader(false));
   };
 
   const createHousing = (Bo) => {
+    setButtonsFormHousingLoader(true);
     Bo.studentId = decodedJwt.uid;
     HousingServices.createHousing(Bo, token)
       .then((res) => {
@@ -67,10 +75,12 @@ export function HousingsProvider({ children }) {
       .catch(() => {
         setError("Failed create the Housing...");
         cleanupError();
-      });
+      })
+      .finally(() => setButtonsFormHousingLoader(false));
   };
 
   const getHousingById = (id) => {
+    setFormHousingLoader(true);
     HousingServices.getHousingById(id, token)
       .then((res) => {
         setHousing(res.data);
@@ -79,10 +89,12 @@ export function HousingsProvider({ children }) {
       .catch(() => {
         setError("Failed bring the Housing...");
         cleanupError();
-      });
+      })
+      .finally(() => setFormHousingLoader(false));
   };
 
   const updateHousing = (id, Bo) => {
+    setButtonsFormHousingLoader(true);
     HousingServices.updateHousing(id, Bo, token)
       .then((res) => {
         setSuccess("Successfully Updated The Housing.");
@@ -92,10 +104,12 @@ export function HousingsProvider({ children }) {
       .catch(() => {
         setError("Failed update the Housing...");
         cleanupError();
-      });
+      })
+      .finally(() => setButtonsFormHousingLoader(false));
   };
 
   const deleteHousing = (id) => {
+    setDeleteButtonsFormHousingLoader(true);
     HousingServices.deleteHousing(id, token)
       .then((res) => {
         setSuccess("Successfully Deleted The Housing.");
@@ -105,7 +119,8 @@ export function HousingsProvider({ children }) {
       .catch(() => {
         setError("Failed delete the Housing...");
         cleanupError();
-      });
+      })
+      .finally(() => setDeleteButtonsFormHousingLoader(false));
   };
 
   return (
@@ -125,6 +140,11 @@ export function HousingsProvider({ children }) {
         getMyAllHousings,
         setHousing,
         setSuccess,
+        setHousingLoader,
+        HousingLoader,
+        FormHousingLoader,
+        ButtonsFormHousingLoader,
+        DeleteButtonsFormHousingLoader,
       }}
     >
       {children}

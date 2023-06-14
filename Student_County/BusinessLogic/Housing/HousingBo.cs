@@ -9,8 +9,6 @@ namespace Student_County.BusinessLogic.Housing
         [Key]
         public int Id { get; set; }
         [Required]
-        public string? PhoneNumber { get; set; }
-        [Required]
         public string? NationalId { get; set; }
         [Required]
         public string? Address { get; set; }
@@ -25,13 +23,13 @@ namespace Student_County.BusinessLogic.Housing
         [Required]
         public bool Furnishings { get; set; }
         [Required]
-        public string? HouseType { get; set; }
+        public string? HomeType { get; set; }
         [Required]
         public string? RoomType { get; set; }
         [Required]
-        public int Bedroom { get; set; }
+        public int BedRoom { get; set; }
         [Required]
-        public int Bathroom { get; set; }
+        public int BathRoom { get; set; }
 
         [Required]
         public string? StudentId { get; set; }

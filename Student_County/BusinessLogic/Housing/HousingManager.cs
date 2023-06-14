@@ -50,6 +50,8 @@ namespace Student_County.BusinessLogic.Housing
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == bo.StudentId);
             var entity = bo.MapBoToEntity();
             entity.StudentName = user.FirstName + " " + user.LastName;
+            entity.PhoneNumber= user.PhoneNumber;
+            entity.Gender= user.Gender;
             var numofhouse = _context.Housings.Where(entity => entity.StudentId == bo.StudentId).Count();
             if (id == 0 && numofhouse<1)
             {

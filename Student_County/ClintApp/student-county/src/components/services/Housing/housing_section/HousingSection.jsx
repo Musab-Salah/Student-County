@@ -4,7 +4,6 @@ import "./HousingSection.css";
 import { Helmet } from "react-helmet";
 import useLoader from "../../../../hooks/useLoader";
 import HousingCard from "../housing_card/HousingCard";
-import HousingForm from "../../Housing/housing_form/HousingForm";
 import useHousings from "../../../../hooks/useHousings";
 
 const HousingSection = ({ filteredValue }) => {
@@ -80,12 +79,6 @@ const HousingSection = ({ filteredValue }) => {
   };
   return (
     <>
-      {/* test  */}
-      <HousingForm />
-      <HousingCard />
-
-      {/* test  */}
-
       <Helmet>
         <title>Housing</title>
       </Helmet>
@@ -152,27 +145,37 @@ const HousingSection = ({ filteredValue }) => {
             ? !sortType &&
               Object.values(Housings).map((housing) => (
                 <HousingCard
-                  userName={housing.userName}
-                  age={housing.age}
-                  gender={housing.gender}
-                  typeOfTreatment={housing.typeOfTreatment}
+                  studentName={housing.studentName}
                   createdOn={formatDate(housing.createdOn)}
                   key={housing.id}
                   id={housing.id}
-                  studentId={housing.userId}
+                  studentId={housing.studentId}
+                  homeType={housing.homeType}
+                  rentalPrice={housing.rentalPrice}
+                  address={housing.address}
+                  city={housing.city}
+                  province={housing.province}
+                  typeOfContract={housing.typeOfContract}
+                  bedRoom={housing.bedRoom}
+                  bathRoom={housing.bathRoom}
                 />
               ))
             : !sortType &&
               Object.values(filteredValue).map((housing) => (
                 <HousingCard
-                  userName={housing.userName}
-                  age={housing.age}
-                  gender={housing.gender}
-                  typeOfTreatment={housing.typeOfTreatment}
+                  studentName={housing.studentName}
                   createdOn={formatDate(housing.createdOn)}
                   key={housing.id}
                   id={housing.id}
                   studentId={housing.userId}
+                  homeType={housing.homeType}
+                  rentalPrice={housing.rentalPrice}
+                  address={housing.address}
+                  city={housing.city}
+                  province={housing.province}
+                  typeOfContract={housing.typeOfContract}
+                  bedRoom={housing.bedRoom}
+                  bathRoom={housing.bathRoom}
                 />
               ))}
           {!filteredValue
@@ -181,14 +184,19 @@ const HousingSection = ({ filteredValue }) => {
                 .sort((a, b) => (a.userName > b.userName ? 1 : -1))
                 .map((housing) => (
                   <HousingCard
-                    userName={housing.userName}
-                    age={housing.age}
-                    gender={housing.gender}
-                    typeOfTreatment={housing.typeOfTreatment}
+                    studentName={housing.studentName}
                     createdOn={formatDate(housing.createdOn)}
                     key={housing.id}
                     id={housing.id}
                     studentId={housing.userId}
+                    homeType={housing.homeType}
+                    rentalPrice={housing.rentalPrice}
+                    address={housing.address}
+                    city={housing.city}
+                    province={housing.province}
+                    typeOfContract={housing.typeOfContract}
+                    bedRoom={housing.bedRoom}
+                    bathRoom={housing.bathRoom}
                   />
                 ))
             : sortType === "Name" &&
@@ -196,14 +204,19 @@ const HousingSection = ({ filteredValue }) => {
                 .sort((a, b) => (a.userName > b.userName ? 1 : -1))
                 .map((housing) => (
                   <HousingCard
-                    userName={housing.userName}
-                    age={housing.age}
-                    gender={housing.gender}
-                    typeOfTreatment={housing.typeOfTreatment}
+                    studentName={housing.studentName}
                     createdOn={formatDate(housing.createdOn)}
                     key={housing.id}
                     id={housing.id}
                     studentId={housing.userId}
+                    homeType={housing.homeType}
+                    rentalPrice={housing.rentalPrice}
+                    address={housing.address}
+                    city={housing.city}
+                    province={housing.province}
+                    typeOfContract={housing.typeOfContract}
+                    bedRoom={housing.bedRoom}
+                    bathRoom={housing.bathRoom}
                   />
                 ))}
           {!filteredValue
@@ -214,14 +227,19 @@ const HousingSection = ({ filteredValue }) => {
                 )
                 .map((housing) => (
                   <HousingCard
-                    userName={housing.userName}
-                    age={housing.age}
-                    gender={housing.gender}
-                    typeOfTreatment={housing.typeOfTreatment}
+                    studentName={housing.studentName}
                     createdOn={formatDate(housing.createdOn)}
                     key={housing.id}
                     id={housing.id}
                     studentId={housing.userId}
+                    homeType={housing.homeType}
+                    rentalPrice={housing.rentalPrice}
+                    address={housing.address}
+                    city={housing.city}
+                    province={housing.province}
+                    typeOfContract={housing.typeOfContract}
+                    bedRoom={housing.bedRoom}
+                    bathRoom={housing.bathRoom}
                   />
                 ))
             : sortType === "Date" &&
@@ -231,14 +249,19 @@ const HousingSection = ({ filteredValue }) => {
                 )
                 .map((housing) => (
                   <HousingCard
-                    userName={housing.userName}
-                    age={housing.age}
-                    gender={housing.gender}
-                    typeOfTreatment={housing.typeOfTreatment}
+                    studentName={housing.studentName}
                     createdOn={formatDate(housing.createdOn)}
                     key={housing.id}
                     id={housing.id}
                     studentId={housing.userId}
+                    homeType={housing.homeType}
+                    rentalPrice={housing.rentalPrice}
+                    address={housing.address}
+                    city={housing.city}
+                    province={housing.province}
+                    typeOfContract={housing.typeOfContract}
+                    bedRoom={housing.bedRoom}
+                    bathRoom={housing.bathRoom}
                   />
                 ))}
           {!filteredValue
@@ -247,14 +270,19 @@ const HousingSection = ({ filteredValue }) => {
                 .sort((a, b) => b.age - a.age)
                 .map((housing) => (
                   <HousingCard
-                    userName={housing.userName}
-                    age={housing.age}
-                    gender={housing.gender}
-                    typeOfTreatment={housing.typeOfTreatment}
+                    studentName={housing.studentName}
                     createdOn={formatDate(housing.createdOn)}
                     key={housing.id}
                     id={housing.id}
                     studentId={housing.userId}
+                    homeType={housing.homeType}
+                    rentalPrice={housing.rentalPrice}
+                    address={housing.address}
+                    city={housing.city}
+                    province={housing.province}
+                    typeOfContract={housing.typeOfContract}
+                    bedRoom={housing.bedRoom}
+                    bathRoom={housing.bathRoom}
                   />
                 ))
             : sortType === "Age" &&
@@ -262,14 +290,19 @@ const HousingSection = ({ filteredValue }) => {
                 .sort((a, b) => b.age - a.age)
                 .map((housing) => (
                   <HousingCard
-                    userName={housing.userName}
-                    age={housing.age}
-                    gender={housing.gender}
-                    typeOfTreatment={housing.typeOfTreatment}
+                    studentName={housing.studentName}
                     createdOn={formatDate(housing.createdOn)}
                     key={housing.id}
                     id={housing.id}
                     studentId={housing.userId}
+                    homeType={housing.homeType}
+                    rentalPrice={housing.rentalPrice}
+                    address={housing.address}
+                    city={housing.city}
+                    province={housing.province}
+                    typeOfContract={housing.typeOfContract}
+                    bedRoom={housing.bedRoom}
+                    bathRoom={housing.bathRoom}
                   />
                 ))}
         </div>

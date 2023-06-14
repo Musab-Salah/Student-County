@@ -11,8 +11,6 @@ namespace Student_County.DAL
         [Key]
         public int Id { get; set; }
         [Required]
-        public string? PhoneNumber { get; set; }
-        [Required]
         public string? NationalId { get; set; }
         [Required]
         public string? ServiceName { get; set; } = "Housing";
@@ -29,13 +27,17 @@ namespace Student_County.DAL
         [Required]
         public bool Furnishings { get; set; }
         [Required]
-        public string? HouseType { get; set; }
+        public string? HomeType { get; set; }
         [Required]
         public string? RoomType { get; set; }
         [Required]
-        public int Bedroom { get; set; }
+        public int BedRoom { get; set; }
         [Required]
-        public int Bathroom { get; set; }
+        public int BathRoom { get; set; }
+        [Required]
+        public string? PhoneNumber { get; set; }
+        [Required]
+        public string? Gender { get; set; }
         [Required]
         public string? StudentName { get; set; }
         [Required]
