@@ -1,18 +1,36 @@
-import React, { useEffect } from "react";
-import "./RideView.css";
-import { FaUserCircle } from "react-icons/fa";
-import useLoader from "../../../../hooks/useLoader";
+import { useEffect, useMemo, useState } from "react";
 import useComponent from "../../../../hooks/useComponent";
-import useAuth from "../../../../hooks/useAuth";
-import useChat from "../../../../hooks/useChat";
 import useRides from "../../../../hooks/useRides";
+import "./RideView.css";
+import useLoader from "../../../../hooks/useLoader";
+import ChatController from "../../../chat/ChatController";
+import { TbCrown } from "react-icons/tb";
+import useChat from "../../../../hooks/useChat";
+import useAuth from "../../../../hooks/useAuth";
+import useLocation from "../../../../hooks/useLocation";
 
 const RideView = () => {
-  const { FormRideLoader } = useLoader();
-  const { setButtonCards, setOptionMenu, setOwnerItem } = useComponent();
-  const { reJoinRoom } = useChat();
-  const { decodedJwt } = useAuth();
+  const { setButtonCards, setOpenChatArea, setOptionMenu, setOwnerItem } =
+    useComponent();
   const { Ride, setRide } = useRides();
+  const { reJoinRoom, setChatOpened } = useChat();
+  const { FormRideLoader } = useLoader();
+  const { decodedJwt } = useAuth();
+  const { Location, getLocationById } = useLocation();
+  const [date, setDate] = useState();
+  const [nowLocation, setNowLocation] = useState("");
+  // State Hook
+  useMemo(() => {
+    const d = new Date(Date.parse(Ride.createdOn));
+    setDate(d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getUTCDate());
+  }, [Ride]);
+
+  useEffect(() => {
+    if (Ride.locationId) getLocationById(Ride.locationId);
+  }, [Ride.locationId]);
+  useMemo(() => {
+    setNowLocation(Location);
+  }, [Location]);
   useEffect(() => {
     return function cleanup() {
       setButtonCards("");
@@ -23,7 +41,7 @@ const RideView = () => {
 
   return (
     <>
-      <div className="ride-section">
+      <div className="create-section">
         <div
           className="container-load-form"
           style={{ display: FormRideLoader ? "block" : "none" }}
@@ -33,121 +51,56 @@ const RideView = () => {
           ))}
         </div>
         <div
-          className="ride-view "
+          className="form-create-view"
           style={{ display: FormRideLoader ? "none" : "flex" }}
         >
-          <div className="ride-top-info-container">
-            <div className="ride-profile">
-              <FaUserCircle className="ride-avatar-icon" />
-              <div className="ride-name">{Ride.name}</div>
-            </div>
-            {/* <BsInfoCircle className="btn btn-primary btn-icon" alt="" /> */}
-          </div>
-          <div className="vertical-line" />
-          <div className="ride-info-container">
-            <div className="ride-info">
-              <div className="ride-info-title">Ride Info:</div>
-              <div className="ride-info-items">
-                <div className="ride-info-item">
-                  <div className="ride-info-item-title">Full Name</div>
-                  <div className="ride-info-item-value">
-                    {Ride.userName}
-                  </div>
-                </div>
-                <div className="ride-info-item">
-                  <div className="ride-info-item-title">Age</div>
-                  <div className="ride-info-item-value">{Ride.age}</div>
-                </div>
-                <div className="ride-info-item">
-                  <div className="ride-info-item-title">Address</div>
-                  <div className="ride-info-item-value">
-                    {Ride.address}
-                  </div>
-                </div>
-                <div className="ride-info-item">
-                  <div className="ride-info-item-title">Phone Number</div>
-                  <div className="ride-info-item-value">
-                    {Ride.phoneNumber}
-                  </div>
-                </div>
-                <div className="ride-info-item">
-                  <div className="ride-info-item-title">National id</div>
-                  <div className="ride-info-item-value">
-                    {Ride.nationalIdNumber}
-                  </div>
-                </div>
-                <div className="ride-info-item">
-                  <div className="ride-info-item-title">Gender</div>
-                  <div className="ride-info-item-value">
-                    {Ride.gender}
-                  </div>
-                </div>
+          <div className="section-view">
+            <div className="ride-image-container">
+              <div className="ride-image" />
+              <div className="ride-owner">
+                <TbCrown className="ride-owner-icon" />
+                <div className="ride-owner-name">{Ride.studentName}</div>
               </div>
             </div>
             <div className="ride-info">
-              <div className="ride-info-title">Medical Status:</div>
-              <div className="ride-info-items">
-                <div className="ride-info-item">
-                  <div className="ride-info-item-title">
-                    Type OF TREATMENT
-                  </div>
-                  <div className="ride-info-item-value">
-                    {Ride.typeOfTreatment}
+              <div className="ride-main-info-container">
+                <div className="ride-main-info">
+                  <div className="title-ride-name">{Ride.carDescription}</div>
+                  <div className="seats-field-ride">
+                    Have {Ride.emptySeats} Seats Available
                   </div>
                 </div>
-                <div className="ride-info-item">
-                  <div className="ride-info-item-title">SENSITIVITY</div>
-                  <div className="ride-info-item-value">
-                    {Ride.sensitivity}
-                  </div>
+                <div className="description-ride-view">
+                  {Ride.longDescription}
                 </div>
-                <div className="ride-info-item">
-                  <div className="ride-info-item-title">
-                    CURRENT illnesses
-                  </div>
-                  <div className="ride-info-item-value">
-                    {Ride.currentIllnesses}
-                  </div>
+              </div>
+              <div className="ride-additional-info-container">
+                <div className="ride-additional-info">
+                  {nowLocation.cityName}, {nowLocation.townName}
                 </div>
-                <div className="ride-info-item">
-                  <div className="ride-info-item-title">Current T.M</div>
-                  <div className="ride-info-item-value">
-                    {Ride.currentlyUsedMedicines}
-                  </div>
-                </div>
-                {Ride.additionalInformation ? (
-                  <div className="ride-info-item">
-                    <div className="ride-info-item-title">
-                      Additional Information
-                    </div>
-                    <div className="ride-info-item-value">
-                      {Ride.additionalInformation}
-                    </div>
-                  </div>
-                ) : (
-                  ""
-                )}
+
+                <div className="ride-additional-info">{date}</div>
+              </div>
+              <div className="buttons">
+                <button
+                  onClick={() => {
+                    reJoinRoom(decodedJwt.uid, Ride.studentId);
+                    setOwnerItem(Ride.studentId);
+                    setOptionMenu("Chat");
+                    setButtonCards("");
+                  }}
+                  className={`btn btn-primary `}
+                >
+                  Contact With Owner
+                </button>
+                <button
+                  onClick={() => setButtonCards("")}
+                  className={`btn btn-secondary `}
+                >
+                  Cancel
+                </button>
               </div>
             </div>
-          </div>
-          <div className="btns">
-            <button
-              onClick={() => {
-                reJoinRoom(decodedJwt.uid, Ride.userId);
-                setOwnerItem(Ride.userId);
-                setOptionMenu("Chat");
-                setButtonCards("");
-              }}
-              className="btn btn-primary btn-fill"
-            >
-              Contact The Ride
-            </button>
-            <button
-              onClick={() => setButtonCards("")}
-              className="btn btn-secondary btn-fill"
-            >
-              Cancel
-            </button>
           </div>
         </div>
       </div>

@@ -22,5 +22,7 @@ namespace Student_County.BusinessLogic.Auth.Models
         [Required]
         public string? PhoneNumber { get; set; }
 
+
+
     }
 }

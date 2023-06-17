@@ -1,112 +1,86 @@
-.pricing {
-  position: absolute;
-  background-color: rgb(141 55 255 / 25%);
-  border-radius: 99em 99em 99em 99em;
-  display: flex;
-  align-items: center;
-  padding: 0.625em 0.75em;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #425475;
-  margin: -10px;
-}
-
-.card {
-  border-radius: var(--br-3xs) var(--br-3xs) var(--br-8xs) var(--br-3xs);
-  background-color: var(--color-white);
-  box-shadow: 3px 3px 0px #09072f;
-  border: 1.5px solid var(--color-gray-100);
+.book-card-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-start;
-  transition: 0.3s ease;
+  background: #ffffff;
+  border: 1.5px solid #09072f;
+  box-shadow: 4px 4px 0px #09072f;
+  border-radius: 5px;
+  min-width: 320px;
 }
-.card:hover {
-  box-shadow: 5px 5px 0px #09072f;
-}
-.card-picture {
-  border-radius: var(--br-3xs) var(--br-3xs) 0px 0px;
-  background-color: var(--color-whitesmoke-300);
-  width: 300px;
-  height: 300px;
-}
-.card-info {
-  background-color: var(--color-whitesmoke-200);
-  align-self: stretch;
+.book-card-data {
   display: flex;
   flex-direction: row;
-  padding: var(--padding-mini) var(--padding-xl);
-  align-items: center;
   justify-content: space-between;
-}
-.card-text {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-.card-title {
-  text-transform: uppercase;
-  font-size: 16px;
-  font-weight: 600;
-}
-.card-description {
-  font-size: 10px;
-  color: var(--color-dimgray);
-  max-width: 150px;
-}
-.badge {
-  border-radius: var(--br-3xs) var(--br-3xs) 0 0;
-  text-transform: uppercase;
-  font-size: 16px;
-  font-weight: 600;
-  display: flex;
-  justify-content: space-around;
   align-items: center;
-  direction: rtl;
-  color: var(--color-white);
-  background-color:#fb8500;
-  position: absolute;
+  align-self: stretch;
+  padding: 15px 20px;
+  gap: 26px;
+}
+.book-card-profile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 12.5px;
+}
+.book-card-avatar {
+  width: 45px;
+  height: 45px;
+  color: var(-color-blueviolet-100);
+}
+.book-card-info {
+  display: flex;
   flex-direction: column;
-  border-bottom-right-radius: 50%;
-  border-bottom-left-radius: 50%;
-  box-shadow: 1px 2px 14px 5px #00000070;
-  margin: -1.5px -1.5px;
-  padding: 1rem;
-  &:focus {
-    outline: none;
-  }
+  justify-content: center;
+  align-items: flex-start;
 }
-
-.badge-title {
-  animation: bounce 0.5s;
-  animation-direction: alternate;
-  animation-timing-function: cubic-bezier(0.5, 0.05, 1, 0.5);
-  animation-iteration-count: infinite;
-  -webkit-animation-name: bounce;
-  -webkit-animation-duration: 0.5s;
-  -webkit-animation-direction: alternate;
-  -webkit-animation-timing-function: cubic-bezier(0.5, 0.05, 1, 0.5);
-  -webkit-animation-iteration-count: infinite;
+.book-card-name {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #09072f;
 }
-
-@keyframes bounce {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(0, 3px, 0);
-  }
+.book-card-address {
+  font-weight: 400;
+  font-size: 9.5px;
+  line-height: 14px;
+  color: #8d37ff;
 }
-
-@-webkit-keyframes bounce {
-  from {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    -webkit-transform: translate3d(0, 3px, 0);
-    transform: translate3d(0, 3px, 0);
-  }
+.book-card-action {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 5px;
+}
+.book-card-date {
+  font-weight: 400;
+  font-size: 8px;
+  line-height: 12px;
+  color: #9747ff;
+}
+.book-card-room {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  gap: 5px;
+  padding: 10px 20px;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 15px;
+  background: #e2e4e6;
+  color: #09072f;
+}
+.book-card-inroom{
+  background: white;
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 20px;
+  color: #09072f;
+  padding: 0 10px;
+ border-radius: 2px;
 }

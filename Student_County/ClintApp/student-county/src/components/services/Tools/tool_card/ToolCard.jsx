@@ -5,6 +5,7 @@ import "./ToolCard.css";
 import useComponent from "../../../../hooks/useComponent";
 import useAuth from "../../../../hooks/useAuth";
 import useTools from "../../../../hooks/useTools";
+import { TbTools } from 'react-icons/tb';
 
 const ToolCard = ({
   createdOn,
@@ -14,6 +15,7 @@ const ToolCard = ({
   condition,
   price,
   shortDescription,
+  name,
 }) => {
   const { setButtonCards } = useComponent();
   const { getToolById } = useTools();
@@ -24,8 +26,11 @@ const ToolCard = ({
       <div className="tool-card-container">
         <div className="tool-card-data">
           <div className="tool-card-profile">
+          <TbTools className="dash-nav-link-icon" />
             <div className="tool-card-info">
-              <div className="tool-card-name">{price} ₪</div>
+              <div className="tool-card-name">
+                {name} •{price} ₪
+              </div>
               <div className="tool-card-address">{shortDescription}</div>
             </div>
           </div>

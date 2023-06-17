@@ -145,6 +145,7 @@ export function HousingsProvider({ children }) {
         FormHousingLoader,
         ButtonsFormHousingLoader,
         DeleteButtonsFormHousingLoader,
+        setHousings,
       }}
     >
       {children}

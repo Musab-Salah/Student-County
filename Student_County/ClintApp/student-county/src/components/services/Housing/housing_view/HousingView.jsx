@@ -114,7 +114,7 @@ const HousingView = () => {
           <div className="btns">
             <button
               onClick={() => {
-                reJoinRoom(decodedJwt.uid, Housing.userId);
+                reJoinRoom(decodedJwt.uid, Housing.studentId);
                 setOwnerItem(Housing.userId);
                 setOptionMenu("Chat");
                 setButtonCards("");

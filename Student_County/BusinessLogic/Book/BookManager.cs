@@ -43,7 +43,7 @@ namespace Student_County.BusinessLogic.Book
                 await _context.SaveChangesAsync();
             }          
         }
-        public async Task<BookEntity> GetBookStore(int id)
+        public async Task<BookEntity> GetBook(int id)
         {
             var entity = await _context.Books.FirstOrDefaultAsync(x => x.Id == id);
             if (entity == null || id == 0)

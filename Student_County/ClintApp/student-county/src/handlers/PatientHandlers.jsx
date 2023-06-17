@@ -176,6 +176,7 @@ export function PatientsProvider({ children }) {
         DeleteButtonsFormPatientLoader,
         typeOfTreatments,
         currentIllnessess,
+        setPatients,
       }}
     >
       {children}

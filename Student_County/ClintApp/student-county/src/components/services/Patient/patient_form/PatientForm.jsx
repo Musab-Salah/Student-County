@@ -363,15 +363,7 @@ const PatientForm = () => {
     )
       setValidatePersonalInformation(true);
     else setValidatePersonalInformation(false);
-  }, [
-    firstName,
-    lastName,
-    phoneNumber,
-    nationalId,
-    age,
-    address,
-    gender,
-  ]);
+  }, [firstName, lastName, phoneNumber, nationalId, age, address, gender]);
 
   useMemo(() => {
     // Validate medical information fields here
@@ -424,18 +416,19 @@ const PatientForm = () => {
         <DialogConfirmation
           setDeleteDialogState={setDeleteDialogState}
           id={Patient.id}
+          serviceName={Patient.serviceName}
         />
       )}
       <div style={{ opacity: deleteDialogState ? 0.2 : 1 }}>
         <div className="create-section">
-        <div
+          <div
             className="container-load-form"
             style={{ display: FormPatientLoader ? "block" : "none" }}
           >
             {[...Array(16)].map((_, index) => (
               <div key={index} className="block-load-form"></div>
             ))}
-        </div>
+          </div>
           {step === 1 && (
             <>
               <form
@@ -443,26 +436,27 @@ const PatientForm = () => {
                 className="form-create"
                 onSubmit={handleNext}
               >
-                <div className="form-title">Add A New
+                <div className="form-title">
+                  Add A New
                   <span className="form-title-sw">Patient.</span>
-                 </div>
+                </div>
                 <div className="steps-container">
-                    <div className="step-line"></div>
-                    <div className="step step-active">
-                        <div className="step-icon-container">
-                          <MdOutlineMedicalInformation  className="step-icon" />
-                        </div>
-                        <div className="step-title">Patient Info</div>
+                  <div className="step-line"></div>
+                  <div className="step step-active">
+                    <div className="step-icon-container">
+                      <MdOutlineMedicalInformation className="step-icon" />
                     </div>
-                    <div className="step-line"></div>
-                    <div className="step">
-                        <div className="step-icon-container">
-                        <FaRegAddressCard className="step-icon" />
-                        </div>
-                        <div className="step-title">Medical Status</div>
-                    </div>
-                    <div className="step-line"></div>
+                    <div className="step-title">Patient Info</div>
                   </div>
+                  <div className="step-line"></div>
+                  <div className="step">
+                    <div className="step-icon-container">
+                      <FaRegAddressCard className="step-icon" />
+                    </div>
+                    <div className="step-title">Medical Status</div>
+                  </div>
+                  <div className="step-line"></div>
+                </div>
                 <div className="form-input-container">
                   <div className="input-group">
                     <div className="input-container-group">
@@ -471,7 +465,9 @@ const PatientForm = () => {
                           maxLength={40}
                           type="text"
                           name="firstName"
-                          defaultValue={firstName ? firstName : patient.firstName}
+                          defaultValue={
+                            firstName ? firstName : patient.firstName
+                          }
                           onChange={handleSetFirstName}
                           required
                         />
@@ -555,9 +551,7 @@ const PatientForm = () => {
                           name="nationalidnumber"
                           maxLength={15}
                           defaultValue={
-                            nationalId
-                              ? nationalId
-                              : patient.nationalId
+                            nationalId ? nationalId : patient.nationalId
                           }
                           onChange={handleNationalIdNumber}
                           required
@@ -663,7 +657,9 @@ const PatientForm = () => {
                         </div>
                         {showDropdownGender && (
                           <div className="options" id="input-dropdown">
-                            <div className="option-title">Select The Gender</div>
+                            <div className="option-title">
+                              Select The Gender
+                            </div>
                             <div
                               className="option"
                               onClick={() => handleGender("Male")}
@@ -687,17 +683,35 @@ const PatientForm = () => {
                       )}
                     </div>
                   </div>
-                </div>
-                <div className="buttons">
-                  <button className="btn btn-primary" type="submit">
-                    Next
-                  </button>
-                  <button
-                    onClick={() => setButtonCards("")}
-                    className={`btn btn-secondary `}
-                  >
-                    Cancel
-                  </button>
+                  <div className="buttons">
+                    <button className="btn btn-primary btn-fill" type="submit">
+                      Next
+                    </button>
+                    {ButtonCards === "UpdatePatient" ? (
+                      <button
+                        onClick={handleDelete}
+                        className={`btn btn-primary btn-fill`}
+                      >
+                        <div
+                          className="loader"
+                          style={{
+                            display: DeleteButtonsFormPatientLoader
+                              ? "block"
+                              : "none",
+                          }}
+                        />
+                        Delete
+                      </button>
+                    ) : (
+                      ""
+                    )}
+                    <button
+                      onClick={() => setButtonCards("")}
+                      className={`btn btn-secondary btn-fill`}
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </div>
               </form>
             </>
@@ -710,29 +724,30 @@ const PatientForm = () => {
                 className="form-create"
                 onSubmit={handleNext}
               >
-                <div className="form-title">Add A New
+                <div className="form-title">
+                  Add A New
                   <span className="form-title-sw">Patient.</span>
                 </div>
                 <div className="steps-container">
-                    <div className="step-line"></div>
-                    <div className="step step-active">
-                        <div className="step-icon-container">
-                          <BiCheck  className="step-icon" />
-                        </div>
-                        <div className="step-title">
-                          {/* Patient Info */}
-                          Completed
-                          </div>
+                  <div className="step-line"></div>
+                  <div className="step step-active">
+                    <div className="step-icon-container">
+                      <BiCheck className="step-icon" />
                     </div>
-                    <div className="step-line"></div>
-                    <div className="step step-active">
-                        <div className="step-icon-container">
-                        <FaRegAddressCard className="step-icon" />
-                        </div>
-                        <div className="step-title">Medical Status</div>
+                    <div className="step-title">
+                      {/* Patient Info */}
+                      Completed
                     </div>
-                    <div className="step-line"></div>
                   </div>
+                  <div className="step-line"></div>
+                  <div className="step step-active">
+                    <div className="step-icon-container">
+                      <FaRegAddressCard className="step-icon" />
+                    </div>
+                    <div className="step-title">Medical Status</div>
+                  </div>
+                  <div className="step-line"></div>
+                </div>
                 <div className="form-input-container">
                   <div className="input-group">
                     <div className="input-container-group">
@@ -935,10 +950,13 @@ const PatientForm = () => {
                       {additionalInformationError}
                     </span>
                   )}
-              </div>
+                </div>
                 <div className="buttons">
                   {ButtonCards === "UpdatePatient" ? (
-                    <button type="submit" className={`btn btn-primary `}>
+                    <button
+                      type="submit"
+                      className={`btn btn-primary btn-fill`}
+                    >
                       <div
                         className="loader"
                         style={{
@@ -948,7 +966,10 @@ const PatientForm = () => {
                       Update
                     </button>
                   ) : (
-                    <button type="submit" className={`btn btn-primary `}>
+                    <button
+                      type="submit"
+                      className={`btn btn-primary btn-fill`}
+                    >
                       <div
                         className="loader"
                         style={{
@@ -964,27 +985,10 @@ const PatientForm = () => {
                   >
                     Back
                   </button>
-                  {ButtonCards === "UpdatePatient" ? (
-                    <button
-                      onClick={handleDelete}
-                      className={`btn btn-primary `}
-                    >
-                      <div
-                        className="loader"
-                        style={{
-                          display: DeleteButtonsFormPatientLoader
-                            ? "block"
-                            : "none",
-                        }}
-                      />
-                      Delete
-                    </button>
-                  ) : (
-                    ""
-                  )}
+
                   <button
                     onClick={() => setButtonCards("")}
-                    className={`btn btn-secondary `}
+                    className={`btn btn-secondary btn-fill`}
                   >
                     Cancel
                   </button>

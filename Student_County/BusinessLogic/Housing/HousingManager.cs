@@ -52,7 +52,7 @@ namespace Student_County.BusinessLogic.Housing
             entity.StudentName = user.FirstName + " " + user.LastName;
             entity.PhoneNumber= user.PhoneNumber;
             entity.Gender= user.Gender;
-            var numofhouse = _context.Housings.Where(entity => entity.StudentId == bo.StudentId).Count();
+            var numofhouse = _context.Housings.Where(entity => entity.StudentId == bo.StudentId && !entity.IsDeleted).Count();
             if (id == 0 && numofhouse<1)
             {
                 entity.CreatedBy = user.UserName;

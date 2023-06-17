@@ -15,7 +15,7 @@ namespace Student_County.DAL
         [Required]
         public string? TownName { get; set; }
 
-        public List<RideEntity> Rides { get; set; }
+        public List<RideEntity> Rides { get; set; } = new List<RideEntity>();
        
 
     }

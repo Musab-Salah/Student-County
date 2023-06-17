@@ -21,7 +21,7 @@ namespace Student_County.BusinessLogic.Auth
         {
             var apiKey = _configuration["SendGridAPIKey"];
             var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("musabsalah1998@gmail.com", "AuthKey");
+            var from = new EmailAddress("auth@student-county.com", "no-reply");
             var to = new EmailAddress(toEmail);
             var msg = MailHelper.CreateSingleEmail(from, to, subject, content, content);
             var response = await client.SendEmailAsync(msg);

@@ -121,6 +121,8 @@ const BooksSection = ({ filteredValue }) => {
                   key={book.id}
                   id={book.id}
                   studentId={book.studentId}
+                  theWay={book.theWay}
+                  condition={book.condition}
                 />
               ))
             : !sortType &&
@@ -133,6 +135,8 @@ const BooksSection = ({ filteredValue }) => {
                   key={book.id}
                   id={book.id}
                   studentId={book.studentId}
+                  theWay={book.theWay}
+                  condition={book.condition}
                 />
               ))}
           {!filteredValue
@@ -148,6 +152,8 @@ const BooksSection = ({ filteredValue }) => {
                     key={book.id}
                     id={book.id}
                     studentId={book.studentId}
+                    theWay={book.theWay}
+                    condition={book.condition}
                   />
                 ))
             : sortType === "Name" &&
@@ -162,6 +168,8 @@ const BooksSection = ({ filteredValue }) => {
                     key={book.id}
                     id={book.id}
                     studentId={book.studentId}
+                    theWay={book.theWay}
+                    condition={book.condition}
                   />
                 ))}
           {!filteredValue
@@ -179,6 +187,8 @@ const BooksSection = ({ filteredValue }) => {
                     key={book.id}
                     id={book.id}
                     studentId={book.studentId}
+                    theWay={book.theWay}
+                    condition={book.condition}
                   />
                 ))
             : sortType === "Date" &&
@@ -195,6 +205,8 @@ const BooksSection = ({ filteredValue }) => {
                     key={book.id}
                     id={book.id}
                     studentId={book.studentId}
+                    theWay={book.theWay}
+                    condition={book.condition}
                   />
                 ))}
           {!filteredValue
@@ -210,6 +222,8 @@ const BooksSection = ({ filteredValue }) => {
                     key={book.id}
                     id={book.id}
                     studentId={book.studentId}
+                    theWay={book.theWay}
+                    condition={book.condition}
                   />
                 ))
             : sortType === "Price" &&
@@ -224,6 +238,8 @@ const BooksSection = ({ filteredValue }) => {
                     key={book.id}
                     id={book.id}
                     studentId={book.studentId}
+                    theWay={book.theWay}
+                    condition={book.condition}
                   />
                 ))}
         </div>

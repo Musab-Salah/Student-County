@@ -6,6 +6,7 @@ import useBooks from "../hooks/useBooks";
 import usePatient from "../hooks/usePatient";
 import useHousings from "../hooks/useHousings";
 import useTools from "../hooks/useTools";
+import useRides from "./../hooks/useRides";
 
 const LoaderCxt = createContext();
 
@@ -19,7 +20,12 @@ export function LoaderProvider({ children }) {
     ButtonsFormBooksLoader,
     DeleteButtonsFormBooksLoader,
   } = useBooks();
-
+  const {
+    RideLoader,
+    FormRideLoader,
+    ButtonsFormRideLoader,
+    DeleteButtonsFormRideLoader,
+  } = useRides();
   const {
     PatientLoader,
     FormPatientLoader,
@@ -61,6 +67,10 @@ export function LoaderProvider({ children }) {
         FormToolLoader,
         ButtonsFormToolLoader,
         DeleteButtonsFormToolLoader,
+        RideLoader,
+        FormRideLoader,
+        ButtonsFormRideLoader,
+        DeleteButtonsFormRideLoader,
       }}
     >
       {children}

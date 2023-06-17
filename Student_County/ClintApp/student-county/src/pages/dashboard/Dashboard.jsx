@@ -103,8 +103,7 @@ const Dashboard = () => {
                 .toLowerCase()
                 .includes(deferredInput.toLowerCase());
       });
-    }
-    if (OptionMenu === "Books") {
+    } else if (OptionMenu === "Books") {
       return Object.values(Books).filter((Book) => {
         return Book.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
           Book.shortDescription
@@ -114,8 +113,7 @@ const Dashboard = () => {
                 .toLowerCase()
                 .includes(deferredInput.toLowerCase());
       });
-    }
-    if (OptionMenu === "Patient") {
+    } else if (OptionMenu === "Patient") {
       return Object.values(Patients).filter((patient) => {
         return (
           patient.userName
@@ -129,8 +127,7 @@ const Dashboard = () => {
             .includes(deferredInput.toLowerCase())
         );
       });
-    }
-    if (OptionMenu === "Housing") {
+    } else if (OptionMenu === "Housing") {
       return Object.values(Housings).filter((housing) => {
         return (
           housing.city.toLowerCase().includes(deferredInput.toLowerCase()) ||
@@ -140,8 +137,7 @@ const Dashboard = () => {
           housing.address.toLowerCase().includes(deferredInput.toLowerCase())
         );
       });
-    }
-    if (OptionMenu === "Tool") {
+    } else if (OptionMenu === "Tool") {
       return Object.values(Tools).filter((tool) => {
         return tool.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
           tool.shortDescription
@@ -151,8 +147,7 @@ const Dashboard = () => {
                 .toLowerCase()
                 .includes(deferredInput.toLowerCase());
       });
-    }
-    if (OptionMenu === "Ride") {
+    } else if (OptionMenu === "Ride") {
       return Object.values(Rides).filter((ride) => {
         return ride.shortDescription
           ? ride.shortDescription

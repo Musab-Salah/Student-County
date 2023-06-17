@@ -1,25 +1,25 @@
 import { Routes, Route } from "react-router-dom";
 import PrivateRoutes from "./certificates/PrivateRoutes";
 import { lazy, Suspense } from "react";
-// import Home from "./pages/home/Home";
-// import SignUp from "./pages/sign_up/SignUp";
-// import SignIn from "./pages/sign_in/SignIn.jsx";
-// import ForgotPassword from "./pages/forgot_password/ForgotPassword";
-// import Dashboard from "./pages/dashboard/Dashboard";
-// import Success from "./pages/success/Success.jsx";
-// import ResetPassword from "./pages/reset_password/ResetPassword.jsx";
+import Home from "./pages/home/Home";
+import SignUp from "./pages/sign_up/SignUp";
+import SignIn from "./pages/sign_in/SignIn.jsx";
+import ForgotPassword from "./pages/forgot_password/ForgotPassword";
+import Dashboard from "./pages/dashboard/Dashboard";
+import Success from "./pages/success/Success.jsx";
+import ResetPassword from "./pages/reset_password/ResetPassword.jsx";
 
-const Home = lazy(() => import("./pages/home/Home"));
-const SignUp = lazy(() => import("./pages/sign_up/SignUp"));
-const SignIn = lazy(() => import("./pages/sign_in/SignIn"));
-const ForgotPassword = lazy(() =>
-  import("./pages/forgot_password/ForgotPassword")
-);
-const Success = lazy(() => import("./pages/success/Success"));
-const ResetPassword = lazy(() =>
-  import("./pages/reset_password/ResetPassword")
-);
-const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
+// const Home = lazy(() => import("./pages/home/Home"));
+// const SignUp = lazy(() => import("./pages/sign_up/SignUp"));
+// const SignIn = lazy(() => import("./pages/sign_in/SignIn"));
+// const ForgotPassword = lazy(() =>
+//   import("./pages/forgot_password/ForgotPassword")
+// );
+// const Success = lazy(() => import("./pages/success/Success"));
+// const ResetPassword = lazy(() =>
+//   import("./pages/reset_password/ResetPassword")
+// );
+// const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
 
 function App() {
   return (
@@ -35,8 +35,9 @@ function App() {
           element={<ResetPassword />}
         />
         <Route path="/success" element={<Success />} />
-         <Route path="/dashboard" element={<Dashboard />} />
-        <Route element={<PrivateRoutes />}></Route>
+        <Route element={<PrivateRoutes />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
       </Routes>
     </Suspense>
   );

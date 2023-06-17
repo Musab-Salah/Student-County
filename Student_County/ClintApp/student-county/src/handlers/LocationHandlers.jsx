@@ -5,10 +5,9 @@ const LocationCxt = createContext();
 
 export function LocationProvider({ children }) {
   const [Locations, setLocations] = useState([]);
-  const [LocationError, setError] = useState("Loading");
-  const [Location, setLocation] = useState("Loading");
+  const [LocationError, setError] = useState("");
+  const [Location, setLocation] = useState("");
   const [LocationsLoader, setLocationsLoader] = useState("");
-
 
   const [LocationBo] = useState({
     id: "0",
@@ -73,6 +72,7 @@ export function LocationProvider({ children }) {
         getLocations,
         updateLocation,
         deleteLocation,
+        setLocation,
       }}
     >
       {children}

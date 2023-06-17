@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Student_County.DAL;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace Student_County.BusinessLogic.Auth.Models
@@ -30,5 +31,11 @@ namespace Student_County.BusinessLogic.Auth.Models
         public int UniversityId { get; set; }
         [Required]
         public int CollegeId { get; set; }
+
+        public List<BookEntity> Books { get; set; } = new List<BookEntity>();
+        public List<HousingEntity> Housings { get; set; } = new List<HousingEntity>();
+        public List<PatientEntity> Patients { get; set; } = new List<PatientEntity>();
+        public List<RideEntity> Rides { get; set; } = new List<RideEntity>();
+        public List<ToolsEntity> Tools { get; set; } = new List<ToolsEntity>();
     }
 }

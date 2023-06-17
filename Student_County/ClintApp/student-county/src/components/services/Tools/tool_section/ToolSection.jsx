@@ -7,7 +7,7 @@ import { Helmet } from "react-helmet";
 import useLoader from "../../../../hooks/useLoader";
 
 const ToolSection = ({ filteredValue }) => {
-  const { Tools, getTools, Success, setTool } = useTools();
+  const { Tools, getTools, Success, setTools } = useTools();
   const { ToolLoader } = useLoader();
   const SORT_TYPES = ["Name", "Date", "Price"];
   const [showDropdownType, setShowDropdownType] = useState("");
@@ -37,7 +37,7 @@ const ToolSection = ({ filteredValue }) => {
   }, [Success]);
   useEffect(() => {
     return function cleanup() {
-      setTool("");
+      setTools("");
     };
     // eslint-disable-next-line
   }, []);
@@ -151,6 +151,7 @@ const ToolSection = ({ filteredValue }) => {
                   condition={tool.condition}
                   price={tool.price}
                   shortDescription={tool.shortDescription}
+                  name={tool.name}
                 />
               ))
             : !sortType &&
@@ -163,6 +164,7 @@ const ToolSection = ({ filteredValue }) => {
                   condition={tool.condition}
                   price={tool.price}
                   shortDescription={tool.shortDescription}
+                  name={tool.name}
                 />
               ))}
           {!filteredValue
@@ -178,6 +180,7 @@ const ToolSection = ({ filteredValue }) => {
                     condition={tool.condition}
                     price={tool.price}
                     shortDescription={tool.shortDescription}
+                    name={tool.name}
                   />
                 ))
             : sortType === "Name" &&
@@ -192,6 +195,7 @@ const ToolSection = ({ filteredValue }) => {
                     condition={tool.condition}
                     price={tool.price}
                     shortDescription={tool.shortDescription}
+                    name={tool.name}
                   />
                 ))}
           {!filteredValue
@@ -209,6 +213,7 @@ const ToolSection = ({ filteredValue }) => {
                     condition={tool.condition}
                     price={tool.price}
                     shortDescription={tool.shortDescription}
+                    name={tool.name}
                   />
                 ))
             : sortType === "Date" &&
@@ -225,6 +230,7 @@ const ToolSection = ({ filteredValue }) => {
                     condition={tool.condition}
                     price={tool.price}
                     shortDescription={tool.shortDescription}
+                    name={tool.name}
                   />
                 ))}
           {!filteredValue
@@ -240,6 +246,7 @@ const ToolSection = ({ filteredValue }) => {
                     condition={tool.condition}
                     price={tool.price}
                     shortDescription={tool.shortDescription}
+                    name={tool.name}
                   />
                 ))
             : sortType === "Price" &&
@@ -254,6 +261,7 @@ const ToolSection = ({ filteredValue }) => {
                     condition={tool.condition}
                     price={tool.price}
                     shortDescription={tool.shortDescription}
+                    name={tool.name}
                   />
                 ))}
         </div>

@@ -48,17 +48,13 @@ const BooksForm = () => {
       ) {
         setShowDropdownTheWay(false);
         setShowDropdownCondition(false);
-
       }
     };
     document.addEventListener("click", handleOutsideClick);
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
-  }, [showDropdownTheWay,showDropdownCondition]);
-
-  
-
+  }, [showDropdownTheWay, showDropdownCondition]);
 
   useMemo(() => {
     setName(Book.name);
@@ -66,7 +62,7 @@ const BooksForm = () => {
     setLongDescription(Book.longDescription);
     setPrice(Book.price);
     setTheWay(Book.theWay);
-    setCondition(Book.ConditionCondition);
+    setCondition(Book.condition);
     setBookBo({
       ...book,
       studentId: Book.studentId,
@@ -184,6 +180,7 @@ const BooksForm = () => {
       {deleteDialogState && (
         <DialogConfirmation
           setDeleteDialogState={setDeleteDialogState}
+          serviceName={Book.serviceName}
           id={Book.id}
         />
       )}
@@ -209,13 +206,24 @@ const BooksForm = () => {
             <div className="block-load-form"></div>
             <div className="block-load-form"></div>
             <div className="block-load-form"></div>
-        </div>
+          </div>
           <form
             style={{ display: FormBooksLoader ? "none" : "flex" }}
             className="form-create"
             onSubmit={handleSubmit}
           >
+            <div className="form-title ">
+              Add A New <span style={{ color: "#8D37FF" }}>Book.</span>{" "}
+            </div>
+
             <div className="form-input-container">
+              <div className="form-title-paragraph ">
+                Book Details
+                <div className="form-paragraph">
+                  Please provide the following details about the book you are
+                  adding.
+                </div>
+              </div>
               <div className="input-container">
                 <input
                   maxLength={40}
@@ -246,7 +254,7 @@ const BooksForm = () => {
                     shortDescription ? shortDescription : book.shortDescription
                   }
                   onChange={handleShortDescription}
-                    required
+                  required
                 />
                 <div
                   className="input-container-option"
@@ -290,11 +298,20 @@ const BooksForm = () => {
                   {longDescriptionError}
                 </span>
               )}
+              <div className="form-title-paragraph ">
+                Book Price and Condition
+                <div className="form-paragraph">
+                  Could you kindly provide more details about the book's
+                  condition, preferred method of sale, and the desired price?
+                </div>
+              </div>
               {/* for condition */}
               <div className="custom-select">
                 <div
                   className="selected-option"
-                  onClick={() => setShowDropdownCondition(!showDropdownCondition)}
+                  onClick={() =>
+                    setShowDropdownCondition(!showDropdownCondition)
+                  }
                 >
                   {!condition ? (
                     <div className="input-container-option input-dropdown">
@@ -411,7 +428,7 @@ const BooksForm = () => {
               {/* <button type="submit" className={`btn btn-primary sign ${!isFormValid ? 'disabled' : ''}`}>  */}
               <div className="buttons">
                 {ButtonCards === "UpdateBook" ? (
-                  <button type="submit" className={`btn btn-primary `}>
+                  <button type="submit" className={`btn btn-primary btn-fill`}>
                     <div
                       className="loader"
                       style={{
@@ -421,7 +438,7 @@ const BooksForm = () => {
                     Update
                   </button>
                 ) : (
-                  <button type="submit" className={`btn btn-primary `}>
+                  <button type="submit" className={`btn btn-primary btn-fill`}>
                     <div
                       className="loader"
                       style={{
@@ -432,11 +449,16 @@ const BooksForm = () => {
                   </button>
                 )}
                 {ButtonCards === "UpdateBook" ? (
-                  <button onClick={handleDelete} className={`btn btn-primary `}>
+                  <button
+                    onClick={handleDelete}
+                    className={`btn btn-primary btn-fill`}
+                  >
                     <div
                       className="loader"
                       style={{
-                        display: DeleteButtonsFormBooksLoader ? "block" : "none",
+                        display: DeleteButtonsFormBooksLoader
+                          ? "block"
+                          : "none",
                       }}
                     />
                     Delete
@@ -446,7 +468,7 @@ const BooksForm = () => {
                 )}
                 <button
                   onClick={() => setButtonCards("")}
-                  className={`btn btn-secondary `}
+                  className={`btn btn-secondary btn-fill`}
                 >
                   Cancel
                 </button>

@@ -31,15 +31,7 @@ namespace Student_County.BusinessLogic.Auth.Models
         public UniversityEntity? University { get; set; }
         public CollegeEntity? College { get; set; }
 
-        public List<BookEntity> Books { get; set; }
 
-        public List<HousingEntity> Housings { get; set; }
-
-        public List<PatientEntity> Patients { get; set; }
-
-        public List<RideEntity> Rides { get; set; }
-
-        public List<ToolsEntity> Tools { get; set; }
 
 
 

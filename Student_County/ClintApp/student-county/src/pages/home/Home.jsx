@@ -17,7 +17,7 @@ const Home = () => {
       <Helmet>
         <title>Home</title>
       </Helmet>
-   
+
       <div
         className={`${
           UniversityLoader && CollegesLoader ? "homeOpacity" : "home"
@@ -228,7 +228,7 @@ const Home = () => {
             potential.
           </div>
           <div className="hero-cta">
-            <Link to="/sign-in">
+            <Link to="/sign_in">
               <button className="btn btn-primary">
                 Sign in
                 <TbArrowNarrowRight className="arrow-right-icon" />

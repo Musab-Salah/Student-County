@@ -272,6 +272,9 @@ textarea {
   resize: none;
   overflow: auto;
 }
+textarea::-webkit-scrollbar {
+  background: none;
+}
 .textarea-input {
   align-items: flex-start!important;
   border: none!important;
@@ -283,7 +286,7 @@ textarea:focus-visible {
   outline: none;
 }
 .textarea-input-placeholder {
-  margin-top: var(--padding-3xs);
+  margin-top: 12.5px;
 }
 textarea:focus + .input-container-option {
   transform: scale(0.75) translateY(-135%);
@@ -531,22 +534,30 @@ input:focus-visible {
   outline: none;
 }
 
-input:focus-visible + .input-container-option {
-  transform: scale(0.75) translateY(-135%);
-  color: #8d37ff;
-  background: #fff;
-  outline: none;
-  padding: 0 10px;
-}
-
+/*
 input:valid + .input-container-option {
   transform: scale(0.75) translateY(-135%);
   color: #8d37ff;
   background: #fff;
   outline: none;
   padding: 0 10px;
-}
+}*/
 
+
+input:focus-visible + .input-container-option {
+  transform: scale(0.75) translateY(-135%);
+  color: #8d37ff;
+  background: #fff;
+  outline: none;
+  padding: 0 10px;
+} 
+input:valid + .input-container-option {
+  transform: scale(0.75) translateY(-135%);
+  color: #8d37ff;
+  background: #fff;
+  outline: none;
+  padding: 0 10px;
+} 
 input:-webkit-autofill {
   -webkit-box-shadow: white;
 }
@@ -941,7 +952,9 @@ input#phone-number {
   gap: 25px;
   align-self: stretch;
 }
-
+.input-select-group-label {
+  width: -webkit-fill-available;
+}
 .input-select {
   display: flex;
   flex-direction: column;
@@ -984,4 +997,12 @@ input#phone-number {
   background: var(--color-blueviolet-100);
   color: white;
   border-radius: 100%;
+}
+
+.show{
+  display: flex;
+}
+
+.unshow{
+  display: none;
 }

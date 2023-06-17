@@ -1,119 +1,112 @@
-.ride-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: -webkit-fill-available;
-  height: -webkit-fill-available;
-  z-index: 99999;
+/*view*/
+
+.form-create-view {
   position: fixed;
-  padding: 15px;
-}
-.ride-view {
   display: flex;
-  position: fixed;
-  align-items: center;
-  border-radius: var(--br-3xs);
-  background-color: var(--color-white);
-  box-shadow: 3px 3px 0#09072f;
-  backdrop-filter: blur(6px);
-  border: 1px solid var(--color-gray-100);
-  box-sizing: border-box;
   flex-direction: column;
-  padding: var(--padding-xl) 0;
-  justify-content: flex-start;
-  text-align: left;
-  font-size: var(--font-size-base);
-  font-family: var(--font-poppins);
-  max-width: 600px;
-}
-
-.ride-avatar-icon {
-  width: 50px;
-  height: 50px;
-  color: #3c4859;
-}
-
-.ride-top-info-container {
-  align-self: stretch;
-  display: flex;
-  flex-direction: row;
-  padding: 10px var(--padding-11xl);
-  box-sizing: border-box;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.ride-profile {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-}
-
-.ride-name {
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 24px;
-  color: var(--color-gray-100);
-}
-
-.ride-info-container {
-  display: flex;
   align-items: flex-start;
-  justify-content: space-between;
-  align-self: stretch;
-  padding: var(--padding-11xl);
-  flex-wrap: wrap;
-  gap: 20px;
+  justify-content: flex-start;
+  gap: var(--gap-mini);
+  color: var(--color-blueviolet-100);
+  border-radius: var(--br-3xs) var(--br-3xs) 5px var(--br-3xs);
+  background-color: var(--color-whitesmoke-200);
+  box-shadow: 7.5px 7.5px 0#09072f;
+  border: 1px solid var(--color-gray-100);
+  flex-shrink: 0;
+  object-fit: cover;
+  padding: 30px;
 }
 
+.section-view {
+  border-radius: var(--br-3xs) var(--br-3xs);
+  background-color: var(--color-whitesmoke-200);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-gray-100);
+  font-family: var(--font-poppins);
+  margin: 5px;
+  width: -webkit-fill-available;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
 .ride-info {
   display: flex;
-  flex: 1;
   flex-direction: column;
-  justify-content: flex-start;
-  gap: var(--gap-3xs);
+  gap: 15px;
 }
-
-.ride-info-title {
-  text-transform: uppercase;
-  font-weight: 600;
-  font-size: 14px;
-  color: var(--color-gray-100);
-  line-height: 21px;
-}
-
-.ride-info-items {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
-  grid-gap: 15px;
-  width: -webkit-fill-available;
-}
-
-.ride-info-item {
+.ride-main-info-container {
   display: flex;
-  align-items: flex-start;
   flex-direction: column;
+  gap: 6px;
 }
-
-.ride-info-item-title {
+.ride-main-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: -webkit-fill-available;
+  gap: 10px;
+}
+.ride-additional-info-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.title-ride-name {
+  font-family: 'Poppins';
+  font-style: normal;
   font-weight: 500;
-  font-size: 11px;
-  color: var(--color-blueviolet-100);
-  text-transform: uppercase;
+  font-size: 24px;
+  line-height: 33px;
+  text-transform: capitalize;
+  color: #09072F;
+}
+.seats-field-ride {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 33px;
+  text-transform: capitalize;
+  color: #09072F;
 }
 
-.ride-info-item-value {
-  font-size: 15px;
+.description-ride-view {
+  font-weight: 400;
+  font-size: 13.5px;
   text-transform: capitalize;
-  color: var(--color-gray-100);
+  color: #5f6366;
+  max-width: 350px;
+  line-height: 17px;
 }
-/*
-  .btn-icon {
-    border-radius: var(--br-9xs-5);
-    width: 36px;
-    height: 36px;
-    overflow: hidden;
-    flex-shrink: 0;
-  }*/
+
+.condition-ride-view{
+  display: flex;
+}
+
+.ride-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.ride-image {
+  width: 200px;
+  height: 250px;
+  background-color: #09072F;
+}
+.ride-owner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-5xs-5);
+}
+.ride-owner-icon {
+  width: 22.5px;
+  height: auto;
+}
+.ride-owner-name {
+  font-size: 12px;
+  font-weight: 500;
+}

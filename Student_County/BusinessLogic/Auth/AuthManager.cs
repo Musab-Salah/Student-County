@@ -83,7 +83,7 @@ namespace Student_County.BusinessLogic.Auth
 
             string url = $"{_configuration["AppUrl"]}/api/auth/confirmemail?userid={user.Id}&token={validEmailToken}";
 
-            await _mailService.SendEmailAsync(user.Email, "Confirm your email", $"<h1>Welcome to Auth Demo</h1>" +
+            await _mailService.SendEmailAsync(user.Email, "Confirm your email", $"<h1>Welcome to Student County</h1>" +
                 $"<p>Please confirm your email by <a href='{url}'>Clicking here</a></p>");
 
             return new AuthModel
@@ -146,7 +146,7 @@ namespace Student_County.BusinessLogic.Auth
 
             string url = $"{_configuration["AppUrl"]}/auth/confirmemail?userid={user.Id}&token={validEmailToken}";
 
-            await _mailService.SendEmailAsync(user.Email, "Confirm your email", $"<h1>Welcome to Auth Demo</h1>" +
+            await _mailService.SendEmailAsync(user.Email, "Confirm your email", $"<h1>Welcome to Student County</h1>" +
                 $"<p>Please confirm your email by <a href='{url}'>Clicking here</a></p>");
 
             return new AuthModel

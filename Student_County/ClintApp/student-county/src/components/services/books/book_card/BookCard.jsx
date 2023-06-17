@@ -1,51 +1,61 @@
+import React from "react";
+import { FaHome } from "react-icons/fa";
+import { MdApartment } from "react-icons/md";
 import "./BookCard.css";
-import useAuth from "../../../../hooks/useAuth";
 import useComponent from "../../../../hooks/useComponent";
+import useAuth from "../../../../hooks/useAuth";
 import useBooks from "../../../../hooks/useBooks";
+import { BiBook } from "react-icons/bi";
 
 const BookCard = ({
+  createdOn,
+  id,
   studentId,
-  name,
+  theWay,
+  condition,
   price,
   shortDescription,
-  longDescription,
-  id,
+  name,
 }) => {
   const { setButtonCards } = useComponent();
   const { getBookById } = useBooks();
   const { decodedJwt } = useAuth();
+
   return (
     <>
-      <div className="card">
-        <img
-          className="card-picture"
-          alt=""
-          src="./assets/images/services/book-store.svg"
-        />
-        <span className="badge">
-          <span className=" badge-title">
-            {price === 0 ? "Free" : `₪${price}`}
-          </span>
-        </span>
-
-        <div className="card-info">
-          <div className="card-text">
-            <div className="card-title">{name}</div>
-            <div className="card-description">{shortDescription} </div>
+      <div className="book-card-container">
+        <div className="book-card-data">
+          <div className="book-card-profile">
+            <BiBook className="dash-nav-link-icon" />
+            <div className="book-card-info">
+              <div className="book-card-name">
+                {" "}
+                {name} •{price} ₪
+              </div>
+              <div className="book-card-address">{shortDescription}</div>
+            </div>
           </div>
-          <button
-            className="btn btn-small"
-            onClick={() => {
-              setButtonCards(
-                (decodedJwt.uid === studentId ? true : false)
-                  ? "UpdateBook"
-                  : "ViewBook"
-              );
-              getBookById(id);
-            }}
-          >
-            {decodedJwt.uid === studentId ? "Manage" : "View"}
-          </button>
+          <div className="book-card-action">
+            <button
+              className="btn btn-primary btn-small"
+              onClick={() => {
+                setButtonCards(
+                  (decodedJwt.uid === studentId ? true : false)
+                    ? "UpdateBook"
+                    : "ViewBook"
+                );
+                getBookById(id);
+              }}
+            >
+              {" "}
+              {decodedJwt.uid === studentId ? "Manage" : "View"}
+            </button>
+            <div className="book-card-date">{createdOn}</div>
+          </div>
+        </div>
+        <div className="book-card-room">
+          <div className="book-card-inroom">{theWay}</div>
+          <div className="book-card-inroom">{condition}</div>
         </div>
       </div>
     </>

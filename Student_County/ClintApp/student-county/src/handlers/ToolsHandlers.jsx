@@ -40,6 +40,7 @@ export function ToolsProvider({ children }) {
     });
 
   const getTools = () => {
+    setToolLoader(true);
     ToolsServices.getTools(token)
       .then((res) => {
         setTools(res.data);
@@ -48,17 +49,23 @@ export function ToolsProvider({ children }) {
       .catch(() => {
         setError("Failed bring the Tools...");
         cleanupError();
-      });
+      })
+      .finally(() => setToolLoader(false));
   };
   const getMyAllTools = () => {
+    setToolLoader(true);
+
     ToolsServices.getMyAllTools(decodedJwt.uid, token)
       .then((res) => {
         setMyTools(res.data);
         setError(null);
       })
-      .catch(() => setError("Failed bring the Tools..."));
+      .catch(() => setError("Failed bring the Tools..."))
+      .finally(() => setToolLoader(false));
   };
   const createTool = (Bo) => {
+    setButtonsFormToolLoader(true);
+
     Bo.studentId = decodedJwt.uid;
     ToolsServices.createTool(Bo, token)
       .then((res) => {
@@ -69,10 +76,13 @@ export function ToolsProvider({ children }) {
       .catch(() => {
         setError("Failed create the Tool...");
         cleanupError();
-      });
+      })
+      .finally(() => setButtonsFormToolLoader(false));
   };
 
   const getToolById = (id) => {
+    setFormToolLoader(true);
+
     ToolsServices.getToolById(id, token)
       .then((res) => {
         setTool(res.data);
@@ -81,21 +91,27 @@ export function ToolsProvider({ children }) {
       .catch(() => {
         setError("Failed bring the Tool...");
         cleanupError();
-      });
+      })
+      .finally(() => setFormToolLoader(false));
   };
 
   const updateTool = (id, Bo) => {
+    setButtonsFormToolLoader(true);
+
     ToolsServices.updateTool(id, Bo, token)
       .then((res) => {
         setSuccess("Successfully Updated The Tool.");
         cleanupSuccess();
         setError(null);
       })
-      .catch(() => setError("Failed update the Tool..."));
+      .catch(() => setError("Failed update the Tool..."))
+      .finally(() => setButtonsFormToolLoader(false));
   };
 
   const deleteTool = (id) => {
-    ToolsServices.deleteTool(id)
+    setDeleteButtonsFormToolLoader(true);
+
+    ToolsServices.deleteTool(id, token)
       .then((res) => {
         setTool(res.data);
         setError(null);
@@ -103,7 +119,8 @@ export function ToolsProvider({ children }) {
       .catch(() => {
         setError("Failed delete the Tool...");
         cleanupError();
-      });
+      })
+      .finally(() => setDeleteButtonsFormToolLoader(false));
   };
 
   return (
@@ -131,6 +148,7 @@ export function ToolsProvider({ children }) {
         setButtonsFormToolLoader,
         DeleteButtonsFormToolLoader,
         setDeleteButtonsFormToolLoader,
+        setTools,
       }}
     >
       {children}

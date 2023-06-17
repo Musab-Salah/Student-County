@@ -20,11 +20,8 @@ const ToolForm = () => {
   const [theWay, setTheWay] = useState("");
   const [condition, setCondition] = useState("");
   const [tool, setToolBo] = useState({});
-  const {
-    FormToolLoader,
-    ButtonsFormToolLoader,
-    DeleteButtonsFormToolLoader,
-  } = useLoader();
+  const { FormToolLoader, ButtonsFormToolLoader, DeleteButtonsFormToolLoader } =
+    useLoader();
 
   // Error Hook
   const [theWayError, setTheWayError] = useState("");
@@ -48,17 +45,13 @@ const ToolForm = () => {
       ) {
         setShowDropdownTheWay(false);
         setShowDropdownCondition(false);
-
       }
     };
     document.addEventListener("click", handleOutsideClick);
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
-  }, [showDropdownTheWay,showDropdownCondition]);
-
-  
-
+  }, [showDropdownTheWay, showDropdownCondition]);
 
   useMemo(() => {
     setName(Tool.name);
@@ -66,7 +59,7 @@ const ToolForm = () => {
     setLongDescription(Tool.longDescription);
     setPrice(Tool.price);
     setTheWay(Tool.theWay);
-    setCondition(Tool.ConditionCondition);
+    setCondition(Tool.condition);
     setToolBo({
       ...tool,
       studentId: Tool.studentId,
@@ -185,6 +178,7 @@ const ToolForm = () => {
         <DialogConfirmation
           setDeleteDialogState={setDeleteDialogState}
           id={Tool.id}
+          serviceName={Tool.serviceName}
         />
       )}
       <div style={{ opacity: deleteDialogState ? 0.2 : 1 }}>
@@ -209,7 +203,7 @@ const ToolForm = () => {
             <div className="block-load-form"></div>
             <div className="block-load-form"></div>
             <div className="block-load-form"></div>
-        </div>
+          </div>
           <form
             style={{ display: FormToolLoader ? "none" : "flex" }}
             className="form-create"
@@ -246,7 +240,7 @@ const ToolForm = () => {
                     shortDescription ? shortDescription : tool.shortDescription
                   }
                   onChange={handleShortDescription}
-                    required
+                  required
                 />
                 <div
                   className="input-container-option"
@@ -294,7 +288,9 @@ const ToolForm = () => {
               <div className="custom-select">
                 <div
                   className="selected-option"
-                  onClick={() => setShowDropdownCondition(!showDropdownCondition)}
+                  onClick={() =>
+                    setShowDropdownCondition(!showDropdownCondition)
+                  }
                 >
                   {!condition ? (
                     <div className="input-container-option input-dropdown">

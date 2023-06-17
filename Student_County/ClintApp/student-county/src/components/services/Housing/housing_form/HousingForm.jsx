@@ -93,6 +93,8 @@ const HousingForm = () => {
       setRoomType(Housing.roomType);
       setBedRoom(Housing.bedRoom);
       setBathRoom(Housing.bathRoom);
+      setRentalPrice(Housing.rentalPrice);
+      setFurnishings(Housing.furnishings);
       setHousingBo({
         ...housing,
         userId: Housing.userId,
@@ -106,6 +108,8 @@ const HousingForm = () => {
         roomType: Housing.roomType,
         bedRoom: Housing.bedRoom,
         bathRoom: Housing.bathRoom,
+        rentalPrice: Housing.rentalPrice,
+        furnishings: Housing.furnishings,
       });
     }
     // eslint-disable-next-line
@@ -264,7 +268,7 @@ const HousingForm = () => {
   useMemo(() => {
     if (typeOfContractError === "null") setTypeOfContractError(false);
     else if (!typeOfContract)
-      setTypeOfContractError("please select a typeOfContract");
+      setTypeOfContractError("please select a type Of Contract");
   }, [typeOfContract]);
 
   const handleDelete = (event) => {
@@ -330,6 +334,7 @@ const HousingForm = () => {
       {deleteDialogState && (
         <DialogConfirmation
           setDeleteDialogState={setDeleteDialogState}
+          serviceName={Housing.serviceName}
           id={Housing.id}
         />
       )}
@@ -404,6 +409,24 @@ const HousingForm = () => {
                     >
                       Next
                     </button>
+                    {ButtonCards === "UpdateHousing" ? (
+                      <button
+                        onClick={handleDelete}
+                        className={`btn btn-primary btn-fill`}
+                      >
+                        <div
+                          className="loader"
+                          style={{
+                            display: DeleteButtonsFormHousingLoader
+                              ? "block"
+                              : "none",
+                          }}
+                        />
+                        Delete
+                      </button>
+                    ) : (
+                      ""
+                    )}
                     <button
                       onClick={() => setButtonCards("")}
                       className={`btn btn-secondary btn-fill`}
@@ -536,12 +559,12 @@ const HousingForm = () => {
                       >
                         {!typeOfContract ? (
                           <div className="input-container-option input-dropdown">
-                            TypeOfContract
+                            Type Of Contract
                           </div>
                         ) : (
                           <div>
                             <div className="input-container-option input-dropdown-title">
-                              TypeOfContract
+                              Type Of Contract
                             </div>
                             <div className="input-container-option input-dropdown input-selected">
                               {typeOfContract}
@@ -553,7 +576,7 @@ const HousingForm = () => {
                       {showDropdownTypeOfContract && (
                         <div className="options" id="input-dropdown">
                           <div className="option-title">
-                            Select The TypeOfContract
+                            Select The Type Of Contract
                           </div>
                           <div
                             className="option"
@@ -689,8 +712,8 @@ const HousingForm = () => {
 
                   <div className="input-and-title-container">
                     <div className="input-title">Home Type</div>
-                    <div classNames="input-select-group">
-                      <label>
+                    <div className="input-select-group">
+                      <label className="input-select-group-label">
                         <input
                           onClick={() => handelHomeType("House")}
                           type="radio"
@@ -710,7 +733,7 @@ const HousingForm = () => {
                         </div>
                       </label>
 
-                      <label>
+                      <label className="input-select-group-label">
                         <input
                           onClick={() => handelHomeType("Apartment")}
                           type="radio"
@@ -737,7 +760,7 @@ const HousingForm = () => {
                   <div className="input-and-title-container">
                     <div className="input-title">Room Type</div>
                     <div className="input-select-group">
-                      <label>
+                      <label className="input-select-group-label">
                         <input
                           onClick={() => handelRoomType("Private")}
                           type="radio"
@@ -757,7 +780,7 @@ const HousingForm = () => {
                         </div>
                       </label>
 
-                      <label>
+                      <label className="input-select-group-label">
                         <input
                           onClick={() => handelRoomType("Common")}
                           type="radio"

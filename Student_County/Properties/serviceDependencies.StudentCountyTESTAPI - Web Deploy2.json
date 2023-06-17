@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/sctestsqlserver/databases/scTESTDB",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:Connectionstring",
+      "dynamicId": null
+    },
+    "signalr1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.SignalRService/SignalR/StudentCounty",
+      "type": "signalr.azure",
+      "connectionId": "Azure:SignalR:ConnectionString",
+      "dynamicId": null
+    }
+  }
+}

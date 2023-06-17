@@ -41,7 +41,7 @@ namespace Student_County.API.Controller
             return Ok("Is Deleted");
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get([FromRoute]  int id) => Ok(await _manager.GetBookStore(id));
+        public async Task<IActionResult> Get([FromRoute]  int id) => Ok(await _manager.GetBook(id));
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromBody] BookBo bo, [FromRoute] int id)

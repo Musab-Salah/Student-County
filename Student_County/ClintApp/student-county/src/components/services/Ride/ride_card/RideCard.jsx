@@ -1,31 +1,40 @@
-import React from "react";
-import { FaHome } from "react-icons/fa";
-import { MdApartment } from "react-icons/md";
+import React, { useEffect, useMemo, useState } from "react";
 import "./RideCard.css";
 import useComponent from "../../../../hooks/useComponent";
 import useAuth from "../../../../hooks/useAuth";
 import useRides from "../../../../hooks/useRides";
+import useLocation from "../../../../hooks/useLocation";
+import { IoCarOutline } from "react-icons/io5";
 
 const RideCard = ({
   createdOn,
   id,
   studentId,
-  theWay,
-  condition,
-  price,
   shortDescription,
+  locationId,
+  carDescription,
+  emptySeats,
 }) => {
   const { setButtonCards } = useComponent();
+  const { Location, getLocationById } = useLocation();
   const { getRideById } = useRides();
   const { decodedJwt } = useAuth();
+  const [nowLocation, setNowLocation] = useState("");
 
+  useEffect(() => {
+    if (locationId) getLocationById(locationId);
+  }, [locationId]);
+  useMemo(() => {
+    setNowLocation(Location);
+  }, [Location]);
   return (
     <>
       <div className="ride-card-container">
         <div className="ride-card-data">
           <div className="ride-card-profile">
+            <IoCarOutline className="dash-nav-link-icon" />
             <div className="ride-card-info">
-              <div className="ride-card-name"></div>
+              <div className="ride-card-name">{carDescription}</div>
               <div className="ride-card-address">{shortDescription}</div>
             </div>
           </div>
@@ -48,8 +57,15 @@ const RideCard = ({
           </div>
         </div>
         <div className="ride-card-room">
-          <div className="ride-card-inroom">{theWay}</div>
-          <div className="ride-card-inroom">{condition}</div>
+          <div className="ride-card-inroom">
+            {nowLocation.cityName ? nowLocation.cityName : ""}
+          </div>
+          <div className="ride-card-inroom">
+            {nowLocation.townName ? nowLocation.townName : ""}
+          </div>
+          <div className="ride-card-inroom">
+            Have {emptySeats} Seats Available
+          </div>
         </div>
       </div>
     </>

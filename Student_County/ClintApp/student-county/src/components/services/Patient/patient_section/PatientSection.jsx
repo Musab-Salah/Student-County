@@ -9,7 +9,7 @@ import HousingCard from "../../Housing/housing_card/HousingCard";
 import HousingForm from "../../Housing/housing_form/HousingForm";
 
 const PatientSection = ({ filteredValue }) => {
-  const { getPatient, Success, setPatient, Patients } = usePatient();
+  const { getPatient, Success, setPatients, Patients } = usePatient();
   const { PatientLoader } = useLoader();
   const SORT_TYPES = ["Name", "Date", "Age"];
   const [showDropdownType, setShowDropdownType] = useState("");
@@ -39,7 +39,7 @@ const PatientSection = ({ filteredValue }) => {
   }, [Success]);
   useEffect(() => {
     return function cleanup() {
-      setPatient("");
+      setPatients("");
     };
     // eslint-disable-next-line
   }, []);
@@ -81,8 +81,6 @@ const PatientSection = ({ filteredValue }) => {
   };
   return (
     <>
-
-
       <Helmet>
         <title>Patient</title>
       </Helmet>

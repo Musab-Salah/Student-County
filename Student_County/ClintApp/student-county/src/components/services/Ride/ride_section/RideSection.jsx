@@ -5,14 +5,17 @@ import { RiArrowDownSLine } from "react-icons/ri";
 import "./RideSection.css";
 import { Helmet } from "react-helmet";
 import useLoader from "../../../../hooks/useLoader";
+import useLocation from "../../../../hooks/useLocation";
 
 const RideSection = ({ filteredValue }) => {
-  const { Rides, getRides, Success, setRide } = useRides();
+  const { Rides, getRides, Success, setRides } = useRides();
+  const { getLocations, Locations } = useLocation();
   const { RideLoader } = useLoader();
   const SORT_TYPES = ["Name", "Date", "Price"];
   const [showDropdownType, setShowDropdownType] = useState("");
   const [sortType, setSortType] = useState("");
   const [showDropdownSort, setShowDropdownSort] = useState("");
+  const [nowLocation, setNowLocation] = useState("");
 
   useMemo(() => {
     const handleOutsideClick = (event) => {
@@ -31,13 +34,21 @@ const RideSection = ({ filteredValue }) => {
     // eslint-disable-next-line
   }, [showDropdownType, showDropdownSort]);
 
+  const getMyLocation = (locationId) => {
+    const foundLocation = Locations.find(
+      (location) => location.id === locationId
+    );
+    setNowLocation(foundLocation);
+  };
+
   useEffect(() => {
     getRides();
+    getLocations();
     // eslint-disable-next-line
   }, [Success]);
   useEffect(() => {
     return function cleanup() {
-      setRide("");
+      setRides("");
     };
     // eslint-disable-next-line
   }, []);
@@ -145,23 +156,28 @@ const RideSection = ({ filteredValue }) => {
               Object.values(Rides).map((ride) => (
                 <RideCard
                   createdOn={formatDate(ride.createdOn)}
+                  key={ride.id}
                   id={ride.id}
+                  ride={ride}
                   studentId={ride.studentId}
                   carDescription={ride.carDescription}
                   shortDescription={ride.shortDescription}
                   emptySeats={ride.emptySeats}
+                  locationId={ride.locationId}
                 />
               ))
             : !sortType &&
               Object.values(filteredValue).map((ride) => (
                 <RideCard
                   createdOn={formatDate(ride.createdOn)}
+                  key={ride.id}
                   id={ride.id}
+                  ride={ride}
                   studentId={ride.studentId}
-                  theWay={ride.theWay}
-                  condition={ride.condition}
-                  price={ride.price}
+                  carDescription={ride.carDescription}
                   shortDescription={ride.shortDescription}
+                  emptySeats={ride.emptySeats}
+                  locationId={ride.locationId}
                 />
               ))}
           {!filteredValue
@@ -171,12 +187,14 @@ const RideSection = ({ filteredValue }) => {
                 .map((ride) => (
                   <RideCard
                     createdOn={formatDate(ride.createdOn)}
+                    key={ride.id}
                     id={ride.id}
+                    ride={ride}
                     studentId={ride.studentId}
-                    theWay={ride.theWay}
-                    condition={ride.condition}
-                    price={ride.price}
+                    carDescription={ride.carDescription}
                     shortDescription={ride.shortDescription}
+                    emptySeats={ride.emptySeats}
+                    locationId={ride.locationId}
                   />
                 ))
             : sortType === "Name" &&
@@ -185,12 +203,14 @@ const RideSection = ({ filteredValue }) => {
                 .map((ride) => (
                   <RideCard
                     createdOn={formatDate(ride.createdOn)}
+                    key={ride.id}
                     id={ride.id}
+                    ride={ride}
                     studentId={ride.studentId}
-                    theWay={ride.theWay}
-                    condition={ride.condition}
-                    price={ride.price}
+                    carDescription={ride.carDescription}
                     shortDescription={ride.shortDescription}
+                    emptySeats={ride.emptySeats}
+                    locationId={ride.locationId}
                   />
                 ))}
           {!filteredValue
@@ -202,12 +222,14 @@ const RideSection = ({ filteredValue }) => {
                 .map((ride) => (
                   <RideCard
                     createdOn={formatDate(ride.createdOn)}
+                    key={ride.id}
                     id={ride.id}
+                    ride={ride}
                     studentId={ride.studentId}
-                    theWay={ride.theWay}
-                    condition={ride.condition}
-                    price={ride.price}
+                    carDescription={ride.carDescription}
                     shortDescription={ride.shortDescription}
+                    emptySeats={ride.emptySeats}
+                    locationId={ride.locationId}
                   />
                 ))
             : sortType === "Date" &&
@@ -218,12 +240,14 @@ const RideSection = ({ filteredValue }) => {
                 .map((ride) => (
                   <RideCard
                     createdOn={formatDate(ride.createdOn)}
+                    key={ride.id}
                     id={ride.id}
+                    ride={ride}
                     studentId={ride.studentId}
-                    theWay={ride.theWay}
-                    condition={ride.condition}
-                    price={ride.price}
+                    carDescription={ride.carDescription}
                     shortDescription={ride.shortDescription}
+                    emptySeats={ride.emptySeats}
+                    locationId={ride.locationId}
                   />
                 ))}
           {!filteredValue
@@ -233,12 +257,14 @@ const RideSection = ({ filteredValue }) => {
                 .map((ride) => (
                   <RideCard
                     createdOn={formatDate(ride.createdOn)}
+                    key={ride.id}
                     id={ride.id}
+                    ride={ride}
                     studentId={ride.studentId}
-                    theWay={ride.theWay}
-                    condition={ride.condition}
-                    price={ride.price}
+                    carDescription={ride.carDescription}
                     shortDescription={ride.shortDescription}
+                    emptySeats={ride.emptySeats}
+                    locationId={ride.locationId}
                   />
                 ))
             : sortType === "Price" &&
@@ -247,12 +273,14 @@ const RideSection = ({ filteredValue }) => {
                 .map((ride) => (
                   <RideCard
                     createdOn={formatDate(ride.createdOn)}
+                    key={ride.id}
                     id={ride.id}
+                    ride={ride}
                     studentId={ride.studentId}
-                    theWay={ride.theWay}
-                    condition={ride.condition}
-                    price={ride.price}
+                    carDescription={ride.carDescription}
                     shortDescription={ride.shortDescription}
+                    emptySeats={ride.emptySeats}
+                    locationId={ride.locationId}
                   />
                 ))}
         </div>

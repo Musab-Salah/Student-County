@@ -1,18 +1,27 @@
-import React, { useEffect } from "react";
-import "./ToolView.css";
-import { FaUserCircle } from "react-icons/fa";
-import useLoader from "../../../../hooks/useLoader";
+import { useEffect, useMemo, useState } from "react";
 import useComponent from "../../../../hooks/useComponent";
-import useAuth from "../../../../hooks/useAuth";
-import useChat from "../../../../hooks/useChat";
 import useTools from "../../../../hooks/useTools";
+import "./ToolView.css";
+import useLoader from "../../../../hooks/useLoader";
+import ChatController from "../../../chat/ChatController";
+import { TbCrown } from "react-icons/tb";
+import useChat from "../../../../hooks/useChat";
+import useAuth from "../../../../hooks/useAuth";
 
 const ToolView = () => {
-  const { FormToolLoader } = useLoader();
-  const { setButtonCards, setOptionMenu, setOwnerItem } = useComponent();
-  const { reJoinRoom } = useChat();
-  const { decodedJwt } = useAuth();
+  const { setButtonCards, setOpenChatArea, setOptionMenu, setOwnerItem } =
+    useComponent();
   const { Tool, setTool } = useTools();
+  const { reJoinRoom, setChatOpened } = useChat();
+  const { FormToolLoader } = useLoader();
+  const { decodedJwt } = useAuth();
+  const [date, setDate] = useState();
+  // State Hook
+  useMemo(() => {
+    const d = new Date(Date.parse(Tool.createdOn));
+    setDate(d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getUTCDate());
+  }, [Tool]);
+
   useEffect(() => {
     return function cleanup() {
       setButtonCards("");
@@ -23,131 +32,65 @@ const ToolView = () => {
 
   return (
     <>
-      <div className="tool-section">
+      <div className="create-section">
         <div
-          className="container-load-form"
-          style={{ display: FormToolLoader ? "block" : "none" }}
-        >
-          {[...Array(16)].map((_, index) => (
-            <div key={index} className="block-load-form"></div>
-          ))}
+            className="container-load-form"
+            style={{ display: FormToolLoader ? "block" : "none" }}
+          >
+            {[...Array(16)].map((_, index) => (
+              <div key={index} className="block-load-form"></div>
+            ))}
         </div>
         <div
-          className="tool-view "
+          className="form-create-view"
           style={{ display: FormToolLoader ? "none" : "flex" }}
         >
-          <div className="tool-top-info-container">
-            <div className="tool-profile">
-              <FaUserCircle className="tool-avatar-icon" />
-              <div className="tool-name">{Tool.name}</div>
-            </div>
-            {/* <BsInfoCircle className="btn btn-primary btn-icon" alt="" /> */}
-          </div>
-          <div className="vertical-line" />
-          <div className="tool-info-container">
-            <div className="tool-info">
-              <div className="tool-info-title">Tool Info:</div>
-              <div className="tool-info-items">
-                <div className="tool-info-item">
-                  <div className="tool-info-item-title">Full Name</div>
-                  <div className="tool-info-item-value">
-                    {Tool.userName}
-                  </div>
-                </div>
-                <div className="tool-info-item">
-                  <div className="tool-info-item-title">Age</div>
-                  <div className="tool-info-item-value">{Tool.age}</div>
-                </div>
-                <div className="tool-info-item">
-                  <div className="tool-info-item-title">Address</div>
-                  <div className="tool-info-item-value">
-                    {Tool.address}
-                  </div>
-                </div>
-                <div className="tool-info-item">
-                  <div className="tool-info-item-title">Phone Number</div>
-                  <div className="tool-info-item-value">
-                    {Tool.phoneNumber}
-                  </div>
-                </div>
-                <div className="tool-info-item">
-                  <div className="tool-info-item-title">National id</div>
-                  <div className="tool-info-item-value">
-                    {Tool.nationalIdNumber}
-                  </div>
-                </div>
-                <div className="tool-info-item">
-                  <div className="tool-info-item-title">Gender</div>
-                  <div className="tool-info-item-value">
-                    {Tool.gender}
-                  </div>
-                </div>
+          <div className="section-view">
+            <div className="tool-image-container">
+              <div className="tool-image" />
+              <div className="tool-owner">
+                <TbCrown className="tool-owner-icon" />
+                <div className="tool-owner-name">{Tool.studentName}</div>
               </div>
             </div>
             <div className="tool-info">
-              <div className="tool-info-title">Medical Status:</div>
-              <div className="tool-info-items">
-                <div className="tool-info-item">
-                  <div className="tool-info-item-title">
-                    Type OF TREATMENT
-                  </div>
-                  <div className="tool-info-item-value">
-                    {Tool.typeOfTreatment}
+              <div className="tool-main-info-container">
+                <div className="tool-main-info">
+                  <div className="title-tool-name">{Tool.name}</div>
+                  <div className="price-field">
+                    {Tool.price === 0 ? "Free" : `₪${Tool.price}`}
                   </div>
                 </div>
-                <div className="tool-info-item">
-                  <div className="tool-info-item-title">SENSITIVITY</div>
-                  <div className="tool-info-item-value">
-                    {Tool.sensitivity}
-                  </div>
+                <div className="description-tool-view">
+                  {Tool.longDescription}
                 </div>
-                <div className="tool-info-item">
-                  <div className="tool-info-item-title">
-                    CURRENT illnesses
-                  </div>
-                  <div className="tool-info-item-value">
-                    {Tool.currentIllnesses}
-                  </div>
-                </div>
-                <div className="tool-info-item">
-                  <div className="tool-info-item-title">Current T.M</div>
-                  <div className="tool-info-item-value">
-                    {Tool.currentlyUsedMedicines}
-                  </div>
-                </div>
-                {Tool.additionalInformation ? (
-                  <div className="tool-info-item">
-                    <div className="tool-info-item-title">
-                      Additional Information
-                    </div>
-                    <div className="tool-info-item-value">
-                      {Tool.additionalInformation}
-                    </div>
-                  </div>
-                ) : (
-                  ""
-                )}
+              </div>
+              <div className="tool-additional-info-container">
+                <div className="tool-additional-info">{Tool.condition}</div>
+                <div className="tool-additional-info">{Tool.university}</div>
+                <div className="tool-additional-info">{date}</div>
+              </div>
+              <div className="buttons">
+                <button
+                  onClick={() => {
+                    reJoinRoom(decodedJwt.uid, Tool.studentId);
+                    setOwnerItem(Tool.studentId);
+                    setOptionMenu("Chat");
+                    // setOpenChatArea(true);
+                    setButtonCards("");
+                  }}
+                  className={`btn btn-primary `}
+                >
+                  Contact With Owner
+                </button>
+                <button
+                  onClick={() => setButtonCards("")}
+                  className={`btn btn-secondary `}
+                >
+                  Cancel
+                </button>
               </div>
             </div>
-          </div>
-          <div className="btns">
-            <button
-              onClick={() => {
-                reJoinRoom(decodedJwt.uid, Tool.userId);
-                setOwnerItem(Tool.userId);
-                setOptionMenu("Chat");
-                setButtonCards("");
-              }}
-              className="btn btn-primary btn-fill"
-            >
-              Contact The Tool
-            </button>
-            <button
-              onClick={() => setButtonCards("")}
-              className="btn btn-secondary btn-fill"
-            >
-              Cancel
-            </button>
           </div>
         </div>
       </div>

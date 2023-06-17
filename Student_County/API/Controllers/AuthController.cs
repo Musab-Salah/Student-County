@@ -139,7 +139,7 @@ namespace Student_County.API.Controllers
 
             if (result.IsSuccess)
             {
-                return Redirect("http://localhost:3000/success");
+                return Redirect("https://student-county.com/success");
             }
 
             return BadRequest(result);

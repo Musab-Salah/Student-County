@@ -12,20 +12,21 @@ const RideForm = () => {
   const { setButtonCards, ButtonCards } = useComponent();
   const { Success, createRide, RideError, updateRide, Ride, setRide } =
     useRides();
-  const { getLocations, Locations } = useLocation();
+  const { getLocations, Locations, Location, getLocationById, setLocation } =
+    useLocation();
   // State Hook
   const [carDescription, setCarDescription] = useState("");
   const [deleteDialogState, setDeleteDialogState] = useState("");
   const [shortDescription, setShortDescription] = useState("");
   const [longDescription, setLongDescription] = useState("");
   const [emptySeats, setEmptySeats] = useState("");
-  const [location, setLocation] = useState("");
+  const [location, setLocationform] = useState(false);
   const [ride, setRideBo] = useState({});
   const { FormRideLoader, ButtonsFormRideLoader, DeleteButtonsFormRideLoader } =
     useLoader();
 
   // Error Hook
-  const [locationError, setLocationError] = useState("");
+  const [locationError, setLocationformError] = useState("");
 
   const [carDescriptionError, setCarDescriptionError] = useState("");
   const [shortDescriptionError, setShortDescriptionError] = useState("");
@@ -52,23 +53,28 @@ const RideForm = () => {
   }, [showDropdownLocation]);
 
   useMemo(() => {
-    setCarDescription(Ride.carDescription);
-    setShortDescription(Ride.shortDescription);
-    setLongDescription(Ride.longDescription);
-    setEmptySeats(Ride.emptySeats);
-    setLocation(Ride.location);
-    setRideBo({
-      ...ride,
-      studentId: Ride.studentId,
-      id: Ride.id,
-      CarDescription: Ride.carDescription,
-      shortDescription: Ride.shortDescription,
-      longDescription: Ride.longDescription,
-      emptySeats: Ride.emptySeats,
-      location: Ride.location,
-    });
+    if (Ride) {
+      setCarDescription(Ride.carDescription);
+      setShortDescription(Ride.shortDescription);
+      setLongDescription(Ride.longDescription);
+      setEmptySeats(Ride.emptySeats);
+      getLocationById(Ride.locationId);
+      setRideBo({
+        ...ride,
+        studentId: Ride.studentId,
+        id: Ride.id,
+        CarDescription: Ride.carDescription,
+        shortDescription: Ride.shortDescription,
+        longDescription: Ride.longDescription,
+        emptySeats: Ride.emptySeats,
+        location: Ride.locationId,
+      });
+    }
     // eslint-disable-next-line
   }, [Ride]);
+  useMemo(() => {
+    setLocationform(Location);
+  }, [Location]);
   useEffect(() => {
     getLocations();
   }, []);
@@ -84,6 +90,7 @@ const RideForm = () => {
   useEffect(() => {
     return function cleanup() {
       setButtonCards("");
+      setLocation("");
       setRide("");
     };
     // eslint-disable-next-line
@@ -95,8 +102,8 @@ const RideForm = () => {
       locationId: location.id,
     });
     console.log(ride.locationId);
-    setLocation(location);
-    setLocationError(false);
+    setLocationform(location);
+    setLocationformError(false);
     setShowDropdownLocation(false);
   };
 
@@ -169,6 +176,7 @@ const RideForm = () => {
         <DialogConfirmation
           setDeleteDialogState={setDeleteDialogState}
           id={Ride.id}
+          serviceName={Ride.serviceName}
         />
       )}
       <div style={{ opacity: deleteDialogState ? 0.2 : 1 }}>
@@ -324,11 +332,7 @@ const RideForm = () => {
                   <AiFillExclamationCircle /> {locationError}{" "}
                 </span>
               )}
-              <div
-                className={`input-container ${
-                  location === "Sell" ? "show" : "unshow"
-                }`}
-              >
+              <div className={`input-container `}>
                 <input
                   type="number"
                   name="emptySeats"
