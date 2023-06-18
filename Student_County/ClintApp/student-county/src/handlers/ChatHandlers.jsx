@@ -31,7 +31,7 @@ export function ChatsProvider({ children }) {
   }, [isLogin]);
 
   useEffect(() => {
-    if (isLogout) closeConnection();
+    if (isLogout && connection) closeConnection();
   }, [isLogout]);
 
   useEffect(() => {
@@ -42,8 +42,8 @@ export function ChatsProvider({ children }) {
   const joinRoom = async () => {
     try {
       const connection = new HubConnectionBuilder()
-        .withUrl("https://localhost:7245/chat")
-        .configureLogging(LogLevel.Information)
+        .withUrl("https://studentcountytestapi.azurewebsites.net/chat")
+        .configureLogging(LogLevel.None)
         .build();
 
       connection.on("ReceiveMessage", (roomId, message) => {

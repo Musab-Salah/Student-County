@@ -16,7 +16,7 @@ export function HousingsProvider({ children }) {
   const [DeleteButtonsFormHousingLoader, setDeleteButtonsFormHousingLoader] =
     useState("");
   const [HousingError, setError] = useState("");
-  const [Success, setSuccess] = useState("");
+  const [HousingSuccess, setHousingSuccess] = useState("");
 
   const [HousingBo] = useState({
     id: "0",
@@ -34,9 +34,9 @@ export function HousingsProvider({ children }) {
     sleep(5000).then(() => {
       setError("");
     });
-  const cleanupSuccess = () =>
+  const cleanupHousingSuccess = () =>
     sleep(2000).then(() => {
-      setSuccess("");
+      setHousingSuccess("");
     });
 
   const getHousings = () => {
@@ -68,12 +68,18 @@ export function HousingsProvider({ children }) {
     Bo.studentId = decodedJwt.uid;
     HousingServices.createHousing(Bo, token)
       .then((res) => {
-        setSuccess("Successfully Created The Housing.");
-        cleanupSuccess();
+        setHousingSuccess("HousingSuccessfully Created The Housing.");
+        cleanupHousingSuccess();
         setError(null);
       })
-      .catch(() => {
-        setError("Failed create the Housing...");
+      .catch((er) => {
+        if (
+          er.response.data.includes("You can't create more than one Housing")
+        ) {
+          setError("You can't create more than one Housing");
+        } else {
+          setError("Failed to create the Housing...");
+        }
         cleanupError();
       })
       .finally(() => setButtonsFormHousingLoader(false));
@@ -97,8 +103,8 @@ export function HousingsProvider({ children }) {
     setButtonsFormHousingLoader(true);
     HousingServices.updateHousing(id, Bo, token)
       .then((res) => {
-        setSuccess("Successfully Updated The Housing.");
-        cleanupSuccess();
+        setHousingSuccess("HousingSuccessfully Updated The Housing.");
+        cleanupHousingSuccess();
         setError(null);
       })
       .catch(() => {
@@ -112,8 +118,8 @@ export function HousingsProvider({ children }) {
     setDeleteButtonsFormHousingLoader(true);
     HousingServices.deleteHousing(id, token)
       .then((res) => {
-        setSuccess("Successfully Deleted The Housing.");
-        cleanupSuccess();
+        setHousingSuccess("HousingSuccessfully Deleted The Housing.");
+        cleanupHousingSuccess();
         setError(null);
       })
       .catch(() => {
@@ -130,7 +136,7 @@ export function HousingsProvider({ children }) {
         Housing,
         HousingBo,
         HousingError,
-        Success,
+        HousingSuccess,
         MyHousings,
         getHousingById,
         getHousings,
@@ -139,7 +145,7 @@ export function HousingsProvider({ children }) {
         deleteHousing,
         getMyAllHousings,
         setHousing,
-        setSuccess,
+        setHousingSuccess,
         setHousingLoader,
         HousingLoader,
         FormHousingLoader,

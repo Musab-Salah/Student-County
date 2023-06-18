@@ -17,7 +17,7 @@ export function BooksProvider({ children }) {
     useState("");
 
   const [BookError, setError] = useState("");
-  const [Success, setSuccess] = useState("");
+  const [BookSuccess, setBookSuccess] = useState("");
 
   const [BookBo] = useState({
     id: "0",
@@ -33,9 +33,9 @@ export function BooksProvider({ children }) {
     sleep(5000).then(() => {
       setError("");
     });
-  const cleanupSuccess = () =>
+  const cleanupBookSuccess = () =>
     sleep(2000).then(() => {
-      setSuccess("");
+      setBookSuccess("");
     });
 
   const getBooks = () => {
@@ -71,8 +71,8 @@ export function BooksProvider({ children }) {
     Bo.studentId = decodedJwt.uid;
     BookServices.createBook(Bo, token)
       .then((res) => {
-        setSuccess("Successfully Created The Book.");
-        cleanupSuccess();
+        setBookSuccess("BookSuccessfully Created The Book.");
+        cleanupBookSuccess();
         setError(null);
       })
       .catch(() => {
@@ -100,8 +100,8 @@ export function BooksProvider({ children }) {
     setButtonsFormBooksLoader(true);
     BookServices.updateBook(id, Bo, token)
       .then((res) => {
-        setSuccess("Successfully Updated The Book.");
-        cleanupSuccess();
+        setBookSuccess("BookSuccessfully Updated The Book.");
+        cleanupBookSuccess();
         setError(null);
       })
       .catch(() => {
@@ -115,8 +115,8 @@ export function BooksProvider({ children }) {
     setDeleteButtonsFormBooksLoader(true);
     BookServices.deleteBook(id, token)
       .then((res) => {
-        setSuccess("Successfully Deleted The Book.");
-        cleanupSuccess();
+        setBookSuccess("BookSuccessfully Deleted The Book.");
+        cleanupBookSuccess();
         setError(null);
       })
       .catch(() => {
@@ -133,7 +133,7 @@ export function BooksProvider({ children }) {
         Book,
         BookBo,
         BookError,
-        Success,
+        BookSuccess,
         MyBooks,
         BooksLoader,
         FormBooksLoader,
@@ -144,7 +144,7 @@ export function BooksProvider({ children }) {
         createBook,
         updateBook,
         deleteBook,
-        setSuccess,
+        setBookSuccess,
         getMyAllBooks,
         setBook,
         setBooks,

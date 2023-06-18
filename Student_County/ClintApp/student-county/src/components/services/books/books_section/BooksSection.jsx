@@ -7,7 +7,7 @@ import { Helmet } from "react-helmet";
 import useLoader from "../../../../hooks/useLoader";
 
 const BooksSection = ({ filteredValue }) => {
-  const { Books, getBooks, Success, setBooks } = useBooks();
+  const { Books, getBooks, BookSuccess, setBooks } = useBooks();
   const { BooksLoader } = useLoader();
   const SORT_TYPES = ["Name", "Date", "Price"];
   const [showDropdownType, setShowDropdownType] = useState("");
@@ -34,7 +34,7 @@ const BooksSection = ({ filteredValue }) => {
   useEffect(() => {
     getBooks();
     // eslint-disable-next-line
-  }, [Success]);
+  }, [BookSuccess]);
   useEffect(() => {
     return function cleanup() {
       setBooks("");

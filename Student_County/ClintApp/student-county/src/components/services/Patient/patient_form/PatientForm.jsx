@@ -12,7 +12,7 @@ import useLoader from "../../../../hooks/useLoader";
 const PatientForm = () => {
   const { setButtonCards, ButtonCards } = useComponent();
   const {
-    Success,
+    PatientSuccess,
     createPatient,
     PatientError,
     updatePatient,
@@ -134,13 +134,13 @@ const PatientForm = () => {
     // eslint-disable-next-line
   }, [Patient]);
   useMemo(() => {
-    if (Success) {
+    if (PatientSuccess) {
       sleep(2000).then(() => {
         setButtonCards("");
       });
     }
     // eslint-disable-next-line
-  }, [Success]);
+  }, [PatientSuccess]);
 
   useEffect(() => {
     return function cleanup() {
@@ -712,6 +712,12 @@ const PatientForm = () => {
                       Cancel
                     </button>
                   </div>
+                  {PatientSuccess && (
+                    <span className="success-info">
+                      <AiFillExclamationCircle />
+                      {PatientSuccess}
+                    </span>
+                  )}
                 </div>
               </form>
             </>
@@ -999,10 +1005,10 @@ const PatientForm = () => {
                     {PatientError}
                   </span>
                 )}
-                {Success && (
+                {PatientSuccess && (
                   <span className="success-info">
                     <AiFillExclamationCircle />
-                    {Success}
+                    {PatientSuccess}
                   </span>
                 )}
               </form>

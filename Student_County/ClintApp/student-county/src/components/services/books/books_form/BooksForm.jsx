@@ -9,7 +9,7 @@ import useLoader from "../../../../hooks/useLoader";
 
 const BooksForm = () => {
   const { setButtonCards, ButtonCards } = useComponent();
-  const { Success, createBook, BookError, updateBook, Book, setBook } =
+  const { BookSuccess, createBook, BookError, updateBook, Book, setBook } =
     useBooks();
   // State Hook
   const [name, setName] = useState("");
@@ -77,13 +77,13 @@ const BooksForm = () => {
     // eslint-disable-next-line
   }, [Book]);
   useMemo(() => {
-    if (Success) {
+    if (BookSuccess) {
       sleep(2000).then(() => {
         setButtonCards("");
       });
     }
     // eslint-disable-next-line
-  }, [Success]);
+  }, [BookSuccess]);
 
   useEffect(() => {
     return function cleanup() {
@@ -479,10 +479,10 @@ const BooksForm = () => {
                   {BookError}
                 </span>
               )}
-              {Success && (
+              {BookSuccess && (
                 <span className="success-info">
                   <AiFillExclamationCircle />
-                  {Success}
+                  {BookSuccess}
                 </span>
               )}
             </div>

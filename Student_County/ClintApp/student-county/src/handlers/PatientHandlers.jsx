@@ -17,7 +17,7 @@ export function PatientsProvider({ children }) {
     useState("");
 
   const [PatientError, setError] = useState("");
-  const [Success, setSuccess] = useState("");
+  const [PatientSuccess, setPatientSuccess] = useState("");
 
   const [PatientBo] = useState({
     id: "0",
@@ -61,9 +61,9 @@ export function PatientsProvider({ children }) {
     sleep(5000).then(() => {
       setError("");
     });
-  const cleanupSuccess = () =>
+  const cleanupPatientSuccess = () =>
     sleep(2000).then(() => {
-      setSuccess("");
+      setPatientSuccess("");
     });
 
   const getPatient = () => {
@@ -98,8 +98,8 @@ export function PatientsProvider({ children }) {
     console.log(Bo);
     PatientServices.createPatient(Bo, token)
       .then((res) => {
-        setSuccess("Successfully Created The Patient.");
-        cleanupSuccess();
+        setPatientSuccess("PatientSuccessfully Created The Patient.");
+        cleanupPatientSuccess();
         setError(null);
       })
       .catch(() => {
@@ -127,8 +127,8 @@ export function PatientsProvider({ children }) {
     setButtonsFormPatientLoader(true);
     PatientServices.updatePatient(id, Bo, token)
       .then((res) => {
-        setSuccess("Successfully Updated The Patient.");
-        cleanupSuccess();
+        setPatientSuccess("PatientSuccessfully Updated The Patient.");
+        cleanupPatientSuccess();
         setError(null);
       })
       .catch(() => {
@@ -142,8 +142,8 @@ export function PatientsProvider({ children }) {
     setDeleteButtonsFormPatientLoader(true);
     PatientServices.deletePatient(id, token)
       .then((res) => {
-        setSuccess("Successfully Deleted The Patient.");
-        cleanupSuccess();
+        setPatientSuccess("PatientSuccessfully Deleted The Patient.");
+        cleanupPatientSuccess();
         setError(null);
       })
       .catch(() => {
@@ -160,14 +160,14 @@ export function PatientsProvider({ children }) {
         Patient,
         PatientBo,
         PatientError,
-        Success,
+        PatientSuccess,
         MyPatients,
         getPatientById,
         getPatient,
         createPatient,
         updatePatient,
         deletePatient,
-        setSuccess,
+        setPatientSuccess,
         getMyAllPatient,
         setPatient,
         PatientLoader,

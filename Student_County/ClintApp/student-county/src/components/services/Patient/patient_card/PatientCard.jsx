@@ -6,13 +6,14 @@ import usePatient from "../../../../hooks/usePatient";
 import useAuth from "../../../../hooks/useAuth";
 
 const PatientCard = ({
-  userName,
+  firstName,
   age,
   gender,
   createdOn,
   typeOfTreatment,
   id,
   userId,
+  lastName,
 }) => {
   const { setButtonCards } = useComponent();
   const { getPatientById } = usePatient();
@@ -25,7 +26,9 @@ const PatientCard = ({
           <div className="patient-card-profile">
             <FaUserCircle className="patient-card-avatar" />
             <div className="patient-card-info">
-              <div className="patient-card-name">{userName}</div>
+              <div className="patient-card-name">
+                {firstName} {lastName}
+              </div>
               <div className="patient-card-role">
                 {age}, {gender}
               </div>

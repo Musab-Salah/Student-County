@@ -16,7 +16,7 @@ import StepForm from "./StepForm";
 const HousingForm = () => {
   const { setButtonCards, ButtonCards } = useComponent();
   const {
-    Success,
+    HousingSuccess,
     createHousing,
     HousingError,
     updateHousing,
@@ -115,13 +115,13 @@ const HousingForm = () => {
     // eslint-disable-next-line
   }, [Housing]);
   useMemo(() => {
-    if (Success) {
+    if (HousingSuccess) {
       sleep(2000).then(() => {
         setButtonCards("");
       });
     }
     // eslint-disable-next-line
-  }, [Success]);
+  }, [HousingSuccess]);
 
   useEffect(() => {
     return function cleanup() {
@@ -434,6 +434,12 @@ const HousingForm = () => {
                       Cancel
                     </button>
                   </div>
+                  {HousingSuccess && (
+                    <span className="success-info">
+                      <AiFillExclamationCircle />
+                      {HousingSuccess}
+                    </span>
+                  )}
                 </div>
               </form>
             </>
@@ -678,10 +684,10 @@ const HousingForm = () => {
                       {HousingError}
                     </span>
                   )}
-                  {Success && (
+                  {HousingSuccess && (
                     <span className="success-info">
                       <AiFillExclamationCircle />
-                      {Success}
+                      {HousingSuccess}
                     </span>
                   )}
                 </div>
@@ -881,10 +887,10 @@ const HousingForm = () => {
                       {HousingError}
                     </span>
                   )}
-                  {Success && (
+                  {HousingSuccess && (
                     <span className="success-info">
                       <AiFillExclamationCircle />
-                      {Success}
+                      {HousingSuccess}
                     </span>
                   )}
                 </div>

@@ -15,6 +15,11 @@ export function UserRelationDatasProvider({ children }) {
   const [ToolsActivity, setToolsActivity] = useState("");
   const [PatientsActivity, setPatientsActivity] = useState("");
   const [RecentsActivity, setRecentsActivity] = useState([]);
+  const [MyBooks, setMyBooks] = useState([]); //all user books
+  const [MyTools, setMyTools] = useState([]); //all user tools
+  const [MyHousings, setMyHousings] = useState([]); //all user housings
+  const [MyRides, setMyRides] = useState([]); //all user Rides
+  const [MyPatients, setMyPatients] = useState([]); //all user patients
 
   const [UserRelationDataError, setError] = useState("");
 
@@ -24,13 +29,30 @@ export function UserRelationDatasProvider({ children }) {
       setError("");
     });
 
+  useEffect(() => {
+    if (isLogin) {
+      getMyAllUserRelationDatas();
+      getAllRecentActivity();
+    }
+    // eslint-disable-next-line
+  }, [isLogin]);
+  useEffect(() => {
+    if (MyUserRelationData) {
+      if (MyUserRelationData[0]) setMyBooks(MyUserRelationData[0]);
+      if (MyUserRelationData[1]) setMyHousings(MyUserRelationData[1]);
+      if (MyUserRelationData[2]) setMyRides(MyUserRelationData[2]);
+      if (MyUserRelationData[3]) setMyTools(MyUserRelationData[3]);
+      if (MyUserRelationData[4]) setMyPatients(MyUserRelationData[4]);
+    }
+    // eslint-disable-next-line
+  }, [MyUserRelationData]);
   useMemo(() => {
     if (AllRecentActivity) {
-      setBooksActivity(AllRecentActivity[0]);
-      setHousingsActivity(AllRecentActivity[1]);
-      setRidesActivity(AllRecentActivity[2]);
-      setToolsActivity(AllRecentActivity[3]);
-      setPatientsActivity(AllRecentActivity[4]);
+      if (AllRecentActivity[0]) setBooksActivity(AllRecentActivity[0]);
+      if (AllRecentActivity[1]) setHousingsActivity(AllRecentActivity[1]);
+      if (AllRecentActivity[2]) setRidesActivity(AllRecentActivity[2]);
+      if (AllRecentActivity[3]) setToolsActivity(AllRecentActivity[3]);
+      if (AllRecentActivity[4]) setPatientsActivity(AllRecentActivity[4]);
       const newArray = [...BooksActivity, ...ToolsActivity];
     }
   }, [AllRecentActivity]);
@@ -72,6 +94,16 @@ export function UserRelationDatasProvider({ children }) {
         UserRelationDataLoader,
         UserRelationDataError,
         getAllRecentActivity,
+        MyBooks,
+        MyTools,
+        MyHousings,
+        MyRides,
+        MyPatients,
+        setMyBooks,
+        setMyTools,
+        setMyHousings,
+        setMyRides,
+        setMyPatients,
       }}
     >
       {children}

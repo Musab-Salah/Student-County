@@ -26,7 +26,7 @@ const ToolCard = ({
       <div className="tool-card-container">
         <div className="tool-card-data">
           <div className="tool-card-profile">
-          <TbTools className="dash-nav-link-icon" />
+          <TbTools className="housing-card-avatar" />
             <div className="tool-card-info">
               <div className="tool-card-name">
                 {name} •{price} ₪

@@ -47,26 +47,38 @@ namespace Student_County.BusinessLogic.Housing
         }
         public async Task<HousingEntity> CreateUpdate(HousingBo bo, int id = 0)
         {
-            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == bo.StudentId);
-            var entity = bo.MapBoToEntity();
-            entity.StudentName = user.FirstName + " " + user.LastName;
-            entity.PhoneNumber= user.PhoneNumber;
-            entity.Gender= user.Gender;
-            var numofhouse = _context.Housings.Where(entity => entity.StudentId == bo.StudentId && !entity.IsDeleted).Count();
-            if (id == 0 && numofhouse<1)
+            try
             {
-                entity.CreatedBy = user.UserName;
-                _context.Add(entity);
+                var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == bo.StudentId);
+                var entity = bo.MapBoToEntity();
+                entity.StudentName = user.FirstName + " " + user.LastName;
+                entity.PhoneNumber = user.PhoneNumber;
+                entity.Gender = user.Gender;
+                var numofhouse = _context.Housings.Where(entity => entity.StudentId == bo.StudentId && !entity.IsDeleted).Count();
+                if (id == 0 && numofhouse < 1)
+                {
+                    entity.CreatedBy = user.UserName;
+                    _context.Add(entity);
+                }
+                else if (id != 0)
+                {
+                    entity.ModifiedBy = user.UserName;
+                    entity.ModifiedOn = DateTimeOffset.Now;
+                    _context.Update(entity);
+                }
+                else
+                {
+                    throw new Exception("You can't create more than one Housing");
+                }
+
+                await _context.SaveChangesAsync();
+                return entity;
             }
-            else if (id != 0)
+            catch (Exception ex)
             {
-                entity.ModifiedBy = user.UserName;
-                entity.ModifiedOn = DateTimeOffset.Now;
-                _context.Update(entity);
+                throw new Exception("Error: " + ex.Message);
             }
-            else throw new Exception("You cant create more than one Housing");
-            await _context.SaveChangesAsync();
-            return entity;
         }
+
     }
 }

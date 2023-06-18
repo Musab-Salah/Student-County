@@ -17,7 +17,7 @@ export function RidesProvider({ children }) {
     useState("");
 
   const [RideError, setError] = useState("");
-  const [Success, setSuccess] = useState("");
+  const [RideSuccess, setRideSuccess] = useState("");
 
   const [RideBo] = useState({
     id: "0",
@@ -34,9 +34,9 @@ export function RidesProvider({ children }) {
     sleep(5000).then(() => {
       setError("");
     });
-  const cleanupSuccess = () =>
+  const cleanupRideSuccess = () =>
     sleep(2000).then(() => {
-      setSuccess("");
+      setRideSuccess("");
     });
 
   const getRides = () => {
@@ -69,8 +69,8 @@ export function RidesProvider({ children }) {
     Bo.studentId = decodedJwt.uid;
     RideServices.createRide(Bo, token)
       .then((res) => {
-        setSuccess("Successfully Created The Ride.");
-        cleanupSuccess();
+        setRideSuccess("RideSuccessfully Created The Ride.");
+        cleanupRideSuccess();
         setError(null);
       })
       .catch(() => {
@@ -98,8 +98,8 @@ export function RidesProvider({ children }) {
     setButtonsFormRideLoader(true);
     RideServices.updateRide(id, Bo, token)
       .then((res) => {
-        setSuccess("Successfully Updated The Ride.");
-        cleanupSuccess();
+        setRideSuccess("RideSuccessfully Updated The Ride.");
+        cleanupRideSuccess();
         setError(null);
       })
       .catch(() => {
@@ -113,8 +113,8 @@ export function RidesProvider({ children }) {
     setDeleteButtonsFormRideLoader(true);
     RideServices.deleteRide(id, token)
       .then((res) => {
-        setSuccess("Successfully Deleted The Ride.");
-        cleanupSuccess();
+        setRideSuccess("RideSuccessfully Deleted The Ride.");
+        cleanupRideSuccess();
         setError(null);
       })
       .catch(() => setError("Failed delete the Ride..."))
@@ -128,7 +128,7 @@ export function RidesProvider({ children }) {
         Ride,
         RideBo,
         RideError,
-        Success,
+        RideSuccess,
         MyRides,
         RideLoader,
         FormRideLoader,
@@ -140,7 +140,7 @@ export function RidesProvider({ children }) {
         updateRide,
         deleteRide,
         getMyAllRides,
-        setSuccess,
+        setRideSuccess,
         setRide,
         setRides,
       }}

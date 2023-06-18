@@ -9,7 +9,7 @@ import useTools from "../../../../hooks/useTools";
 
 const ToolForm = () => {
   const { setButtonCards, ButtonCards } = useComponent();
-  const { Success, createTool, ToolError, updateTool, Tool, setTool } =
+  const { ToolsSuccess, createTool, ToolError, updateTool, Tool, setTool } =
     useTools();
   // State Hook
   const [name, setName] = useState("");
@@ -74,13 +74,13 @@ const ToolForm = () => {
     // eslint-disable-next-line
   }, [Tool]);
   useMemo(() => {
-    if (Success) {
+    if (ToolsSuccess) {
       sleep(2000).then(() => {
         setButtonCards("");
       });
     }
     // eslint-disable-next-line
-  }, [Success]);
+  }, [ToolsSuccess]);
 
   useEffect(() => {
     return function cleanup() {
@@ -453,10 +453,10 @@ const ToolForm = () => {
                   {ToolError}
                 </span>
               )}
-              {Success && (
+              {ToolsSuccess && (
                 <span className="success-info">
                   <AiFillExclamationCircle />
-                  {Success}
+                  {ToolsSuccess}
                 </span>
               )}
             </div>

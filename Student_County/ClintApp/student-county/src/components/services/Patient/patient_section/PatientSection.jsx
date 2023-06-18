@@ -9,7 +9,7 @@ import HousingCard from "../../Housing/housing_card/HousingCard";
 import HousingForm from "../../Housing/housing_form/HousingForm";
 
 const PatientSection = ({ filteredValue }) => {
-  const { getPatient, Success, setPatients, Patients } = usePatient();
+  const { getPatient, PatientSuccess, setPatients, Patients } = usePatient();
   const { PatientLoader } = useLoader();
   const SORT_TYPES = ["Name", "Date", "Age"];
   const [showDropdownType, setShowDropdownType] = useState("");
@@ -36,7 +36,7 @@ const PatientSection = ({ filteredValue }) => {
   useEffect(() => {
     getPatient();
     // eslint-disable-next-line
-  }, [Success]);
+  }, [PatientSuccess]);
   useEffect(() => {
     return function cleanup() {
       setPatients("");
@@ -147,7 +147,8 @@ const PatientSection = ({ filteredValue }) => {
             ? !sortType &&
               Object.values(Patients).map((patient) => (
                 <PatientCard
-                  userName={patient.userName}
+                  lastName={patient.lastName}
+                  firstName={patient.firstName}
                   age={patient.age}
                   gender={patient.gender}
                   typeOfTreatment={patient.typeOfTreatment}
@@ -160,7 +161,8 @@ const PatientSection = ({ filteredValue }) => {
             : !sortType &&
               Object.values(filteredValue).map((patient) => (
                 <PatientCard
-                  userName={patient.userName}
+                  lastName={patient.lastName}
+                  firstName={patient.firstName}
                   age={patient.age}
                   gender={patient.gender}
                   typeOfTreatment={patient.typeOfTreatment}
@@ -176,7 +178,8 @@ const PatientSection = ({ filteredValue }) => {
                 .sort((a, b) => (a.userName > b.userName ? 1 : -1))
                 .map((patient) => (
                   <PatientCard
-                    userName={patient.userName}
+                    lastName={patient.lastName}
+                    firstName={patient.firstName}
                     age={patient.age}
                     gender={patient.gender}
                     typeOfTreatment={patient.typeOfTreatment}
@@ -191,7 +194,8 @@ const PatientSection = ({ filteredValue }) => {
                 .sort((a, b) => (a.userName > b.userName ? 1 : -1))
                 .map((patient) => (
                   <PatientCard
-                    userName={patient.userName}
+                    lastName={patient.lastName}
+                    firstName={patient.firstName}
                     age={patient.age}
                     gender={patient.gender}
                     typeOfTreatment={patient.typeOfTreatment}
@@ -209,7 +213,8 @@ const PatientSection = ({ filteredValue }) => {
                 )
                 .map((patient) => (
                   <PatientCard
-                    userName={patient.userName}
+                    lastName={patient.lastName}
+                    firstName={patient.firstName}
                     age={patient.age}
                     gender={patient.gender}
                     typeOfTreatment={patient.typeOfTreatment}
@@ -226,7 +231,8 @@ const PatientSection = ({ filteredValue }) => {
                 )
                 .map((patient) => (
                   <PatientCard
-                    userName={patient.userName}
+                    lastName={patient.lastName}
+                    firstName={patient.firstName}
                     age={patient.age}
                     gender={patient.gender}
                     typeOfTreatment={patient.typeOfTreatment}
@@ -242,7 +248,8 @@ const PatientSection = ({ filteredValue }) => {
                 .sort((a, b) => b.age - a.age)
                 .map((patient) => (
                   <PatientCard
-                    userName={patient.userName}
+                    lastName={patient.lastName}
+                    firstName={patient.firstName}
                     age={patient.age}
                     gender={patient.gender}
                     typeOfTreatment={patient.typeOfTreatment}
@@ -257,7 +264,8 @@ const PatientSection = ({ filteredValue }) => {
                 .sort((a, b) => b.age - a.age)
                 .map((patient) => (
                   <PatientCard
-                    userName={patient.userName}
+                    lastName={patient.lastName}
+                    firstName={patient.firstName}
                     age={patient.age}
                     gender={patient.gender}
                     typeOfTreatment={patient.typeOfTreatment}

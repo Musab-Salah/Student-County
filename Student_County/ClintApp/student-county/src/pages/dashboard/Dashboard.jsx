@@ -34,15 +34,22 @@ import RideView from "../../components/services/Ride/ride_view/RideView";
 import RideForm from "../../components/services/Ride/ride_form/RideForm";
 
 const Dashboard = () => {
-  const { Books, MyBooks } = useBooks();
-  const { Tools, MyTools } = useTools();
-  const { Housings, MyHousings } = useHousings();
+  const { Books } = useBooks();
+  const { Tools } = useTools();
+  const { Housings } = useHousings();
+  const { Patients } = usePatient();
+  const { Rides } = useRides();
+  const {
+    MyBooks,
+    MyTools,
+    MyHousings,
+    MyPatients,
+    MyRides,
+    MyUserRelationData,
+  } = useUserRelationData();
 
-  const { MyUserRelationData } = useUserRelationData();
   const { OptionMenu, setOptionMenu, setButtonCards, ButtonCards, ownerItem } =
     useComponent();
-  const { Patients, MyPatients } = usePatient();
-  const { Rides, MyRides } = useRides();
   const { decodedJwt } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -93,21 +100,79 @@ const Dashboard = () => {
   }, []);
 
   const filteredValue = useMemo(() => {
-    if (OptionMenu === "Overview" && MyUserRelationData[0]) {
-      return Object.values(MyUserRelationData[0]).filter((Book) => {
-        return Book.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
-          Book.shortDescription
-          ? Book.shortDescription
-          : "".toLowerCase().includes(deferredInput.toLowerCase()) ||
-              Book.longDescription
-                .toLowerCase()
-                .includes(deferredInput.toLowerCase());
-      });
-    } else if (OptionMenu === "Books") {
+    // if (OptionMenu === "Overview" ) {
+    //   return Object.values(MyBooks).filter((Book) => {
+    //     return Book.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
+    //       Book.shortDescription
+    //       ? Book.shortDescription
+    //           .toLowerCase()
+    //           .includes(deferredInput.toLowerCase())
+    //       : "".toLowerCase().includes(deferredInput.toLowerCase()) ||
+    //           Book.longDescription
+    //             .toLowerCase()
+    //             .includes(deferredInput.toLowerCase());
+    //   });
+    // }
+    // if (OptionMenu === "Overview" ) {
+    //   return Object.values(MyTools).filter((housing) => {
+    //     return (
+    //       housing.city.toLowerCase().includes(deferredInput.toLowerCase()) ||
+    //       housing.province
+    //         .toLowerCase()
+    //         .includes(deferredInput.toLowerCase()) ||
+    //       housing.address.toLowerCase().includes(deferredInput.toLowerCase())
+    //     );
+    //   });
+    // }
+    // if (OptionMenu === "Overview" ) {
+    //   return Object.values(MyHousings).filter((ride) => {
+    //     return ride.shortDescription
+    //       ? ride.shortDescription
+    //           .toLowerCase()
+    //           .includes(deferredInput.toLowerCase())
+    //       : "".toLowerCase().includes(deferredInput.toLowerCase()) ||
+    //           ride.longDescription
+    //             .toLowerCase()
+    //             .includes(deferredInput.toLowerCase());
+    //   });
+    // }
+    // if (OptionMenu === "Overview" ) {
+    //   return Object.values(MyRides).filter((tool) => {
+    //     return tool.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
+    //       tool.shortDescription
+    //       ? tool.shortDescription
+    //           .toLowerCase()
+    //           .includes(deferredInput.toLowerCase())
+    //       : "".toLowerCase().includes(deferredInput.toLowerCase()) ||
+    //           tool.longDescription
+    //             .toLowerCase()
+    //             .includes(deferredInput.toLowerCase());
+    //   });
+    // }
+    // if (OptionMenu === "Overview" ) {
+    //   return Object.values(MyPatients).filter((patient) => {
+    //     return (
+    //       patient.userName
+    //         .toLowerCase()
+    //         .includes(deferredInput.toLowerCase()) ||
+    //       patient.typeOfTreatment
+    //         .toLowerCase()
+    //         .includes(deferredInput.toLowerCase()) ||
+    //       patient.currentIllnesses
+    //         .toLowerCase()
+    //         .includes(deferredInput.toLowerCase())
+    //     );
+    //   });
+    // }
+    // /////
+    // else
+    if (OptionMenu === "Books") {
       return Object.values(Books).filter((Book) => {
         return Book.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
           Book.shortDescription
           ? Book.shortDescription
+              .toLowerCase()
+              .includes(deferredInput.toLowerCase())
           : "".toLowerCase().includes(deferredInput.toLowerCase()) ||
               Book.longDescription
                 .toLowerCase()
@@ -142,6 +207,8 @@ const Dashboard = () => {
         return tool.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
           tool.shortDescription
           ? tool.shortDescription
+              .toLowerCase()
+              .includes(deferredInput.toLowerCase())
           : "".toLowerCase().includes(deferredInput.toLowerCase()) ||
               tool.longDescription
                 .toLowerCase()
@@ -151,6 +218,8 @@ const Dashboard = () => {
       return Object.values(Rides).filter((ride) => {
         return ride.shortDescription
           ? ride.shortDescription
+              .toLowerCase()
+              .includes(deferredInput.toLowerCase())
           : "".toLowerCase().includes(deferredInput.toLowerCase()) ||
               ride.longDescription
                 .toLowerCase()

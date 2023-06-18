@@ -10,7 +10,7 @@ import useLocation from "../../../../hooks/useLocation";
 
 const RideForm = () => {
   const { setButtonCards, ButtonCards } = useComponent();
-  const { Success, createRide, RideError, updateRide, Ride, setRide } =
+  const { RideSuccess, createRide, RideError, updateRide, Ride, setRide } =
     useRides();
   const { getLocations, Locations, Location, getLocationById, setLocation } =
     useLocation();
@@ -79,13 +79,13 @@ const RideForm = () => {
     getLocations();
   }, []);
   useMemo(() => {
-    if (Success) {
+    if (RideSuccess) {
       sleep(2000).then(() => {
         setButtonCards("");
       });
     }
     // eslint-disable-next-line
-  }, [Success]);
+  }, [RideSuccess]);
 
   useEffect(() => {
     return function cleanup() {
@@ -405,10 +405,10 @@ const RideForm = () => {
                   {RideError}
                 </span>
               )}
-              {Success && (
+              {RideSuccess && (
                 <span className="success-info">
                   <AiFillExclamationCircle />
-                  {Success}
+                  {RideSuccess}
                 </span>
               )}
             </div>

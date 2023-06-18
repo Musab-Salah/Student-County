@@ -8,7 +8,7 @@ import useLoader from "../../../../hooks/useLoader";
 import useLocation from "../../../../hooks/useLocation";
 
 const RideSection = ({ filteredValue }) => {
-  const { Rides, getRides, Success, setRides } = useRides();
+  const { Rides, getRides, RideSuccess, setRides } = useRides();
   const { getLocations, Locations } = useLocation();
   const { RideLoader } = useLoader();
   const SORT_TYPES = ["Name", "Date", "Price"];
@@ -45,7 +45,7 @@ const RideSection = ({ filteredValue }) => {
     getRides();
     getLocations();
     // eslint-disable-next-line
-  }, [Success]);
+  }, [RideSuccess]);
   useEffect(() => {
     return function cleanup() {
       setRides("");

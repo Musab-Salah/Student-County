@@ -7,7 +7,7 @@ import { Helmet } from "react-helmet";
 import useLoader from "../../../../hooks/useLoader";
 
 const ToolSection = ({ filteredValue }) => {
-  const { Tools, getTools, Success, setTools } = useTools();
+  const { Tools, getTools, ToolsSuccess, setTools } = useTools();
   const { ToolLoader } = useLoader();
   const SORT_TYPES = ["Name", "Date", "Price"];
   const [showDropdownType, setShowDropdownType] = useState("");
@@ -34,7 +34,7 @@ const ToolSection = ({ filteredValue }) => {
   useEffect(() => {
     getTools();
     // eslint-disable-next-line
-  }, [Success]);
+  }, [ToolsSuccess]);
   useEffect(() => {
     return function cleanup() {
       setTools("");
@@ -140,7 +140,7 @@ const ToolSection = ({ filteredValue }) => {
             <div className="loader-square"></div>
           </div>
 
-          {!filteredValue
+          {Tools && !filteredValue
             ? !sortType &&
               Object.values(Tools).map((tool) => (
                 <ToolCard
@@ -152,6 +152,7 @@ const ToolSection = ({ filteredValue }) => {
                   price={tool.price}
                   shortDescription={tool.shortDescription}
                   name={tool.name}
+                  key={tool.id}
                 />
               ))
             : !sortType &&
@@ -165,9 +166,10 @@ const ToolSection = ({ filteredValue }) => {
                   price={tool.price}
                   shortDescription={tool.shortDescription}
                   name={tool.name}
+                  key={tool.id}
                 />
               ))}
-          {!filteredValue
+          {Tools && !filteredValue
             ? sortType === "Name" &&
               Object.values(Tools)
                 .sort((a, b) => (a.name > b.name ? 1 : -1))
@@ -181,6 +183,7 @@ const ToolSection = ({ filteredValue }) => {
                     price={tool.price}
                     shortDescription={tool.shortDescription}
                     name={tool.name}
+                    key={tool.id}
                   />
                 ))
             : sortType === "Name" &&
@@ -196,9 +199,10 @@ const ToolSection = ({ filteredValue }) => {
                     price={tool.price}
                     shortDescription={tool.shortDescription}
                     name={tool.name}
+                    key={tool.id}
                   />
                 ))}
-          {!filteredValue
+          {Tools && !filteredValue
             ? sortType === "Date" &&
               Object.values(Tools)
                 .sort(
@@ -214,6 +218,7 @@ const ToolSection = ({ filteredValue }) => {
                     price={tool.price}
                     shortDescription={tool.shortDescription}
                     name={tool.name}
+                    key={tool.id}
                   />
                 ))
             : sortType === "Date" &&
@@ -231,9 +236,10 @@ const ToolSection = ({ filteredValue }) => {
                     price={tool.price}
                     shortDescription={tool.shortDescription}
                     name={tool.name}
+                    key={tool.id}
                   />
                 ))}
-          {!filteredValue
+          {Tools && !filteredValue
             ? sortType === "Price" &&
               Object.values(Tools)
                 .sort((a, b) => b.price - a.price)
@@ -247,6 +253,7 @@ const ToolSection = ({ filteredValue }) => {
                     price={tool.price}
                     shortDescription={tool.shortDescription}
                     name={tool.name}
+                    key={tool.id}
                   />
                 ))
             : sortType === "Price" &&
@@ -262,6 +269,7 @@ const ToolSection = ({ filteredValue }) => {
                     price={tool.price}
                     shortDescription={tool.shortDescription}
                     name={tool.name}
+                    key={tool.id}
                   />
                 ))}
         </div>

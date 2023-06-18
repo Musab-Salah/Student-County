@@ -7,7 +7,7 @@ import HousingCard from "../housing_card/HousingCard";
 import useHousings from "../../../../hooks/useHousings";
 
 const HousingSection = ({ filteredValue }) => {
-  const { getHousings, Success, setHousings, Housings } = useHousings();
+  const { getHousings, HousingSuccess, setHousings, Housings } = useHousings();
   const { HousingLoader } = useLoader();
   const SORT_TYPES = ["Name", "Date", "Age"];
   const [showDropdownType, setShowDropdownType] = useState("");
@@ -34,7 +34,7 @@ const HousingSection = ({ filteredValue }) => {
   useEffect(() => {
     getHousings();
     // eslint-disable-next-line
-  }, [Success]);
+  }, [HousingSuccess]);
   useEffect(() => {
     return function cleanup() {
       setHousings("");

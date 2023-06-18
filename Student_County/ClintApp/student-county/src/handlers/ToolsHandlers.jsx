@@ -17,7 +17,7 @@ export function ToolsProvider({ children }) {
     useState("");
 
   const [ToolsError, setError] = useState("");
-  const [Success, setSuccess] = useState("");
+  const [ToolsSuccess, setToolsSuccess] = useState("");
 
   const [ToolBo] = useState({
     id: "0",
@@ -34,9 +34,9 @@ export function ToolsProvider({ children }) {
     sleep(5000).then(() => {
       setError("");
     });
-  const cleanupSuccess = () =>
+  const cleanupToolsSuccess = () =>
     sleep(2000).then(() => {
-      setSuccess("");
+      setToolsSuccess("");
     });
 
   const getTools = () => {
@@ -69,8 +69,8 @@ export function ToolsProvider({ children }) {
     Bo.studentId = decodedJwt.uid;
     ToolsServices.createTool(Bo, token)
       .then((res) => {
-        setSuccess("Successfully Created The Tool.");
-        cleanupSuccess();
+        setToolsSuccess("ToolsSuccessfully Created The Tool.");
+        cleanupToolsSuccess();
         setError(null);
       })
       .catch(() => {
@@ -100,8 +100,8 @@ export function ToolsProvider({ children }) {
 
     ToolsServices.updateTool(id, Bo, token)
       .then((res) => {
-        setSuccess("Successfully Updated The Tool.");
-        cleanupSuccess();
+        setToolsSuccess("ToolsSuccessfully Updated The Tool.");
+        cleanupToolsSuccess();
         setError(null);
       })
       .catch(() => setError("Failed update the Tool..."))
@@ -130,14 +130,14 @@ export function ToolsProvider({ children }) {
         Tool,
         ToolBo,
         ToolsError,
-        Success,
+        ToolsSuccess,
         MyTools,
         getToolById,
         getTools,
         createTool,
         updateTool,
         deleteTool,
-        setSuccess,
+        setToolsSuccess,
         getMyAllTools,
         setTool,
         ToolLoader,

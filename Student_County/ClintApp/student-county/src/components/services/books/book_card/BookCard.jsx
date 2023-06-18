@@ -26,7 +26,7 @@ const BookCard = ({
       <div className="book-card-container">
         <div className="book-card-data">
           <div className="book-card-profile">
-            <BiBook className="dash-nav-link-icon" />
+            <BiBook className="housing-card-avatar"/>
             <div className="book-card-info">
               <div className="book-card-name">
                 {" "}
