@@ -93,7 +93,6 @@ h6 {
   align-self: stretch;
   padding: 0 20px;
   gap: 10px;
-
 }
 .btn {
   cursor: pointer;
@@ -123,7 +122,7 @@ h6 {
   box-shadow: 6px 6px 0#09072f;
 }
 .btn-primary {
-  background-color: var(--color-blueviolet-100)!important;
+  background-color: var(--color-blueviolet-100) !important;
   color: white !important;
 }
 .btn-primary:hover {
@@ -152,13 +151,13 @@ h6 {
   box-shadow: 3px 3px 0#09072f;
 }
 .small-btn-icon {
-  height: 12.5px!important;
-  padding: var(--padding-5xs-5)!important;
-  box-shadow: 2px 2px 0#09072f!important;
-  transition: .3s ease;
+  height: 12.5px !important;
+  padding: var(--padding-5xs-5) !important;
+  box-shadow: 2px 2px 0#09072f !important;
+  transition: 0.3s ease;
 }
 .small-btn-icon:hover {
-  box-shadow: 3px 3px 0#09072f!important;
+  box-shadow: 3px 3px 0#09072f !important;
 }
 
 /* button */
@@ -276,8 +275,8 @@ textarea::-webkit-scrollbar {
   background: none;
 }
 .textarea-input {
-  align-items: flex-start!important;
-  border: none!important;
+  align-items: flex-start !important;
+  border: none !important;
 }
 .textarea-input:focus-visible {
   outline: none;
@@ -310,8 +309,8 @@ textarea:focus-within {
 }
 /* small icon */
 .small-icon {
-  width: 25px!important;
-  height: 25px!important;
+  width: 25px !important;
+  height: 25px !important;
 }
 
 /* loader */
@@ -334,14 +333,14 @@ textarea:focus-within {
 }
 
 /* signup and signin */
-  /* checking account */
-  .account-question {
-    position: relative;
-    font-size: var(--font-size-sm);
-    font-weight: 500;
-    text-align: center;
-    color: var(--color-slategray);
-  }
+/* checking account */
+.account-question {
+  position: relative;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  text-align: center;
+  color: var(--color-slategray);
+}
 
 /* logo */
 .logo {
@@ -445,9 +444,9 @@ textarea:focus-within {
 }
 
 .step-completed {
-  background-color: #12C36D;
+  background-color: #12c36d;
   color: white;
-  border: 2px solid #12C36D;
+  border: 2px solid #12c36d;
 }
 
 .step-line {
@@ -494,7 +493,7 @@ textarea:focus-within {
 }
 
 .step-completed .step-title {
-  color: #12C36D;
+  color: #12c36d;
 }
 
 /* Input Styles */
@@ -543,21 +542,20 @@ input:valid + .input-container-option {
   padding: 0 10px;
 }*/
 
-
 input:focus-visible + .input-container-option {
   transform: scale(0.75) translateY(-135%);
   color: #8d37ff;
   background: #fff;
   outline: none;
   padding: 0 10px;
-} 
+}
 input:valid + .input-container-option {
   transform: scale(0.75) translateY(-135%);
   color: #8d37ff;
   background: #fff;
   outline: none;
   padding: 0 10px;
-} 
+}
 input:-webkit-autofill {
   -webkit-box-shadow: white;
 }
@@ -624,7 +622,7 @@ input#phone-number {
 
 .input-dropdown {
   position: unset !important;
-  margin-top: 0!important;
+  margin-top: 0 !important;
 }
 
 .selected-option span {
@@ -649,7 +647,7 @@ input#phone-number {
   color: #8d37ff;
   background: #fff;
   outline: none;
-  margin-top: 0!important;
+  margin-top: 0 !important;
 }
 
 .options {
@@ -688,7 +686,8 @@ input#phone-number {
 
 /* Input Suffixes */
 
-.UnivSuffix, .CurrencySuffix {
+.UnivSuffix,
+.CurrencySuffix {
   font-size: 16px;
   padding: var(--padding-3xs) var(--padding-xl) var(--padding-3xs) 0;
 }
@@ -857,9 +856,9 @@ input#phone-number {
   gap: var(--gap-mini);
   font-family: var(--font-poppins);
   text-align: left;
-  }
-  
-  .form-paragraph {
+}
+
+.form-paragraph {
   display: inline-block;
   text-align: left;
   font-size: 13px;
@@ -867,9 +866,9 @@ input#phone-number {
   font-family: var(--font-poppins);
   font-weight: 300;
   text-transform: none;
-  }
-  
-  .form-title-paragraph {
+}
+
+.form-title-paragraph {
   display: flex;
   flex-direction: column;
   padding: 0 0 var(--padding-8xs);
@@ -881,7 +880,7 @@ input#phone-number {
   text-align: left;
   font-size: var(--font-size-base);
   font-family: var(--font-poppins);
-  }
+}
 
 .buttons {
   justify-content: center;
@@ -892,7 +891,6 @@ input#phone-number {
   align-items: center;
   flex-wrap: nowrap;
 }
-
 
 .wrong-info {
   font-size: 12px;
@@ -942,7 +940,7 @@ input#phone-number {
   font-size: 12px;
   line-height: 15px;
   text-transform: uppercase;
-  color: #8D37FF;
+  color: #8d37ff;
 }
 
 .input-select-group {
@@ -967,11 +965,12 @@ input#phone-number {
   gap: 10px;
   border: 1.25px solid #697383;
   border-radius: 5px;
-  transition: .3s ease;
+  transition: 0.3s ease;
   position: relative;
 }
 
-.input-select:hover, .input-selected-group {
+.input-select:hover,
+.input-selected-group {
   background-color: var(--color-whitesmoke-100);
   border: 1.25px solid var(--color-blueviolet-100);
 }
@@ -985,7 +984,7 @@ input#phone-number {
   font-weight: 400;
   font-size: 16px;
   line-height: 21px;
-  color: #09072F;
+  color: #09072f;
 }
 
 .input-selected-icon {
@@ -999,10 +998,10 @@ input#phone-number {
   border-radius: 100%;
 }
 
-.show{
-  display: flex;
+.show {
+  display: flex !important;
 }
 
-.unshow{
-  display: none;
+.unshow {
+  display: none !important;
 }

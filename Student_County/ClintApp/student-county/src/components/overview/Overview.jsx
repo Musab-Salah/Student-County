@@ -20,6 +20,7 @@ import useHousings from "../../hooks/useHousings";
 import usePatient from "../../hooks/usePatient";
 import useRides from "../../hooks/useRides";
 import useTools from "../../hooks/useTools";
+import useAuth from "../../hooks/useAuth";
 
 const Overview = ({ filteredValue }) => {
   const TYPES = ["All", "Book", "Ride", "House", "Patient", "Tools"];
@@ -40,6 +41,7 @@ const Overview = ({ filteredValue }) => {
     MyRides,
   } = useUserRelationData(); //[0]books ,[1]housings,[2]rides,[3]tools,[4]patients
   const { BookSuccess } = useBooks();
+  const { decodedJwt } = useAuth();
   const { HousingSuccess } = useHousings();
   const { PatientSuccess } = usePatient();
   const { RideSuccess } = useRides();
@@ -297,7 +299,7 @@ const Overview = ({ filteredValue }) => {
         <div className="services-head">
           <div className="services-head-title">Your Services</div>
           <div className="filterboxs">
-            <div className="input-group">
+            {decodedJwt.roles !== "Patient" &&<div className="input-group">
               <div className="custom-select">
                 <div
                   className="selected-option"
@@ -336,7 +338,8 @@ const Overview = ({ filteredValue }) => {
                   </div>
                 )}
               </div>
-            </div>
+            </div>}
+            
             {/* <div className="input-group">
               <div className="custom-select">
                 <div

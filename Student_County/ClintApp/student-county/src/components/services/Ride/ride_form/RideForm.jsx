@@ -167,8 +167,9 @@ const RideForm = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (ButtonCards === "UpdateRide") updateRide(Ride.id, ride);
-    else if (ButtonCards === "CreateRide") createRide(ride);
+    if (!location) setLocationformError("Please enter a location");
+    if (location && ButtonCards === "UpdateRide") updateRide(Ride.id, ride);
+    else if (location && ButtonCards === "CreateRide") createRide(ride);
   };
   return (
     <>
@@ -338,6 +339,7 @@ const RideForm = () => {
                   name="emptySeats"
                   defaultValue={emptySeats ? emptySeats : ride.emptySeats}
                   onChange={handleSetEmptySeats}
+                  required
                 />
 
                 <div

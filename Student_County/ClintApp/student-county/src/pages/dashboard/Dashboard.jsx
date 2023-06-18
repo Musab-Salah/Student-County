@@ -168,15 +168,18 @@ const Dashboard = () => {
     // else
     if (OptionMenu === "Books") {
       return Object.values(Books).filter((Book) => {
-        return Book.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
-          Book.shortDescription
-          ? Book.shortDescription
+        return (
+          Book.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
+          (Book.shortDescription &&
+            Book.shortDescription
               .toLowerCase()
               .includes(deferredInput.toLowerCase())
-          : "".toLowerCase().includes(deferredInput.toLowerCase()) ||
-              Book.longDescription
-                .toLowerCase()
-                .includes(deferredInput.toLowerCase());
+              .toLowerCase()
+              .includes(deferredInput.toLowerCase())) ||
+          Book.longDescription
+            .toLowerCase()
+            .includes(deferredInput.toLowerCase())
+        );
       });
     } else if (OptionMenu === "Patient") {
       return Object.values(Patients).filter((patient) => {
@@ -204,26 +207,30 @@ const Dashboard = () => {
       });
     } else if (OptionMenu === "Tool") {
       return Object.values(Tools).filter((tool) => {
-        return tool.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
-          tool.shortDescription
-          ? tool.shortDescription
+        return (
+          tool.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
+          (tool.shortDescription &&
+            tool.shortDescription
               .toLowerCase()
-              .includes(deferredInput.toLowerCase())
-          : "".toLowerCase().includes(deferredInput.toLowerCase()) ||
-              tool.longDescription
-                .toLowerCase()
-                .includes(deferredInput.toLowerCase());
+              .includes(deferredInput.toLowerCase())) ||
+          tool.longDescription
+            .toLowerCase()
+            .includes(deferredInput.toLowerCase())
+        );
       });
     } else if (OptionMenu === "Ride") {
       return Object.values(Rides).filter((ride) => {
-        return ride.shortDescription
-          ? ride.shortDescription
+        return (
+          (ride.shortDescription &&
+            ride.shortDescription
               .toLowerCase()
               .includes(deferredInput.toLowerCase())
-          : "".toLowerCase().includes(deferredInput.toLowerCase()) ||
-              ride.longDescription
-                .toLowerCase()
-                .includes(deferredInput.toLowerCase());
+              .toLowerCase()
+              .includes(deferredInput.toLowerCase())) ||
+          ride.longDescription
+            .toLowerCase()
+            .includes(deferredInput.toLowerCase())
+        );
       });
     }
     // eslint-disable-next-line
@@ -275,7 +282,11 @@ const Dashboard = () => {
 
       <div style={{ opacity: ButtonCards ? 0.2 : 1 }}>
         <div className={`dashboard-container `}>
-          <Menu isMenuOpen={isMenuOpen} isMenuOpenPhone={isMenuOpenPhone} />
+          <Menu
+            isMenuOpen={isMenuOpen}
+            isMenuOpenPhone={isMenuOpenPhone}
+            setIsMenuOpenPhone={setIsMenuOpenPhone}
+          />
           <div className={`dashboard  `}>
             <div className="dashboard-navbar">
               <div className="left-navbar">

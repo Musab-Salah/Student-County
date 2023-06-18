@@ -172,8 +172,13 @@ const BooksForm = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (ButtonCards === "UpdateBook") updateBook(Book.id, book);
-    else if (ButtonCards === "CreateBook") createBook(book);
+
+    if (!theWay) setTheWayError("Please enter a The Way");
+    if (!condition) setConditionError("Please enter a The Way");
+    if (theWay && condition && ButtonCards === "UpdateBook")
+      updateBook(Book.id, book);
+    else if (theWay && condition && ButtonCards === "CreateBook")
+      createBook(book);
   };
   return (
     <>
@@ -254,7 +259,6 @@ const BooksForm = () => {
                     shortDescription ? shortDescription : book.shortDescription
                   }
                   onChange={handleShortDescription}
-                  required
                 />
                 <div
                   className="input-container-option"

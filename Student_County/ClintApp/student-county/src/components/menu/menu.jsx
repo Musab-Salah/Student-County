@@ -13,7 +13,7 @@ import useAuth from "./../../hooks/useAuth";
 import useLoader from "../../hooks/useLoader";
 import WithPermission from "../../certificates/WithPermission";
 
-const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
+const Menu = ({ isMenuOpen, isMenuOpenPhone, setIsMenuOpenPhone }) => {
   const [navLinksVisible, setNavLinksVisible] = useState([true, true]);
   const { setOptionMenu, OptionMenu } = useComponent();
   const { logout, decodedJwt } = useAuth();
@@ -29,7 +29,7 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
   const [isClose, setIsClose] = useState(false);
 
   const toggleMenu = () => {
-    setIsClose(!isClose);
+    setIsMenuOpenPhone(!isMenuOpenPhone);
   };
   useEffect(() => {
     const scrollAnimElements = document.querySelectorAll(
@@ -63,10 +63,8 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
   return (
     <div
       className={`dash-menu ${
-        (isMenuOpenPhone ? false : true) || (isClose ? false : true)
-          ? "openn"
-          : ""
-      }`}
+        (!isMenuOpenPhone ? false : true) ? "openn" : ""
+      }   `}
       data-animate-on-scroll
     >
       <div className="dash-menu-link">
@@ -224,25 +222,23 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
                     </div>
                   </div>
                 </WithPermission>
-                <WithPermission
-                  ScopeRole={[ "Dentistry Student", "Admin"]}
-                >
-                <div
-                  className={`dash-nav-link ${
-                    isMenuOpen ? "padding-resize" : ""
-                  } ${OptionMenu === "Patient" ? "active" : ""} `}
-                  onClick={() => setOptionMenu("Patient")}
-                >
-                  <AiOutlineUser className="dash-nav-link-icon" />
+                {/* <WithPermission ScopeRole={["Dentistry Student", "Admin"]}> */}
                   <div
-                    className={`dash-nav-link-title ${
-                      isMenuOpen ? "hidden" : ""
-                    }`}
+                    className={`dash-nav-link ${
+                      isMenuOpen ? "padding-resize" : ""
+                    } ${OptionMenu === "Patient" ? "active" : ""} `}
+                    onClick={() => setOptionMenu("Patient")}
                   >
-                    Patients
+                    <AiOutlineUser className="dash-nav-link-icon" />
+                    <div
+                      className={`dash-nav-link-title ${
+                        isMenuOpen ? "hidden" : ""
+                      }`}
+                    >
+                      Patients
+                    </div>
                   </div>
-                </div>
-                </WithPermission>
+                {/* </WithPermission> */}
               </div>
             )}
           </div>
@@ -285,14 +281,14 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone }) => {
         <div className="user-container">
           <div className="profile">
             <div className="profile-info">
-              <FaUserCircle className={`avatar-icon ${isMenuOpen ? "small-icon" : ""}`} />
+              <FaUserCircle
+                className={`avatar-icon ${isMenuOpen ? "small-icon" : ""}`}
+              />
               <div className={`user-info ${isMenuOpen ? "hidden" : ""}`}>
                 <div className="username">
                   {`${decodedJwt.name} ${decodedJwt.family_name}`}
                 </div>
-                <div className="role">
-                  {decodedJwt.roles}
-                </div>
+                <div className="role">{decodedJwt.roles}</div>
               </div>
             </div>
           </div>

@@ -37,13 +37,14 @@ export function UserRelationDatasProvider({ children }) {
     // eslint-disable-next-line
   }, [isLogin]);
   useEffect(() => {
-    if (MyUserRelationData) {
+    if (MyUserRelationData && decodedJwt.roles !== "Patient") {
       if (MyUserRelationData[0]) setMyBooks(MyUserRelationData[0]);
       if (MyUserRelationData[1]) setMyHousings(MyUserRelationData[1]);
       if (MyUserRelationData[2]) setMyRides(MyUserRelationData[2]);
       if (MyUserRelationData[3]) setMyTools(MyUserRelationData[3]);
       if (MyUserRelationData[4]) setMyPatients(MyUserRelationData[4]);
-    }
+    } else if (decodedJwt.roles === "Patient")
+      setMyPatients(MyUserRelationData[0]);
     // eslint-disable-next-line
   }, [MyUserRelationData]);
   useMemo(() => {

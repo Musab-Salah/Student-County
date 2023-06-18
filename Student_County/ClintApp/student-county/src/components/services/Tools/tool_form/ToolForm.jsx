@@ -169,8 +169,12 @@ const ToolForm = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (ButtonCards === "UpdateTool") updateTool(Tool.id, tool);
-    else if (ButtonCards === "CreateTool") createTool(tool);
+    if (!theWay) setTheWayError("Please enter the way you want");
+    if (!condition) setConditionError("Please enter the condition");
+    if (theWay && condition && ButtonCards === "UpdateTool")
+      updateTool(Tool.id, tool);
+    else if (theWay && condition && ButtonCards === "CreateTool")
+      createTool(tool);
   };
   return (
     <>
@@ -240,7 +244,6 @@ const ToolForm = () => {
                     shortDescription ? shortDescription : tool.shortDescription
                   }
                   onChange={handleShortDescription}
-                  required
                 />
                 <div
                   className="input-container-option"

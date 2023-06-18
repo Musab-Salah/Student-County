@@ -356,9 +356,9 @@
   }*/
 }
 @media screen and (max-width: 480px) {
-  .dash-menu {
+  /* .dash-menu {
     width: -webkit-fill-available;
-  }
+  } */
 }
 /* SEARCH */
 

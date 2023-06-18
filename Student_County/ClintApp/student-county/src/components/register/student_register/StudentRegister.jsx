@@ -182,6 +182,7 @@ const Students = () => {
 
   const handleAcceptPolicyChange = () => {
     setAcceptPolicy(!acceptPolicy);
+     setAcceptPolicyError(false);
   };
 
   const handleGenderChange = (value) => {
@@ -196,17 +197,11 @@ const Students = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    userBo.gender
-      ? setGenderError(false)
-      : setGenderError("Please select your gender.");
+    if (!gender) setGenderError("Please select your gender.");
 
-    userBo.universityId
-      ? setSelectUnivError(false)
-      : setSelectUnivError("Please select your university.");
+    if (!selectUniv) setSelectUnivError("Please select your university.");
 
-    userBo.collegeId
-      ? setSelectCollegeError(false)
-      : setSelectCollegeError("Please select your college.");
+    if (!selectCollege) setSelectCollegeError("Please select your college.");
     if (
       !genderError &&
       !firstNameError &&

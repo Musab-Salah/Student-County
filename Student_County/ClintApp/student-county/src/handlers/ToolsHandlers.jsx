@@ -110,10 +110,10 @@ export function ToolsProvider({ children }) {
 
   const deleteTool = (id) => {
     setDeleteButtonsFormToolLoader(true);
-
     ToolsServices.deleteTool(id, token)
       .then((res) => {
-        setTool(res.data);
+        setToolsSuccess("Tools Successfully deleted .");
+        cleanupToolsSuccess();
         setError(null);
       })
       .catch(() => {

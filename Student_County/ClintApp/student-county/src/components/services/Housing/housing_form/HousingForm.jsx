@@ -52,7 +52,7 @@ const HousingForm = () => {
   const [provinceError, setProvinceError] = useState("");
   const [addressError, setAddressError] = useState("");
   const [rentalPriceError, setRentalPriceError] = useState("");
-  const [typeOfContractError, setTypeOfContractError] = useState("null");
+  const [typeOfContractError, setTypeOfContractError] = useState("");
   const [homeTypeError, setHomeTypeError] = useState("");
   const [roomTypeError, setRoomTypeError] = useState("");
   const [bedRoomError, setBedRoomError] = useState("");
@@ -265,12 +265,6 @@ const HousingForm = () => {
     }
   };
 
-  useMemo(() => {
-    if (typeOfContractError === "null") setTypeOfContractError(false);
-    else if (!typeOfContract)
-      setTypeOfContractError("please select a type Of Contract");
-  }, [typeOfContract]);
-
   const handleDelete = (event) => {
     event.preventDefault();
     setDeleteDialogState(true);
@@ -313,7 +307,17 @@ const HousingForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    if (!nationalId) setNationalIdError("Please enter a NationalId");
+    if (!city) setCityError("Please enter a City");
+    if (!province) setProvinceError("Please enter a province");
+    if (!address) setAddressError("Please enter a Address");
+    if (!rentalPrice) setRentalPriceError("Please enter a Rental Price");
+    if (!typeOfContract)
+      setTypeOfContractError("Please enter a Type Of Contract");
+    if (!homeType) setHomeTypeError("Please enter a Home Type");
+    if (!roomType) setRoomTypeError("Please enter a Room Type");
+    if (!bedRoom) setBedRoomError("Please enter a Bed Room Number");
+    if (!bathRoom) setBathRoomError("Please enter a Bath Room Number ");
     if (
       validatePersonalInformation &&
       validateHomeInfo &&
@@ -761,6 +765,12 @@ const HousingForm = () => {
                         </div>
                       </label>
                     </div>
+                    {homeTypeError && (
+                      <span className="wrong-info">
+                        <AiFillExclamationCircle />
+                        {homeTypeError}
+                      </span>
+                    )}
                   </div>
 
                   <div className="input-and-title-container">
@@ -785,7 +795,7 @@ const HousingForm = () => {
                           )}{" "}
                         </div>
                       </label>
-
+                      
                       <label className="input-select-group-label">
                         <input
                           onClick={() => handelRoomType("Common")}
@@ -806,6 +816,12 @@ const HousingForm = () => {
                         </div>
                       </label>
                     </div>
+                    {roomTypeError && (
+                      <span className="wrong-info">
+                        <AiFillExclamationCircle />
+                        {roomTypeError}
+                      </span>
+                    )}
                   </div>
                   <div className="input-and-title-container">
                     <div className="input-title">Bed & Bath</div>

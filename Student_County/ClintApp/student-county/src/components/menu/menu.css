@@ -92,8 +92,8 @@
   background-color: #eaecf1;
 }
 .dash-nav-link-icon {
-  height: 25px;
-  width: 25px;
+  min-height: 25px;
+  min-width: 25px;
 }
 .dash-nav-link-title {
   font-size: 16px;
@@ -162,6 +162,7 @@
   }
   .dash-menu.openn {
     left: 0 !important;
+    width: -webkit-fill-available;
   }
   .collapse {
     display: none;
@@ -172,7 +173,7 @@
 }
 
 @media screen and (max-width: 480px) {
-  .dash-menu {
+  /* .dash-menu {
     width: -webkit-fill-available;
-  }
+  } */
 }

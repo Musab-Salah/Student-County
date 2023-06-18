@@ -394,7 +394,9 @@ const PatientForm = () => {
   };
 
   const handleSubmit = () => {
-    console.log(patient);
+    if(!gender) setGenderError("Please select a gender")
+    if (selectedTreatments.length === 0) setTypeOfTreatmentError("Please select a treatment")
+    if (selectedIllnesses.length === 0) setCurrentIllnessesError("Please select a Current Illnesses")
     if (
       gender &&
       selectedTreatments.length !== 0 &&
@@ -956,48 +958,52 @@ const PatientForm = () => {
                       {additionalInformationError}
                     </span>
                   )}
-                </div>
-                <div className="buttons">
-                  {ButtonCards === "UpdatePatient" ? (
+                  <div className="buttons">
+                    {ButtonCards === "UpdatePatient" ? (
+                      <button
+                        type="submit"
+                        className={`btn btn-primary btn-fill`}
+                      >
+                        <div
+                          className="loader"
+                          style={{
+                            display: ButtonsFormPatientLoader
+                              ? "block"
+                              : "none",
+                          }}
+                        />
+                        Update
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        className={`btn btn-primary btn-fill`}
+                      >
+                        <div
+                          className="loader"
+                          style={{
+                            display: ButtonsFormPatientLoader
+                              ? "block"
+                              : "none",
+                          }}
+                        />
+                        Publish
+                      </button>
+                    )}
                     <button
-                      type="submit"
-                      className={`btn btn-primary btn-fill`}
+                      onClick={() => setStep(1)}
+                      className={`btn btn-secondary btn-fill`}
                     >
-                      <div
-                        className="loader"
-                        style={{
-                          display: ButtonsFormPatientLoader ? "block" : "none",
-                        }}
-                      />
-                      Update
+                      Back
                     </button>
-                  ) : (
-                    <button
-                      type="submit"
-                      className={`btn btn-primary btn-fill`}
-                    >
-                      <div
-                        className="loader"
-                        style={{
-                          display: ButtonsFormPatientLoader ? "block" : "none",
-                        }}
-                      />
-                      Publish
-                    </button>
-                  )}
-                  <button
-                    onClick={() => setStep(1)}
-                    className={`btn btn-secondary `}
-                  >
-                    Back
-                  </button>
 
-                  <button
-                    onClick={() => setButtonCards("")}
-                    className={`btn btn-secondary btn-fill`}
-                  >
-                    Cancel
-                  </button>
+                    <button
+                      onClick={() => setButtonCards("")}
+                      className={`btn btn-secondary btn-fill`}
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </div>
                 {PatientError && (
                   <span className="wrong-info">

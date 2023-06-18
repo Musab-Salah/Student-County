@@ -42,7 +42,7 @@ export function ChatsProvider({ children }) {
   const joinRoom = async () => {
     try {
       const connection = new HubConnectionBuilder()
-        .withUrl("https://studentcountytestapi.azurewebsites.net/chat")
+        .withUrl("https://localhost:7245/chat")
         .configureLogging(LogLevel.None)
         .build();
 

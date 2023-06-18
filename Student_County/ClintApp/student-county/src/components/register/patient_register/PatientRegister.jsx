@@ -157,12 +157,10 @@ const Patients = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    userBo.gender
-      ? setGenderError(false)
-      : setGenderError("Please select your gender.");
+    if(!gender) setGenderError("Please select your gender.");
 
     if (
-      !genderError &&
+      gender &&
       !firstNameError &&
       !lastNameError &&
       !emailError &&
