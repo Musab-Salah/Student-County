@@ -5,14 +5,24 @@ import { RiArrowDownSLine } from "react-icons/ri";
 import "./BooksSection.css";
 import { Helmet } from "react-helmet";
 import useLoader from "../../../../hooks/useLoader";
+import useUserRelationData from "../../../../hooks/useUserRelationData";
+import useAuth from "../../../../hooks/useAuth";
 
 const BooksSection = ({ filteredValue }) => {
+  const { decodedJwt } = useAuth();
   const { Books, getBooks, BookSuccess, setBooks } = useBooks();
   const { BooksLoader } = useLoader();
   const SORT_TYPES = ["Name", "Date", "Price"];
-  const [showDropdownType, setShowDropdownType] = useState("");
+  const SORT_TYPES_OWNE = ["Name", "Date", "Price"];
+
+  const [SortTypeOwne, setSortTypeOwne] = useState("");
   const [sortType, setSortType] = useState("");
   const [showDropdownSort, setShowDropdownSort] = useState("");
+  const [showDropdownSortOwne, setShowDropdownSortOwne] = useState("");
+
+  const { MyBooks, UserRelationDataLoader } = useUserRelationData();
+
+  const [maxCards, setMaxCards] = useState(3);
 
   useMemo(() => {
     const handleOutsideClick = (event) => {
@@ -20,7 +30,7 @@ const BooksSection = ({ filteredValue }) => {
         !event.target.closest(".custom-select") &&
         !event.target.closest(".input-container-option")
       ) {
-        setShowDropdownType(false);
+        setShowDropdownSortOwne(false);
         setShowDropdownSort(false);
       }
     };
@@ -29,7 +39,7 @@ const BooksSection = ({ filteredValue }) => {
       document.removeEventListener("click", handleOutsideClick);
     };
     // eslint-disable-next-line
-  }, [showDropdownType, showDropdownSort]);
+  }, [showDropdownSortOwne, showDropdownSort]);
 
   useEffect(() => {
     getBooks();
@@ -45,12 +55,157 @@ const BooksSection = ({ filteredValue }) => {
     setSortType(sort);
     setShowDropdownSort(false);
   };
-
+  const handleSortOwneChange = (sort) => {
+    setSortTypeOwne(sort);
+    setShowDropdownSortOwne(false);
+  };
+  const handleShowMore = () => {
+    setMaxCards(maxCards + 3); 
+  };
   return (
     <>
       <Helmet>
         <title>Books</title>
       </Helmet>
+
+      <div
+        className="service-container-owne"
+        style={{ display: MyBooks.length !== 0 ? "flex" : "none" }}
+      >
+        <div className="services-head">
+          <div className="services-head-title">Your Books</div>
+          <div className="filterboxs">
+            <div className="input-group">
+              <div className="custom-select">
+                <div
+                  className="selected-option"
+                  onClick={() => setShowDropdownSortOwne(!showDropdownSortOwne)}
+                >
+                  {!SortTypeOwne ? (
+                    <div className="input-container-option input-dropdown">
+                      Sort By
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="input-container-option input-dropdown-title">
+                        Sort By
+                      </div>
+                      <div className="input-container-option input-dropdown input-selected">
+                        {SortTypeOwne}
+                      </div>
+                    </div>
+                  )}
+
+                  <RiArrowDownSLine className="arrow-icon" />
+                </div>
+                {showDropdownSortOwne && (
+                  <div className="options" id="input-dropdown">
+                    <div className="option-title">Sort By</div>
+                    {SORT_TYPES_OWNE.map((sort, index) => (
+                      <div
+                        key={index}
+                        className="option"
+                        onClick={() => handleSortOwneChange(sort)}
+                      >
+                        {sort}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="cards-owne">
+          <div
+            className="loader-overview"
+            style={{ display: UserRelationDataLoader ? "block" : "none" }}
+          >
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+          </div>
+
+          {!SortTypeOwne &&
+            Object.values(MyBooks)
+              .slice(0, maxCards) 
+              .map((book) => (
+                <BookCard
+                  name={book.name}
+                  price={book.price}
+                  shortDescription={book.shortDescription}
+                  longDescription={book.longDescription}
+                  key={book.id}
+                  id={book.id}
+                  studentId={book.studentId}
+                  theWay={book.theWay}
+                  condition={book.condition}
+                />
+              ))}
+          {SortTypeOwne === "Name" &&
+            Object.values(MyBooks)
+              .sort((a, b) => (a.name > b.name ? 1 : -1))
+              .slice(0, maxCards)
+              .map((book) => (
+                <BookCard
+                  name={book.name}
+                  price={book.price}
+                  shortDescription={book.shortDescription}
+                  longDescription={book.longDescription}
+                  key={book.id}
+                  id={book.id}
+                  studentId={book.studentId}
+                  theWay={book.theWay}
+                  condition={book.condition}
+                />
+              ))}
+          {SortTypeOwne === "Date" &&
+            Object.values(MyBooks)
+              .sort((a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn))
+              .slice(0, maxCards)
+              .map((book) => (
+                <BookCard
+                  name={book.name}
+                  price={book.price}
+                  shortDescription={book.shortDescription}
+                  longDescription={book.longDescription}
+                  key={book.id}
+                  id={book.id}
+                  studentId={book.studentId}
+                  theWay={book.theWay}
+                  condition={book.condition}
+                />
+              ))}
+          {SortTypeOwne === "Price" &&
+            Object.values(MyBooks)
+              .sort((a, b) => b.price - a.price)
+              .slice(0, maxCards)
+              .map((book) => (
+                <BookCard
+                  name={book.name}
+                  price={book.price}
+                  shortDescription={book.shortDescription}
+                  longDescription={book.longDescription}
+                  key={book.id}
+                  id={book.id}
+                  studentId={book.studentId}
+                  theWay={book.theWay}
+                  condition={book.condition}
+                />
+              ))}
+        </div>
+        <div className="show-more-button">
+          <div className="btn btn-primary btn-fill" onClick={handleShowMore}>
+            Show More
+          </div>
+        </div>
+      </div>
+
+      {/* all */}
       <div className="service-container">
         <div className="services-head">
           <div className="services-head-title">Find Services</div>
@@ -112,37 +267,43 @@ const BooksSection = ({ filteredValue }) => {
 
           {!filteredValue
             ? !sortType &&
-              Object.values(Books).map((book) => (
-                <BookCard
-                  name={book.name}
-                  price={book.price}
-                  shortDescription={book.shortDescription}
-                  longDescription={book.longDescription}
-                  key={book.id}
-                  id={book.id}
-                  studentId={book.studentId}
-                  theWay={book.theWay}
-                  condition={book.condition}
-                />
-              ))
+              Object.values(Books)
+                .filter((book) => book.studentId !== decodedJwt.uid)
+                .map((book) => (
+                  <BookCard
+                    name={book.name}
+                    price={book.price}
+                    shortDescription={book.shortDescription}
+                    longDescription={book.longDescription}
+                    key={book.id}
+                    id={book.id}
+                    studentId={book.studentId}
+                    theWay={book.theWay}
+                    condition={book.condition}
+                  />
+                ))
             : !sortType &&
-              Object.values(filteredValue).map((book) => (
-                <BookCard
-                  name={book.name}
-                  price={book.price}
-                  shortDescription={book.shortDescription}
-                  longDescription={book.longDescription}
-                  key={book.id}
-                  id={book.id}
-                  studentId={book.studentId}
-                  theWay={book.theWay}
-                  condition={book.condition}
-                />
-              ))}
+              Object.values(filteredValue)
+                .filter((book) => book.studentId !== decodedJwt.uid)
+                .map((book) => (
+                  <BookCard
+                    name={book.name}
+                    price={book.price}
+                    shortDescription={book.shortDescription}
+                    longDescription={book.longDescription}
+                    key={book.id}
+                    id={book.id}
+                    studentId={book.studentId}
+                    theWay={book.theWay}
+                    condition={book.condition}
+                  />
+                ))}
+
           {!filteredValue
             ? sortType === "Name" &&
               Object.values(Books)
                 .sort((a, b) => (a.name > b.name ? 1 : -1))
+                .filter((book) => book.studentId !== decodedJwt.uid)
                 .map((book) => (
                   <BookCard
                     name={book.name}
@@ -159,6 +320,7 @@ const BooksSection = ({ filteredValue }) => {
             : sortType === "Name" &&
               Object.values(filteredValue)
                 .sort((a, b) => (a.name > b.name ? 1 : -1))
+                .filter((book) => book.studentId !== decodedJwt.uid)
                 .map((book) => (
                   <BookCard
                     name={book.name}
@@ -172,9 +334,11 @@ const BooksSection = ({ filteredValue }) => {
                     condition={book.condition}
                   />
                 ))}
+
           {!filteredValue
             ? sortType === "Date" &&
               Object.values(Books)
+                .filter((book) => book.studentId !== decodedJwt.uid)
                 .sort(
                   (a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn)
                 )
@@ -193,6 +357,7 @@ const BooksSection = ({ filteredValue }) => {
                 ))
             : sortType === "Date" &&
               Object.values(filteredValue)
+                .filter((book) => book.studentId !== decodedJwt.uid)
                 .sort(
                   (a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn)
                 )
@@ -209,9 +374,11 @@ const BooksSection = ({ filteredValue }) => {
                     condition={book.condition}
                   />
                 ))}
+
           {!filteredValue
             ? sortType === "Price" &&
               Object.values(Books)
+                .filter((book) => book.studentId !== decodedJwt.uid)
                 .sort((a, b) => b.price - a.price)
                 .map((book) => (
                   <BookCard
@@ -228,6 +395,7 @@ const BooksSection = ({ filteredValue }) => {
                 ))
             : sortType === "Price" &&
               Object.values(filteredValue)
+                .filter((book) => book.studentId !== decodedJwt.uid)
                 .sort((a, b) => b.price - a.price)
                 .map((book) => (
                   <BookCard

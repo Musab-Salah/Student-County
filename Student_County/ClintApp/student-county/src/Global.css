@@ -841,7 +841,7 @@ input#phone-number {
 
 .form-title-sw {
   color: var(--color-blueviolet-100);
-  margin-left: 7.5px;
+  /* margin-left: 7.5px; */
 }
 
 .form-note {

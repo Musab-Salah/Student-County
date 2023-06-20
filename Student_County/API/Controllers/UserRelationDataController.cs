@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Student_County.BusinessLogic.Auth;
 using Student_County.BusinessLogic.Auth.Models;
 using Student_County.BusinessLogic.Book;
+using Student_County.BusinessLogic.Helpers.Common;
 using Student_County.BusinessLogic.Housing;
 using Student_County.BusinessLogic.Patient;
 using Student_County.BusinessLogic.Ride;
@@ -26,12 +28,13 @@ namespace Student_County.API.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         protected readonly StudentCountyContext _context;
+        private readonly IAuthManager _authService;
 
 
 
 
 
-        public UserRelationDataController(IBookManager bookmanager, IHousingManager housingmanager, IPatientManager patientmanager, IRideManager ridemanager,
+        public UserRelationDataController(IAuthManager authService, IBookManager bookmanager, IHousingManager housingmanager, IPatientManager patientmanager, IRideManager ridemanager,
             IToolsManager toolsmanager, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, StudentCountyContext context)
         {
             _bookmanager = bookmanager;
@@ -42,6 +45,8 @@ namespace Student_County.API.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
             _context = context;
+            _authService = authService;
+
 
         }
         [HttpGet]
@@ -91,6 +96,22 @@ namespace Student_County.API.Controllers
             myList.Add(patients);
             return Ok(myList);
 
+
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetUser(string userid)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userid);
+            user.Password = Security.ComputeUnHash(user.Password);
+            return Ok(user);
+
+        }
+        [HttpPut("{userid}")]
+        public async Task<IActionResult> UpdateUser([FromBody] StudentRegisterModel user, [FromRoute] string userid)
+        {
+            if (user == null)
+                return BadRequest("User Not Found");
+            return Ok(await _authService.RegisterStudentAsync(user, userid));
 
         }
     }

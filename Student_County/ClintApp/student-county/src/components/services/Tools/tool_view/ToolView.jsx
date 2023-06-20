@@ -34,12 +34,12 @@ const ToolView = () => {
     <>
       <div className="create-section">
         <div
-            className="container-load-form"
-            style={{ display: FormToolLoader ? "block" : "none" }}
-          >
-            {[...Array(16)].map((_, index) => (
-              <div key={index} className="block-load-form"></div>
-            ))}
+          className="container-load-form"
+          style={{ display: FormToolLoader ? "block" : "none" }}
+        >
+          {[...Array(16)].map((_, index) => (
+            <div key={index} className="block-load-form"></div>
+          ))}
         </div>
         <div
           className="form-create-view"
@@ -47,7 +47,10 @@ const ToolView = () => {
         >
           <div className="section-view">
             <div className="tool-image-container">
-              <div className="tool-image" />
+              <img
+                className="tool-image"
+                src="./assets/images/services/tools-view.svg"
+              />
               <div className="tool-owner">
                 <TbCrown className="tool-owner-icon" />
                 <div className="tool-owner-name">{Tool.studentName}</div>

@@ -6,7 +6,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import BookCard from "../services/books/book_card/BookCard";
 import { Helmet } from "react-helmet";
 import "./Overview.css";
-import useUserRelationData from "../../hooks/UserRelationData";
+import useUserRelationData from "../../hooks/useUserRelationData";
 import HousingCard from "../services/Housing/housing_card/HousingCard";
 import PatientCard from "../services/Patient/patient_card/PatientCard";
 import RideCard from "../services/Ride/ride_card/RideCard";
@@ -40,12 +40,7 @@ const Overview = ({ filteredValue }) => {
     MyPatients,
     MyRides,
   } = useUserRelationData(); //[0]books ,[1]housings,[2]rides,[3]tools,[4]patients
-  const { BookSuccess } = useBooks();
   const { decodedJwt } = useAuth();
-  const { HousingSuccess } = useHousings();
-  const { PatientSuccess } = usePatient();
-  const { RideSuccess } = useRides();
-  const { ToolsSuccess } = useTools();
 
   const { setButtonCards } = useComponent();
   const [selectType, setSelectType] = useState("");
@@ -63,7 +58,7 @@ const Overview = ({ filteredValue }) => {
     getMyAllUserRelationDatas();
     getAllRecentActivity();
     // eslint-disable-next-line
-  }, [BookSuccess, HousingSuccess, PatientSuccess, RideSuccess, ToolsSuccess]);
+  }, []);
   const handeleAddServices = () => {
     setAddServices(!AddServices);
     console.log(AddServices);
@@ -104,16 +99,16 @@ const Overview = ({ filteredValue }) => {
     // eslint-disable-next-line
   }, [MyBooks, MyTools, MyHousings, MyRides, MyPatients]);
 
-  useEffect(() => {
-    return function cleanup() {
-      setMyBooks("");
-      setMyTools("");
-      setMyHousings("");
-      setMyRides("");
-      setMyPatients("");
-    };
-    // eslint-disable-next-line
-  }, []);
+  // useEffect(() => {
+  //   return function cleanup() {
+  //     setMyBooks("");
+  //     setMyTools("");
+  //     setMyHousings("");
+  //     setMyRides("");
+  //     setMyPatients("");
+  //   };
+  //   // eslint-disable-next-line
+  // }, []);
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const today = new Date();
@@ -299,47 +294,49 @@ const Overview = ({ filteredValue }) => {
         <div className="services-head">
           <div className="services-head-title">Your Services</div>
           <div className="filterboxs">
-            {decodedJwt.roles !== "Patient" &&<div className="input-group">
-              <div className="custom-select">
-                <div
-                  className="selected-option"
-                  onClick={() => setShowDropdownType(!showDropdownType)}
-                >
-                  {!selectType ? (
-                    <div className="input-container-option input-dropdown">
-                      Select Type
-                    </div>
-                  ) : (
-                    <div>
-                      <div className="input-container-option input-dropdown-title">
-                        Type
+            {decodedJwt.roles !== "Patient" && (
+              <div className="input-group">
+                <div className="custom-select">
+                  <div
+                    className="selected-option"
+                    onClick={() => setShowDropdownType(!showDropdownType)}
+                  >
+                    {!selectType ? (
+                      <div className="input-container-option input-dropdown">
+                        Select Type
                       </div>
-                      <div className="input-container-option input-dropdown input-selected">
-                        {selectType.name}
+                    ) : (
+                      <div>
+                        <div className="input-container-option input-dropdown-title">
+                          Type
+                        </div>
+                        <div className="input-container-option input-dropdown input-selected">
+                          {selectType.name}
+                        </div>
                       </div>
+                    )}
+                    <RiArrowDownSLine className="arrow-icon" />
+                  </div>
+                  {showDropdownType && (
+                    <div className="options" id="input-dropdown">
+                      <div className="option-title">Select Type</div>
+                      {TYPES.map((type, index) => (
+                        <div
+                          key={index}
+                          className="option"
+                          onClick={() =>
+                            handleTypeChange({ name: type, id: index + 1 })
+                          }
+                        >
+                          {type}
+                        </div>
+                      ))}
                     </div>
                   )}
-                  <RiArrowDownSLine className="arrow-icon" />
                 </div>
-                {showDropdownType && (
-                  <div className="options" id="input-dropdown">
-                    <div className="option-title">Select Type</div>
-                    {TYPES.map((type, index) => (
-                      <div
-                        key={index}
-                        className="option"
-                        onClick={() =>
-                          handleTypeChange({ name: type, id: index + 1 })
-                        }
-                      >
-                        {type}
-                      </div>
-                    ))}
-                  </div>
-                )}
               </div>
-            </div>}
-            
+            )}
+
             {/* <div className="input-group">
               <div className="custom-select">
                 <div
@@ -480,8 +477,10 @@ const Overview = ({ filteredValue }) => {
                   studentId={ride.studentId}
                   carDescription={ride.carDescription}
                   shortDescription={ride.shortDescription}
+                  longDescription={ride.longDescription}
                   emptySeats={ride.emptySeats}
                   locationId={ride.locationId}
+                  gender={ride.gender}
                 />
               ))
             : (selectType.name === "All" ||
@@ -496,8 +495,10 @@ const Overview = ({ filteredValue }) => {
                   studentId={ride.studentId}
                   carDescription={ride.carDescription}
                   shortDescription={ride.shortDescription}
+                  longDescription={ride.longDescription}
                   emptySeats={ride.emptySeats}
                   locationId={ride.locationId}
+                  gender={ride.gender}
                 />
               ))}
 
@@ -513,6 +514,7 @@ const Overview = ({ filteredValue }) => {
                   theWay={tool.theWay}
                   condition={tool.condition}
                   price={tool.price}
+                  longDescription={tool.longDescription}
                   shortDescription={tool.shortDescription}
                   name={tool.name}
                   key={tool.id}
@@ -527,6 +529,7 @@ const Overview = ({ filteredValue }) => {
                   id={tool.id}
                   studentId={tool.studentId}
                   theWay={tool.theWay}
+                  longDescription={tool.longDescription}
                   condition={tool.condition}
                   price={tool.price}
                   shortDescription={tool.shortDescription}

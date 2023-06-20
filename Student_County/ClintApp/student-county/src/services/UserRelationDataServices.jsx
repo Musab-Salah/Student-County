@@ -25,6 +25,20 @@ class UserRelationDataServices {
         },
       }
     );
+
+  getUser = async (userid, token) =>
+    await axios.get(BOOK_API_BASE_URL + "/GetUser?userid=" + userid, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+  updateUser = async (userid, user, token) =>
+    await axios.put(BOOK_API_BASE_URL + "/UpdateUser/" + userid, user, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 }
 // eslint-disable-next-line
 export default new UserRelationDataServices();

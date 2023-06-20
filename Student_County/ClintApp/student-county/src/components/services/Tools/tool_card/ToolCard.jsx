@@ -5,7 +5,7 @@ import "./ToolCard.css";
 import useComponent from "../../../../hooks/useComponent";
 import useAuth from "../../../../hooks/useAuth";
 import useTools from "../../../../hooks/useTools";
-import { TbTools } from 'react-icons/tb';
+import { TbTools } from "react-icons/tb";
 
 const ToolCard = ({
   createdOn,
@@ -14,24 +14,29 @@ const ToolCard = ({
   theWay,
   condition,
   price,
-  shortDescription,
+  longDescription,
   name,
 }) => {
   const { setButtonCards } = useComponent();
   const { getToolById } = useTools();
   const { decodedJwt } = useAuth();
+  const maxLength = 20;
 
+  if (longDescription.length > maxLength) {
+    const truncatedText = longDescription.substring(0, maxLength) + "...";
+    longDescription = truncatedText;
+  }
   return (
     <>
       <div className="tool-card-container">
         <div className="tool-card-data">
           <div className="tool-card-profile">
-          <TbTools className="housing-card-avatar" />
+            <TbTools className="housing-card-avatar" />
             <div className="tool-card-info">
               <div className="tool-card-name">
-                {name} •{price} ₪
+                {name} •{price === 0 ? "Free" : `${price}₪`}
               </div>
-              <div className="tool-card-address">{shortDescription}</div>
+              <div className="tool-card-address">{longDescription}</div>
             </div>
           </div>
           <div className="tool-card-action">

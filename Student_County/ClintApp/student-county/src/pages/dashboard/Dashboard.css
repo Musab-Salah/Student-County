@@ -213,6 +213,14 @@
   gap: var(--gap-6xl);
   width: -webkit-fill-available;
 }
+.service-container-owne {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-6xl);
+  width: -webkit-fill-available;
+}
 .services-head {
   display: flex;
   flex-direction: row;
@@ -269,7 +277,7 @@
   border: 1.5px solid var(--color-gray-100);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
   transition: 0.3s ease;
 }
@@ -505,3 +513,6 @@
   position: relative;
   justify-content: center;
 }
+/* .show-more-button{
+  display: flex;
+} */

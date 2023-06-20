@@ -218,9 +218,9 @@ const BooksForm = () => {
             onSubmit={handleSubmit}
           >
             <div className="form-title ">
-              Add A New <span style={{ color: "#8D37FF" }}>Book.</span>{" "}
+              Add A New <span style={{ color: "#8D37FF" }}>&nbsp;Book.</span>{" "}
             </div>
-
+            <div className="vertical-line" />
             <div className="form-input-container">
               <div className="form-title-paragraph ">
                 Book Details
@@ -242,37 +242,13 @@ const BooksForm = () => {
                   className="input-container-option"
                   onClick={() => document.getElementsByName("name")[0].focus()}
                 >
-                  Name
+                  Book Name
                 </div>
               </div>
               {nameError && (
                 <span className="wrong-info">
                   <AiFillExclamationCircle />
                   {nameError}
-                </span>
-              )}
-              <div className="input-container">
-                <input
-                  type="text"
-                  name="shortdescription"
-                  defaultValue={
-                    shortDescription ? shortDescription : book.shortDescription
-                  }
-                  onChange={handleShortDescription}
-                />
-                <div
-                  className="input-container-option"
-                  onClick={() =>
-                    document.getElementsByName("shortdescription")[0].focus()
-                  }
-                >
-                  Short Description
-                </div>
-              </div>
-              {shortDescriptionError && (
-                <span className="wrong-info">
-                  <AiFillExclamationCircle />
-                  {shortDescriptionError}
                 </span>
               )}
               <div className="input-container textarea-input">
@@ -293,7 +269,7 @@ const BooksForm = () => {
                     document.getElementsByName("longdescription")[0].focus()
                   }
                 >
-                  Long description
+                  Description
                 </div>
               </div>
               {longDescriptionError && (
@@ -428,7 +404,30 @@ const BooksForm = () => {
                   <AiFillExclamationCircle /> {priceError}{" "}
                 </span>
               )}
-
+                            <div className="input-container">
+                <input
+                  type="text"
+                  name="shortdescription"
+                  defaultValue={
+                    shortDescription ? shortDescription : book.shortDescription
+                  }
+                  onChange={handleShortDescription}
+                />
+                <div
+                  className="input-container-option"
+                  onClick={() =>
+                    document.getElementsByName("shortdescription")[0].focus()
+                  }
+                >
+                  Additional Information
+                </div>
+              </div>
+              {shortDescriptionError && (
+                <span className="wrong-info">
+                  <AiFillExclamationCircle />
+                  {shortDescriptionError}
+                </span>
+              )}
               {/* <button type="submit" className={`btn btn-primary sign ${!isFormValid ? 'disabled' : ''}`}>  */}
               <div className="buttons">
                 {ButtonCards === "UpdateBook" ? (

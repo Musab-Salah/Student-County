@@ -366,12 +366,12 @@ const Patients = () => {
         {showDropdownGender && (
           <div className="options" id="input-dropdown">
             <div className="option-title">Select gender</div>
-            <div className="option" onClick={() => handleGenderChange("male")}>
+            <div className="option" onClick={() => handleGenderChange("Male")}>
               Male
             </div>
             <div
               className="option"
-              onClick={() => handleGenderChange("female")}
+              onClick={() => handleGenderChange("Female")}
             >
               Female
             </div>

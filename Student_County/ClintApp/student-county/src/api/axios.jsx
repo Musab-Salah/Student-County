@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "https://localhost:7245/";
+const BASE_URL = "https://studentcountytestapi.azurewebsites.net/";
 // https://localhost:7245/
 // https://studentcountytestapi.azurewebsites.net/
 axios.defaults.withCredentials = true;

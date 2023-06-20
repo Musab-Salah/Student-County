@@ -208,7 +208,18 @@ const RideForm = () => {
             className="form-create"
             onSubmit={handleSubmit}
           >
+            <div className="form-title ">
+              Add A New <span style={{ color: "#8D37FF" }}>&nbsp;Ride.</span>{" "}
+            </div>
+            <div className="vertical-line" />
             <div className="form-input-container">
+              <div className="form-title-paragraph ">
+                Ride Details
+                <div className="form-paragraph">
+                  Please provide the following details about the ride you are
+                  adding.
+                </div>
+              </div>
               <div className="input-container">
                 <input
                   maxLength={40}
@@ -234,59 +245,6 @@ const RideForm = () => {
                   {carDescriptionError}
                 </span>
               )}
-              <div className="input-container">
-                <input
-                  type="text"
-                  name="shortdescription"
-                  defaultValue={
-                    shortDescription ? shortDescription : ride.shortDescription
-                  }
-                  onChange={handleShortDescription}
-                  maxLength={100}
-                />
-                <div
-                  className="input-container-option"
-                  onClick={() =>
-                    document.getElementsByName("shortdescription")[0].focus()
-                  }
-                >
-                  Short Description
-                </div>
-              </div>
-              {shortDescriptionError && (
-                <span className="wrong-info">
-                  <AiFillExclamationCircle />
-                  {shortDescriptionError}
-                </span>
-              )}
-              <div className="input-container textarea-input">
-                <textarea
-                  maxLength={300}
-                  type="text"
-                  defaultValue={
-                    longDescription ? longDescription : ride.longDescription
-                  }
-                  name="longdescription"
-                  onChange={handleLongDescription}
-                  className="input-container "
-                  required
-                />
-                <div
-                  className="input-container-option textarea-input-placeholder"
-                  onClick={() =>
-                    document.getElementsByName("longdescription")[0].focus()
-                  }
-                >
-                  Long description
-                </div>
-              </div>
-              {longDescriptionError && (
-                <span className="wrong-info">
-                  <AiFillExclamationCircle />
-                  {longDescriptionError}
-                </span>
-              )}
-
               <div className="custom-select">
                 <div
                   className="selected-option"
@@ -294,12 +252,12 @@ const RideForm = () => {
                 >
                   {!location ? (
                     <div className="input-container-option input-dropdown">
-                      Select Youre Location
+                      Select Your Location
                     </div>
                   ) : (
                     <div>
                       <div className="input-container-option input-dropdown-title">
-                        Select Youre Location
+                        Select Your Location
                       </div>
                       <div className="input-container-option input-dropdown input-selected">
                         {location.cityName}
@@ -312,7 +270,7 @@ const RideForm = () => {
                 </div>
                 {showDropdownLocation && (
                   <div className="options" id="input-dropdown">
-                    <div className="option-title"> Select Youre Location</div>
+                    <div className="option-title"> Select Your Location</div>
                     {Object.values(Locations).map((Location) => (
                       <div
                         className="option"
@@ -357,11 +315,68 @@ const RideForm = () => {
                   <AiFillExclamationCircle /> {emptySeatsError}{" "}
                 </span>
               )}
-
+             <div className="form-title-paragraph ">
+                Additional Details
+                <div className="form-paragraph">
+                Can you provide more info about the ride? ex: Estimated duration, roads and towns to be traversed, and any planned stops before arriving at the university etc...
+                </div>
+              </div>
+              <div className="input-container textarea-input">
+                <textarea
+                  maxLength={300}
+                  type="text"
+                  defaultValue={
+                    longDescription ? longDescription : ride.longDescription
+                  }
+                  name="longdescription"
+                  onChange={handleLongDescription}
+                  className="input-container "
+                  required
+                />
+                <div
+                  className="input-container-option textarea-input-placeholder"
+                  onClick={() =>
+                    document.getElementsByName("longdescription")[0].focus()
+                  }
+                >
+                  Description.
+                </div>
+              </div>
+              {longDescriptionError && (
+                <span className="wrong-info">
+                  <AiFillExclamationCircle />
+                  {longDescriptionError}
+                </span>
+              )}
+                            <div className="input-container">
+                <input
+                  type="text"
+                  name="shortdescription"
+                  defaultValue={
+                    shortDescription ? shortDescription : ride.shortDescription
+                  }
+                  onChange={handleShortDescription}
+                  maxLength={100}
+                />
+                <div
+                  className="input-container-option"
+                  onClick={() =>
+                    document.getElementsByName("shortdescription")[0].focus()
+                  }
+                >
+                  Additional Info
+                </div>
+              </div>
+              {shortDescriptionError && (
+                <span className="wrong-info">
+                  <AiFillExclamationCircle />
+                  {shortDescriptionError}
+                </span>
+              )}
               {/* <button type="submit" className={`btn btn-primary sign ${!isFormValid ? 'disabled' : ''}`}>  */}
               <div className="buttons">
                 {ButtonCards === "UpdateRide" ? (
-                  <button type="submit" className={`btn btn-primary `}>
+                  <button type="submit" className={`btn btn-primary btn-fill`}>
                     <div
                       className="loader"
                       style={{
@@ -371,7 +386,7 @@ const RideForm = () => {
                     Update
                   </button>
                 ) : (
-                  <button type="submit" className={`btn btn-primary `}>
+                  <button type="submit" className={`btn btn-primary btn-fill `}>
                     <div
                       className="loader"
                       style={{
@@ -382,7 +397,10 @@ const RideForm = () => {
                   </button>
                 )}
                 {ButtonCards === "UpdateRide" ? (
-                  <button onClick={handleDelete} className={`btn btn-primary `}>
+                  <button
+                    onClick={handleDelete}
+                    className={`btn btn-primary btn-fill `}
+                  >
                     <div
                       className="loader"
                       style={{
@@ -396,7 +414,7 @@ const RideForm = () => {
                 )}
                 <button
                   onClick={() => setButtonCards("")}
-                  className={`btn btn-secondary `}
+                  className={`btn btn-secondary btn-fill`}
                 >
                   Cancel
                 </button>

@@ -7,22 +7,32 @@ import useLoader from "../../../../hooks/useLoader";
 import PatientCard from "../patient_card/PatientCard";
 import HousingCard from "../../Housing/housing_card/HousingCard";
 import HousingForm from "../../Housing/housing_form/HousingForm";
+import useAuth from "../../../../hooks/useAuth";
+import useUserRelationData from "../../../../hooks/useUserRelationData";
 
 const PatientSection = ({ filteredValue }) => {
+  const { decodedJwt } = useAuth();
   const { getPatient, PatientSuccess, setPatients, Patients } = usePatient();
   const { PatientLoader } = useLoader();
-  const SORT_TYPES = ["Name", "Date", "Age"];
-  const [showDropdownType, setShowDropdownType] = useState("");
+  const SORT_TYPES = ["Gender", "Date", "Age"];
+  const SORT_TYPES_OWNE = ["Gender", "Date", "Age"];
+  const { MyPatients, UserRelationDataLoader } = useUserRelationData();
+  const [maxCards, setMaxCards] = useState(3);
+
+  const [SortTypeOwne, setSortTypeOwne] = useState("");
   const [sortType, setSortType] = useState("");
   const [showDropdownSort, setShowDropdownSort] = useState("");
-
+  const [showDropdownSortOwne, setShowDropdownSortOwne] = useState("");
+  const handleShowMore = () => {
+    setMaxCards(maxCards + 3);
+  };
   useMemo(() => {
     const handleOutsideClick = (event) => {
       if (
         !event.target.closest(".custom-select") &&
         !event.target.closest(".input-container-option")
       ) {
-        setShowDropdownType(false);
+        setShowDropdownSortOwne(false);
         setShowDropdownSort(false);
       }
     };
@@ -31,7 +41,7 @@ const PatientSection = ({ filteredValue }) => {
       document.removeEventListener("click", handleOutsideClick);
     };
     // eslint-disable-next-line
-  }, [showDropdownType, showDropdownSort]);
+  }, [showDropdownSortOwne, showDropdownSort]);
 
   useEffect(() => {
     getPatient();
@@ -46,6 +56,11 @@ const PatientSection = ({ filteredValue }) => {
   const handleSortChange = (sort) => {
     setSortType(sort);
     setShowDropdownSort(false);
+  };
+
+  const handleSortOwneChange = (sort) => {
+    setSortTypeOwne(sort);
+    setShowDropdownSortOwne(false);
   };
 
   const formatDate = (dateString) => {
@@ -84,6 +99,137 @@ const PatientSection = ({ filteredValue }) => {
       <Helmet>
         <title>Patient</title>
       </Helmet>
+      <div
+        className="service-container-owne"
+        style={{ display: MyPatients.length !== 0 ? "flex" : "none" }}
+      >
+        <div className="services-head">
+          <div className="services-head-title">Your Patients</div>
+          <div className="filterboxs">
+            <div className="input-group">
+              <div className="custom-select">
+                <div
+                  className="selected-option"
+                  onClick={() => setShowDropdownSortOwne(!showDropdownSortOwne)}
+                >
+                  {!SortTypeOwne ? (
+                    <div className="input-container-option input-dropdown">
+                      Sort By
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="input-container-option input-dropdown-title">
+                        Sort By
+                      </div>
+                      <div className="input-container-option input-dropdown input-selected">
+                        {SortTypeOwne}
+                      </div>
+                    </div>
+                  )}
+
+                  <RiArrowDownSLine className="arrow-icon" />
+                </div>
+                {showDropdownSortOwne && (
+                  <div className="options" id="input-dropdown">
+                    <div className="option-title">Sort By</div>
+                    {SORT_TYPES_OWNE.map((sort, index) => (
+                      <div
+                        key={index}
+                        className="option"
+                        onClick={() => handleSortOwneChange(sort)}
+                      >
+                        {sort}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="cards-owne">
+          <div
+            className="loader-overview"
+            style={{ display: UserRelationDataLoader ? "block" : "none" }}
+          >
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+          </div>
+
+          {!sortType &&
+            Object.values(MyPatients)
+              .slice(0, maxCards)
+              .map((patient) => (
+                <PatientCard
+                  lastName={patient.lastName}
+                  firstName={patient.firstName}
+                  age={patient.age}
+                  gender={patient.gender}
+                  typeOfTreatment={patient.typeOfTreatment}
+                  createdOn={formatDate(patient.createdOn)}
+                  key={patient.id}
+                  id={patient.id}
+                  userId={patient.userId}
+                />
+              ))}
+          {sortType === "Gender" &&
+            Object.values(MyPatients)
+              .sort((a, b) => (a.gender > b.gender ? 1 : -1))
+              .slice(0, maxCards)
+              .map((patient) => (
+                <PatientCard
+                  lastName={patient.lastName}
+                  firstName={patient.firstName}
+                  age={patient.age}
+                  gender={patient.gender}
+                  typeOfTreatment={patient.typeOfTreatment}
+                  createdOn={formatDate(patient.createdOn)}
+                  key={patient.id}
+                  id={patient.id}
+                  userId={patient.userId}
+                />
+              ))}
+          {sortType === "Date" &&
+            Object.values(MyPatients)
+              .sort((a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn))
+              .slice(0, maxCards)
+              .map((patient) => (
+                <PatientCard
+                  lastName={patient.lastName}
+                  firstName={patient.firstName}
+                  age={patient.age}
+                  gender={patient.gender}
+                  typeOfTreatment={patient.typeOfTreatment}
+                  createdOn={formatDate(patient.createdOn)}
+                  key={patient.id}
+                  id={patient.id}
+                  userId={patient.userId}
+                />
+              ))}
+          {sortType === "Age" &&
+            Object.values(MyPatients)
+              .sort((a, b) => b.age - a.age)
+              .slice(0, maxCards)
+              .map((patient) => (
+                <PatientCard
+                  lastName={patient.lastName}
+                  firstName={patient.firstName}
+                  age={patient.age}
+                  gender={patient.gender}
+                  typeOfTreatment={patient.typeOfTreatment}
+                  createdOn={formatDate(patient.createdOn)}
+                  key={patient.id}
+                  id={patient.id}
+                  userId={patient.userId}
+                />
+              ))}
+        </div>
+      </div>
       <div className="service-container">
         <div className="services-head">
           <div className="services-head-title">Find Services</div>
@@ -145,37 +291,8 @@ const PatientSection = ({ filteredValue }) => {
 
           {!filteredValue
             ? !sortType &&
-              Object.values(Patients).map((patient) => (
-                <PatientCard
-                  lastName={patient.lastName}
-                  firstName={patient.firstName}
-                  age={patient.age}
-                  gender={patient.gender}
-                  typeOfTreatment={patient.typeOfTreatment}
-                  createdOn={formatDate(patient.createdOn)}
-                  key={patient.id}
-                  id={patient.id}
-                  userId={patient.userId}
-                />
-              ))
-            : !sortType &&
-              Object.values(filteredValue).map((patient) => (
-                <PatientCard
-                  lastName={patient.lastName}
-                  firstName={patient.firstName}
-                  age={patient.age}
-                  gender={patient.gender}
-                  typeOfTreatment={patient.typeOfTreatment}
-                  createdOn={formatDate(patient.createdOn)}
-                  key={patient.id}
-                  id={patient.id}
-                  userId={patient.userId}
-                />
-              ))}
-          {!filteredValue
-            ? sortType === "Name" &&
               Object.values(Patients)
-                .sort((a, b) => (a.userName > b.userName ? 1 : -1))
+                .filter((patient) => patient.userId !== decodedJwt.uid)
                 .map((patient) => (
                   <PatientCard
                     lastName={patient.lastName}
@@ -189,9 +306,9 @@ const PatientSection = ({ filteredValue }) => {
                     userId={patient.userId}
                   />
                 ))
-            : sortType === "Name" &&
+            : !sortType &&
               Object.values(filteredValue)
-                .sort((a, b) => (a.userName > b.userName ? 1 : -1))
+                .filter((patient) => patient.userId !== decodedJwt.uid)
                 .map((patient) => (
                   <PatientCard
                     lastName={patient.lastName}
@@ -205,9 +322,47 @@ const PatientSection = ({ filteredValue }) => {
                     userId={patient.userId}
                   />
                 ))}
+
+          {!filteredValue
+            ? sortType === "Gender" &&
+              Object.values(Patients)
+                .filter((patient) => patient.userId !== decodedJwt.uid)
+                .sort((a, b) => (a.gender > b.gender ? 1 : -1))
+                .map((patient) => (
+                  <PatientCard
+                    lastName={patient.lastName}
+                    firstName={patient.firstName}
+                    age={patient.age}
+                    gender={patient.gender}
+                    typeOfTreatment={patient.typeOfTreatment}
+                    createdOn={formatDate(patient.createdOn)}
+                    key={patient.id}
+                    id={patient.id}
+                    userId={patient.userId}
+                  />
+                ))
+            : sortType === "Gender" &&
+              Object.values(filteredValue)
+                .filter((patient) => patient.userId !== decodedJwt.uid)
+                .sort((a, b) => (a.gender > b.gender ? 1 : -1))
+                .map((patient) => (
+                  <PatientCard
+                    lastName={patient.lastName}
+                    firstName={patient.firstName}
+                    age={patient.age}
+                    gender={patient.gender}
+                    typeOfTreatment={patient.typeOfTreatment}
+                    createdOn={formatDate(patient.createdOn)}
+                    key={patient.id}
+                    id={patient.id}
+                    userId={patient.userId}
+                  />
+                ))}
+
           {!filteredValue
             ? sortType === "Date" &&
               Object.values(Patients)
+                .filter((patient) => patient.userId !== decodedJwt.uid)
                 .sort(
                   (a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn)
                 )
@@ -226,6 +381,7 @@ const PatientSection = ({ filteredValue }) => {
                 ))
             : sortType === "Date" &&
               Object.values(filteredValue)
+                .filter((patient) => patient.userId !== decodedJwt.uid)
                 .sort(
                   (a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn)
                 )
@@ -242,9 +398,11 @@ const PatientSection = ({ filteredValue }) => {
                     userId={patient.userId}
                   />
                 ))}
+
           {!filteredValue
             ? sortType === "Age" &&
               Object.values(Patients)
+                .filter((patient) => patient.userId !== decodedJwt.uid)
                 .sort((a, b) => b.age - a.age)
                 .map((patient) => (
                   <PatientCard
@@ -261,6 +419,7 @@ const PatientSection = ({ filteredValue }) => {
                 ))
             : sortType === "Age" &&
               Object.values(filteredValue)
+                .filter((patient) => patient.userId !== decodedJwt.uid)
                 .sort((a, b) => b.age - a.age)
                 .map((patient) => (
                   <PatientCard

@@ -50,8 +50,8 @@ namespace Student_County.BusinessLogic.Ride
         {
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == bo.StudentId);
             var entity = bo.MapBoToEntity();
+            entity.Gender = user.Gender;
             entity.StudentName = user.FirstName + " " + user.LastName;
-
             if (id == 0)
             {
                 entity.CreatedBy = user.UserName;

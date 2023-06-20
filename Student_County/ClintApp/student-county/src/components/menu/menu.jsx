@@ -222,7 +222,7 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone, setIsMenuOpenPhone }) => {
                     </div>
                   </div>
                 </WithPermission>
-                {/* <WithPermission ScopeRole={["Dentistry Student", "Admin"]}> */}
+                <WithPermission ScopeRole={["Dentistry Student", "Admin"]}>
                   <div
                     className={`dash-nav-link ${
                       isMenuOpen ? "padding-resize" : ""
@@ -238,7 +238,7 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone, setIsMenuOpenPhone }) => {
                       Patients
                     </div>
                   </div>
-                {/* </WithPermission> */}
+                </WithPermission>
               </div>
             )}
           </div>
@@ -248,7 +248,7 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone, setIsMenuOpenPhone }) => {
         <div className="dash-menu-items">
           <div
             className={`dash-nav-link ${isMenuOpen ? "padding-resize" : ""} ${
-              OptionMenu === "Setting" ? "selected" : ""
+              OptionMenu === "Setting" ? "active" : ""
             } `}
             onClick={() => setOptionMenu("Setting")}
           >
@@ -261,7 +261,7 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone, setIsMenuOpenPhone }) => {
               </div>
             </div>
           </div>
-          <div
+          {/* <div
             className={`dash-nav-link ${isMenuOpen ? "padding-resize" : ""} ${
               OptionMenu === "Support" ? "selected" : ""
             } `}
@@ -275,7 +275,7 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone, setIsMenuOpenPhone }) => {
                 Support
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="vertical-line" />
         <div className="user-container">

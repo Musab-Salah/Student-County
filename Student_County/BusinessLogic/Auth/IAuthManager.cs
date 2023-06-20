@@ -7,7 +7,7 @@ namespace Student_County.BusinessLogic.Auth
 {
     public interface IAuthManager
     {
-        Task<AuthModel> RegisterStudentAsync(StudentRegisterModel model);
+        Task<AuthModel> RegisterStudentAsync(StudentRegisterModel model,string userid="");
         Task<AuthModel> RegisterPatientAsync (PatientRegisterModel model);
 
         Task<AuthModel> GetTokenAsync(TokenRequestModel model);

@@ -1,6 +1,11 @@
 import React, { useState, createContext, useEffect, useMemo } from "react";
 import useAuth from "../hooks/useAuth";
 import UserRelationDataServices from "../services/UserRelationDataServices";
+import useHousings from "../hooks/useHousings";
+import usePatient from "../hooks/usePatient";
+import useRides from "../hooks/useRides";
+import useTools from "../hooks/useTools";
+import useBooks from "../hooks/useBooks";
 
 const UserRelationDataCxt = createContext();
 
@@ -10,6 +15,8 @@ export function UserRelationDatasProvider({ children }) {
   const [AllRecentActivity, setAllRecentActivity] = useState(""); //[0]books ,[1]housings,[2]rides,[3]tools,[4]patients
   const [UserRelationDataLoader, setUserRelationDataLoader] = useState("");
   const [BooksActivity, setBooksActivity] = useState("");
+  const [User, setUser] = useState("");
+
   const [HousingsActivity, setHousingsActivity] = useState("");
   const [RidesActivity, setRidesActivity] = useState("");
   const [ToolsActivity, setToolsActivity] = useState("");
@@ -20,9 +27,19 @@ export function UserRelationDatasProvider({ children }) {
   const [MyHousings, setMyHousings] = useState([]); //all user housings
   const [MyRides, setMyRides] = useState([]); //all user Rides
   const [MyPatients, setMyPatients] = useState([]); //all user patients
-
+  const { BookSuccess } = useBooks();
+  const { HousingSuccess } = useHousings();
+  const { PatientSuccess } = usePatient();
+  const { RideSuccess } = useRides();
+  const { ToolsSuccess } = useTools();
   const [UserRelationDataError, setError] = useState("");
+  const [UserSuccess, setUserSuccess] = useState("");
+  const [buttonsFormUserLoader, setButtonsFormUserLoader] = useState("");
 
+  const cleanupUserSuccess = () =>
+    sleep(2000).then(() => {
+      setUserSuccess("");
+    });
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const cleanupError = () =>
     sleep(5000).then(() => {
@@ -35,7 +52,14 @@ export function UserRelationDatasProvider({ children }) {
       getAllRecentActivity();
     }
     // eslint-disable-next-line
-  }, [isLogin]);
+  }, [
+    isLogin,
+    BookSuccess,
+    HousingSuccess,
+    PatientSuccess,
+    RideSuccess,
+    ToolsSuccess,
+  ]);
   useEffect(() => {
     if (MyUserRelationData && decodedJwt.roles !== "Patient") {
       if (MyUserRelationData[0]) setMyBooks(MyUserRelationData[0]);
@@ -86,6 +110,35 @@ export function UserRelationDatasProvider({ children }) {
       .finally(() => setUserRelationDataLoader(false));
   };
 
+  const getUser = () => {
+    setUserRelationDataLoader(true);
+    UserRelationDataServices.getUser(decodedJwt.uid, token)
+      .then((res) => {
+        setUser(res.data);
+        setError(null);
+      })
+      .catch(() => {
+        setError("Failed bring the User Data...");
+        cleanupError();
+      })
+      .finally(() => setUserRelationDataLoader(false));
+  };
+
+  const updateUser = (id, Bo) => {
+    setButtonsFormUserLoader(true);
+    UserRelationDataServices.updateUser(id, Bo, token)
+      .then((res) => {
+        setUserSuccess("Successfully Updated .");
+        cleanupUserSuccess();
+        setError(null);
+      })
+      .catch(() => {
+        setError("Failed update ...");
+        cleanupError();
+      })
+      .finally(() => setButtonsFormUserLoader(false));
+  };
+
   return (
     <UserRelationDataCxt.Provider
       value={{
@@ -105,6 +158,11 @@ export function UserRelationDatasProvider({ children }) {
         setMyHousings,
         setMyRides,
         setMyPatients,
+        User,
+        getUser,
+        UserSuccess,
+        updateUser,
+        buttonsFormUserLoader
       }}
     >
       {children}

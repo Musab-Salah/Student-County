@@ -14,25 +14,30 @@ const BookCard = ({
   theWay,
   condition,
   price,
-  shortDescription,
+  longDescription,
   name,
 }) => {
   const { setButtonCards } = useComponent();
   const { getBookById } = useBooks();
   const { decodedJwt } = useAuth();
+  const maxLength = 20;
 
+  if (longDescription.length > maxLength) {
+    const truncatedText = longDescription.substring(0, maxLength) + "...";
+    longDescription = truncatedText;
+  }
   return (
     <>
       <div className="book-card-container">
         <div className="book-card-data">
           <div className="book-card-profile">
-            <BiBook className="housing-card-avatar"/>
+            <BiBook className="housing-card-avatar" />
             <div className="book-card-info">
               <div className="book-card-name">
                 {" "}
-                {name} •{price} ₪
+                {name} •{price === 0 ? "Free" : `${price}₪`}
               </div>
-              <div className="book-card-address">{shortDescription}</div>
+              <div className="book-card-address">{longDescription}</div>
             </div>
           </div>
           <div className="book-card-action">

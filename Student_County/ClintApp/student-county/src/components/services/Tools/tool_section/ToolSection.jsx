@@ -5,22 +5,33 @@ import { RiArrowDownSLine } from "react-icons/ri";
 import "./ToolSection.css";
 import { Helmet } from "react-helmet";
 import useLoader from "../../../../hooks/useLoader";
+import useAuth from "../../../../hooks/useAuth";
+import useUserRelationData from "../../../../hooks/useUserRelationData";
 
 const ToolSection = ({ filteredValue }) => {
+  const { decodedJwt } = useAuth();
+  const { MyTools, UserRelationDataLoader } = useUserRelationData();
   const { Tools, getTools, ToolsSuccess, setTools } = useTools();
   const { ToolLoader } = useLoader();
   const SORT_TYPES = ["Name", "Date", "Price"];
-  const [showDropdownType, setShowDropdownType] = useState("");
+  const SORT_TYPES_OWNE = ["Name", "Date", "Price"];
+  const [maxCards, setMaxCards] = useState(3);
+
+  const [SortTypeOwne, setSortTypeOwne] = useState("");
   const [sortType, setSortType] = useState("");
   const [showDropdownSort, setShowDropdownSort] = useState("");
+  const [showDropdownSortOwne, setShowDropdownSortOwne] = useState("");
 
+  const handleShowMore = () => {
+    setMaxCards(maxCards + 3);
+  };
   useMemo(() => {
     const handleOutsideClick = (event) => {
       if (
         !event.target.closest(".custom-select") &&
         !event.target.closest(".input-container-option")
       ) {
-        setShowDropdownType(false);
+        setShowDropdownSortOwne(false);
         setShowDropdownSort(false);
       }
     };
@@ -29,7 +40,7 @@ const ToolSection = ({ filteredValue }) => {
       document.removeEventListener("click", handleOutsideClick);
     };
     // eslint-disable-next-line
-  }, [showDropdownType, showDropdownSort]);
+  }, [showDropdownSortOwne, showDropdownSort]);
 
   useEffect(() => {
     getTools();
@@ -44,6 +55,11 @@ const ToolSection = ({ filteredValue }) => {
   const handleSortChange = (sort) => {
     setSortType(sort);
     setShowDropdownSort(false);
+  };
+
+  const handleSortOwneChange = (sort) => {
+    setSortTypeOwne(sort);
+    setShowDropdownSortOwne(false);
   };
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -81,6 +97,141 @@ const ToolSection = ({ filteredValue }) => {
       <Helmet>
         <title>Tool</title>
       </Helmet>
+      <div
+        className="service-container-owne"
+        style={{ display: MyTools.length !== 0 ? "flex" : "none" }}
+      >
+        <div className="services-head">
+          <div className="services-head-title">Your Tools</div>
+          <div className="filterboxs">
+            <div className="input-group">
+              <div className="custom-select">
+                <div
+                  className="selected-option"
+                  onClick={() => setShowDropdownSortOwne(!showDropdownSortOwne)}
+                >
+                  {!SortTypeOwne ? (
+                    <div className="input-container-option input-dropdown">
+                      Sort By
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="input-container-option input-dropdown-title">
+                        Sort By
+                      </div>
+                      <div className="input-container-option input-dropdown input-selected">
+                        {SortTypeOwne}
+                      </div>
+                    </div>
+                  )}
+
+                  <RiArrowDownSLine className="arrow-icon" />
+                </div>
+                {showDropdownSortOwne && (
+                  <div className="options" id="input-dropdown">
+                    <div className="option-title">Sort By</div>
+                    {SORT_TYPES_OWNE.map((sort, index) => (
+                      <div
+                        key={index}
+                        className="option"
+                        onClick={() => handleSortOwneChange(sort)}
+                      >
+                        {sort}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="cards-owne">
+          <div
+            className="loader-overview"
+            style={{ display: UserRelationDataLoader ? "block" : "none" }}
+          >
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+          </div>
+
+          {!sortType &&
+            Object.values(MyTools)
+              .slice(0, maxCards)
+              .map((tool) => (
+                <ToolCard
+                  createdOn={formatDate(tool.createdOn)}
+                  id={tool.id}
+                  studentId={tool.studentId}
+                  theWay={tool.theWay}
+                  condition={tool.condition}
+                  price={tool.price}
+                  shortDescription={tool.shortDescription}
+                  name={tool.name}
+                  longDescription={tool.longDescription}
+                  key={tool.id}
+                />
+              ))}
+          {sortType === "Name" &&
+            Object.values(MyTools)
+              .sort((a, b) => (a.name > b.name ? 1 : -1))
+              .slice(0, maxCards)
+              .map((tool) => (
+                <ToolCard
+                  createdOn={formatDate(tool.createdOn)}
+                  id={tool.id}
+                  studentId={tool.studentId}
+                  theWay={tool.theWay}
+                  condition={tool.condition}
+                  price={tool.price}
+                  shortDescription={tool.shortDescription}
+                  name={tool.name}
+                  longDescription={tool.longDescription}
+                  key={tool.id}
+                />
+              ))}
+          {sortType === "Date" &&
+            Object.values(MyTools)
+              .sort((a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn))
+              .slice(0, maxCards)
+              .map((tool) => (
+                <ToolCard
+                  createdOn={formatDate(tool.createdOn)}
+                  id={tool.id}
+                  studentId={tool.studentId}
+                  theWay={tool.theWay}
+                  condition={tool.condition}
+                  price={tool.price}
+                  shortDescription={tool.shortDescription}
+                  name={tool.name}
+                  longDescription={tool.longDescription}
+                  key={tool.id}
+                />
+              ))}
+          {sortType === "Price" &&
+            Object.values(MyTools)
+              .sort((a, b) => b.price - a.price)
+              .slice(0, maxCards)
+              .map((tool) => (
+                <ToolCard
+                  createdOn={formatDate(tool.createdOn)}
+                  id={tool.id}
+                  studentId={tool.studentId}
+                  theWay={tool.theWay}
+                  condition={tool.condition}
+                  price={tool.price}
+                  shortDescription={tool.shortDescription}
+                  name={tool.name}
+                  longDescription={tool.longDescription}
+                  key={tool.id}
+                />
+              ))}
+        </div>
+      </div>
       <div className="service-container">
         <div className="services-head">
           <div className="services-head-title">Find Services</div>
@@ -140,38 +291,46 @@ const ToolSection = ({ filteredValue }) => {
             <div className="loader-square"></div>
           </div>
 
-          {Tools && !filteredValue
+          {!filteredValue
             ? !sortType &&
-              Object.values(Tools).map((tool) => (
-                <ToolCard
-                  createdOn={formatDate(tool.createdOn)}
-                  id={tool.id}
-                  studentId={tool.studentId}
-                  theWay={tool.theWay}
-                  condition={tool.condition}
-                  price={tool.price}
-                  shortDescription={tool.shortDescription}
-                  name={tool.name}
-                  key={tool.id}
-                />
-              ))
+              Object.values(Tools)
+                .filter((tool) => tool.studentId !== decodedJwt.uid)
+                .map((tool) => (
+                  <ToolCard
+                    createdOn={formatDate(tool.createdOn)}
+                    id={tool.id}
+                    studentId={tool.studentId}
+                    theWay={tool.theWay}
+                    condition={tool.condition}
+                    price={tool.price}
+                    shortDescription={tool.shortDescription}
+                    name={tool.name}
+                    longDescription={tool.longDescription}
+                    key={tool.id}
+                  />
+                ))
             : !sortType &&
-              Object.values(filteredValue).map((tool) => (
-                <ToolCard
-                  createdOn={formatDate(tool.createdOn)}
-                  id={tool.id}
-                  studentId={tool.studentId}
-                  theWay={tool.theWay}
-                  condition={tool.condition}
-                  price={tool.price}
-                  shortDescription={tool.shortDescription}
-                  name={tool.name}
-                  key={tool.id}
-                />
-              ))}
-          {Tools && !filteredValue
+              Object.values(filteredValue)
+                .filter((tool) => tool.studentId !== decodedJwt.uid)
+                .map((tool) => (
+                  <ToolCard
+                    createdOn={formatDate(tool.createdOn)}
+                    id={tool.id}
+                    studentId={tool.studentId}
+                    theWay={tool.theWay}
+                    condition={tool.condition}
+                    price={tool.price}
+                    shortDescription={tool.shortDescription}
+                    name={tool.name}
+                    longDescription={tool.longDescription}
+                    key={tool.id}
+                  />
+                ))}
+
+          {!filteredValue
             ? sortType === "Name" &&
               Object.values(Tools)
+                .filter((tool) => tool.studentId !== decodedJwt.uid)
                 .sort((a, b) => (a.name > b.name ? 1 : -1))
                 .map((tool) => (
                   <ToolCard
@@ -183,11 +342,13 @@ const ToolSection = ({ filteredValue }) => {
                     price={tool.price}
                     shortDescription={tool.shortDescription}
                     name={tool.name}
+                    longDescription={tool.longDescription}
                     key={tool.id}
                   />
                 ))
             : sortType === "Name" &&
               Object.values(filteredValue)
+                .filter((tool) => tool.studentId !== decodedJwt.uid)
                 .sort((a, b) => (a.name > b.name ? 1 : -1))
                 .map((tool) => (
                   <ToolCard
@@ -199,12 +360,15 @@ const ToolSection = ({ filteredValue }) => {
                     price={tool.price}
                     shortDescription={tool.shortDescription}
                     name={tool.name}
+                    longDescription={tool.longDescription}
                     key={tool.id}
                   />
                 ))}
-          {Tools && !filteredValue
+
+          {!filteredValue
             ? sortType === "Date" &&
               Object.values(Tools)
+                .filter((tool) => tool.studentId !== decodedJwt.uid)
                 .sort(
                   (a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn)
                 )
@@ -218,11 +382,13 @@ const ToolSection = ({ filteredValue }) => {
                     price={tool.price}
                     shortDescription={tool.shortDescription}
                     name={tool.name}
+                    longDescription={tool.longDescription}
                     key={tool.id}
                   />
                 ))
             : sortType === "Date" &&
               Object.values(filteredValue)
+                .filter((tool) => tool.studentId !== decodedJwt.uid)
                 .sort(
                   (a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn)
                 )
@@ -236,12 +402,15 @@ const ToolSection = ({ filteredValue }) => {
                     price={tool.price}
                     shortDescription={tool.shortDescription}
                     name={tool.name}
+                    longDescription={tool.longDescription}
                     key={tool.id}
                   />
                 ))}
-          {Tools && !filteredValue
+
+          {!filteredValue
             ? sortType === "Price" &&
               Object.values(Tools)
+                .filter((tool) => tool.studentId !== decodedJwt.uid)
                 .sort((a, b) => b.price - a.price)
                 .map((tool) => (
                   <ToolCard
@@ -253,11 +422,13 @@ const ToolSection = ({ filteredValue }) => {
                     price={tool.price}
                     shortDescription={tool.shortDescription}
                     name={tool.name}
+                    longDescription={tool.longDescription}
                     key={tool.id}
                   />
                 ))
             : sortType === "Price" &&
               Object.values(filteredValue)
+                .filter((tool) => tool.studentId !== decodedJwt.uid)
                 .sort((a, b) => b.price - a.price)
                 .map((tool) => (
                   <ToolCard
@@ -269,6 +440,7 @@ const ToolSection = ({ filteredValue }) => {
                     price={tool.price}
                     shortDescription={tool.shortDescription}
                     name={tool.name}
+                    longDescription={tool.longDescription}
                     key={tool.id}
                   />
                 ))}

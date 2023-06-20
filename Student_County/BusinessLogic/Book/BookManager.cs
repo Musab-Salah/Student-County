@@ -57,11 +57,11 @@ namespace Student_County.BusinessLogic.Book
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == bo.StudentId); 
             var entity = bo.MapBoToEntity();
             entity.StudentName = user.FirstName + " " + user.LastName;
+            var uni = await _university.GetUniversity(user.UniversityId);
+            entity.University = uni.Name;
             if (id == 0)
             {
                 entity.CreatedBy = user.UserName;
-                var uni = await _university.GetUniversity(user.UniversityId);
-                entity.University = uni.Name;
                 _context.Add(entity);
             }
             else if (id != 0)

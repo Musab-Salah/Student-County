@@ -47,7 +47,7 @@ const BooksView = () => {
         >
           <div className="section-view">
             <div className="book-image-container">
-              <div className="book-image" />
+              <img className="book-image" src="./assets/images/services/book-view.svg"/>
               <div className="book-owner">
                 <TbCrown className="book-owner-icon" />
                 <div className="book-owner-name">{Book.studentName}</div>

@@ -77,13 +77,13 @@ const Home = () => {
                   </span>
                 </div>
                 <div className="buttons">
-                  <Link to="/dashboard/book-store">
+                  <Link to="/sign_in">
                     <button className="btn btn-primary">
                       Book Store
                       <TbArrowNarrowRight className="arrow-right-icon" />
                     </button>
                   </Link>
-                  <Link to="/services/book-store">
+                  <Link to="/sign_in">
                     <button className="btn btn-secondary">
                       Learn More
                       <TbArrowNarrowRight className="arrow-right-icon" />
@@ -116,13 +116,13 @@ const Home = () => {
                   </span>
                 </div>
                 <div className="buttons">
-                  <Link to="/dashboard/housing">
+                  <Link to="/sign_in">
                     <button className="btn btn-primary">
                       Housing Service
                       <TbArrowNarrowRight className="arrow-right-icon" />
                     </button>
                   </Link>
-                  <Link to="/services/housing">
+                  <Link to="/sign_in">
                     <button className="btn btn-secondary">
                       Learn More
                       <TbArrowNarrowRight className="arrow-right-icon" />
@@ -144,13 +144,13 @@ const Home = () => {
                   </span>
                 </div>
                 <div className="buttons">
-                  <Link to="/dashboard/riding">
+                  <Link to="/sign_in">
                     <button className="btn btn-primary">
                       Riding Service
                       <TbArrowNarrowRight className="arrow-right-icon" />
                     </button>
                   </Link>
-                  <Link to="/services/riding">
+                  <Link to="/sign_in">
                     <button className="btn btn-secondary">
                       Learn More
                       <TbArrowNarrowRight className="arrow-right-icon" />
@@ -211,7 +211,7 @@ const Home = () => {
           <div className="feature-question">
             Not convinced yet? You can go to the services page to learn more
             about our services
-            <Link to="/services">
+            <Link to="/sign_in">
               <button className="btn btn-primary">
                 Learn More
                 <TbArrowNarrowRight className="arrow-right-icon" />

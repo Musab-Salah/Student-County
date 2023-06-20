@@ -5,14 +5,22 @@ import { Helmet } from "react-helmet";
 import useLoader from "../../../../hooks/useLoader";
 import HousingCard from "../housing_card/HousingCard";
 import useHousings from "../../../../hooks/useHousings";
+import useUserRelationData from "../../../../hooks/useUserRelationData";
+import useAuth from "../../../../hooks/useAuth";
 
 const HousingSection = ({ filteredValue }) => {
   const { getHousings, HousingSuccess, setHousings, Housings } = useHousings();
   const { HousingLoader } = useLoader();
-  const SORT_TYPES = ["Name", "Date", "Age"];
-  const [showDropdownType, setShowDropdownType] = useState("");
+  const SORT_TYPES = ["Gender", "Date", "Rental Price"];
+  const SORT_TYPES_OWNE = ["Gender", "Date", "Rental Price"];
+  const [maxCards, setMaxCards] = useState(3);
+
+  const [sortTypeOwne, setSortTypeOwne] = useState("");
   const [sortType, setSortType] = useState("");
+  const [showDropdownSortOwne, setShowDropdownSortOwne] = useState("");
   const [showDropdownSort, setShowDropdownSort] = useState("");
+  const { MyHousings, UserRelationDataLoader } = useUserRelationData();
+  const { decodedJwt } = useAuth();
 
   useMemo(() => {
     const handleOutsideClick = (event) => {
@@ -20,7 +28,7 @@ const HousingSection = ({ filteredValue }) => {
         !event.target.closest(".custom-select") &&
         !event.target.closest(".input-container-option")
       ) {
-        setShowDropdownType(false);
+        setShowDropdownSortOwne(false);
         setShowDropdownSort(false);
       }
     };
@@ -29,7 +37,7 @@ const HousingSection = ({ filteredValue }) => {
       document.removeEventListener("click", handleOutsideClick);
     };
     // eslint-disable-next-line
-  }, [showDropdownType, showDropdownSort]);
+  }, [showDropdownSortOwne, showDropdownSort]);
 
   useEffect(() => {
     getHousings();
@@ -44,6 +52,15 @@ const HousingSection = ({ filteredValue }) => {
   const handleSortChange = (sort) => {
     setSortType(sort);
     setShowDropdownSort(false);
+  };
+
+  const handleSortOwneChange = (sort) => {
+    setSortTypeOwne(sort);
+    setShowDropdownSortOwne(false);
+  };
+
+  const handleShowMore = () => {
+    setMaxCards(maxCards + 3);
   };
 
   const formatDate = (dateString) => {
@@ -82,6 +99,154 @@ const HousingSection = ({ filteredValue }) => {
       <Helmet>
         <title>Housing</title>
       </Helmet>
+
+      <div
+        className="service-container-owne"
+        style={{ display: MyHousings.length !== 0 ? "flex" : "none" }}
+      >
+        <div className="services-head">
+          <div className="services-head-title">Your Housing</div>
+          <div className="filterboxs">
+            <div className="input-group">
+              <div className="custom-select">
+                <div
+                  className="selected-option"
+                  onClick={() => setShowDropdownSortOwne(!showDropdownSortOwne)}
+                >
+                  {!sortTypeOwne ? (
+                    <div className="input-container-option input-dropdown">
+                      Sort By
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="input-container-option input-dropdown-title">
+                        Sort By
+                      </div>
+                      <div className="input-container-option input-dropdown input-selected">
+                        {sortTypeOwne}
+                      </div>
+                    </div>
+                  )}
+
+                  <RiArrowDownSLine className="arrow-icon" />
+                </div>
+                {showDropdownSortOwne && (
+                  <div className="options" id="input-dropdown">
+                    <div className="option-title">Sort By</div>
+                    {SORT_TYPES_OWNE.map((sort, index) => (
+                      <div
+                        key={index}
+                        className="option"
+                        onClick={() => handleSortOwneChange(sort)}
+                      >
+                        {sort}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="cards-owne">
+          <div
+            className="loader-overview"
+            style={{ display: UserRelationDataLoader ? "block" : "none" }}
+          >
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+          </div>
+
+          {!sortType &&
+            Object.values(MyHousings)
+              .slice(0, maxCards)
+              .map((housing) => (
+                <HousingCard
+                  studentName={housing.studentName}
+                  createdOn={formatDate(housing.createdOn)}
+                  key={housing.id}
+                  id={housing.id}
+                  studentId={housing.studentId}
+                  homeType={housing.homeType}
+                  rentalPrice={housing.rentalPrice}
+                  address={housing.address}
+                  city={housing.city}
+                  province={housing.province}
+                  typeOfContract={housing.typeOfContract}
+                  bedRoom={housing.bedRoom}
+                  bathRoom={housing.bathRoom}
+                />
+              ))}
+          {sortType === "Gender" &&
+            Object.values(MyHousings)
+              .sort((a, b) => (a.gender > b.gender ? 1 : -1))
+              .slice(0, maxCards)
+              .map((housing) => (
+                <HousingCard
+                  studentName={housing.studentName}
+                  createdOn={formatDate(housing.createdOn)}
+                  key={housing.id}
+                  id={housing.id}
+                  studentId={housing.studentId}
+                  homeType={housing.homeType}
+                  rentalPrice={housing.rentalPrice}
+                  address={housing.address}
+                  city={housing.city}
+                  province={housing.province}
+                  typeOfContract={housing.typeOfContract}
+                  bedRoom={housing.bedRoom}
+                  bathRoom={housing.bathRoom}
+                />
+              ))}
+          {sortType === "Date" &&
+            Object.values(MyHousings)
+              .sort((a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn))
+              .slice(0, maxCards)
+              .map((housing) => (
+                <HousingCard
+                  studentName={housing.studentName}
+                  createdOn={formatDate(housing.createdOn)}
+                  key={housing.id}
+                  id={housing.id}
+                  studentId={housing.studentId}
+                  homeType={housing.homeType}
+                  rentalPrice={housing.rentalPrice}
+                  address={housing.address}
+                  city={housing.city}
+                  province={housing.province}
+                  typeOfContract={housing.typeOfContract}
+                  bedRoom={housing.bedRoom}
+                  bathRoom={housing.bathRoom}
+                />
+              ))}
+          {sortType === "Rental Price" &&
+            Object.values(MyHousings)
+              .sort((a, b) => b.rentalPrice - a.rentalPrice)
+              .slice(0, maxCards)
+              .map((housing) => (
+                <HousingCard
+                  studentName={housing.studentName}
+                  createdOn={formatDate(housing.createdOn)}
+                  key={housing.id}
+                  id={housing.id}
+                  studentId={housing.studentId}
+                  homeType={housing.homeType}
+                  rentalPrice={housing.rentalPrice}
+                  address={housing.address}
+                  city={housing.city}
+                  province={housing.province}
+                  typeOfContract={housing.typeOfContract}
+                  bedRoom={housing.bedRoom}
+                  bathRoom={housing.bathRoom}
+                />
+              ))}
+        </div>
+      </div>
       <div className="service-container">
         <div className="services-head">
           <div className="services-head-title">Find Services</div>
@@ -143,45 +308,8 @@ const HousingSection = ({ filteredValue }) => {
 
           {!filteredValue
             ? !sortType &&
-              Object.values(Housings).map((housing) => (
-                <HousingCard
-                  studentName={housing.studentName}
-                  createdOn={formatDate(housing.createdOn)}
-                  key={housing.id}
-                  id={housing.id}
-                  studentId={housing.studentId}
-                  homeType={housing.homeType}
-                  rentalPrice={housing.rentalPrice}
-                  address={housing.address}
-                  city={housing.city}
-                  province={housing.province}
-                  typeOfContract={housing.typeOfContract}
-                  bedRoom={housing.bedRoom}
-                  bathRoom={housing.bathRoom}
-                />
-              ))
-            : !sortType &&
-              Object.values(filteredValue).map((housing) => (
-                <HousingCard
-                  studentName={housing.studentName}
-                  createdOn={formatDate(housing.createdOn)}
-                  key={housing.id}
-                  id={housing.id}
-                  studentId={housing.studentId}
-                  homeType={housing.homeType}
-                  rentalPrice={housing.rentalPrice}
-                  address={housing.address}
-                  city={housing.city}
-                  province={housing.province}
-                  typeOfContract={housing.typeOfContract}
-                  bedRoom={housing.bedRoom}
-                  bathRoom={housing.bathRoom}
-                />
-              ))}
-          {!filteredValue
-            ? sortType === "Name" &&
               Object.values(Housings)
-                .sort((a, b) => (a.userName > b.userName ? 1 : -1))
+                .filter((housing) => housing.studentId !== decodedJwt.uid)
                 .map((housing) => (
                   <HousingCard
                     studentName={housing.studentName}
@@ -199,9 +327,9 @@ const HousingSection = ({ filteredValue }) => {
                     bathRoom={housing.bathRoom}
                   />
                 ))
-            : sortType === "Name" &&
+            : !sortType &&
               Object.values(filteredValue)
-                .sort((a, b) => (a.userName > b.userName ? 1 : -1))
+                .filter((housing) => housing.studentId !== decodedJwt.uid)
                 .map((housing) => (
                   <HousingCard
                     studentName={housing.studentName}
@@ -219,9 +347,55 @@ const HousingSection = ({ filteredValue }) => {
                     bathRoom={housing.bathRoom}
                   />
                 ))}
+
+          {!filteredValue
+            ? sortType === "Gender" &&
+              Object.values(Housings)
+                .filter((housing) => housing.studentId !== decodedJwt.uid)
+                .sort((a, b) => (a.gender > b.gender ? 1 : -1))
+                .map((housing) => (
+                  <HousingCard
+                    studentName={housing.studentName}
+                    createdOn={formatDate(housing.createdOn)}
+                    key={housing.id}
+                    id={housing.id}
+                    studentId={housing.studentId}
+                    homeType={housing.homeType}
+                    rentalPrice={housing.rentalPrice}
+                    address={housing.address}
+                    city={housing.city}
+                    province={housing.province}
+                    typeOfContract={housing.typeOfContract}
+                    bedRoom={housing.bedRoom}
+                    bathRoom={housing.bathRoom}
+                  />
+                ))
+            : sortType === "Gender" &&
+              Object.values(filteredValue)
+                .filter((housing) => housing.studentId !== decodedJwt.uid)
+                .sort((a, b) => (a.gender > b.gender ? 1 : -1))
+                .map((housing) => (
+                  <HousingCard
+                    studentName={housing.studentName}
+                    createdOn={formatDate(housing.createdOn)}
+                    key={housing.id}
+                    id={housing.id}
+                    studentId={housing.studentId}
+                    homeType={housing.homeType}
+                    rentalPrice={housing.rentalPrice}
+                    address={housing.address}
+                    city={housing.city}
+                    province={housing.province}
+                    typeOfContract={housing.typeOfContract}
+                    bedRoom={housing.bedRoom}
+                    bathRoom={housing.bathRoom}
+                  />
+                ))}
+
           {!filteredValue
             ? sortType === "Date" &&
               Object.values(Housings)
+                .filter((housing) => housing.studentId !== decodedJwt.uid)
                 .sort(
                   (a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn)
                 )
@@ -244,6 +418,7 @@ const HousingSection = ({ filteredValue }) => {
                 ))
             : sortType === "Date" &&
               Object.values(filteredValue)
+                .filter((housing) => housing.studentId !== decodedJwt.uid)
                 .sort(
                   (a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn)
                 )
@@ -264,10 +439,12 @@ const HousingSection = ({ filteredValue }) => {
                     bathRoom={housing.bathRoom}
                   />
                 ))}
+
           {!filteredValue
-            ? sortType === "Age" &&
+            ? sortType === "Rental Price" &&
               Object.values(Housings)
-                .sort((a, b) => b.age - a.age)
+                .filter((housing) => housing.studentId !== decodedJwt.uid)
+                .sort((a, b) => b.rentalPrice - a.rentalPrice)
                 .map((housing) => (
                   <HousingCard
                     studentName={housing.studentName}
@@ -285,9 +462,10 @@ const HousingSection = ({ filteredValue }) => {
                     bathRoom={housing.bathRoom}
                   />
                 ))
-            : sortType === "Age" &&
+            : sortType === "Rental Price" &&
               Object.values(filteredValue)
-                .sort((a, b) => b.age - a.age)
+                .filter((housing) => housing.studentId !== decodedJwt.uid)
+                .sort((a, b) => b.rentalPrice - a.rentalPrice)
                 .map((housing) => (
                   <HousingCard
                     studentName={housing.studentName}

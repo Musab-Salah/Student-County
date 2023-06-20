@@ -6,24 +6,35 @@ import "./RideSection.css";
 import { Helmet } from "react-helmet";
 import useLoader from "../../../../hooks/useLoader";
 import useLocation from "../../../../hooks/useLocation";
+import useAuth from "../../../../hooks/useAuth";
+import useUserRelationData from "../../../../hooks/useUserRelationData";
 
 const RideSection = ({ filteredValue }) => {
+  const { decodedJwt } = useAuth();
   const { Rides, getRides, RideSuccess, setRides } = useRides();
   const { getLocations, Locations } = useLocation();
   const { RideLoader } = useLoader();
-  const SORT_TYPES = ["Name", "Date", "Price"];
-  const [showDropdownType, setShowDropdownType] = useState("");
+  const SORT_TYPES = ["Gender", "Date", "Empty Seats"];
+  const SORT_TYPES_OWNE = ["Gender", "Date", "Empty Seats"];
+  const [maxCards, setMaxCards] = useState(3);
+
+  const [SortTypeOwne, setSortTypeOwne] = useState("");
   const [sortType, setSortType] = useState("");
   const [showDropdownSort, setShowDropdownSort] = useState("");
-  const [nowLocation, setNowLocation] = useState("");
+  const [showDropdownSortOwne, setShowDropdownSortOwne] = useState("");
+  const { MyRides, UserRelationDataLoader } = useUserRelationData();
 
+  const [nowLocation, setNowLocation] = useState("");
+  const handleShowMore = () => {
+    setMaxCards(maxCards + 3);
+  };
   useMemo(() => {
     const handleOutsideClick = (event) => {
       if (
         !event.target.closest(".custom-select") &&
         !event.target.closest(".input-container-option")
       ) {
-        setShowDropdownType(false);
+        setShowDropdownSortOwne(false);
         setShowDropdownSort(false);
       }
     };
@@ -32,7 +43,7 @@ const RideSection = ({ filteredValue }) => {
       document.removeEventListener("click", handleOutsideClick);
     };
     // eslint-disable-next-line
-  }, [showDropdownType, showDropdownSort]);
+  }, [showDropdownSortOwne, showDropdownSort]);
 
   const getMyLocation = (locationId) => {
     const foundLocation = Locations.find(
@@ -55,6 +66,11 @@ const RideSection = ({ filteredValue }) => {
   const handleSortChange = (sort) => {
     setSortType(sort);
     setShowDropdownSort(false);
+  };
+
+  const handleSortOwneChange = (sort) => {
+    setSortTypeOwne(sort);
+    setShowDropdownSortOwne(false);
   };
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -92,6 +108,145 @@ const RideSection = ({ filteredValue }) => {
       <Helmet>
         <title>Ride</title>
       </Helmet>
+      <div
+        className="service-container-owne"
+        style={{ display: MyRides.length !== 0 ? "flex" : "none" }}
+      >
+        <div className="services-head">
+          <div className="services-head-title">Your Ride</div>
+          <div className="filterboxs">
+            <div className="input-group">
+              <div className="custom-select">
+                <div
+                  className="selected-option"
+                  onClick={() => setShowDropdownSortOwne(!showDropdownSortOwne)}
+                >
+                  {!SortTypeOwne ? (
+                    <div className="input-container-option input-dropdown">
+                      Sort By
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="input-container-option input-dropdown-title">
+                        Sort By
+                      </div>
+                      <div className="input-container-option input-dropdown input-selected">
+                        {SortTypeOwne}
+                      </div>
+                    </div>
+                  )}
+
+                  <RiArrowDownSLine className="arrow-icon" />
+                </div>
+                {showDropdownSortOwne && (
+                  <div className="options" id="input-dropdown">
+                    <div className="option-title">Sort By</div>
+                    {SORT_TYPES_OWNE.map((sort, index) => (
+                      <div
+                        key={index}
+                        className="option"
+                        onClick={() => handleSortOwneChange(sort)}
+                      >
+                        {sort}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="cards-owne">
+          <div
+            className="loader-overview"
+            style={{ display: UserRelationDataLoader ? "block" : "none" }}
+          >
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+            <div className="loader-square"></div>
+          </div>
+
+          {!sortType &&
+            Object.values(MyRides)
+              .slice(0, maxCards)
+              .map((ride) => (
+                <RideCard
+                  createdOn={formatDate(ride.createdOn)}
+                  key={ride.id}
+                  id={ride.id}
+                  ride={ride}
+                  studentId={ride.studentId}
+                  carDescription={ride.carDescription}
+                  shortDescription={ride.shortDescription}
+                  emptySeats={ride.emptySeats}
+                  locationId={ride.locationId}
+                  longDescription={ride.longDescription}
+                  gender={ride.gender}
+                />
+              ))}
+          {sortType === "Gender" &&
+            Object.values(MyRides)
+              .sort((a, b) => (a.gender > b.gender ? 1 : -1))
+              .slice(0, maxCards)
+              .map((ride) => (
+                <RideCard
+                  createdOn={formatDate(ride.createdOn)}
+                  key={ride.id}
+                  id={ride.id}
+                  ride={ride}
+                  studentId={ride.studentId}
+                  carDescription={ride.carDescription}
+                  shortDescription={ride.shortDescription}
+                  emptySeats={ride.emptySeats}
+                  locationId={ride.locationId}
+                  longDescription={ride.longDescription}
+                  gender={ride.gender}
+                />
+              ))}
+          {sortType === "Date" &&
+            Object.values(MyRides)
+              .sort((a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn))
+              .slice(0, maxCards)
+              .map((ride) => (
+                <RideCard
+                  createdOn={formatDate(ride.createdOn)}
+                  key={ride.id}
+                  id={ride.id}
+                  ride={ride}
+                  studentId={ride.studentId}
+                  carDescription={ride.carDescription}
+                  shortDescription={ride.shortDescription}
+                  emptySeats={ride.emptySeats}
+                  locationId={ride.locationId}
+                  longDescription={ride.longDescription}
+                  gender={ride.gender}
+                />
+              ))}
+          {sortType === "Empty Seats" &&
+            Object.values(MyRides)
+              .sort((a, b) => b.emptySeats - a.emptySeats)
+              .slice(0, maxCards)
+              .map((ride) => (
+                <RideCard
+                  createdOn={formatDate(ride.createdOn)}
+                  key={ride.id}
+                  id={ride.id}
+                  ride={ride}
+                  studentId={ride.studentId}
+                  carDescription={ride.carDescription}
+                  shortDescription={ride.shortDescription}
+                  emptySeats={ride.emptySeats}
+                  locationId={ride.locationId}
+                  longDescription={ride.longDescription}
+                  gender={ride.gender}
+                />
+              ))}
+        </div>
+      </div>
       <div className="service-container">
         <div className="services-head">
           <div className="services-head-title">Find Services</div>
@@ -150,40 +305,10 @@ const RideSection = ({ filteredValue }) => {
             <div className="loader-square"></div>
             <div className="loader-square"></div>
           </div>
-
           {!filteredValue
             ? !sortType &&
-              Object.values(Rides).map((ride) => (
-                <RideCard
-                  createdOn={formatDate(ride.createdOn)}
-                  key={ride.id}
-                  id={ride.id}
-                  ride={ride}
-                  studentId={ride.studentId}
-                  carDescription={ride.carDescription}
-                  shortDescription={ride.shortDescription}
-                  emptySeats={ride.emptySeats}
-                  locationId={ride.locationId}
-                />
-              ))
-            : !sortType &&
-              Object.values(filteredValue).map((ride) => (
-                <RideCard
-                  createdOn={formatDate(ride.createdOn)}
-                  key={ride.id}
-                  id={ride.id}
-                  ride={ride}
-                  studentId={ride.studentId}
-                  carDescription={ride.carDescription}
-                  shortDescription={ride.shortDescription}
-                  emptySeats={ride.emptySeats}
-                  locationId={ride.locationId}
-                />
-              ))}
-          {!filteredValue
-            ? sortType === "Name" &&
               Object.values(Rides)
-                .sort((a, b) => (a.name > b.name ? 1 : -1))
+                .filter((ride) => ride.studentId !== decodedJwt.uid)
                 .map((ride) => (
                   <RideCard
                     createdOn={formatDate(ride.createdOn)}
@@ -195,11 +320,13 @@ const RideSection = ({ filteredValue }) => {
                     shortDescription={ride.shortDescription}
                     emptySeats={ride.emptySeats}
                     locationId={ride.locationId}
+                    longDescription={ride.longDescription}
+                    gender={ride.gender}
                   />
                 ))
-            : sortType === "Name" &&
+            : !sortType &&
               Object.values(filteredValue)
-                .sort((a, b) => (a.name > b.name ? 1 : -1))
+                .filter((ride) => ride.studentId !== decodedJwt.uid)
                 .map((ride) => (
                   <RideCard
                     createdOn={formatDate(ride.createdOn)}
@@ -211,11 +338,55 @@ const RideSection = ({ filteredValue }) => {
                     shortDescription={ride.shortDescription}
                     emptySeats={ride.emptySeats}
                     locationId={ride.locationId}
+                    longDescription={ride.longDescription}
+                    gender={ride.gender}
                   />
                 ))}
+
+          {!filteredValue
+            ? sortType === "Gender" &&
+              Object.values(Rides)
+                .filter((ride) => ride.studentId !== decodedJwt.uid)
+                .sort((a, b) => (a.gender > b.gender ? 1 : -1))
+                .map((ride) => (
+                  <RideCard
+                    createdOn={formatDate(ride.createdOn)}
+                    key={ride.id}
+                    id={ride.id}
+                    ride={ride}
+                    studentId={ride.studentId}
+                    carDescription={ride.carDescription}
+                    shortDescription={ride.shortDescription}
+                    emptySeats={ride.emptySeats}
+                    locationId={ride.locationId}
+                    longDescription={ride.longDescription}
+                    gender={ride.gender}
+                  />
+                ))
+            : sortType === "Gender" &&
+              Object.values(filteredValue)
+                .filter((ride) => ride.studentId !== decodedJwt.uid)
+                .sort((a, b) => (a.gender > b.gender ? 1 : -1))
+                .map((ride) => (
+                  <RideCard
+                    createdOn={formatDate(ride.createdOn)}
+                    key={ride.id}
+                    id={ride.id}
+                    ride={ride}
+                    studentId={ride.studentId}
+                    carDescription={ride.carDescription}
+                    shortDescription={ride.shortDescription}
+                    emptySeats={ride.emptySeats}
+                    locationId={ride.locationId}
+                    longDescription={ride.longDescription}
+                    gender={ride.gender}
+                  />
+                ))}
+
           {!filteredValue
             ? sortType === "Date" &&
               Object.values(Rides)
+                .filter((ride) => ride.studentId !== decodedJwt.uid)
                 .sort(
                   (a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn)
                 )
@@ -230,10 +401,13 @@ const RideSection = ({ filteredValue }) => {
                     shortDescription={ride.shortDescription}
                     emptySeats={ride.emptySeats}
                     locationId={ride.locationId}
+                    longDescription={ride.longDescription}
+                    gender={ride.gender}
                   />
                 ))
             : sortType === "Date" &&
               Object.values(filteredValue)
+                .filter((ride) => ride.studentId !== decodedJwt.uid)
                 .sort(
                   (a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn)
                 )
@@ -248,12 +422,16 @@ const RideSection = ({ filteredValue }) => {
                     shortDescription={ride.shortDescription}
                     emptySeats={ride.emptySeats}
                     locationId={ride.locationId}
+                    longDescription={ride.longDescription}
+                    gender={ride.gender}
                   />
                 ))}
+
           {!filteredValue
-            ? sortType === "Price" &&
+            ? sortType === "Empty Seats" &&
               Object.values(Rides)
-                .sort((a, b) => b.price - a.price)
+                .filter((ride) => ride.studentId !== decodedJwt.uid)
+                .sort((a, b) => b.emptySeats - a.emptySeats)
                 .map((ride) => (
                   <RideCard
                     createdOn={formatDate(ride.createdOn)}
@@ -265,11 +443,14 @@ const RideSection = ({ filteredValue }) => {
                     shortDescription={ride.shortDescription}
                     emptySeats={ride.emptySeats}
                     locationId={ride.locationId}
+                    longDescription={ride.longDescription}
+                    gender={ride.gender}
                   />
                 ))
-            : sortType === "Price" &&
+            : sortType === "Empty Seats" &&
               Object.values(filteredValue)
-                .sort((a, b) => b.price - a.price)
+                .filter((ride) => ride.studentId !== decodedJwt.uid)
+                .sort((a, b) => b.emptySeats - a.emptySeats)
                 .map((ride) => (
                   <RideCard
                     createdOn={formatDate(ride.createdOn)}
@@ -281,6 +462,8 @@ const RideSection = ({ filteredValue }) => {
                     shortDescription={ride.shortDescription}
                     emptySeats={ride.emptySeats}
                     locationId={ride.locationId}
+                    longDescription={ride.longDescription}
+                    gender={ride.gender}
                   />
                 ))}
         </div>

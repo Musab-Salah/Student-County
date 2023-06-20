@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import PrivateRoutes from "./certificates/PrivateRoutes";
 import { lazy, Suspense } from "react";
 import Home from "./pages/home/Home";
@@ -35,9 +35,11 @@ function App() {
           element={<ResetPassword />}
         />
         <Route path="/success" element={<Success />} />
+
         <Route element={<PrivateRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Suspense>
   );

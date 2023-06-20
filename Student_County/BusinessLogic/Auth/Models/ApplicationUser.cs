@@ -25,7 +25,7 @@ namespace Student_County.BusinessLogic.Auth.Models
         public int UniversityId { get; set; }
 
         public int CollegeId { get; set; }
-
+        [JsonIgnore]
         public List<RefreshToken>? RefreshTokens { get; set; }
 
         public UniversityEntity? University { get; set; }

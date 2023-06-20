@@ -10,17 +10,23 @@ const RideCard = ({
   createdOn,
   id,
   studentId,
-  shortDescription,
+  longDescription,
   locationId,
   carDescription,
   emptySeats,
+  gender,
 }) => {
   const { setButtonCards } = useComponent();
   const { Location, getLocationById } = useLocation();
   const { getRideById } = useRides();
   const { decodedJwt } = useAuth();
   const [nowLocation, setNowLocation] = useState("");
+  const maxLength = 20;
 
+  if (longDescription.length > maxLength) {
+    const truncatedText = longDescription.substring(0, maxLength) + "...";
+    longDescription = truncatedText;
+  }
   useEffect(() => {
     if (locationId) getLocationById(locationId);
   }, [locationId]);
@@ -35,7 +41,7 @@ const RideCard = ({
             <IoCarOutline className="housing-card-avatar" />
             <div className="ride-card-info">
               <div className="ride-card-name">{carDescription}</div>
-              <div className="ride-card-address">{shortDescription}</div>
+              <div className="ride-card-address">{longDescription}</div>
             </div>
           </div>
           <div className="ride-card-action">
@@ -59,13 +65,13 @@ const RideCard = ({
         <div className="ride-card-room">
           <div className="ride-card-inroom">
             {nowLocation.cityName ? nowLocation.cityName : ""}
+            {" , "} {nowLocation.townName ? nowLocation.townName : ""}
           </div>
-          <div className="ride-card-inroom">
-            {nowLocation.townName ? nowLocation.townName : ""}
-          </div>
+
           <div className="ride-card-inroom">
             Have {emptySeats} Seats Available
           </div>
+          <div className="ride-card-inroom">{gender}</div>
         </div>
       </div>
     </>

@@ -63,8 +63,8 @@ const HousingCard = ({
         </div>
         <div className="housing-card-room">
           <div className="housing-card-inroom">{typeOfContract}</div>
-          <div className="housing-card-inroom">{bedRoom}</div>
-          <div className="housing-card-inroom">{bathRoom}</div>
+          <div className="housing-card-inroom">Bed Room: {bedRoom}</div>
+          <div className="housing-card-inroom">Bath Room: {bathRoom}</div>
         </div>
       </div>
     </>

@@ -8,7 +8,6 @@
   gap: var(--gap-31xl);
 }
 
-
 .hero-image-icon {
   position: relative;
   border-radius: var(--br-11xl) var(--br-11xl) var(--br-mini) var(--br-11xl);
@@ -20,12 +19,14 @@
   object-fit: cover;
 }
 
-.cards {
+
+.cards-owne {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   align-self: stretch;
   justify-content: center;
   flex-wrap: wrap;
   gap: var(--gap-31xl);
+  /*overflow: auto;*/
 }

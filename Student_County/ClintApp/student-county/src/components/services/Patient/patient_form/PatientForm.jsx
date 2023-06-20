@@ -440,7 +440,7 @@ const PatientForm = () => {
               >
                 <div className="form-title">
                   Add A New
-                  <span className="form-title-sw">Patient.</span>
+                  <span className="form-title-sw">&nbsp;Patient.</span>
                 </div>
                 <div className="steps-container">
                   <div className="step-line"></div>
@@ -460,6 +460,13 @@ const PatientForm = () => {
                   <div className="step-line"></div>
                 </div>
                 <div className="form-input-container">
+                  <div className="form-title-paragraph ">
+                    Patient Info
+                    <div className="form-paragraph">
+                      Please provide the following details about the patient you are
+                      adding.
+                    </div>
+                  </div>
                   <div className="input-group">
                     <div className="input-container-group">
                       <div className="input-container">
@@ -734,7 +741,7 @@ const PatientForm = () => {
               >
                 <div className="form-title">
                   Add A New
-                  <span className="form-title-sw">Patient.</span>
+                  <span className="form-title-sw">&nbsp;Patient.</span>
                 </div>
                 <div className="steps-container">
                   <div className="step-line"></div>
@@ -757,6 +764,12 @@ const PatientForm = () => {
                   <div className="step-line"></div>
                 </div>
                 <div className="form-input-container">
+                <div className="form-title-paragraph ">
+                    Patient Status
+                    <div className="form-paragraph">
+                    Please provide the patient's medical details for a better understanding of their condition, ensuring appropriate action.
+                    </div>
+                  </div>
                   <div className="input-group">
                     <div className="input-container-group">
                       <div className="input-container">

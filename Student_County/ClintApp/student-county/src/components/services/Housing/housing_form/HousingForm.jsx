@@ -361,7 +361,7 @@ const HousingForm = () => {
                 className="form-create"
               >
                 <div className="form-title ">
-                  Add A New <span style={{ color: "#8D37FF" }}>House.</span>{" "}
+                  Add A New <span style={{ color: "#8D37FF" }}>&nbsp;House.</span>{" "}
                 </div>
                 <StepForm currentStep={step} />
                 <div className="form-input-container">
@@ -457,7 +457,7 @@ const HousingForm = () => {
               >
                 <div className="form-title ">
                   Tell us about your{" "}
-                  <span style={{ color: "#8D37FF" }}>House.</span>{" "}
+                  <span style={{ color: "#8D37FF" }}>&nbsp;House.</span>{" "}
                 </div>
                 <StepForm currentStep={step} />
                 <div className="form-input-container">
@@ -707,7 +707,7 @@ const HousingForm = () => {
               >
                 <div className="form-title ">
                   Tell us about your{" "}
-                  <span style={{ color: "#8D37FF" }}>House.</span>{" "}
+                  <span style={{ color: "#8D37FF" }}>&nbsp;House.</span>{" "}
                 </div>
                 <StepForm currentStep={step} />
                 <div className="form-input-container">

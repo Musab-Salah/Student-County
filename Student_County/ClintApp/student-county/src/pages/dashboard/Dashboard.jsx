@@ -15,7 +15,7 @@ import BooksView from "../../components/services/books/books_view/BooksView";
 import BooksForm from "../../components/services/books/books_form/BooksForm";
 import "./Dashboard.css";
 import ChatController from "../../components/chat/ChatController";
-import useUserRelationData from "../../hooks/UserRelationData";
+import useUserRelationData from "../../hooks/useUserRelationData";
 import PatientForm from "../../components/services/Patient/patient_form/PatientForm";
 import PatientSection from "../../components/services/Patient/patient_section/PatientSection";
 import usePatient from "../../hooks/usePatient";
@@ -32,6 +32,7 @@ import useRides from "./../../hooks/useRides";
 import RideSection from "../../components/services/Ride/ride_section/RideSection";
 import RideView from "../../components/services/Ride/ride_view/RideView";
 import RideForm from "../../components/services/Ride/ride_form/RideForm";
+import Setting from "../../components/setting/Setting";
 
 const Dashboard = () => {
   const { Books } = useBooks();
@@ -100,21 +101,28 @@ const Dashboard = () => {
   }, []);
 
   const filteredValue = useMemo(() => {
-    // if (OptionMenu === "Overview" ) {
+    // if (OptionMenu === "Overview") {
     //   return Object.values(MyBooks).filter((Book) => {
-    //     return Book.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
-    //       Book.shortDescription
-    //       ? Book.shortDescription
-    //           .toLowerCase()
-    //           .includes(deferredInput.toLowerCase())
-    //       : "".toLowerCase().includes(deferredInput.toLowerCase()) ||
-    //           Book.longDescription
-    //             .toLowerCase()
-    //             .includes(deferredInput.toLowerCase());
+    //     return (
+    //       Book.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
+    //       Book.longDescription
+    //         .toLowerCase()
+    //         .includes(deferredInput.toLowerCase())
+    //     );
     //   });
     // }
-    // if (OptionMenu === "Overview" ) {
-    //   return Object.values(MyTools).filter((housing) => {
+    // if (OptionMenu === "Overview") {
+    //   return Object.values(MyTools).filter((tool) => {
+    //     return (
+    //       tool.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
+    //       tool.longDescription
+    //         .toLowerCase()
+    //         .includes(deferredInput.toLowerCase())
+    //     );
+    //   });
+    // }
+    // if (OptionMenu === "Overview") {
+    //   return Object.values(MyHousings).filter((housing) => {
     //     return (
     //       housing.city.toLowerCase().includes(deferredInput.toLowerCase()) ||
     //       housing.province
@@ -124,32 +132,19 @@ const Dashboard = () => {
     //     );
     //   });
     // }
-    // if (OptionMenu === "Overview" ) {
-    //   return Object.values(MyHousings).filter((ride) => {
-    //     return ride.shortDescription
-    //       ? ride.shortDescription
-    //           .toLowerCase()
-    //           .includes(deferredInput.toLowerCase())
-    //       : "".toLowerCase().includes(deferredInput.toLowerCase()) ||
-    //           ride.longDescription
-    //             .toLowerCase()
-    //             .includes(deferredInput.toLowerCase());
+    // if (OptionMenu === "Overview") {
+    //   return Object.values(MyRides).filter((ride) => {
+    //     return (
+    //       ride.longDescription
+    //         .toLowerCase()
+    //         .includes(deferredInput.toLowerCase()) ||
+    //       ride.carDescription
+    //         .toLowerCase()
+    //         .includes(deferredInput.toLowerCase())
+    //     );
     //   });
     // }
-    // if (OptionMenu === "Overview" ) {
-    //   return Object.values(MyRides).filter((tool) => {
-    //     return tool.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
-    //       tool.shortDescription
-    //       ? tool.shortDescription
-    //           .toLowerCase()
-    //           .includes(deferredInput.toLowerCase())
-    //       : "".toLowerCase().includes(deferredInput.toLowerCase()) ||
-    //           tool.longDescription
-    //             .toLowerCase()
-    //             .includes(deferredInput.toLowerCase());
-    //   });
-    // }
-    // if (OptionMenu === "Overview" ) {
+    // if (OptionMenu === "Overview") {
     //   return Object.values(MyPatients).filter((patient) => {
     //     return (
     //       patient.userName
@@ -163,19 +158,12 @@ const Dashboard = () => {
     //         .includes(deferredInput.toLowerCase())
     //     );
     //   });
-    // }
-    // /////
-    // else
+    // } else
+    /////
     if (OptionMenu === "Books") {
       return Object.values(Books).filter((Book) => {
         return (
           Book.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
-          (Book.shortDescription &&
-            Book.shortDescription
-              .toLowerCase()
-              .includes(deferredInput.toLowerCase())
-              .toLowerCase()
-              .includes(deferredInput.toLowerCase())) ||
           Book.longDescription
             .toLowerCase()
             .includes(deferredInput.toLowerCase())
@@ -209,10 +197,6 @@ const Dashboard = () => {
       return Object.values(Tools).filter((tool) => {
         return (
           tool.name.toLowerCase().includes(deferredInput.toLowerCase()) ||
-          (tool.shortDescription &&
-            tool.shortDescription
-              .toLowerCase()
-              .includes(deferredInput.toLowerCase())) ||
           tool.longDescription
             .toLowerCase()
             .includes(deferredInput.toLowerCase())
@@ -221,13 +205,10 @@ const Dashboard = () => {
     } else if (OptionMenu === "Ride") {
       return Object.values(Rides).filter((ride) => {
         return (
-          (ride.shortDescription &&
-            ride.shortDescription
-              .toLowerCase()
-              .includes(deferredInput.toLowerCase())
-              .toLowerCase()
-              .includes(deferredInput.toLowerCase())) ||
           ride.longDescription
+            .toLowerCase()
+            .includes(deferredInput.toLowerCase()) ||
+          ride.carDescription
             .toLowerCase()
             .includes(deferredInput.toLowerCase())
         );
@@ -281,7 +262,7 @@ const Dashboard = () => {
       {ButtonCards === "ViewRide" && <RideView />}
 
       <div style={{ opacity: ButtonCards ? 0.2 : 1 }}>
-        <div className={`dashboard-container `}>
+        <div className={`dashboard-container  `}>
           <Menu
             isMenuOpen={isMenuOpen}
             isMenuOpenPhone={isMenuOpenPhone}
@@ -311,25 +292,30 @@ const Dashboard = () => {
               <div className="right-navbar">
                 <div className="tools">
                   <div className="input-wrapper" onClick={handleOutsideClick}>
-                    <div
-                      className={`search-box ${
-                        isSearchOpen ? "searchOpen" : ""
-                      }`}
-                    >
-                      <input
-                        placeholder="Search..."
-                        className="input-search"
-                        name="text"
-                        type="text"
-                        value={query}
-                        maxLength={20}
-                        onChange={(e) => setQuery(e.target.value)}
-                      />
-                    </div>
-                    <FiSearch
-                      className="btn icon btn-icon btn-icon-active"
-                      onClick={handleIconClick}
-                    />
+                    {OptionMenu !== "Overview" && (
+                      <>
+                        {" "}
+                        <div
+                          className={`search-box ${
+                            isSearchOpen ? "searchOpen" : ""
+                          }`}
+                        >
+                          <input
+                            placeholder="Search..."
+                            className="input-search"
+                            name="text"
+                            type="text"
+                            value={query}
+                            maxLength={20}
+                            onChange={(e) => setQuery(e.target.value)}
+                          />
+                        </div>
+                        <FiSearch
+                          className="btn icon btn-icon btn-icon-active"
+                          onClick={handleIconClick}
+                        />
+                      </>
+                    )}
                   </div>
 
                   {OptionMenu === "Books" && (
@@ -362,7 +348,7 @@ const Dashboard = () => {
                       onClick={() => setButtonCards("CreateRide")}
                     />
                   )}
-                  <RiNotification2Line className="btn btn-icon" />
+                  {/* <RiNotification2Line className="btn btn-icon" /> */}
                 </div>
                 {/* <div className="horizontal-line" />
                 <div className="profile">
@@ -416,6 +402,7 @@ const Dashboard = () => {
                 filteredValue={filteredValue ? filteredValue : false}
               />
             )}
+            {OptionMenu === "Setting" && <Setting />}
           </div>
           {/* {isDrawerOpen && (
           <PortalDrawer placement="Left" onOutsideClick={closeDrawer}>

@@ -56,7 +56,10 @@ const RideView = () => {
         >
           <div className="section-view">
             <div className="ride-image-container">
-              <div className="ride-image" />
+              <img
+                className="ride-image"
+                src="./assets/images/services/ride-view.svg"
+              />
               <div className="ride-owner">
                 <TbCrown className="ride-owner-icon" />
                 <div className="ride-owner-name">{Ride.studentName}</div>

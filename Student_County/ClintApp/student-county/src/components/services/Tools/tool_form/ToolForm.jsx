@@ -213,7 +213,18 @@ const ToolForm = () => {
             className="form-create"
             onSubmit={handleSubmit}
           >
+            <div className="form-title">
+              Add A New
+              <span className="form-title-sw">&nbsp;Tool.</span>
+            </div>
             <div className="form-input-container">
+              <div className="form-title-paragraph ">
+                Tool Details
+                <div className="form-paragraph">
+                  Please provide the following details about the tool you are
+                  adding.
+                </div>
+              </div>
               <div className="input-container">
                 <input
                   maxLength={40}
@@ -227,37 +238,13 @@ const ToolForm = () => {
                   className="input-container-option"
                   onClick={() => document.getElementsByName("name")[0].focus()}
                 >
-                  Name
+                  Tool Name
                 </div>
               </div>
               {nameError && (
                 <span className="wrong-info">
                   <AiFillExclamationCircle />
                   {nameError}
-                </span>
-              )}
-              <div className="input-container">
-                <input
-                  type="text"
-                  name="shortdescription"
-                  defaultValue={
-                    shortDescription ? shortDescription : tool.shortDescription
-                  }
-                  onChange={handleShortDescription}
-                />
-                <div
-                  className="input-container-option"
-                  onClick={() =>
-                    document.getElementsByName("shortdescription")[0].focus()
-                  }
-                >
-                  Short Description
-                </div>
-              </div>
-              {shortDescriptionError && (
-                <span className="wrong-info">
-                  <AiFillExclamationCircle />
-                  {shortDescriptionError}
                 </span>
               )}
               <div className="input-container textarea-input">
@@ -278,7 +265,7 @@ const ToolForm = () => {
                     document.getElementsByName("longdescription")[0].focus()
                   }
                 >
-                  Long description
+                  Description
                 </div>
               </div>
               {longDescriptionError && (
@@ -288,6 +275,13 @@ const ToolForm = () => {
                 </span>
               )}
               {/* for condition */}
+              <div className="form-title-paragraph ">
+                Tool Price and Condition
+                <div className="form-paragraph">
+                  Could you kindly provide more details about the tool's
+                  condition, preferred method of sale, and the desired price?
+                </div>
+              </div>
               <div className="custom-select">
                 <div
                   className="selected-option"
@@ -406,11 +400,34 @@ const ToolForm = () => {
                   <AiFillExclamationCircle /> {priceError}{" "}
                 </span>
               )}
-
+              <div className="input-container">
+                <input
+                  type="text"
+                  name="shortdescription"
+                  defaultValue={
+                    shortDescription ? shortDescription : tool.shortDescription
+                  }
+                  onChange={handleShortDescription}
+                />
+                <div
+                  className="input-container-option"
+                  onClick={() =>
+                    document.getElementsByName("shortdescription")[0].focus()
+                  }
+                >
+                  Additional Information
+                </div>
+              </div>
+              {shortDescriptionError && (
+                <span className="wrong-info">
+                  <AiFillExclamationCircle />
+                  {shortDescriptionError}
+                </span>
+              )}
               {/* <button type="submit" className={`btn btn-primary sign ${!isFormValid ? 'disabled' : ''}`}>  */}
               <div className="buttons">
                 {ButtonCards === "UpdateTool" ? (
-                  <button type="submit" className={`btn btn-primary `}>
+                  <button type="submit" className={`btn btn-primary btn-fill`}>
                     <div
                       className="loader"
                       style={{
@@ -420,7 +437,7 @@ const ToolForm = () => {
                     Update
                   </button>
                 ) : (
-                  <button type="submit" className={`btn btn-primary `}>
+                  <button type="submit" className={`btn btn-primary btn-fill`}>
                     <div
                       className="loader"
                       style={{
@@ -431,7 +448,7 @@ const ToolForm = () => {
                   </button>
                 )}
                 {ButtonCards === "UpdateTool" ? (
-                  <button onClick={handleDelete} className={`btn btn-primary `}>
+                  <button onClick={handleDelete} className={`btn btn-primary btn-fill`}>
                     <div
                       className="loader"
                       style={{
@@ -445,7 +462,7 @@ const ToolForm = () => {
                 )}
                 <button
                   onClick={() => setButtonCards("")}
-                  className={`btn btn-secondary `}
+                  className={`btn btn-secondary btn-fill `}
                 >
                   Cancel
                 </button>
