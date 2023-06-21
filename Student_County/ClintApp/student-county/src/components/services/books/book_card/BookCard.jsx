@@ -1,6 +1,4 @@
 import React from "react";
-import { FaHome } from "react-icons/fa";
-import { MdApartment } from "react-icons/md";
 import "./BookCard.css";
 import useComponent from "../../../../hooks/useComponent";
 import useAuth from "../../../../hooks/useAuth";
@@ -22,7 +20,7 @@ const BookCard = ({
   const { decodedJwt } = useAuth();
   const maxLength = 20;
 
-  if (longDescription.length > maxLength) {
+  if (longDescription && longDescription.length > maxLength) {
     const truncatedText = longDescription.substring(0, maxLength) + "...";
     longDescription = truncatedText;
   }

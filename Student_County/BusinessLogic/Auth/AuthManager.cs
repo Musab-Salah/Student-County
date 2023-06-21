@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Student_County.BusinessLogic.Auth.Models;
 using Student_County.BusinessLogic.Helpers.Common;
+using Student_County.BusinessLogic.Patient;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -39,7 +40,7 @@ namespace Student_County.BusinessLogic.Auth
         public async Task<AuthModel> RegisterStudentAsync(StudentRegisterModel model, string userid = "")
         {
 
-            if (userid is not  "") //update
+            if (!string.IsNullOrEmpty(userid)) //update
             {
                 var userr = await _userManager.FindByEmailAsync(model.Email);
                 if (userr == null)
@@ -54,10 +55,11 @@ namespace Student_County.BusinessLogic.Auth
                 userr.Email = model.Email;
                 userr.FirstName = model.FirstName;
                 userr.LastName = model.LastName;
+                await _userManager.RemovePasswordAsync(userr);
                 userr.Password = Security.ComputeHash(model.Password);
-    
-                
-                    var result = await _userManager.UpdateAsync(userr);
+                await _userManager.AddPasswordAsync(userr, userr.Password);
+
+                var result = await _userManager.UpdateAsync(userr);
                     if (!result.Succeeded)
                     {
                         var errors = string.Empty;
@@ -71,6 +73,10 @@ namespace Student_County.BusinessLogic.Auth
                 var refreshToken = GenerateRefreshToken();
                 userr.RefreshTokens?.Add(refreshToken);
                 await _userManager.UpdateAsync(userr);
+
+
+
+
 
                 return new AuthModel
                 {
@@ -106,22 +112,7 @@ namespace Student_County.BusinessLogic.Auth
 
                 user.Password = Security.ComputeHash(model.Password);
 
-                if (userid is not "")
-                {
-                    var result = await _userManager.CreateAsync(user);
-                    if (!result.Succeeded)
-                    {
-                        var errors = string.Empty;
-                        foreach (var error in result.Errors)
-                            errors += $"{error.Description},";
-                        return new AuthModel { Message = errors };
-                    }
-                }
-
-
-                else
-                {
-                    var result = await _userManager.CreateAsync(user);
+                    var result = await _userManager.CreateAsync(user, model.Password);
 
                     if (!result.Succeeded)
                     {
@@ -130,7 +121,7 @@ namespace Student_County.BusinessLogic.Auth
                             errors += $"{error.Description},";
                         return new AuthModel { Message = errors };
                     }
-                }
+                
 
 
                 var userRole = "STUDENT";
@@ -171,68 +162,118 @@ namespace Student_County.BusinessLogic.Auth
        
         }
 
-        public async Task<AuthModel> RegisterPatientAsync(PatientRegisterModel model)
+        public async Task<AuthModel> RegisterPatientAsync(PatientRegisterModel model, string userid = "")
         {
-  
-
-            if (await _userManager.FindByEmailAsync(model.Email) is not null)
-                return new AuthModel { Message = "Email is already registered!" };
-            if (await _userManager.FindByNameAsync(model.UserName) is not null)
-                return new AuthModel { Message = "Username is already registered!" };
-            var user = new ApplicationUser
+            if (!string.IsNullOrEmpty(userid)) // Update patient
             {
-                UserName = model.UserName,
-                Password = model.Password,
-                PhoneNumber = model.PhoneNumber,
-                Email = model.Email,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Gender = model.Gender,
-                UniversityId = 1,
-                CollegeId = 2,// change to Denistry college
-            };
+                var patient = await _userManager.FindByEmailAsync(model.Email);
+                if (patient == null)
+                    return new AuthModel { Message = "Patient not found!" };
 
-            user.Password = Security.ComputeHash(model.Password);
+                patient.UserName = model.UserName;
+                patient.PhoneNumber = model.PhoneNumber;
+                patient.Email = model.Email;
+                patient.FirstName = model.FirstName;
+                patient.LastName = model.LastName;
+                patient.Gender = model.Gender;
+                patient.UniversityId = 1;
+                patient.CollegeId = 2; // Change to the Dentistry college ID
 
-            var result = await _userManager.CreateAsync(user, user.Password);
 
-            if (!result.Succeeded)
-            {
-                var errors = string.Empty;
-                foreach (var error in result.Errors)
-                    errors += $"{error.Description},";
-                return new AuthModel { Message = errors };
+                await _userManager.RemovePasswordAsync(patient);
+                patient.Password = Security.ComputeHash(model.Password);
+                await _userManager.AddPasswordAsync(patient, patient.Password);
+
+                var result = await _userManager.UpdateAsync(patient);
+
+                if (!result.Succeeded)
+                {
+                    var errors = string.Empty;
+                    foreach (var error in result.Errors)
+                        errors += $"{error.Description},";
+                    return new AuthModel { Message = errors };
+                }
+
+                await _userManager.RemoveFromRoleAsync(patient, "Patient");
+                await _userManager.AddToRoleAsync(patient, "Patient");
+
+                var jwtSecurityToken = await CreateJwtToken(patient);
+                var refreshToken = GenerateRefreshToken();
+                patient.RefreshTokens?.Add(refreshToken);
+                await _userManager.UpdateAsync(patient);
+
+                return new AuthModel
+                {
+                    Email = patient.Email,
+                    ExpiresOn = jwtSecurityToken.ValidTo,
+                    IsAuthenticated = true,
+                    Roles = new List<string> { "Patient" },
+                    Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
+                    Username = patient.UserName,
+                    RefreshToken = refreshToken.Token,
+                    RefreshTokenExpiration = refreshToken.ExpiresOn
+                };
             }
-
-            await _userManager.AddToRoleAsync(user, "Patient");
-            var jwtSecurityToken = await CreateJwtToken(user);
-            var refreshToken = GenerateRefreshToken();
-            user.RefreshTokens?.Add(refreshToken);
-            await _userManager.UpdateAsync(user);
-
-
-            var confirmEmailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-
-            var encodedEmailToken = Encoding.UTF8.GetBytes(confirmEmailToken);
-            var validEmailToken = WebEncoders.Base64UrlEncode(encodedEmailToken);
-
-            string url = $"{_configuration["AppUrl"]}/auth/confirmemail?userid={user.Id}&token={validEmailToken}";
-
-            await _mailService.SendEmailAsync(user.Email, "Confirm your email", $"<h1>Welcome to Student County</h1>" +
-                $"<p>Please confirm your email by <a href='{url}'>Clicking here</a></p>");
-
-            return new AuthModel
+            else // Create new patient
             {
-                Email = user.Email,
-                ExpiresOn = jwtSecurityToken.ValidTo,
-                IsAuthenticated = true,
-                Roles = new List<string> { "Patient" },
-                Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
-                Username = user.UserName,
-                RefreshToken = refreshToken.Token,
-                RefreshTokenExpiration = refreshToken.ExpiresOn
-            };
+                if (await _userManager.FindByEmailAsync(model.Email) is not null)
+                    return new AuthModel { Message = "Email is already registered!" };
+
+                if (await _userManager.FindByNameAsync(model.UserName) is not null)
+                    return new AuthModel { Message = "Username is already registered!" };
+
+                var patient = new ApplicationUser
+                {
+                    UserName = model.UserName,
+                    PhoneNumber = model.PhoneNumber,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Gender = model.Gender,
+                    UniversityId = 1,
+                    CollegeId = 2 // Change to the Dentistry college ID
+                };
+
+                patient.Password = Security.ComputeHash(model.Password);
+
+                var result = await _userManager.CreateAsync(patient, model.Password);
+
+                if (!result.Succeeded)
+                {
+                    var errors = string.Empty;
+                    foreach (var error in result.Errors)
+                        errors += $"{error.Description},";
+                    return new AuthModel { Message = errors };
+                }
+
+                await _userManager.AddToRoleAsync(patient, "Patient");
+                var jwtSecurityToken = await CreateJwtToken(patient);
+                var refreshToken = GenerateRefreshToken();
+                patient.RefreshTokens?.Add(refreshToken);
+                await _userManager.UpdateAsync(patient);
+
+                var confirmEmailToken = await _userManager.GenerateEmailConfirmationTokenAsync(patient);
+                var encodedEmailToken = Encoding.UTF8.GetBytes(confirmEmailToken);
+                var validEmailToken = WebEncoders.Base64UrlEncode(encodedEmailToken);
+                string url = $"{_configuration["AppUrl"]}/auth/confirmemail?userid={patient.Id}&token={validEmailToken}";
+
+                await _mailService.SendEmailAsync(patient.Email, "Confirm your email", $"<h1>Welcome to Student County</h1>" +
+                    $"<p>Please confirm your email by <a href='{url}'>Clicking here</a></p>");
+
+                return new AuthModel
+                {
+                    Email = patient.Email,
+                    ExpiresOn = jwtSecurityToken.ValidTo,
+                    IsAuthenticated = true,
+                    Roles = new List<string> { "Patient" },
+                    Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
+                    Username = patient.UserName,
+                    RefreshToken = refreshToken.Token,
+                    RefreshTokenExpiration = refreshToken.ExpiresOn
+                };
+            }
         }
+
 
         public async Task<AuthModel> GetTokenAsync(TokenRequestModel model)
         {
@@ -249,12 +290,13 @@ namespace Student_County.BusinessLogic.Auth
 
             user.Password = Security.ComputeHash(model.Password);
 
-
-            if (user is null || !await _userManager.CheckPasswordAsync(user, user.Password))
+            if (user is null || !await _userManager.CheckPasswordAsync(user, model.Password) && !await _userManager.CheckPasswordAsync(user, user.Password))
             {
                 authModel.Message = "Email or Password is incorrect!";
                 return authModel;
             }
+
+   
 
             var jwtSecurityToken = await CreateJwtToken(user);
             var rolesList = await _userManager.GetRolesAsync(user);

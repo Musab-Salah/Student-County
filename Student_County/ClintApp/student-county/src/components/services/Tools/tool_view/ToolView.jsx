@@ -3,16 +3,17 @@ import useComponent from "../../../../hooks/useComponent";
 import useTools from "../../../../hooks/useTools";
 import "./ToolView.css";
 import useLoader from "../../../../hooks/useLoader";
-import ChatController from "../../../chat/ChatController";
 import { TbCrown } from "react-icons/tb";
 import useChat from "../../../../hooks/useChat";
 import useAuth from "../../../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const ToolView = () => {
-  const { setButtonCards, setOpenChatArea, setOptionMenu, setOwnerItem } =
-    useComponent();
+  let navigate = useNavigate();
+
+  const { setButtonCards, setOptionMenu, setOwnerItem } = useComponent();
   const { Tool, setTool } = useTools();
-  const { reJoinRoom, setChatOpened } = useChat();
+  const { reJoinRoom } = useChat();
   const { FormToolLoader } = useLoader();
   const { decodedJwt } = useAuth();
   const [date, setDate] = useState();
@@ -49,7 +50,7 @@ const ToolView = () => {
             <div className="tool-image-container">
               <img
                 className="tool-image"
-                src="./assets/images/services/tools-view.svg"
+                src="../assets/images/services/tools-view.svg"
               />
               <div className="tool-owner">
                 <TbCrown className="tool-owner-icon" />
@@ -78,6 +79,7 @@ const ToolView = () => {
                   onClick={() => {
                     reJoinRoom(decodedJwt.uid, Tool.studentId);
                     setOwnerItem(Tool.studentId);
+                    navigate("/dashboard/chat");
                     setOptionMenu("Chat");
                     // setOpenChatArea(true);
                     setButtonCards("");

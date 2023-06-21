@@ -6,8 +6,11 @@ import usePatient from "../../../../hooks/usePatient";
 import useComponent from "../../../../hooks/useComponent";
 import useAuth from "../../../../hooks/useAuth";
 import useChat from "../../../../hooks/useChat";
+import { useNavigate } from "react-router-dom";
 
 const PatientView = () => {
+  let navigate = useNavigate();
+
   const { FormPatientLoader } = useLoader();
   const { setButtonCards, setOptionMenu, setOwnerItem } = useComponent();
   const { reJoinRoom } = useChat();
@@ -39,7 +42,9 @@ const PatientView = () => {
           <div className="patient-top-info-container">
             <div className="patient-profile">
               <FaUserCircle className="patient-avatar-icon" />
-              <div className="patient-name">{Patient.userName}</div>
+              <div className="patient-name">
+                {Patient.firstName} {Patient.lastName}
+              </div>
             </div>
             {/* <BsInfoCircle className="btn btn-primary btn-icon" alt="" /> */}
           </div>
@@ -51,7 +56,7 @@ const PatientView = () => {
                 <div className="patient-info-item">
                   <div className="patient-info-item-title">Full Name</div>
                   <div className="patient-info-item-value">
-                    {Patient.userName}
+                    {Patient.firstName} {Patient.lastName}
                   </div>
                 </div>
                 <div className="patient-info-item">
@@ -135,12 +140,13 @@ const PatientView = () => {
               onClick={() => {
                 reJoinRoom(decodedJwt.uid, Patient.userId);
                 setOwnerItem(Patient.userId);
+                navigate("/dashboard/chat");
                 setOptionMenu("Chat");
                 setButtonCards("");
               }}
               className="btn btn-primary btn-fill"
             >
-              Contact The Patient
+              Contact With Patient
             </button>
             <button
               onClick={() => setButtonCards("")}

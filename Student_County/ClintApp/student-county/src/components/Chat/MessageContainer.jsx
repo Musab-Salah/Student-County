@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect,  useRef } from "react";
 import useAuth from "./../../hooks/useAuth";
 import useChat from "../../hooks/useChat";
 
 const MessageContainer = () => {
   const messageRef = useRef();
   const { decodedJwt } = useAuth();
-  const { ChatOpened, messages, previosMessages } = useChat();
+  const {  messages, previosMessages } = useChat();
   useEffect(() => {
     if (messageRef && messageRef.current) {
       const { scrollHeight, clientHeight } = messageRef.current;

@@ -27,7 +27,10 @@ class UserRelationDataServices {
     );
 
   getUser = async (userid, token) =>
-    await axios.get(BOOK_API_BASE_URL + "/GetUser?userid=" + userid, {
+    await axios.get(BOOK_API_BASE_URL + "/GetUser", {
+      params: {
+        userid: userid,
+      },
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -35,6 +38,21 @@ class UserRelationDataServices {
 
   updateUser = async (userid, user, token) =>
     await axios.put(BOOK_API_BASE_URL + "/UpdateUser/" + userid, user, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  getPatient = async (userid, token) =>
+    await axios.get(BOOK_API_BASE_URL + "/GetPatient", {
+      params: {
+        userid: userid,
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  updatePatient = async (userid, user, token) =>
+    await axios.put(BOOK_API_BASE_URL + "/UpdatePatient/" + userid, user, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

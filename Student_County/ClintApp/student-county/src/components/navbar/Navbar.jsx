@@ -39,7 +39,7 @@ const Navbar = () => {
           {dropdownOpen && (
             <div className="dropdown-wrapper" ref={dropdownRef}>
               <div className="dropdown">
-                <NavLink to="/sign_in" className="dropdown-link">
+                <NavLink to="/dashboard/book" className="dropdown-link">
                   <img
                     className="dropdown-item-icon"
                     alt=""
@@ -52,7 +52,7 @@ const Navbar = () => {
                     </div>
                   </div>
                 </NavLink>
-                <NavLink to="/sign_in" className="dropdown-link">
+                <NavLink to="/dashboard/housing" className="dropdown-link">
                   <img
                     className="dropdown-item-icon"
                     alt=""
@@ -65,7 +65,7 @@ const Navbar = () => {
                     </div>
                   </div>
                 </NavLink>
-                <NavLink to="/sign_in" className="dropdown-link">
+                <NavLink to="/dashboard/ride" className="dropdown-link">
                   <img
                     className="dropdown-item-icon"
                     alt=""
@@ -82,13 +82,13 @@ const Navbar = () => {
             </div>
           )}
         </button>
-        <NavLink to="/" className="nav-link">
+        <NavLink to="/Blog" className="nav-link">
           Blog
         </NavLink>
-        <NavLink to="/" className="nav-link">
+        <NavLink to="/AboutUs" className="nav-link">
           About Us
         </NavLink>
-        <NavLink to="/" className="nav-link">
+        <NavLink to="/ContactUs" className="nav-link">
           Contact Us
         </NavLink>
       </div>
@@ -122,7 +122,7 @@ const Navbar = () => {
             {dropdownOpen && (
               <div className="dropdown-wrapper" ref={dropdownRef}>
                 <div className="dropdown">
-                  <NavLink to="/sign_in" className="dropdown-link">
+                  <NavLink to="/dashboard/book" className="dropdown-link">
                     <img
                       className="dropdown-item-icon"
                       alt=""
@@ -135,7 +135,7 @@ const Navbar = () => {
                       </div>
                     </div>
                   </NavLink>
-                  <NavLink to="/sign_in" className="dropdown-link">
+                  <NavLink to="/dashboard/housing" className="dropdown-link">
                     <img
                       className="dropdown-item-icon"
                       alt=""
@@ -148,7 +148,7 @@ const Navbar = () => {
                       </div>
                     </div>
                   </NavLink>
-                  <NavLink to="/sign_in" className="dropdown-link">
+                  <NavLink to="/dashboard/ride" className="dropdown-link">
                     <img
                       className="dropdown-item-icon"
                       alt=""
@@ -166,13 +166,13 @@ const Navbar = () => {
             )}
           </button>
 
-          <NavLink to="/" className="nav-link phone">
+          <NavLink to="/Blog" className="nav-link phone">
             Blog
           </NavLink>
-          <NavLink to="/" className="nav-link phone">
+          <NavLink to="/AboutUs" className="nav-link phone">
             About Us
           </NavLink>
-          <NavLink to="/" className="nav-link phone">
+          <NavLink to="/ContactUs" className="nav-link phone">
             Contact Us
           </NavLink>
         </div>

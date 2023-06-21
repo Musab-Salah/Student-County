@@ -1,28 +1,16 @@
 import useAuth from "../../hooks/useAuth";
 import useChat from "../../hooks/useChat";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useComponent from "../../hooks/useComponent";
 import { HiTrash } from "react-icons/hi";
-import { AiOutlinePlus } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import { BsCheckLg } from "react-icons/bs";
 
-const ConnectedUsers = ({
-  users,
-  setMessages,
-  closeConnection,
-  setPreviosMessages,
-}) => {
-  const {
-    getMyAllChats,
-    MyChat,
-    setChatOpened,
-    deleteChat,
-    reJoinRoom,
-    ChatOpened,
-  } = useChat();
+const ConnectedUsers = ({ setMessages, setPreviosMessages }) => {
+  const { MyChat, setChatOpened, deleteChat, reJoinRoom, ChatOpened } =
+    useChat();
   const { decodedJwt } = useAuth();
-  const { setOwnerItem, setOpenChatArea } = useComponent();
+  const { setOpenChatArea } = useComponent();
   const [toDelete, setToDelete] = useState(false);
   const [openDeleteMode, setOpenDeleteMode] = useState(false);
   const [chatIdToDelete, setChatIdToDelete] = useState("");
@@ -131,7 +119,9 @@ const ConnectedUsers = ({
               !toDelete && (
                 <div className="conversation-user-lastmessage-time">
                   {" "}
-                  {formatDate(chat.createdOnLastMessage)}
+                  {formatDate(chat.createdOnLastMessage) === "January 1, 1970"
+                    ? ""
+                    : formatDate(chat.createdOnLastMessage)}
                 </div>
               )
             )}

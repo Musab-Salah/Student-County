@@ -3,17 +3,18 @@ import useComponent from "../../../../hooks/useComponent";
 import useRides from "../../../../hooks/useRides";
 import "./RideView.css";
 import useLoader from "../../../../hooks/useLoader";
-import ChatController from "../../../chat/ChatController";
 import { TbCrown } from "react-icons/tb";
 import useChat from "../../../../hooks/useChat";
 import useAuth from "../../../../hooks/useAuth";
 import useLocation from "../../../../hooks/useLocation";
+import { useNavigate } from "react-router-dom";
 
 const RideView = () => {
-  const { setButtonCards, setOpenChatArea, setOptionMenu, setOwnerItem } =
-    useComponent();
+  let navigate = useNavigate();
+
+  const { setButtonCards, setOptionMenu, setOwnerItem } = useComponent();
   const { Ride, setRide } = useRides();
-  const { reJoinRoom, setChatOpened } = useChat();
+  const { reJoinRoom } = useChat();
   const { FormRideLoader } = useLoader();
   const { decodedJwt } = useAuth();
   const { Location, getLocationById } = useLocation();
@@ -58,7 +59,7 @@ const RideView = () => {
             <div className="ride-image-container">
               <img
                 className="ride-image"
-                src="./assets/images/services/ride-view.svg"
+                src="../assets/images/services/ride-view.svg"
               />
               <div className="ride-owner">
                 <TbCrown className="ride-owner-icon" />
@@ -89,6 +90,7 @@ const RideView = () => {
                   onClick={() => {
                     reJoinRoom(decodedJwt.uid, Ride.studentId);
                     setOwnerItem(Ride.studentId);
+                    navigate("/dashboard/chat");
                     setOptionMenu("Chat");
                     setButtonCards("");
                   }}

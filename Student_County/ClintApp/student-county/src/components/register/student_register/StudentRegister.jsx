@@ -15,7 +15,7 @@ import useCollege from "../../../hooks/useCollege";
 const Students = () => {
   // State Hooks
   const { Universities } = useUniversities();
-  const { AuthLoader ,studentRegister, AuthError, isSuccessfully} = useAuth();
+  const { AuthLoader, studentRegister, AuthError, isSuccessfully } = useAuth();
   const { Colleges } = useCollege();
   const [username, setUsername] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -31,6 +31,7 @@ const Students = () => {
   const [showDropdownUniv, setShowDropdownUniv] = useState(false);
   const [showDropdownCollege, setShowDropdownCollege] = useState(false);
   const [showDropdownPrefix, setShowDropdownPrefix] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   // Error Hooks
   const [firstNameError, setFirstNameError] = useState("");
@@ -153,12 +154,16 @@ const Students = () => {
   };
 
   const handleConfirmPasswordChange = (event) => {
-    if (event.target.value !== userBo.password) {
+    setConfirmPassword(event.target.value);
+  };
+
+  useMemo(() => {
+    if (confirmPassword && confirmPassword !== userBo.password) {
       setConfirmPasswordError("Passwords do not match.");
     } else {
       setConfirmPasswordError(false);
     }
-  };
+  }, [confirmPassword, userBo.password]);
 
   const handleIdNumberChange = (event) => {
     setUser({
@@ -226,7 +231,7 @@ const Students = () => {
               id="firstName"
               name="firstName"
               onChange={handleFirstNameChange}
-              maxLength={10}
+              maxLength={20}
               required
             />
             <div

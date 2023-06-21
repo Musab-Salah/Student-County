@@ -5,12 +5,16 @@ import "./PatientSection.css";
 import { Helmet } from "react-helmet";
 import useLoader from "../../../../hooks/useLoader";
 import PatientCard from "../patient_card/PatientCard";
-import HousingCard from "../../Housing/housing_card/HousingCard";
-import HousingForm from "../../Housing/housing_form/HousingForm";
 import useAuth from "../../../../hooks/useAuth";
 import useUserRelationData from "../../../../hooks/useUserRelationData";
+import useComponent from "../../../../hooks/useComponent";
+import Menu from "../../../menu/menu";
+import DashboardNavbar from "../../../navbar/dashboard_navbar/DashboardNavbar";
+import PatientForm from "../patient_form/PatientForm";
+import PatientView from "../patient_view/PatientView";
+import "../../../../pages/dashboard/Dashboard.css";
 
-const PatientSection = ({ filteredValue }) => {
+const PatientSection = () => {
   const { decodedJwt } = useAuth();
   const { getPatient, PatientSuccess, setPatients, Patients } = usePatient();
   const { PatientLoader } = useLoader();
@@ -18,6 +22,7 @@ const PatientSection = ({ filteredValue }) => {
   const SORT_TYPES_OWNE = ["Gender", "Date", "Age"];
   const { MyPatients, UserRelationDataLoader } = useUserRelationData();
   const [maxCards, setMaxCards] = useState(3);
+  const { ButtonCards, filteredValue, setOptionMenu } = useComponent();
 
   const [SortTypeOwne, setSortTypeOwne] = useState("");
   const [sortType, setSortType] = useState("");
@@ -50,6 +55,7 @@ const PatientSection = ({ filteredValue }) => {
   useEffect(() => {
     return function cleanup() {
       setPatients("");
+      setOptionMenu("");
     };
     // eslint-disable-next-line
   }, []);
@@ -99,341 +105,370 @@ const PatientSection = ({ filteredValue }) => {
       <Helmet>
         <title>Patient</title>
       </Helmet>
-      <div
-        className="service-container-owne"
-        style={{ display: MyPatients.length !== 0 ? "flex" : "none" }}
-      >
-        <div className="services-head">
-          <div className="services-head-title">Your Patients</div>
-          <div className="filterboxs">
-            <div className="input-group">
-              <div className="custom-select">
-                <div
-                  className="selected-option"
-                  onClick={() => setShowDropdownSortOwne(!showDropdownSortOwne)}
-                >
-                  {!SortTypeOwne ? (
-                    <div className="input-container-option input-dropdown">
-                      Sort By
-                    </div>
-                  ) : (
-                    <div>
-                      <div className="input-container-option input-dropdown-title">
-                        Sort By
-                      </div>
-                      <div className="input-container-option input-dropdown input-selected">
-                        {SortTypeOwne}
-                      </div>
-                    </div>
-                  )}
+      {(ButtonCards === "CreatePatient" || ButtonCards === "UpdatePatient") && (
+        <PatientForm />
+      )}
 
-                  <RiArrowDownSLine className="arrow-icon" />
-                </div>
-                {showDropdownSortOwne && (
-                  <div className="options" id="input-dropdown">
-                    <div className="option-title">Sort By</div>
-                    {SORT_TYPES_OWNE.map((sort, index) => (
+      {ButtonCards === "ViewPatient" && <PatientView />}
+
+      <div style={{ opacity: ButtonCards ? 0.2 : 1 }}>
+        <div className={`dashboard-container  `}>
+          <Menu />
+          <div className={`dashboard  `}>
+            <DashboardNavbar />
+            <div
+              className="service-container-owne"
+              style={{ display: MyPatients.length !== 0 ? "flex" : "none" }}
+            >
+              <div className="services-head">
+                <div className="services-head-title">Your Patients</div>
+                <div className="filterboxs">
+                  <div className="input-group">
+                    <div className="custom-select">
                       <div
-                        key={index}
-                        className="option"
-                        onClick={() => handleSortOwneChange(sort)}
+                        className="selected-option"
+                        onClick={() =>
+                          setShowDropdownSortOwne(!showDropdownSortOwne)
+                        }
                       >
-                        {sort}
+                        {!SortTypeOwne ? (
+                          <div className="input-container-option input-dropdown">
+                            Sort By
+                          </div>
+                        ) : (
+                          <div>
+                            <div className="input-container-option input-dropdown-title">
+                              Sort By
+                            </div>
+                            <div className="input-container-option input-dropdown input-selected">
+                              {SortTypeOwne}
+                            </div>
+                          </div>
+                        )}
+
+                        <RiArrowDownSLine className="arrow-icon" />
                       </div>
-                    ))}
+                      {showDropdownSortOwne && (
+                        <div className="options" id="input-dropdown">
+                          <div className="option-title">Sort By</div>
+                          {SORT_TYPES_OWNE.map((sort, index) => (
+                            <div
+                              key={index}
+                              className="option"
+                              onClick={() => handleSortOwneChange(sort)}
+                            >
+                              {sort}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                )}
+                </div>
+              </div>
+              <div className="cards-owne">
+                <div
+                  className="loader-overview"
+                  style={{ display: UserRelationDataLoader ? "block" : "none" }}
+                >
+                  <div className="loader-square"></div>
+                  <div className="loader-square"></div>
+                  <div className="loader-square"></div>
+                  <div className="loader-square"></div>
+                  <div className="loader-square"></div>
+                  <div className="loader-square"></div>
+                  <div className="loader-square"></div>
+                </div>
+
+                {!sortType &&
+                  Object.values(MyPatients)
+                    .slice(0, maxCards)
+                    .map((patient) => (
+                      <PatientCard
+                        lastName={patient.lastName}
+                        firstName={patient.firstName}
+                        age={patient.age}
+                        gender={patient.gender}
+                        typeOfTreatment={patient.typeOfTreatment}
+                        createdOn={formatDate(patient.createdOn)}
+                        key={patient.id}
+                        id={patient.id}
+                        userId={patient.userId}
+                      />
+                    ))}
+                {sortType === "Gender" &&
+                  Object.values(MyPatients)
+                    .sort((a, b) => (a.gender > b.gender ? 1 : -1))
+                    .slice(0, maxCards)
+                    .map((patient) => (
+                      <PatientCard
+                        lastName={patient.lastName}
+                        firstName={patient.firstName}
+                        age={patient.age}
+                        gender={patient.gender}
+                        typeOfTreatment={patient.typeOfTreatment}
+                        createdOn={formatDate(patient.createdOn)}
+                        key={patient.id}
+                        id={patient.id}
+                        userId={patient.userId}
+                      />
+                    ))}
+                {sortType === "Date" &&
+                  Object.values(MyPatients)
+                    .sort(
+                      (a, b) =>
+                        Date.parse(b.createdOn) - Date.parse(a.createdOn)
+                    )
+                    .slice(0, maxCards)
+                    .map((patient) => (
+                      <PatientCard
+                        lastName={patient.lastName}
+                        firstName={patient.firstName}
+                        age={patient.age}
+                        gender={patient.gender}
+                        typeOfTreatment={patient.typeOfTreatment}
+                        createdOn={formatDate(patient.createdOn)}
+                        key={patient.id}
+                        id={patient.id}
+                        userId={patient.userId}
+                      />
+                    ))}
+                {sortType === "Age" &&
+                  Object.values(MyPatients)
+                    .sort((a, b) => b.age - a.age)
+                    .slice(0, maxCards)
+                    .map((patient) => (
+                      <PatientCard
+                        lastName={patient.lastName}
+                        firstName={patient.firstName}
+                        age={patient.age}
+                        gender={patient.gender}
+                        typeOfTreatment={patient.typeOfTreatment}
+                        createdOn={formatDate(patient.createdOn)}
+                        key={patient.id}
+                        id={patient.id}
+                        userId={patient.userId}
+                      />
+                    ))}
+              </div>
+              <div className="show-more-button">
+                <div
+                  className="btn btn-primary btn-fill"
+                  onClick={handleShowMore}
+                >
+                  Show More
+                </div>
+              </div>
+            </div>
+            <div className="service-container">
+              <div className="services-head">
+                <div className="services-head-title">Find Services</div>
+                <div className="filterboxs">
+                  <div className="input-group">
+                    <div className="custom-select">
+                      <div
+                        className="selected-option"
+                        onClick={() => setShowDropdownSort(!showDropdownSort)}
+                      >
+                        {!sortType ? (
+                          <div className="input-container-option input-dropdown">
+                            Sort By
+                          </div>
+                        ) : (
+                          <div>
+                            <div className="input-container-option input-dropdown-title">
+                              Sort By
+                            </div>
+                            <div className="input-container-option input-dropdown input-selected">
+                              {sortType}
+                            </div>
+                          </div>
+                        )}
+
+                        <RiArrowDownSLine className="arrow-icon" />
+                      </div>
+                      {showDropdownSort && (
+                        <div className="options" id="input-dropdown">
+                          <div className="option-title">Sort By</div>
+                          {SORT_TYPES.map((sort, index) => (
+                            <div
+                              key={index}
+                              className="option"
+                              onClick={() => handleSortChange(sort)}
+                            >
+                              {sort}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="cards">
+                <div
+                  className="loader-overview"
+                  style={{ display: PatientLoader ? "block" : "none" }}
+                >
+                  <div className="loader-square"></div>
+                  <div className="loader-square"></div>
+                  <div className="loader-square"></div>
+                  <div className="loader-square"></div>
+                  <div className="loader-square"></div>
+                  <div className="loader-square"></div>
+                  <div className="loader-square"></div>
+                </div>
+
+                {!filteredValue
+                  ? !sortType &&
+                    Object.values(Patients)
+                      .filter((patient) => patient.userId !== decodedJwt.uid)
+                      .map((patient) => (
+                        <PatientCard
+                          lastName={patient.lastName}
+                          firstName={patient.firstName}
+                          age={patient.age}
+                          gender={patient.gender}
+                          typeOfTreatment={patient.typeOfTreatment}
+                          createdOn={formatDate(patient.createdOn)}
+                          key={patient.id}
+                          id={patient.id}
+                          userId={patient.userId}
+                        />
+                      ))
+                  : !sortType &&
+                    Object.values(filteredValue)
+                      .filter((patient) => patient.userId !== decodedJwt.uid)
+                      .map((patient) => (
+                        <PatientCard
+                          lastName={patient.lastName}
+                          firstName={patient.firstName}
+                          age={patient.age}
+                          gender={patient.gender}
+                          typeOfTreatment={patient.typeOfTreatment}
+                          createdOn={formatDate(patient.createdOn)}
+                          key={patient.id}
+                          id={patient.id}
+                          userId={patient.userId}
+                        />
+                      ))}
+
+                {!filteredValue
+                  ? sortType === "Gender" &&
+                    Object.values(Patients)
+                      .filter((patient) => patient.userId !== decodedJwt.uid)
+                      .sort((a, b) => (a.gender > b.gender ? 1 : -1))
+                      .map((patient) => (
+                        <PatientCard
+                          lastName={patient.lastName}
+                          firstName={patient.firstName}
+                          age={patient.age}
+                          gender={patient.gender}
+                          typeOfTreatment={patient.typeOfTreatment}
+                          createdOn={formatDate(patient.createdOn)}
+                          key={patient.id}
+                          id={patient.id}
+                          userId={patient.userId}
+                        />
+                      ))
+                  : sortType === "Gender" &&
+                    Object.values(filteredValue)
+                      .filter((patient) => patient.userId !== decodedJwt.uid)
+                      .sort((a, b) => (a.gender > b.gender ? 1 : -1))
+                      .map((patient) => (
+                        <PatientCard
+                          lastName={patient.lastName}
+                          firstName={patient.firstName}
+                          age={patient.age}
+                          gender={patient.gender}
+                          typeOfTreatment={patient.typeOfTreatment}
+                          createdOn={formatDate(patient.createdOn)}
+                          key={patient.id}
+                          id={patient.id}
+                          userId={patient.userId}
+                        />
+                      ))}
+
+                {!filteredValue
+                  ? sortType === "Date" &&
+                    Object.values(Patients)
+                      .filter((patient) => patient.userId !== decodedJwt.uid)
+                      .sort(
+                        (a, b) =>
+                          Date.parse(b.createdOn) - Date.parse(a.createdOn)
+                      )
+                      .map((patient) => (
+                        <PatientCard
+                          lastName={patient.lastName}
+                          firstName={patient.firstName}
+                          age={patient.age}
+                          gender={patient.gender}
+                          typeOfTreatment={patient.typeOfTreatment}
+                          createdOn={formatDate(patient.createdOn)}
+                          key={patient.id}
+                          id={patient.id}
+                          userId={patient.userId}
+                        />
+                      ))
+                  : sortType === "Date" &&
+                    Object.values(filteredValue)
+                      .filter((patient) => patient.userId !== decodedJwt.uid)
+                      .sort(
+                        (a, b) =>
+                          Date.parse(b.createdOn) - Date.parse(a.createdOn)
+                      )
+                      .map((patient) => (
+                        <PatientCard
+                          lastName={patient.lastName}
+                          firstName={patient.firstName}
+                          age={patient.age}
+                          gender={patient.gender}
+                          typeOfTreatment={patient.typeOfTreatment}
+                          createdOn={formatDate(patient.createdOn)}
+                          key={patient.id}
+                          id={patient.id}
+                          userId={patient.userId}
+                        />
+                      ))}
+
+                {!filteredValue
+                  ? sortType === "Age" &&
+                    Object.values(Patients)
+                      .filter((patient) => patient.userId !== decodedJwt.uid)
+                      .sort((a, b) => b.age - a.age)
+                      .map((patient) => (
+                        <PatientCard
+                          lastName={patient.lastName}
+                          firstName={patient.firstName}
+                          age={patient.age}
+                          gender={patient.gender}
+                          typeOfTreatment={patient.typeOfTreatment}
+                          createdOn={formatDate(patient.createdOn)}
+                          key={patient.id}
+                          id={patient.id}
+                          userId={patient.userId}
+                        />
+                      ))
+                  : sortType === "Age" &&
+                    Object.values(filteredValue)
+                      .filter((patient) => patient.userId !== decodedJwt.uid)
+                      .sort((a, b) => b.age - a.age)
+                      .map((patient) => (
+                        <PatientCard
+                          lastName={patient.lastName}
+                          firstName={patient.firstName}
+                          age={patient.age}
+                          gender={patient.gender}
+                          typeOfTreatment={patient.typeOfTreatment}
+                          createdOn={formatDate(patient.createdOn)}
+                          key={patient.id}
+                          id={patient.id}
+                          userId={patient.userId}
+                        />
+                      ))}
               </div>
             </div>
           </div>
-        </div>
-        <div className="cards-owne">
-          <div
-            className="loader-overview"
-            style={{ display: UserRelationDataLoader ? "block" : "none" }}
-          >
-            <div className="loader-square"></div>
-            <div className="loader-square"></div>
-            <div className="loader-square"></div>
-            <div className="loader-square"></div>
-            <div className="loader-square"></div>
-            <div className="loader-square"></div>
-            <div className="loader-square"></div>
-          </div>
-
-          {!sortType &&
-            Object.values(MyPatients)
-              .slice(0, maxCards)
-              .map((patient) => (
-                <PatientCard
-                  lastName={patient.lastName}
-                  firstName={patient.firstName}
-                  age={patient.age}
-                  gender={patient.gender}
-                  typeOfTreatment={patient.typeOfTreatment}
-                  createdOn={formatDate(patient.createdOn)}
-                  key={patient.id}
-                  id={patient.id}
-                  userId={patient.userId}
-                />
-              ))}
-          {sortType === "Gender" &&
-            Object.values(MyPatients)
-              .sort((a, b) => (a.gender > b.gender ? 1 : -1))
-              .slice(0, maxCards)
-              .map((patient) => (
-                <PatientCard
-                  lastName={patient.lastName}
-                  firstName={patient.firstName}
-                  age={patient.age}
-                  gender={patient.gender}
-                  typeOfTreatment={patient.typeOfTreatment}
-                  createdOn={formatDate(patient.createdOn)}
-                  key={patient.id}
-                  id={patient.id}
-                  userId={patient.userId}
-                />
-              ))}
-          {sortType === "Date" &&
-            Object.values(MyPatients)
-              .sort((a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn))
-              .slice(0, maxCards)
-              .map((patient) => (
-                <PatientCard
-                  lastName={patient.lastName}
-                  firstName={patient.firstName}
-                  age={patient.age}
-                  gender={patient.gender}
-                  typeOfTreatment={patient.typeOfTreatment}
-                  createdOn={formatDate(patient.createdOn)}
-                  key={patient.id}
-                  id={patient.id}
-                  userId={patient.userId}
-                />
-              ))}
-          {sortType === "Age" &&
-            Object.values(MyPatients)
-              .sort((a, b) => b.age - a.age)
-              .slice(0, maxCards)
-              .map((patient) => (
-                <PatientCard
-                  lastName={patient.lastName}
-                  firstName={patient.firstName}
-                  age={patient.age}
-                  gender={patient.gender}
-                  typeOfTreatment={patient.typeOfTreatment}
-                  createdOn={formatDate(patient.createdOn)}
-                  key={patient.id}
-                  id={patient.id}
-                  userId={patient.userId}
-                />
-              ))}
-        </div>
-      </div>
-      <div className="service-container">
-        <div className="services-head">
-          <div className="services-head-title">Find Services</div>
-          <div className="filterboxs">
-            <div className="input-group">
-              <div className="custom-select">
-                <div
-                  className="selected-option"
-                  onClick={() => setShowDropdownSort(!showDropdownSort)}
-                >
-                  {!sortType ? (
-                    <div className="input-container-option input-dropdown">
-                      Sort By
-                    </div>
-                  ) : (
-                    <div>
-                      <div className="input-container-option input-dropdown-title">
-                        Sort By
-                      </div>
-                      <div className="input-container-option input-dropdown input-selected">
-                        {sortType}
-                      </div>
-                    </div>
-                  )}
-
-                  <RiArrowDownSLine className="arrow-icon" />
-                </div>
-                {showDropdownSort && (
-                  <div className="options" id="input-dropdown">
-                    <div className="option-title">Sort By</div>
-                    {SORT_TYPES.map((sort, index) => (
-                      <div
-                        key={index}
-                        className="option"
-                        onClick={() => handleSortChange(sort)}
-                      >
-                        {sort}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="cards">
-          <div
-            className="loader-overview"
-            style={{ display: PatientLoader ? "block" : "none" }}
-          >
-            <div className="loader-square"></div>
-            <div className="loader-square"></div>
-            <div className="loader-square"></div>
-            <div className="loader-square"></div>
-            <div className="loader-square"></div>
-            <div className="loader-square"></div>
-            <div className="loader-square"></div>
-          </div>
-
-          {!filteredValue
-            ? !sortType &&
-              Object.values(Patients)
-                .filter((patient) => patient.userId !== decodedJwt.uid)
-                .map((patient) => (
-                  <PatientCard
-                    lastName={patient.lastName}
-                    firstName={patient.firstName}
-                    age={patient.age}
-                    gender={patient.gender}
-                    typeOfTreatment={patient.typeOfTreatment}
-                    createdOn={formatDate(patient.createdOn)}
-                    key={patient.id}
-                    id={patient.id}
-                    userId={patient.userId}
-                  />
-                ))
-            : !sortType &&
-              Object.values(filteredValue)
-                .filter((patient) => patient.userId !== decodedJwt.uid)
-                .map((patient) => (
-                  <PatientCard
-                    lastName={patient.lastName}
-                    firstName={patient.firstName}
-                    age={patient.age}
-                    gender={patient.gender}
-                    typeOfTreatment={patient.typeOfTreatment}
-                    createdOn={formatDate(patient.createdOn)}
-                    key={patient.id}
-                    id={patient.id}
-                    userId={patient.userId}
-                  />
-                ))}
-
-          {!filteredValue
-            ? sortType === "Gender" &&
-              Object.values(Patients)
-                .filter((patient) => patient.userId !== decodedJwt.uid)
-                .sort((a, b) => (a.gender > b.gender ? 1 : -1))
-                .map((patient) => (
-                  <PatientCard
-                    lastName={patient.lastName}
-                    firstName={patient.firstName}
-                    age={patient.age}
-                    gender={patient.gender}
-                    typeOfTreatment={patient.typeOfTreatment}
-                    createdOn={formatDate(patient.createdOn)}
-                    key={patient.id}
-                    id={patient.id}
-                    userId={patient.userId}
-                  />
-                ))
-            : sortType === "Gender" &&
-              Object.values(filteredValue)
-                .filter((patient) => patient.userId !== decodedJwt.uid)
-                .sort((a, b) => (a.gender > b.gender ? 1 : -1))
-                .map((patient) => (
-                  <PatientCard
-                    lastName={patient.lastName}
-                    firstName={patient.firstName}
-                    age={patient.age}
-                    gender={patient.gender}
-                    typeOfTreatment={patient.typeOfTreatment}
-                    createdOn={formatDate(patient.createdOn)}
-                    key={patient.id}
-                    id={patient.id}
-                    userId={patient.userId}
-                  />
-                ))}
-
-          {!filteredValue
-            ? sortType === "Date" &&
-              Object.values(Patients)
-                .filter((patient) => patient.userId !== decodedJwt.uid)
-                .sort(
-                  (a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn)
-                )
-                .map((patient) => (
-                  <PatientCard
-                    lastName={patient.lastName}
-                    firstName={patient.firstName}
-                    age={patient.age}
-                    gender={patient.gender}
-                    typeOfTreatment={patient.typeOfTreatment}
-                    createdOn={formatDate(patient.createdOn)}
-                    key={patient.id}
-                    id={patient.id}
-                    userId={patient.userId}
-                  />
-                ))
-            : sortType === "Date" &&
-              Object.values(filteredValue)
-                .filter((patient) => patient.userId !== decodedJwt.uid)
-                .sort(
-                  (a, b) => Date.parse(b.createdOn) - Date.parse(a.createdOn)
-                )
-                .map((patient) => (
-                  <PatientCard
-                    lastName={patient.lastName}
-                    firstName={patient.firstName}
-                    age={patient.age}
-                    gender={patient.gender}
-                    typeOfTreatment={patient.typeOfTreatment}
-                    createdOn={formatDate(patient.createdOn)}
-                    key={patient.id}
-                    id={patient.id}
-                    userId={patient.userId}
-                  />
-                ))}
-
-          {!filteredValue
-            ? sortType === "Age" &&
-              Object.values(Patients)
-                .filter((patient) => patient.userId !== decodedJwt.uid)
-                .sort((a, b) => b.age - a.age)
-                .map((patient) => (
-                  <PatientCard
-                    lastName={patient.lastName}
-                    firstName={patient.firstName}
-                    age={patient.age}
-                    gender={patient.gender}
-                    typeOfTreatment={patient.typeOfTreatment}
-                    createdOn={formatDate(patient.createdOn)}
-                    key={patient.id}
-                    id={patient.id}
-                    userId={patient.userId}
-                  />
-                ))
-            : sortType === "Age" &&
-              Object.values(filteredValue)
-                .filter((patient) => patient.userId !== decodedJwt.uid)
-                .sort((a, b) => b.age - a.age)
-                .map((patient) => (
-                  <PatientCard
-                    lastName={patient.lastName}
-                    firstName={patient.firstName}
-                    age={patient.age}
-                    gender={patient.gender}
-                    typeOfTreatment={patient.typeOfTreatment}
-                    createdOn={formatDate(patient.createdOn)}
-                    key={patient.id}
-                    id={patient.id}
-                    userId={patient.userId}
-                  />
-                ))}
         </div>
       </div>
     </>

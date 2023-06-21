@@ -35,7 +35,7 @@ export function UserRelationDatasProvider({ children }) {
   const [UserRelationDataError, setError] = useState("");
   const [UserSuccess, setUserSuccess] = useState("");
   const [buttonsFormUserLoader, setButtonsFormUserLoader] = useState("");
-
+  const [Patient, setPatient] = useState([]);
   const cleanupUserSuccess = () =>
     sleep(2000).then(() => {
       setUserSuccess("");
@@ -138,6 +138,33 @@ export function UserRelationDatasProvider({ children }) {
       })
       .finally(() => setButtonsFormUserLoader(false));
   };
+  const getPatient = () => {
+    setUserRelationDataLoader(true);
+    UserRelationDataServices.getPatient(decodedJwt.uid, token)
+      .then((res) => {
+        setPatient(res.data);
+        setError(null);
+      })
+      .catch(() => {
+        setError("Failed bring the User Data...");
+        cleanupError();
+      })
+      .finally(() => setUserRelationDataLoader(false));
+  };
+  const updatePatient = (id, Bo) => {
+    setButtonsFormUserLoader(true);
+    UserRelationDataServices.updatePatient(id, Bo, token)
+      .then((res) => {
+        setUserSuccess("Successfully Updated .");
+        cleanupUserSuccess();
+        setError(null);
+      })
+      .catch(() => {
+        setError("Failed update ...");
+        cleanupError();
+      })
+      .finally(() => setButtonsFormUserLoader(false));
+  };
 
   return (
     <UserRelationDataCxt.Provider
@@ -162,7 +189,12 @@ export function UserRelationDatasProvider({ children }) {
         getUser,
         UserSuccess,
         updateUser,
-        buttonsFormUserLoader
+        buttonsFormUserLoader,
+        setUser,
+        updatePatient,
+        getPatient,
+        Patient,
+        setPatient,
       }}
     >
       {children}

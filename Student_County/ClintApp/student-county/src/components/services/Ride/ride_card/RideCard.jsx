@@ -17,22 +17,30 @@ const RideCard = ({
   gender,
 }) => {
   const { setButtonCards } = useComponent();
-  const { Location, getLocationById } = useLocation();
+  const { Locations } = useLocation();
   const { getRideById } = useRides();
   const { decodedJwt } = useAuth();
-  const [nowLocation, setNowLocation] = useState("");
+  const [nowLocation, setNowLocation] = useState(false);
   const maxLength = 20;
 
-  if (longDescription.length > maxLength) {
+  if (longDescription && longDescription.length > maxLength) {
     const truncatedText = longDescription.substring(0, maxLength) + "...";
     longDescription = truncatedText;
   }
+
   useEffect(() => {
-    if (locationId) getLocationById(locationId);
-  }, [locationId]);
-  useMemo(() => {
-    setNowLocation(Location);
-  }, [Location]);
+    getMyLocation(locationId);
+  }, [Locations]);
+  const getMyLocation = useMemo(() => {
+    return (locationId) => {
+      const foundLocation = Object.values(Locations).find(
+        (location) => location.id === locationId
+      );
+      setNowLocation(foundLocation);
+    };
+  }, [Locations]);
+
+
   return (
     <>
       <div className="ride-card-container">
@@ -64,8 +72,8 @@ const RideCard = ({
         </div>
         <div className="ride-card-room">
           <div className="ride-card-inroom">
-            {nowLocation.cityName ? nowLocation.cityName : ""}
-            {" , "} {nowLocation.townName ? nowLocation.townName : ""}
+            {nowLocation ? nowLocation.cityName : ""}
+            {" , "} {nowLocation ? nowLocation.townName : ""}
           </div>
 
           <div className="ride-card-inroom">

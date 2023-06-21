@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { TbCheck } from "react-icons/tb";
 import { RiArrowDownSLine } from "react-icons/ri";
 import {
@@ -19,8 +19,9 @@ const Patients = () => {
   const [phonePrefix, setPhonePrefix] = useState("+970");
   const [acceptPolicy, setAcceptPolicy] = useState(false);
   const [gender, setGender] = useState("");
-  const [userBo, setUser] = useState();
+  const [userBo, setUser] = useState({});
   const [username, setUsername] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const [showDropdownPrefix, setShowDropdownPrefix] = useState(false);
   const [showDropdownGender, setShowDropdownGender] = useState(false);
@@ -144,12 +145,16 @@ const Patients = () => {
   };
 
   const handleConfirmPasswordChange = (event) => {
-    if (event.target.value !== userBo.password) {
+    setConfirmPassword(event.target.value);
+  };
+
+  useMemo(() => {
+    if (confirmPassword && confirmPassword !== userBo.password) {
       setConfirmPasswordError("Passwords do not match.");
     } else {
       setConfirmPasswordError(false);
     }
-  };
+  }, [confirmPassword, userBo.password]);
 
   const handleAcceptPolicyChange = () => {
     setAcceptPolicy(!acceptPolicy);
@@ -157,7 +162,7 @@ const Patients = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if(!gender) setGenderError("Please select your gender.");
+    if (!gender) setGenderError("Please select your gender.");
 
     if (
       gender &&
@@ -183,7 +188,7 @@ const Patients = () => {
               id="firstName"
               name="firstName"
               onChange={handleFirstNameChange}
-              maxLength={10}
+              maxLength={20}
               required
             />
             <div

@@ -5,9 +5,16 @@ import Home from "./pages/home/Home";
 import SignUp from "./pages/sign_up/SignUp";
 import SignIn from "./pages/sign_in/SignIn.jsx";
 import ForgotPassword from "./pages/forgot_password/ForgotPassword";
-import Dashboard from "./pages/dashboard/Dashboard";
 import Success from "./pages/success/Success.jsx";
 import ResetPassword from "./pages/reset_password/ResetPassword.jsx";
+import BooksSection from "./components/services/books/books_section/BooksSection";
+import RideSection from "./components/services/Ride/ride_section/RideSection";
+import PatientSection from "./components/services/Patient/patient_section/PatientSection";
+import HousingSection from "./components/services/Housing/housing_section/HousingSection";
+import ToolSection from "./components/services/Tools/tool_section/ToolSection";
+import Overview from "./components/overview/Overview.jsx";
+import ChatController from "./components/chat/ChatController";
+import Setting from "./components/setting/Setting.jsx";
 
 // const Home = lazy(() => import("./pages/home/Home"));
 // const SignUp = lazy(() => import("./pages/sign_up/SignUp"));
@@ -37,7 +44,14 @@ function App() {
         <Route path="/success" element={<Success />} />
 
         <Route element={<PrivateRoutes />}>
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/book" element={<BooksSection />} />
+          <Route path="/dashboard/ride" element={<RideSection />} />
+          <Route path="/dashboard/patient" element={<PatientSection />} />
+          <Route path="/dashboard/housing" element={<HousingSection />} />
+          <Route path="/dashboard/tool" element={<ToolSection />} />
+          <Route path="/dashboard/overview" element={<Overview />} />
+          <Route path="/dashboard/chat" element={<ChatController />} />
+          <Route path="/dashboard/setting" element={<Setting />} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

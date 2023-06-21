@@ -3,16 +3,18 @@ import useComponent from "../../../../hooks/useComponent";
 import useBooks from "../../../../hooks/useBooks";
 import "./BooksView.css";
 import useLoader from "../../../../hooks/useLoader";
-import ChatController from "../../../chat/ChatController";
 import { TbCrown } from "react-icons/tb";
 import useChat from "../../../../hooks/useChat";
 import useAuth from "../../../../hooks/useAuth";
+import {  useNavigate } from "react-router-dom";
 
 const BooksView = () => {
-  const { setButtonCards, setOpenChatArea, setOptionMenu, setOwnerItem } =
+  let navigate = useNavigate();
+
+  const { setButtonCards, setOptionMenu, setOwnerItem } =
     useComponent();
   const { Book, setBook } = useBooks();
-  const { reJoinRoom, setChatOpened } = useChat();
+  const { reJoinRoom } = useChat();
   const { FormBooksLoader } = useLoader();
   const { decodedJwt } = useAuth();
   const [date, setDate] = useState();
@@ -47,7 +49,7 @@ const BooksView = () => {
         >
           <div className="section-view">
             <div className="book-image-container">
-              <img className="book-image" src="./assets/images/services/book-view.svg"/>
+              <img className="book-image" src="../assets/images/services/book-view.svg"/>
               <div className="book-owner">
                 <TbCrown className="book-owner-icon" />
                 <div className="book-owner-name">{Book.studentName}</div>
@@ -75,6 +77,7 @@ const BooksView = () => {
                   onClick={() => {
                     reJoinRoom(decodedJwt.uid, Book.studentId);
                     setOwnerItem(Book.studentId);
+                    navigate("/dashboard/chat");
                     setOptionMenu("Chat");
                     // setOpenChatArea(true);
                     setButtonCards("");

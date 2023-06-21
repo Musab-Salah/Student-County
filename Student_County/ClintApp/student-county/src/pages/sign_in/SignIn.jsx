@@ -12,6 +12,7 @@ const SignIn = () => {
   const { login, AuthError } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [userName, setUserrName] = useState("");
   const { AuthLoader } = useLoader();
   const [bo, setbo] = useState();
   const eyeIcon = showPassword ? (
@@ -21,10 +22,12 @@ const SignIn = () => {
   );
 
   const setUserName = (e) => {
+    const result = e.target.value.replace(/[^a-z.0-9]/gi, "");
     setbo({
       ...bo,
-      userName: e.target.value,
+      userName: result,
     });
+    setUserrName(result);
   };
   const setPassword = (e) => {
     setbo({
@@ -72,6 +75,7 @@ const SignIn = () => {
                 type="text"
                 name="username"
                 onChange={setUserName}
+                value={userName}
                 required
               />
               <div

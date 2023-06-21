@@ -62,7 +62,7 @@ export function AuthProvider({ children }) {
       const dexp = decodedJwt.exp * 1000;
       if (dexp > Date.now()) {
         setIsLogin(true);
-        navigate("/dashboard");
+        navigate("/dashboard/overview");
       } else localStorage.clear("user");
     }
     // eslint-disable-next-line
@@ -116,7 +116,7 @@ export function AuthProvider({ children }) {
         setDecodedJwt(decodedJwt);
         setError("");
         setIsLogin(true);
-        navigate("/dashboard");
+        navigate("/dashboard/overview");
       })
       .catch((res) => {
         if (res.response.data === "Email Not Confirmed")

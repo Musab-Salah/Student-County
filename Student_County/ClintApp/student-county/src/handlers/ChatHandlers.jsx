@@ -24,7 +24,7 @@ export function ChatsProvider({ children }) {
       setError("");
     });
   useEffect(() => {
-    if (isLogin) joinRoom();
+    if (isLogin && !connection) joinRoom();
     //getMyAllChats();
 
     // eslint-disable-next-line
@@ -75,6 +75,15 @@ export function ChatsProvider({ children }) {
     ChatServices.getMyAllChats(decodedJwt.uid, token)
       .then((res) => {
         setMyChat(res.data);
+        if (Object.values(MyChat.length) > 0 && ownerItem) {
+          const found = MyChat.find((obj) => {
+            return (
+              (obj.from === decodedJwt.uid && obj.to === ownerItem) ||
+              (obj.to === decodedJwt.uid && obj.from === ownerItem)
+            );
+          });
+          setChatOpened(found);
+        }
         setError(null);
       })
       .catch(() => {

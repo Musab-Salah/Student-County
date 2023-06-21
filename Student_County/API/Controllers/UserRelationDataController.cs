@@ -114,5 +114,21 @@ namespace Student_County.API.Controllers
             return Ok(await _authService.RegisterStudentAsync(user, userid));
 
         }
+        [HttpGet]
+        public async Task<IActionResult> GetPatient(string userid)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userid);
+            user.Password = Security.ComputeUnHash(user.Password);
+            return Ok(user);
+
+        }
+        [HttpPut("{userid}")]
+        public async Task<IActionResult> UpdatePatient([FromBody] PatientRegisterModel user, [FromRoute] string userid)
+        {
+            if (user == null)
+                return BadRequest("User Not Found");
+            return Ok(await _authService.RegisterPatientAsync(user, userid));
+
+        }
     }
 }

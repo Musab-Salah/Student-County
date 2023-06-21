@@ -77,13 +77,13 @@ const Home = () => {
                   </span>
                 </div>
                 <div className="buttons">
-                  <Link to="/sign_in">
+                  <Link to="/dashboard/book">
                     <button className="btn btn-primary">
                       Book Store
                       <TbArrowNarrowRight className="arrow-right-icon" />
                     </button>
                   </Link>
-                  <Link to="/sign_in">
+                  <Link to="/dashboard/book">
                     <button className="btn btn-secondary">
                       Learn More
                       <TbArrowNarrowRight className="arrow-right-icon" />
@@ -116,13 +116,13 @@ const Home = () => {
                   </span>
                 </div>
                 <div className="buttons">
-                  <Link to="/sign_in">
+                  <Link to="/dashboard/housing">
                     <button className="btn btn-primary">
                       Housing Service
                       <TbArrowNarrowRight className="arrow-right-icon" />
                     </button>
                   </Link>
-                  <Link to="/sign_in">
+                  <Link to="/dashboard/housing">
                     <button className="btn btn-secondary">
                       Learn More
                       <TbArrowNarrowRight className="arrow-right-icon" />
@@ -144,13 +144,13 @@ const Home = () => {
                   </span>
                 </div>
                 <div className="buttons">
-                  <Link to="/sign_in">
+                  <Link to="/dashboard/ride">
                     <button className="btn btn-primary">
                       Riding Service
                       <TbArrowNarrowRight className="arrow-right-icon" />
                     </button>
                   </Link>
-                  <Link to="/sign_in">
+                  <Link to="/dashboard/ride">
                     <button className="btn btn-secondary">
                       Learn More
                       <TbArrowNarrowRight className="arrow-right-icon" />

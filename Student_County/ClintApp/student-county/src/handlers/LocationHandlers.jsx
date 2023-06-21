@@ -7,6 +7,8 @@ export function LocationProvider({ children }) {
   const [Locations, setLocations] = useState([]);
   const [LocationError, setError] = useState("");
   const [Location, setLocation] = useState("");
+  const [LocationForm, setLocationForm] = useState("");
+
   const [LocationsLoader, setLocationsLoader] = useState("");
 
   const [LocationBo] = useState({
@@ -37,6 +39,14 @@ export function LocationProvider({ children }) {
     LocationServices.getLocationById(id)
       .then((res) => {
         setLocation(res.data);
+        setError(null);
+      })
+      .catch(() => setError("Failed bring the Location..."));
+  };
+  const getLocationByIdform = (id) => {
+    LocationServices.getLocationById(id)
+      .then((res) => {
+        setLocationForm(res.data);
         setError(null);
       })
       .catch(() => setError("Failed bring the Location..."));
@@ -73,6 +83,9 @@ export function LocationProvider({ children }) {
         updateLocation,
         deleteLocation,
         setLocation,
+        getLocationByIdform,
+        LocationForm,
+        setLocationForm,
       }}
     >
       {children}

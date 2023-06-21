@@ -5,17 +5,21 @@ import { FaUserCircle } from "react-icons/fa";
 import { AiOutlineHome, AiOutlineUser } from "react-icons/ai";
 import { IoCarOutline } from "react-icons/io5";
 import { BiLogOut, BiBook } from "react-icons/bi";
-import { HiOutlineSupport } from "react-icons/hi";
 import { TbMessageCircle, TbTools } from "react-icons/tb";
 import { RxDashboard, RxGear } from "react-icons/rx";
 import useComponent from "../../hooks/useComponent";
 import useAuth from "./../../hooks/useAuth";
 import useLoader from "../../hooks/useLoader";
 import WithPermission from "../../certificates/WithPermission";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
-const Menu = ({ isMenuOpen, isMenuOpenPhone, setIsMenuOpenPhone }) => {
+const Menu = () => {
   const [navLinksVisible, setNavLinksVisible] = useState([true, true]);
-  const { setOptionMenu, OptionMenu } = useComponent();
+  const {
+    isMenuOpen,
+    isMenuOpenPhone,
+    setIsMenuOpenPhone,
+  } = useComponent();
   const { logout, decodedJwt } = useAuth();
   const { AuthLoader } = useLoader();
 
@@ -26,7 +30,6 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone, setIsMenuOpenPhone }) => {
       return updatedState;
     });
   };
-  const [isClose, setIsClose] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpenPhone(!isMenuOpenPhone);
@@ -60,6 +63,8 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone, setIsMenuOpenPhone }) => {
       }
     };
   }, []);
+  const location = useLocation();
+
   return (
     <div
       className={`dash-menu ${
@@ -69,7 +74,7 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone, setIsMenuOpenPhone }) => {
     >
       <div className="dash-menu-link">
         <div className={`dash-logo ${isMenuOpen ? "hidden" : ""}`}>
-          <img className="logo" alt="" src="./logo.svg" />
+          <img className="logo" alt="" src="../logo.svg" />
           <button
             className="close dash-menu-close"
             id="close"
@@ -93,37 +98,39 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone, setIsMenuOpenPhone }) => {
             </div>
             {navLinksVisible[0] && (
               <div className="dash-nav-links">
-                <div
-                  className={`dash-nav-link ${
-                    isMenuOpen ? "padding-resize" : ""
-                  } ${OptionMenu === "Overview" ? "active" : ""} `}
-                  onClick={() => setOptionMenu("Overview")}
-                >
-                  <RxDashboard className="dash-nav-link-icon" />
+                <Link to="/dashboard/overview">
+                  <div
+                    className={`dash-nav-link ${
+                      isMenuOpen ? "padding-resize" : ""
+                    } ${location.pathname === "/dashboard/overview" ? "active" : ""} `}
+                  >
+                    <RxDashboard className="dash-nav-link-icon" />
 
-                  <div
-                    className={`dash-nav-link-title ${
-                      isMenuOpen ? "hidden" : ""
-                    }`}
-                  >
-                    Overview
+                    <div
+                      className={`dash-nav-link-title ${
+                        isMenuOpen ? "hidden" : ""
+                      }`}
+                    >
+                      Overview
+                    </div>
                   </div>
-                </div>
-                <div
-                  className={`dash-nav-link ${
-                    isMenuOpen ? "padding-resize" : ""
-                  } ${OptionMenu === "Chat" ? "active" : ""} `}
-                  onClick={() => setOptionMenu("Chat")}
-                >
-                  <TbMessageCircle className="dash-nav-link-icon" />
+                </Link>
+                <Link to="/dashboard/chat">
                   <div
-                    className={`dash-nav-link-title ${
-                      isMenuOpen ? "hidden" : ""
-                    }`}
+                    className={`dash-nav-link ${
+                      isMenuOpen ? "padding-resize" : ""
+                    } ${location.pathname === "/dashboard/chat" ? "active" : ""} `}
                   >
-                    Messages
+                    <TbMessageCircle className="dash-nav-link-icon" />
+                    <div
+                      className={`dash-nav-link-title ${
+                        isMenuOpen ? "hidden" : ""
+                      }`}
+                    >
+                      Messages
+                    </div>
                   </div>
-                </div>
+                </Link>
               </div>
             )}
           </div>
@@ -145,99 +152,104 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone, setIsMenuOpenPhone }) => {
                 <WithPermission
                   ScopeRole={["Student", "Dentistry Student", "Admin"]}
                 >
-                  <div
-                    className={`dash-nav-link ${
-                      isMenuOpen ? "padding-resize" : ""
-                    } ${OptionMenu === "Books" ? "active" : ""} `}
-                    onClick={() => setOptionMenu("Books")}
-                  >
-                    <BiBook className="dash-nav-link-icon" />
+                  <Link to="/dashboard/book">
                     <div
-                      className={`dash-nav-link-title ${
-                        isMenuOpen ? "hidden" : ""
-                      }`}
+                      className={`dash-nav-link ${
+                        isMenuOpen ? "padding-resize" : ""
+                      } ${location.pathname === "/dashboard/book" ? "active" : ""} `}
                     >
-                      Books
+                      <BiBook className="dash-nav-link-icon" />
+                      <div
+                        className={`dash-nav-link-title ${
+                          isMenuOpen ? "hidden" : ""
+                        }`}
+                      >
+                        Books
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 </WithPermission>
 
                 <WithPermission
                   ScopeRole={["Student", "Dentistry Student", "Admin"]}
                 >
-                  <div
-                    className={`dash-nav-link ${
-                      isMenuOpen ? "padding-resize" : ""
-                    } ${OptionMenu === "Housing" ? "active" : ""} `}
-                    onClick={() => setOptionMenu("Housing")}
-                  >
-                    <AiOutlineHome className="dash-nav-link-icon" />
+                  <Link to="/dashboard/housing">
                     <div
-                      className={`dash-nav-link-title ${
-                        isMenuOpen ? "hidden" : ""
-                      }`}
+                      className={`dash-nav-link ${
+                        isMenuOpen ? "padding-resize" : ""
+                      } ${location.pathname === "/dashboard/housing" ? "active" : ""} `}
                     >
-                      Housing
+                      <AiOutlineHome className="dash-nav-link-icon" />
+                      <div
+                        className={`dash-nav-link-title ${
+                          isMenuOpen ? "hidden" : ""
+                        }`}
+                      >
+                        Housing
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 </WithPermission>
                 <WithPermission
                   ScopeRole={["Student", "Dentistry Student", "Admin"]}
                 >
-                  {" "}
-                  <div
-                    className={`dash-nav-link ${
-                      isMenuOpen ? "padding-resize" : ""
-                    } ${OptionMenu === "Ride" ? "active" : ""} `}
-                    onClick={() => setOptionMenu("Ride")}
-                  >
-                    <IoCarOutline className="dash-nav-link-icon" />
+                  <Link to="/dashboard/ride">
+                    {" "}
                     <div
-                      className={`dash-nav-link-title ${
-                        isMenuOpen ? "hidden" : ""
-                      }`}
+                      className={`dash-nav-link ${
+                        isMenuOpen ? "padding-resize" : ""
+                      } ${location.pathname === "/dashboard/ride" ? "active" : ""} `}
                     >
-                      Rides
+                      <IoCarOutline className="dash-nav-link-icon" />
+                      <div
+                        className={`dash-nav-link-title ${
+                          isMenuOpen ? "hidden" : ""
+                        }`}
+                      >
+                        Rides
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 </WithPermission>
 
                 <WithPermission
                   ScopeRole={["Student", "Dentistry Student", "Admin"]}
                 >
-                  {" "}
-                  <div
-                    className={`dash-nav-link ${
-                      isMenuOpen ? "padding-resize" : ""
-                    } ${OptionMenu === "Tool" ? "active" : ""} `}
-                    onClick={() => setOptionMenu("Tool")}
-                  >
-                    <TbTools className="dash-nav-link-icon" />
+                  <Link to="/dashboard/tool">
+                    {" "}
                     <div
-                      className={`dash-nav-link-title ${
-                        isMenuOpen ? "hidden" : ""
-                      }`}
+                      className={`dash-nav-link ${
+                        isMenuOpen ? "padding-resize" : ""
+                      } ${location.pathname === "/dashboard/tool" ? "active" : ""} `}
                     >
-                      Tools
+                      <TbTools className="dash-nav-link-icon" />
+                      <div
+                        className={`dash-nav-link-title ${
+                          isMenuOpen ? "hidden" : ""
+                        }`}
+                      >
+                        Tools
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 </WithPermission>
                 <WithPermission ScopeRole={["Dentistry Student", "Admin"]}>
-                  <div
-                    className={`dash-nav-link ${
-                      isMenuOpen ? "padding-resize" : ""
-                    } ${OptionMenu === "Patient" ? "active" : ""} `}
-                    onClick={() => setOptionMenu("Patient")}
-                  >
-                    <AiOutlineUser className="dash-nav-link-icon" />
+                  <Link to="/dashboard/patient">
                     <div
-                      className={`dash-nav-link-title ${
-                        isMenuOpen ? "hidden" : ""
-                      }`}
+                      className={`dash-nav-link ${
+                        isMenuOpen ? "padding-resize" : ""
+                      } ${location.pathname === "/dashboard/patient" ? "active" : ""} `}
                     >
-                      Patients
+                      <AiOutlineUser className="dash-nav-link-icon" />
+                      <div
+                        className={`dash-nav-link-title ${
+                          isMenuOpen ? "hidden" : ""
+                        }`}
+                      >
+                        Patients
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 </WithPermission>
               </div>
             )}
@@ -246,21 +258,24 @@ const Menu = ({ isMenuOpen, isMenuOpenPhone, setIsMenuOpenPhone }) => {
       </div>
       <div className="dash-menu-items-buttom">
         <div className="dash-menu-items">
-          <div
-            className={`dash-nav-link ${isMenuOpen ? "padding-resize" : ""} ${
-              OptionMenu === "Setting" ? "active" : ""
-            } `}
-            onClick={() => setOptionMenu("Setting")}
-          >
-            <RxGear className="dash-nav-link-icon" />
-            <div className="dash-title-description">
-              <div
-                className={`dash-nav-link-title ${isMenuOpen ? "hidden" : ""}`}
-              >
-                Setting
+          <Link to="/dashboard/setting">
+            <div
+              className={`dash-nav-link ${isMenuOpen ? "padding-resize" : ""} ${
+                location.pathname === "/dashboard/setting" ? "active" : ""
+              } `}
+            >
+              <RxGear className="dash-nav-link-icon" />
+              <div className="dash-title-description">
+                <div
+                  className={`dash-nav-link-title ${
+                    isMenuOpen ? "hidden" : ""
+                  }`}
+                >
+                  Setting
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
           {/* <div
             className={`dash-nav-link ${isMenuOpen ? "padding-resize" : ""} ${
               OptionMenu === "Support" ? "selected" : ""

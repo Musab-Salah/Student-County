@@ -1,8 +1,6 @@
 import SendMessageForm from "./SendMessageForm";
 import MessageContainer from "./MessageContainer";
 import ConnectedUsers from "./ConnectedUsers";
-import { ImAttachment } from "react-icons/im";
-import { RiSendPlaneFill } from "react-icons/ri";
 import { TiArrowBack } from "react-icons/ti";
 import { FaUserCircle } from "react-icons/fa";
 import useChat from "../../hooks/useChat";
@@ -11,7 +9,6 @@ const Chat = ({
   openChatArea,
   setMessages,
   closeConnection,
-  receiverName,
   setOpenChatArea,
   setPreviosMessages,
   decodedJwt,
@@ -75,7 +72,7 @@ const Chat = ({
             <div className="no-chat">
               <img
                 alt=""
-                src="assets/images/no-conversation.svg"
+                src="../assets/images/no-conversation.svg"
                 className="no-chat-img"
               />
               <div className="no-chat-texts">

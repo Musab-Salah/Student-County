@@ -12,8 +12,14 @@ const RideForm = () => {
   const { setButtonCards, ButtonCards } = useComponent();
   const { RideSuccess, createRide, RideError, updateRide, Ride, setRide } =
     useRides();
-  const { getLocations, Locations, Location, getLocationById, setLocation } =
-    useLocation();
+  const {
+    getLocations,
+    Locations,
+    LocationForm,
+    setLocationForm,
+    getLocationByIdform,
+    setLocation,
+  } = useLocation();
   // State Hook
   const [carDescription, setCarDescription] = useState("");
   const [deleteDialogState, setDeleteDialogState] = useState("");
@@ -58,7 +64,7 @@ const RideForm = () => {
       setShortDescription(Ride.shortDescription);
       setLongDescription(Ride.longDescription);
       setEmptySeats(Ride.emptySeats);
-      getLocationById(Ride.locationId);
+      getLocationByIdform(Ride.locationId);
       setRideBo({
         ...ride,
         studentId: Ride.studentId,
@@ -73,8 +79,8 @@ const RideForm = () => {
     // eslint-disable-next-line
   }, [Ride]);
   useMemo(() => {
-    setLocationform(Location);
-  }, [Location]);
+    setLocationform(LocationForm);
+  }, [LocationForm]);
   useEffect(() => {
     getLocations();
   }, []);
@@ -90,7 +96,7 @@ const RideForm = () => {
   useEffect(() => {
     return function cleanup() {
       setButtonCards("");
-      setLocation("");
+      setLocationForm("");
       setRide("");
     };
     // eslint-disable-next-line
@@ -315,10 +321,12 @@ const RideForm = () => {
                   <AiFillExclamationCircle /> {emptySeatsError}{" "}
                 </span>
               )}
-             <div className="form-title-paragraph ">
+              <div className="form-title-paragraph ">
                 Additional Details
                 <div className="form-paragraph">
-                Can you provide more info about the ride? ex: Estimated duration, roads and towns to be traversed, and any planned stops before arriving at the university etc...
+                  Can you provide more info about the ride? ex: Estimated
+                  duration, roads and towns to be traversed, and any planned
+                  stops before arriving at the university etc...
                 </div>
               </div>
               <div className="input-container textarea-input">
@@ -348,7 +356,7 @@ const RideForm = () => {
                   {longDescriptionError}
                 </span>
               )}
-                            <div className="input-container">
+              <div className="input-container">
                 <input
                   type="text"
                   name="shortdescription"

@@ -7,6 +7,11 @@ export function ComponentProvider({ children }) {
   const [ButtonCards, setButtonCards] = useState("");
   const [openChatArea, setOpenChatArea] = useState(false);
   const [ownerItem, setOwnerItem] = useState("");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isMenuOpenPhone, setIsMenuOpenPhone] = useState(false);
+  const [filteredValue, setFilteredValue] = useState("");
 
   return (
     <ComponentCxt.Provider
@@ -19,6 +24,16 @@ export function ComponentProvider({ children }) {
         openChatArea,
         setOwnerItem,
         ownerItem,
+        isMenuOpen,
+        setIsMenuOpen,
+        query,
+        setQuery,
+        isSearchOpen,
+        setIsSearchOpen,
+        isMenuOpenPhone,
+        setIsMenuOpenPhone,
+        filteredValue,
+        setFilteredValue,
       }}
     >
       {children}

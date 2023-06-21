@@ -7,13 +7,16 @@ import useAuth from "../../../../hooks/useAuth";
 import useChat from "../../../../hooks/useChat";
 import useHousings from "../../../../hooks/useHousings";
 import { MdApartment } from "react-icons/md";
+import {  useNavigate } from "react-router-dom";
 
 const HousingView = () => {
+  let navigate = useNavigate();
   const { FormHousingLoader } = useLoader();
   const { setButtonCards, setOptionMenu, setOwnerItem } = useComponent();
   const { reJoinRoom } = useChat();
   const { decodedJwt } = useAuth();
   const { Housing, setHousing } = useHousings();
+
   useEffect(() => {
     return function cleanup() {
       setButtonCards("");
@@ -116,12 +119,14 @@ const HousingView = () => {
               onClick={() => {
                 reJoinRoom(decodedJwt.uid, Housing.studentId);
                 setOwnerItem(Housing.userId);
+                navigate("/dashboard/chat");
+
                 setOptionMenu("Chat");
                 setButtonCards("");
               }}
               className="btn btn-primary btn-fill"
             >
-              Contact The with owner
+              Contact With Owner
             </button>
             <button
               onClick={() => setButtonCards("")}
