@@ -112,7 +112,7 @@ const SignIn = () => {
             </div>
 
             <div className="choices">
-              <div
+              {/* <div
                 checked={rememberMe}
                 onClick={handleRememberMeChange}
                 className="checking"
@@ -121,7 +121,7 @@ const SignIn = () => {
                   {rememberMe && <TbCheck />}
                 </div>
                 <div className="remember-me">Remember Me</div>
-              </div>
+              </div> */}
               <Link to="/forgot_password" className="link">
                 Forgot Password?
               </Link>

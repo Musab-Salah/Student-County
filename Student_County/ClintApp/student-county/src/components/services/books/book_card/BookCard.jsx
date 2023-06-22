@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./BookCard.css";
 import useComponent from "../../../../hooks/useComponent";
 import useAuth from "../../../../hooks/useAuth";
 import useBooks from "../../../../hooks/useBooks";
 import { BiBook } from "react-icons/bi";
+import useCollege from "../../../../hooks/useCollege";
 
 const BookCard = ({
   createdOn,
@@ -14,16 +15,32 @@ const BookCard = ({
   price,
   longDescription,
   name,
+  collegeId,
 }) => {
   const { setButtonCards } = useComponent();
   const { getBookById } = useBooks();
   const { decodedJwt } = useAuth();
+  const [nowLocation, setNowLocation] = useState(false);
+
   const maxLength = 20;
 
   if (longDescription && longDescription.length > maxLength) {
     const truncatedText = longDescription.substring(0, maxLength) + "...";
     longDescription = truncatedText;
   }
+  const { Colleges } = useCollege();
+
+  useEffect(() => {
+    getMyCollege(collegeId);
+  }, [Colleges]);
+  const getMyCollege = useMemo(() => {
+    return (collegeId) => {
+      const foundLocation = Object.values(Colleges).find(
+        (College) => College.id === collegeId
+      );
+      setNowLocation(foundLocation);
+    };
+  }, [Colleges]);
   return (
     <>
       <div className="book-card-container">
@@ -57,6 +74,10 @@ const BookCard = ({
           </div>
         </div>
         <div className="book-card-room">
+          <div className="book-card-inroom">
+            {" "}
+            {nowLocation ? nowLocation.name : ""}
+          </div>
           <div className="book-card-inroom">{theWay}</div>
           <div className="book-card-inroom">{condition}</div>
         </div>

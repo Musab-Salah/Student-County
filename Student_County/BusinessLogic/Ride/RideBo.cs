@@ -11,11 +11,13 @@ namespace Student_County.BusinessLogic.Ride
         [Required]
         public int EmptySeats { get; set; }
         [Required]
-        public string? CarDescription { get; set; }
-        public string? ShortDescription { get; set; }
+        public string CarDescription { get; set; }
         [Required]
-        public string? LongDescription { get; set; }
+        public string LongDescription { get; set; }
+        [Required]
         public string StudentId { get; set; }
+        [Required]
         public int LocationId { get; set; }
+        public List<TimeSlot> TimeSlots { get; set; } = new List<TimeSlot>();
     }
 }

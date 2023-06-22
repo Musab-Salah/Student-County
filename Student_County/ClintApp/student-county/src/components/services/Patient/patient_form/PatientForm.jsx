@@ -394,9 +394,11 @@ const PatientForm = () => {
   };
 
   const handleSubmit = () => {
-    if(!gender) setGenderError("Please select a gender")
-    if (selectedTreatments.length === 0) setTypeOfTreatmentError("Please select a treatment")
-    if (selectedIllnesses.length === 0) setCurrentIllnessesError("Please select a Current Illnesses")
+    if (!gender) setGenderError("Please select a gender");
+    if (selectedTreatments.length === 0)
+      setTypeOfTreatmentError("Please select a treatment");
+    if (selectedIllnesses.length === 0)
+      setCurrentIllnessesError("Please select a Current Illnesses");
     if (
       gender &&
       selectedTreatments.length !== 0 &&
@@ -463,8 +465,8 @@ const PatientForm = () => {
                   <div className="form-title-paragraph ">
                     Patient Info
                     <div className="form-paragraph">
-                      Please provide the following details about the patient you are
-                      adding.
+                      Please provide the following details about the patient you
+                      are adding.
                     </div>
                   </div>
                   <div className="input-group">
@@ -764,10 +766,12 @@ const PatientForm = () => {
                   <div className="step-line"></div>
                 </div>
                 <div className="form-input-container">
-                <div className="form-title-paragraph ">
+                  <div className="form-title-paragraph ">
                     Patient Status
                     <div className="form-paragraph">
-                    Please provide the patient's medical details for a better understanding of their condition, ensuring appropriate action.
+                      Please provide the patient's medical details for a better
+                      understanding of their condition, ensuring appropriate
+                      action.
                     </div>
                   </div>
                   <div className="input-group">

@@ -17,6 +17,7 @@ namespace Student_County.BusinessLogic.Book
                 ShortDescription = bo.ShortDescription,
                 StudentId = bo.StudentId,  
                 Condition = bo.Condition,   
+                CollegeId = bo.CollegeId,
             };
         }
     }

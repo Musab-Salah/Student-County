@@ -43,7 +43,7 @@ const Overview = ({}) => {
     MyRides,
   } = useUserRelationData(); //[0]books ,[1]housings,[2]rides,[3]tools,[4]patients
   const { decodedJwt } = useAuth();
-  const { ButtonCards, filteredValue ,setOptionMenu} = useComponent();
+  const { ButtonCards, filteredValue, setOptionMenu } = useComponent();
 
   const { setButtonCards } = useComponent();
   const [selectType, setSelectType] = useState("");
@@ -63,12 +63,11 @@ const Overview = ({}) => {
   }, []);
   const handeleAddServices = () => {
     setAddServices(!AddServices);
-    console.log(AddServices);
   };
-  function handleTypeChange(type) {
+  const handleTypeChange = (type) => {
     setSelectType(type);
     setShowDropdownType(false);
-  }
+  };
 
   useMemo(() => {
     const handleOutsideClick = (event) => {
@@ -179,7 +178,10 @@ const Overview = ({}) => {
                 ScopeRole={["Student", "Dentistry Student", "Admin"]}
               >
                 <div className="stats-container">
-                  <div className="stats">
+                  <div
+                    onClick={() => handleTypeChange({ name: "Book", id: 2 })}
+                    className="stats"
+                  >
                     <div className="stats-icon-background">
                       <FaBook className="stats-icon" />
                     </div>
@@ -188,7 +190,10 @@ const Overview = ({}) => {
                       <div className="stats-number">{Bookslength}</div>
                     </div>
                   </div>
-                  <div className="stats">
+                  <div
+                    onClick={() => handleTypeChange({ name: "Ride", id: 3 })}
+                    className="stats"
+                  >
                     <div className="stats-icon-background">
                       <IoCarOutline className="stats-icon" />
                     </div>
@@ -197,7 +202,10 @@ const Overview = ({}) => {
                       <div className="stats-number">{Rideslength}</div>
                     </div>
                   </div>
-                  <div className="stats">
+                  <div
+                    onClick={() => handleTypeChange({ name: "House", id: 4 })}
+                    className="stats"
+                  >
                     <div className="stats-icon-background">
                       <FaHome className="stats-icon" />
                     </div>
@@ -212,7 +220,10 @@ const Overview = ({}) => {
                 <WithPermission
                   ScopeRole={["Student", "Dentistry Student", "Admin"]}
                 >
-                  <div className="stats">
+                  <div
+                    onClick={() => handleTypeChange({ name: "Tools", id: 6 })}
+                    className="stats"
+                  >
                     <div className="stats-icon-background">
                       <TbTools className="dash-nav-link-icon" />
                     </div>
@@ -222,7 +233,10 @@ const Overview = ({}) => {
                     </div>
                   </div>
                 </WithPermission>
-                <div className="stats">
+                <div
+                  onClick={() => handleTypeChange({ name: "Patient", id: 5 })}
+                  className="stats"
+                >
                   <div className="stats-icon-background">
                     <FaUserCircle className="dash-nav-link-icon" />
                   </div>
@@ -290,7 +304,7 @@ const Overview = ({}) => {
                         <div className="add-title-add-services">ADD RIDING</div>
                         <div className="stats-info">
                           <AiOutlinePlus
-                            onClick={() => setButtonCards("CreateHousing")}
+                            onClick={() => setButtonCards("CreateRide")}
                             className="btn-add-services btn-small add-icon-add-services"
                           />
                         </div>

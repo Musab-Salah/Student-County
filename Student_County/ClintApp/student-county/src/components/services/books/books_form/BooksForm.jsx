@@ -6,6 +6,7 @@ import useBooks from "../../../../hooks/useBooks";
 import DialogConfirmation from "../../../dialog_confirmation/DialogConfirmation";
 import "./BooksForm.css";
 import useLoader from "../../../../hooks/useLoader";
+import useCollege from "../../../../hooks/useCollege";
 
 const BooksForm = () => {
   const { setButtonCards, ButtonCards } = useComponent();
@@ -37,6 +38,13 @@ const BooksForm = () => {
 
   const [showDropdownTheWay, setShowDropdownTheWay] = useState(false);
   const [showDropdownCondition, setShowDropdownCondition] = useState(false);
+  const { Colleges } = useCollege();
+
+  const [selectCollege, setSelectCollege] = useState("");
+
+  const [showDropdownCollege, setShowDropdownCollege] = useState(false);
+
+  const [selectCollegeError, setSelectCollegeError] = useState("");
 
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -48,13 +56,14 @@ const BooksForm = () => {
       ) {
         setShowDropdownTheWay(false);
         setShowDropdownCondition(false);
+        setShowDropdownCollege(false);
       }
     };
     document.addEventListener("click", handleOutsideClick);
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
-  }, [showDropdownTheWay, showDropdownCondition]);
+  }, [showDropdownTheWay, showDropdownCondition, showDropdownCollege]);
 
   useMemo(() => {
     setName(Book.name);
@@ -63,6 +72,7 @@ const BooksForm = () => {
     setPrice(Book.price);
     setTheWay(Book.theWay);
     setCondition(Book.condition);
+    setSelectCollege(Book.collegeId);
     setBookBo({
       ...book,
       studentId: Book.studentId,
@@ -73,6 +83,7 @@ const BooksForm = () => {
       price: Book.price,
       theWay: Book.theWay,
       condition: Book.condition,
+      collegeId: Book.collegeId,
     });
     // eslint-disable-next-line
   }, [Book]);
@@ -84,7 +95,15 @@ const BooksForm = () => {
     }
     // eslint-disable-next-line
   }, [BookSuccess]);
-
+  const handleCollegeChange = (college) => {
+    setBookBo({
+      ...book,
+      collegeId: college.id,
+    });
+    setSelectCollege(college.name);
+    setShowDropdownCollege(false);
+    setSelectCollegeError(false);
+  };
   useEffect(() => {
     return function cleanup() {
       setButtonCards("");
@@ -251,6 +270,50 @@ const BooksForm = () => {
                   {nameError}
                 </span>
               )}
+              <div className="custom-select">
+                <div className="custom-select">
+                  <div
+                    className="selected-option"
+                    onClick={() => setShowDropdownCollege(!showDropdownCollege)}
+                  >
+                    {!selectCollege ? (
+                      <div className="input-container-option input-dropdown">
+                        The book for which college ?
+                      </div>
+                    ) : (
+                      <div>
+                        <div className="input-container-option input-dropdown-title">
+                          The book for which college ?
+                        </div>
+                        <div className="input-container-option input-dropdown input-selected">
+                          {selectCollege}
+                        </div>
+                      </div>
+                    )}
+                    <RiArrowDownSLine className="arrow-icon" />
+                  </div>
+                  {showDropdownCollege && (
+                    <div className="options" id="input-dropdown">
+                      <div className="option-title">College Or Faculty</div>
+                      {Object.values(Colleges).map((college) => (
+                        <div
+                          className="option"
+                          key={college.id}
+                          onClick={() => handleCollegeChange(college)}
+                        >
+                          {college.name}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+              {selectCollegeError && (
+                <span className="wrong-info">
+                  <AiFillExclamationCircle />
+                  {selectCollegeError}
+                </span>
+              )}
               <div className="input-container textarea-input">
                 <textarea
                   maxLength={300}
@@ -404,30 +467,7 @@ const BooksForm = () => {
                   <AiFillExclamationCircle /> {priceError}{" "}
                 </span>
               )}
-                            <div className="input-container">
-                <input
-                  type="text"
-                  name="shortdescription"
-                  defaultValue={
-                    shortDescription ? shortDescription : book.shortDescription
-                  }
-                  onChange={handleShortDescription}
-                />
-                <div
-                  className="input-container-option"
-                  onClick={() =>
-                    document.getElementsByName("shortdescription")[0].focus()
-                  }
-                >
-                  Additional Information
-                </div>
-              </div>
-              {shortDescriptionError && (
-                <span className="wrong-info">
-                  <AiFillExclamationCircle />
-                  {shortDescriptionError}
-                </span>
-              )}
+
               {/* <button type="submit" className={`btn btn-primary sign ${!isFormValid ? 'disabled' : ''}`}>  */}
               <div className="buttons">
                 {ButtonCards === "UpdateBook" ? (

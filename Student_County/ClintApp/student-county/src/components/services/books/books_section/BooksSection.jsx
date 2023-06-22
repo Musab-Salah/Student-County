@@ -14,6 +14,7 @@ import BooksForm from "../books_form/BooksForm";
 import BooksView from "../books_view/BooksView";
 import Menu from "../../../menu/menu";
 import DashboardNavbar from "../../../navbar/dashboard_navbar/DashboardNavbar";
+import useCollege from "../../../../hooks/useCollege";
 
 const BooksSection = () => {
   const { decodedJwt } = useAuth();
@@ -29,6 +30,11 @@ const BooksSection = () => {
   const [showDropdownSortOwne, setShowDropdownSortOwne] = useState("");
 
   const { MyBooks, UserRelationDataLoader } = useUserRelationData();
+  const { Colleges } = useCollege();
+
+  const [selectCollege, setSelectCollege] = useState("");
+
+  const [showDropdownCollege, setShowDropdownCollege] = useState(false);
 
   const [maxCards, setMaxCards] = useState(3);
 
@@ -40,6 +46,7 @@ const BooksSection = () => {
       ) {
         setShowDropdownSortOwne(false);
         setShowDropdownSort(false);
+        setShowDropdownCollege(false);
       }
     };
     document.addEventListener("click", handleOutsideClick);
@@ -47,7 +54,7 @@ const BooksSection = () => {
       document.removeEventListener("click", handleOutsideClick);
     };
     // eslint-disable-next-line
-  }, [showDropdownSortOwne, showDropdownSort]);
+  }, [showDropdownSortOwne, showDropdownSort, showDropdownCollege]);
 
   useEffect(() => {
     getBooks();
@@ -71,7 +78,11 @@ const BooksSection = () => {
   const handleShowMore = () => {
     setMaxCards(maxCards + 3);
   };
-
+  const handleCollegeChange = (college) => {
+    if (college) setSelectCollege(college);
+    else setSelectCollege(false);
+    setShowDropdownCollege(false);
+  };
   return (
     <>
       <Helmet>
@@ -168,6 +179,7 @@ const BooksSection = () => {
                         id={book.id}
                         studentId={book.studentId}
                         theWay={book.theWay}
+                        collegeId={book.collegeId}
                         condition={book.condition}
                       />
                     ))}
@@ -185,6 +197,7 @@ const BooksSection = () => {
                         id={book.id}
                         studentId={book.studentId}
                         theWay={book.theWay}
+                        collegeId={book.collegeId}
                         condition={book.condition}
                       />
                     ))}
@@ -205,6 +218,7 @@ const BooksSection = () => {
                         id={book.id}
                         studentId={book.studentId}
                         theWay={book.theWay}
+                        collegeId={book.collegeId}
                         condition={book.condition}
                       />
                     ))}
@@ -222,6 +236,7 @@ const BooksSection = () => {
                         id={book.id}
                         studentId={book.studentId}
                         theWay={book.theWay}
+                        collegeId={book.collegeId}
                         condition={book.condition}
                       />
                     ))}
@@ -242,7 +257,53 @@ const BooksSection = () => {
                 <div className="services-head-title">Find Services</div>
                 <div className="filterboxs">
                   <div className="input-group">
-                    <div className="custom-select">
+                    <div className="custom-select-select-by-college">
+                        <div
+                          className="selected-option"
+                          onClick={() =>
+                            setShowDropdownCollege(!showDropdownCollege)
+                          }
+                        >
+                          {!selectCollege ? (
+                            <div className="input-container-option input-dropdown">
+                              Select By College
+                            </div>
+                          ) : (
+                            <div>
+                              <div className="input-container-option input-dropdown-title">
+                                Select By College
+                              </div>
+                              <div className="input-container-option input-dropdown input-selected">
+                                {selectCollege.name}
+                              </div>
+                            </div>
+                          )}
+                          <RiArrowDownSLine className="arrow-icon" />
+                        </div>
+                        {showDropdownCollege && (
+                          <div className="options" id="input-dropdown">
+                            <div className="option-title">
+                              College Or Faculty
+                            </div>
+                            <div
+                              onClick={() => handleCollegeChange(false)}
+                              className="option"
+                            >
+                              All
+                            </div>
+                            {Object.values(Colleges).map((college) => (
+                              <div
+                                className="option"
+                                key={college.id}
+                                onClick={() => handleCollegeChange(college)}
+                              >
+                                {college.name}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                    </div>
+                    <div className="custom-select-select-by-college">
                       <div
                         className="selected-option"
                         onClick={() => setShowDropdownSort(!showDropdownSort)}
@@ -299,6 +360,11 @@ const BooksSection = () => {
                 {!filteredValue
                   ? !sortType &&
                     Object.values(Books)
+                      .filter((book) =>
+                        selectCollege
+                          ? book.collegeId === selectCollege.id
+                          : true
+                      )
                       .filter((book) => book.studentId !== decodedJwt.uid)
                       .map((book) => (
                         <BookCard
@@ -310,11 +376,17 @@ const BooksSection = () => {
                           id={book.id}
                           studentId={book.studentId}
                           theWay={book.theWay}
+                          collegeId={book.collegeId}
                           condition={book.condition}
                         />
                       ))
                   : !sortType &&
                     Object.values(filteredValue)
+                      .filter((book) =>
+                        selectCollege
+                          ? book.collegeId === selectCollege.id
+                          : true
+                      )
                       .filter((book) => book.studentId !== decodedJwt.uid)
                       .map((book) => (
                         <BookCard
@@ -326,6 +398,7 @@ const BooksSection = () => {
                           id={book.id}
                           studentId={book.studentId}
                           theWay={book.theWay}
+                          collegeId={book.collegeId}
                           condition={book.condition}
                         />
                       ))}
@@ -334,6 +407,12 @@ const BooksSection = () => {
                   ? sortType === "Name" &&
                     Object.values(Books)
                       .sort((a, b) => (a.name > b.name ? 1 : -1))
+                      .filter((book) =>
+                        selectCollege
+                          ? book.collegeId === selectCollege.id
+                          : true
+                      )
+
                       .filter((book) => book.studentId !== decodedJwt.uid)
                       .map((book) => (
                         <BookCard
@@ -345,12 +424,19 @@ const BooksSection = () => {
                           id={book.id}
                           studentId={book.studentId}
                           theWay={book.theWay}
+                          collegeId={book.collegeId}
                           condition={book.condition}
                         />
                       ))
                   : sortType === "Name" &&
                     Object.values(filteredValue)
                       .sort((a, b) => (a.name > b.name ? 1 : -1))
+                      .filter((book) =>
+                        selectCollege
+                          ? book.collegeId === selectCollege.id
+                          : true
+                      )
+
                       .filter((book) => book.studentId !== decodedJwt.uid)
                       .map((book) => (
                         <BookCard
@@ -362,6 +448,7 @@ const BooksSection = () => {
                           id={book.id}
                           studentId={book.studentId}
                           theWay={book.theWay}
+                          collegeId={book.collegeId}
                           condition={book.condition}
                         />
                       ))}
@@ -369,6 +456,12 @@ const BooksSection = () => {
                 {!filteredValue
                   ? sortType === "Date" &&
                     Object.values(Books)
+                      .filter((book) =>
+                        selectCollege
+                          ? book.collegeId === selectCollege.id
+                          : true
+                      )
+
                       .filter((book) => book.studentId !== decodedJwt.uid)
                       .sort(
                         (a, b) =>
@@ -384,11 +477,18 @@ const BooksSection = () => {
                           id={book.id}
                           studentId={book.studentId}
                           theWay={book.theWay}
+                          collegeId={book.collegeId}
                           condition={book.condition}
                         />
                       ))
                   : sortType === "Date" &&
                     Object.values(filteredValue)
+                      .filter((book) =>
+                        selectCollege
+                          ? book.collegeId === selectCollege.id
+                          : true
+                      )
+
                       .filter((book) => book.studentId !== decodedJwt.uid)
                       .sort(
                         (a, b) =>
@@ -404,6 +504,7 @@ const BooksSection = () => {
                           id={book.id}
                           studentId={book.studentId}
                           theWay={book.theWay}
+                          collegeId={book.collegeId}
                           condition={book.condition}
                         />
                       ))}
@@ -411,6 +512,12 @@ const BooksSection = () => {
                 {!filteredValue
                   ? sortType === "Price" &&
                     Object.values(Books)
+                      .filter((book) =>
+                        selectCollege
+                          ? book.collegeId === selectCollege.id
+                          : true
+                      )
+
                       .filter((book) => book.studentId !== decodedJwt.uid)
                       .sort((a, b) => b.price - a.price)
                       .map((book) => (
@@ -423,11 +530,18 @@ const BooksSection = () => {
                           id={book.id}
                           studentId={book.studentId}
                           theWay={book.theWay}
+                          collegeId={book.collegeId}
                           condition={book.condition}
                         />
                       ))
                   : sortType === "Price" &&
                     Object.values(filteredValue)
+                      .filter((book) =>
+                        selectCollege
+                          ? book.collegeId === selectCollege.id
+                          : true
+                      )
+
                       .filter((book) => book.studentId !== decodedJwt.uid)
                       .sort((a, b) => b.price - a.price)
                       .map((book) => (
@@ -440,6 +554,7 @@ const BooksSection = () => {
                           id={book.id}
                           studentId={book.studentId}
                           theWay={book.theWay}
+                          collegeId={book.collegeId}
                           condition={book.condition}
                         />
                       ))}

@@ -607,6 +607,9 @@ input#phone-number {
   width: -webkit-fill-available;
   position: relative;
 }
+.custom-select-select-by-college {
+  position: relative;
+}
 
 .selected-option {
   width: -webkit-fill-available;
@@ -664,7 +667,9 @@ input#phone-number {
   border-radius: var(--br-8xs);
   border-top: none;
 }
-
+.options::-webkit-scrollbar{
+  background: none;
+}
 .option,
 .option-title {
   padding: var(--padding-3xs) var(--padding-xl);
@@ -807,7 +812,7 @@ input#phone-number {
 }
 
 .form-create {
-  position: fixed;
+  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: flex-start;

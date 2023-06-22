@@ -46,6 +46,8 @@ namespace Student_County.BusinessLogic.Ride
                 throw new Exception("Ride Is Deleted");
             return entity;
         }
+        public async Task<List<TimeSlot>> GetTimeSlot(int id) => await _context.TimeSlots
+        .Where(entity =>  entity.RideEntityId == id).ToListAsync();
         public async Task<RideEntity> CreateUpdate(RideBo bo, int id = 0)
         {
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == bo.StudentId);

@@ -10,6 +10,7 @@ export function RidesProvider({ children }) {
   const [Rides, setRides] = useState([]); //all Rids
   const [MyRides, setMyRides] = useState([]); //all MyRides
   const [Ride, setRide] = useState("");
+  const [TimeSlot, setTimeSlot] = useState("");
   const [RideLoader, setRideLoader] = useState("");
   const [FormRideLoader, setFormRideLoader] = useState("");
   const [ButtonsFormRideLoader, setButtonsFormRideLoader] = useState("");
@@ -93,6 +94,19 @@ export function RidesProvider({ children }) {
       })
       .finally(() => setFormRideLoader(false));
   };
+  const getTimeSlot = (id) => {
+    setFormRideLoader(true);
+    RideServices.getTimeSlot(id, token)
+      .then((res) => {
+        setTimeSlot(res.data);
+        setError(null);
+      })
+      .catch(() => {
+        setError("Failed bring the Time Slots...");
+        cleanupError();
+      })
+      .finally(() => setFormRideLoader(false));
+  };
 
   const updateRide = (id, Bo) => {
     setButtonsFormRideLoader(true);
@@ -143,6 +157,9 @@ export function RidesProvider({ children }) {
         setRideSuccess,
         setRide,
         setRides,
+        TimeSlot,
+        setTimeSlot,
+        getTimeSlot,
       }}
     >
       {children}

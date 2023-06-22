@@ -16,7 +16,9 @@ namespace Student_County.DAL
         [Required]
         public string? Name { get; set; }
 
-        public List<ApplicationUser> Users { get; set; }
+        public List<ApplicationUser> Users { get; set; } = new List<ApplicationUser>();
+
+        public List<BookEntity> Books { get; set; } = new List<BookEntity>();
 
     }
 }

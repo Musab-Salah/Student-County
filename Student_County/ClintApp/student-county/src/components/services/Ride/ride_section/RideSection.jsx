@@ -273,6 +273,7 @@ const RideSection = () => {
                   Show More
                 </div>
               </div>
+            <div className="vertical-line"></div>
             </div>
             <div className="service-container">
               <div className="services-head">

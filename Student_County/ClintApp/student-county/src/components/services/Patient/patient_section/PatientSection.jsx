@@ -260,6 +260,7 @@ const PatientSection = () => {
                 </div>
               </div>
             </div>
+            
             <div className="service-container">
               <div className="services-head">
                 <div className="services-head-title">Find Services</div>

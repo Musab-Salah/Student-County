@@ -12,8 +12,8 @@ using Student_County.DAL;
 namespace Student_County.Migrations
 {
     [DbContext(typeof(StudentCountyContext))]
-    [Migration("20230619122405_Final")]
-    partial class Final
+    [Migration("20230622181438_Afi")]
+    partial class Afi
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -196,6 +196,9 @@ namespace Student_County.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CollegeEntityId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CollegeId")
                         .HasColumnType("int");
 
@@ -257,6 +260,9 @@ namespace Student_County.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("UniversityEntityId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UniversityId")
                         .HasColumnType("int");
 
@@ -266,7 +272,7 @@ namespace Student_County.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CollegeId");
+                    b.HasIndex("CollegeEntityId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -276,7 +282,7 @@ namespace Student_County.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("UniversityId");
+                    b.HasIndex("UniversityEntityId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -288,6 +294,9 @@ namespace Student_County.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CollegeId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Condition")
                         .IsRequired()
@@ -344,6 +353,8 @@ namespace Student_County.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CollegeId");
+
                     b.HasIndex("StudentId");
 
                     b.ToTable("Book");
@@ -388,170 +399,170 @@ namespace Student_County.Migrations
                         {
                             Id = 2,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9634), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9020), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9635), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9022), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Administrative and Financial Sciences"
                         },
                         new
                         {
                             Id = 3,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9639), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9025), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9639), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9026), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Allied Medical Sciences"
                         },
                         new
                         {
                             Id = 4,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9643), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9030), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9644), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9031), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Arts"
                         },
                         new
                         {
                             Id = 5,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9647), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9035), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9648), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9036), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Data Science"
                         },
                         new
                         {
                             Id = 6,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9651), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9039), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9652), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9040), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Dentistry"
                         },
                         new
                         {
                             Id = 7,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9655), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9043), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9656), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9044), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Engineering"
                         },
                         new
                         {
                             Id = 8,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9660), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9048), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9661), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9049), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Information Technology"
                         },
                         new
                         {
                             Id = 9,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9664), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9052), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9665), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9053), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Law"
                         },
                         new
                         {
                             Id = 10,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9668), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9056), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9669), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9057), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Medicine"
                         },
                         new
                         {
                             Id = 11,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9672), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9061), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9673), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9062), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Modern Media"
                         },
                         new
                         {
                             Id = 12,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9677), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9065), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9677), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9066), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Modern Sciences"
                         },
                         new
                         {
                             Id = 13,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9722), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9069), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9723), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9070), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Nursing"
                         },
                         new
                         {
                             Id = 14,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9727), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9074), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9728), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9075), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Pharmacy"
                         },
                         new
                         {
                             Id = 15,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9731), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9078), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9732), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9079), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Sciences"
                         },
                         new
                         {
                             Id = 16,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9735), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9083), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9736), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9084), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Sport Sciences"
                         },
                         new
                         {
                             Id = 17,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9739), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9087), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9740), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9088), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Intermediate Diploma"
                         },
                         new
                         {
                             Id = 18,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9743), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9091), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9744), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9092), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Graduate Studies"
                         });
                 });
@@ -830,6 +841,10 @@ namespace Student_County.Migrations
                     b.Property<int>("EmptySeats")
                         .HasColumnType("int");
 
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -851,6 +866,7 @@ namespace Student_County.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShortDescription")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StudentId")
@@ -929,6 +945,36 @@ namespace Student_County.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Room");
+                });
+
+            modelBuilder.Entity("Student_County.DAL.TimeSlot", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Day")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RideEntityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TimeToGo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TimeToLeave")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RideEntityId");
+
+                    b.ToTable("TimeSlot");
                 });
 
             modelBuilder.Entity("Student_County.DAL.ToolsEntity", b =>
@@ -1041,11 +1087,11 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9598), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(8983), new TimeSpan(0, 0, 0, 0, 0)),
                             EmailDomainName = "@student.aaup.edu",
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 19, 12, 24, 4, 831, DateTimeKind.Unspecified).AddTicks(9604), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(8989), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Arab American University"
                         });
                 });
@@ -1103,17 +1149,13 @@ namespace Student_County.Migrations
 
             modelBuilder.Entity("Student_County.BusinessLogic.Auth.Models.ApplicationUser", b =>
                 {
-                    b.HasOne("Student_County.DAL.CollegeEntity", "College")
+                    b.HasOne("Student_County.DAL.CollegeEntity", null)
                         .WithMany("Users")
-                        .HasForeignKey("CollegeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CollegeEntityId");
 
-                    b.HasOne("Student_County.DAL.UniversityEntity", "University")
+                    b.HasOne("Student_County.DAL.UniversityEntity", null)
                         .WithMany("Users")
-                        .HasForeignKey("UniversityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UniversityEntityId");
 
                     b.OwnsMany("Student_County.BusinessLogic.Auth.Models.RefreshToken", "RefreshTokens", b1 =>
                         {
@@ -1147,20 +1189,24 @@ namespace Student_County.Migrations
                                 .HasForeignKey("ApplicationUserId");
                         });
 
-                    b.Navigation("College");
-
                     b.Navigation("RefreshTokens");
-
-                    b.Navigation("University");
                 });
 
             modelBuilder.Entity("Student_County.DAL.BookEntity", b =>
                 {
+                    b.HasOne("Student_County.DAL.CollegeEntity", "College")
+                        .WithMany("Books")
+                        .HasForeignKey("CollegeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Student_County.BusinessLogic.Auth.Models.ApplicationUser", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("College");
 
                     b.Navigation("Student");
                 });
@@ -1217,6 +1263,17 @@ namespace Student_County.Migrations
                     b.Navigation("Student");
                 });
 
+            modelBuilder.Entity("Student_County.DAL.TimeSlot", b =>
+                {
+                    b.HasOne("Student_County.DAL.RideEntity", "RideEntity")
+                        .WithMany("TimeSlots")
+                        .HasForeignKey("RideEntityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RideEntity");
+                });
+
             modelBuilder.Entity("Student_County.DAL.ToolsEntity", b =>
                 {
                     b.HasOne("Student_County.BusinessLogic.Auth.Models.ApplicationUser", "Student")
@@ -1230,12 +1287,19 @@ namespace Student_County.Migrations
 
             modelBuilder.Entity("Student_County.DAL.CollegeEntity", b =>
                 {
+                    b.Navigation("Books");
+
                     b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Student_County.DAL.LocationEntity", b =>
                 {
                     b.Navigation("Rides");
+                });
+
+            modelBuilder.Entity("Student_County.DAL.RideEntity", b =>
+                {
+                    b.Navigation("TimeSlots");
                 });
 
             modelBuilder.Entity("Student_County.DAL.UniversityEntity", b =>

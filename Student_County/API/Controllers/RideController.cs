@@ -40,6 +40,8 @@ namespace Student_County.API.Controllers
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute] int id) => Ok(await _manager.GetRide(id));
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetTimeSlot([FromRoute] int id) => Ok(await _manager.GetTimeSlot(id));
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromBody] RideBo bo, [FromRoute] int id)

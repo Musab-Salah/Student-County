@@ -11,17 +11,14 @@ class RideServices {
     });
 
   getMyAllRides = async (userid, token) =>
-    await axios.get(
-      RIDE_API_BASE_URL + "/GetMyAllRides?userid=" + userid,
-      {
-        params: {
-          userid: userid,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    await axios.get(RIDE_API_BASE_URL + "/GetMyAllRides?userid=" + userid, {
+      params: {
+        userid: userid,
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
   createRide = async (ride, token) =>
     await axios.post(RIDE_API_BASE_URL + "/Create", ride, {
@@ -32,6 +29,13 @@ class RideServices {
 
   getRideById = async (rideId, token) =>
     await axios.get(RIDE_API_BASE_URL + "/Get/" + rideId, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+  getTimeSlot = async (rideId, token) =>
+    await axios.get(RIDE_API_BASE_URL + "/GetTimeSlot/" + rideId, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
