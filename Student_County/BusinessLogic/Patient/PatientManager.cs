@@ -24,7 +24,10 @@ namespace Student_County.BusinessLogic.Patient
             .Where(entity => !entity.IsDeleted && entity.UserId == userid).ToListAsync();
 
         public async Task<List<PatientEntity>> GetMyAllPatientsWithDeleted(string userid) => await _context.Patients
-            .Where(entity => entity.UserId == userid).OrderByDescending(x=>x.CreatedOn).ToListAsync();
+         .Where(entity => entity.UserId == userid)
+        .OrderByDescending(entity => entity.ModifiedOn > entity.CreatedOn ? entity.ModifiedOn : entity.CreatedOn)
+        .Take(5)
+        .ToListAsync();
 
         public async Task Delete(int id)
         {

@@ -22,7 +22,10 @@ namespace Student_County.BusinessLogic.Housing
             .Where(entity => !entity.IsDeleted && entity.StudentId == userid).ToListAsync();
 
         public async Task<List<HousingEntity>> GetMyAllHousingsWithDeleted(string userid) => await _context.Housings
-         .Where(entity => entity.StudentId == userid).OrderByDescending(x=>x.CreatedOn).ToListAsync();
+            .Where(entity => entity.StudentId == userid)
+        .OrderByDescending(entity => entity.ModifiedOn > entity.CreatedOn ? entity.ModifiedOn : entity.CreatedOn)
+        .Take(5)
+        .ToListAsync();
 
         public async Task Delete(int id)
         {

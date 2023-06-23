@@ -55,21 +55,24 @@ namespace Student_County.API.Controllers
              var user = await _context.UserRoles.FirstOrDefaultAsync(x=>x.UserId == userid);
 
             List<object> myList = new List<object>();
-
-            if (user.RoleId is not "398a104f-4e07-470c-9781-07d9852fb00d")//not patient
+            if (user != null)
             {
-             var books = await _bookmanager.GetMyAllBooks(userid);
-             var housings = await _housingmanager.GetMyAllHousings(userid);
-             var rides = await _ridemanager.GetMyAllRides(userid);
-             var tools = await _toolsmanager.GetMyAllTools(userid);
-                myList.Add(books);
-                myList.Add(housings);
-                myList.Add(rides);
-                myList.Add(tools);
+                if (user.RoleId is not "398a104f-4e07-470c-9781-07d9852fb00d")//not patient
+                {
+                    var books = await _bookmanager.GetMyAllBooks(userid);
+                    var housings = await _housingmanager.GetMyAllHousings(userid);
+                    var rides = await _ridemanager.GetMyAllRides(userid);
+                    var tools = await _toolsmanager.GetMyAllTools(userid);
+                    myList.Add(books);
+                    myList.Add(housings);
+                    myList.Add(rides);
+                    myList.Add(tools);
+                }
+                var patients = await _patientmanager.GetMyAllPatients(userid);
+                myList.Add(patients);
+                return Ok(myList);
             }
-            var patients = await _patientmanager.GetMyAllPatients(userid);
-             myList.Add(patients);
-            return Ok(myList);
+            else return BadRequest();
 
 
         }
@@ -80,21 +83,25 @@ namespace Student_County.API.Controllers
 
             List<object> myList = new List<object>();
 
-            if (user.RoleId is not "398a104f-4e07-470c-9781-07d9852fb00d")//not patient
+            if (user != null)
             {
-                var books = await _bookmanager.GetMyAllBooksWithDeleted(userid);
-                var housings = await _housingmanager.GetMyAllHousingsWithDeleted(userid);
-                var rides = await _ridemanager.GetMyAllRidesWithDeleted(userid);
-                var tools = await _toolsmanager.GetMyAllToolsWithDeleted(userid);
-                myList.Add(books);
-                myList.Add(housings);
-                myList.Add(rides);
-                myList.Add(tools);
-            }
-            var patients = await _patientmanager.GetMyAllPatientsWithDeleted(userid);
+                if (user.RoleId is not "398a104f-4e07-470c-9781-07d9852fb00d")//not patient
+                {
+                    var books = await _bookmanager.GetMyAllBooksWithDeleted(userid);
+                    var housings = await _housingmanager.GetMyAllHousingsWithDeleted(userid);
+                    var rides = await _ridemanager.GetMyAllRidesWithDeleted(userid);
+                    var tools = await _toolsmanager.GetMyAllToolsWithDeleted(userid);
+                    myList.Add(books);
+                    myList.Add(housings);
+                    myList.Add(rides);
+                    myList.Add(tools);
+                }
+                var patients = await _patientmanager.GetMyAllPatientsWithDeleted(userid);
 
-            myList.Add(patients);
-            return Ok(myList);
+                myList.Add(patients);
+                return Ok(myList);
+            }
+            else return BadRequest();
 
 
         }

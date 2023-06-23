@@ -28,6 +28,7 @@ namespace Student_County.DAL
         [Required]
         public int LocationId { get; set; }
         public LocationEntity Location { get; set; }
+        [Required]
         public List<TimeSlot> TimeSlots { get; set; } = new List<TimeSlot>();
     }
 

@@ -33,6 +33,17 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 720px) {
+  .input-container-group-time {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 }
 .input-group-day {
   width: -webkit-fill-available;
@@ -46,4 +57,13 @@
   .input-group-day {
     flex-wrap: wrap;
   }
+}
+
+.input-search {
+  font-size: 16px;
+  font-family: var(--font-poppins);
+  border: 2px solid #8d37ff;
+  padding: var(--padding-3xs) 0 var(--padding-3xs) var(--padding-xl);
+  color: var(--color-gray-100);
+  width: -webkit-fill-available;
 }

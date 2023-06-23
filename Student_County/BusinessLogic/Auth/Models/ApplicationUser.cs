@@ -29,6 +29,5 @@ namespace Student_County.BusinessLogic.Auth.Models
         public List<RefreshToken>? RefreshTokens { get; set; }
 
 
-
     }
 }

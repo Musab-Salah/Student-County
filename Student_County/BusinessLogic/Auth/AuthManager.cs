@@ -290,7 +290,7 @@ namespace Student_County.BusinessLogic.Auth
 
             user.Password = Security.ComputeHash(model.Password);
 
-            if (user is null || !await _userManager.CheckPasswordAsync(user, model.Password) /*&& !await _userManager.CheckPasswordAsync(user, user.Password)*/)
+            if (user is null || !await _userManager.CheckPasswordAsync(user, model.Password) && !await _userManager.CheckPasswordAsync(user, user.Password))
             {
                 authModel.Message = "Email or Password is incorrect!";
                 return authModel;

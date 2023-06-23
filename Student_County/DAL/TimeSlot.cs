@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Student_County.BusinessLogic.Helpers.Common;
 
 namespace Student_County.DAL
 {
     [Table("TimeSlot")]
-    public class TimeSlot
+    public class TimeSlot : TrackableData
     {
         [Key]
         public int Id { get; set; }

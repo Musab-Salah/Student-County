@@ -18,7 +18,7 @@ namespace Student_County.DAL
         [Required]
         public string? EmailDomainName { get; set; }
 
-        public List<ApplicationUser> Users { get; set; }
+        public List<ApplicationUser> Users { get; set; } = new List<ApplicationUser>();
 
     }
 }

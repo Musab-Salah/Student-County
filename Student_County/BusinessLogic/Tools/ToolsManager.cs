@@ -24,7 +24,10 @@ namespace Student_County.BusinessLogic.Tools
             .Where(entity => !entity.IsDeleted && entity.StudentId == userid).ToListAsync();
 
         public async Task<List<ToolsEntity>> GetMyAllToolsWithDeleted(string userid) => await _context.Toolss
-            .Where(entity => entity.StudentId == userid).OrderByDescending(x=>x.CreatedOn).ToListAsync();
+        .Where(entity => entity.StudentId == userid)
+        .OrderByDescending(entity => entity.ModifiedOn > entity.CreatedOn ? entity.ModifiedOn : entity.CreatedOn)
+        .Take(5)
+        .ToListAsync();
 
         public async Task Delete(int id)
         {

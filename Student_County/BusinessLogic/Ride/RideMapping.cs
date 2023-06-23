@@ -2,7 +2,7 @@
 
 namespace Student_County.BusinessLogic.Ride
 {
-    public static class ToolsMapping
+    public static class RideMapping
     {
         public static RideEntity? MapBoToEntity(this RideBo bo)
         {
@@ -20,18 +20,10 @@ namespace Student_County.BusinessLogic.Ride
                 TimeSlots = new List<TimeSlot>()
             };
 
-            if (bo.TimeSlots != null)
-            {
-                entity.TimeSlots.AddRange(bo.TimeSlots.Select(slot => new TimeSlot
-                {
-                    Day = slot.Day,
-                    TimeToGo = slot.TimeToGo,
-                    TimeToLeave = slot.TimeToLeave,
-                    RideEntityId = entity.Id 
-                }));
-            }
+   
 
             return entity;
         }
+
     }
 }

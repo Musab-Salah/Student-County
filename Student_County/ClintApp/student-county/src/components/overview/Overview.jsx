@@ -246,17 +246,32 @@ const Overview = ({}) => {
                   </div>
                 </div>
               </div>
-              {/* <div className="activities-container" style={{ display: "block" }}>
-          <div className="activities-title">Recent Activities</div>
-          <div className="card-activity">
-            <div className="smallIcon-activity">
-              <div className="icon-activity"></div>
-              <div className="name-activity"></div>
-              <div className="roles-activity"></div>
-              <div className="descripion-activity"></div>
-            </div>
-          </div>
-        </div> */}
+              {/* <div
+                className="activities-container"
+                style={{ display: "block" }}
+              >
+                <div className="activities-title">Recent Activities</div>
+                <div className="card-activity">
+                  <div className="smallIcon-activity">
+                    <div className="icon-activity"></div>
+                    <div className="name-activity"></div>
+                    <div className="roles-activity"></div>
+                    <div className="descripion-activity"></div>
+                  </div>
+                </div>
+                
+              </div> */}
+              <div style={{width: 310, height: 49, paddingLeft: 32, paddingRight: 32, paddingTop: 15, paddingBottom: 15, borderLeft: '1px #E4E8EB solid', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'inline-flex'}}>
+  <div style={{width: 10, height: 10, background: 'white', borderRadius: 6, borderLeft: '0.50px #8D37FF solid', borderTop: '0.50px #8D37FF solid', borderRight: '0.50px #8D37FF solid', borderBottom: '0.50px #8D37FF solid'}}></div>
+  <div>
+    <span style={{color: '#4E555F', fontSize: 14, fontFamily: 'Open Sans', fontWeight: 400, wordWrap: 'break-word'}}>Update a book card "</span>
+    <span style={{color: '#8D37FF', fontSize: 14, fontFamily: 'Open Sans', fontWeight: 400, wordWrap: 'break-word'}}>Name Changed</span>
+    <span style={{color: '#4E555F', fontSize: 14, fontFamily: 'Open Sans', fontWeight: 400, wordWrap: 'break-word'}}></span>
+  </div>
+  <div style={{width: 40.62, height: 18, color: '#8C96A3', fontSize: 13, fontFamily: 'Open Sans', fontWeight: 400, textTransform: 'uppercase', wordWrap: 'break-word'}}>Sep 25</div>
+</div>
+
+
               <div className="add-container">
                 {!AddServices ? (
                   <>

@@ -1,20 +1,33 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useDeferredValue } from "react";
 import useComponent from "../../../../hooks/useComponent";
 import { RiArrowDownSLine } from "react-icons/ri";
-import { AiFillExclamationCircle } from "react-icons/ai";
+import {
+  AiFillExclamationCircle,
+  AiOutlineBorderlessTable,
+} from "react-icons/ai";
 import DialogConfirmation from "../../../dialog_confirmation/DialogConfirmation";
 import "./RideForm.css";
 import useLoader from "../../../../hooks/useLoader";
 import useRides from "../../../../hooks/useRides";
 import useLocation from "../../../../hooks/useLocation";
 import { FaRegAddressCard } from "react-icons/fa";
-import { MdOutlineMedicalInformation } from "react-icons/md";
+import { GrTableAdd } from "react-icons/gr";
 import { BiCheck } from "react-icons/bi";
+import { IoCarOutline } from "react-icons/io5";
 
 const RideForm = () => {
   const { setButtonCards, ButtonCards } = useComponent();
-  const { RideSuccess, createRide, RideError, updateRide, Ride, setRide } =
-    useRides();
+  const {
+    RideSuccess,
+    createRide,
+    RideError,
+    updateRide,
+    Ride,
+    setRide,
+    getTimeSlot,
+    TimeSlot,
+    setTimeSlot,
+  } = useRides();
   const {
     getLocations,
     Locations,
@@ -24,6 +37,7 @@ const RideForm = () => {
     setLocation,
   } = useLocation();
   // State Hook
+  const [searchText, setSearchText] = useState("");
 
   const [step, setStep] = useState(1); // Current step of the form
   const [carDescription, setCarDescription] = useState("");
@@ -32,20 +46,66 @@ const RideForm = () => {
   const [longDescription, setLongDescription] = useState("");
   const [emptySeats, setEmptySeats] = useState("");
   const [location, setLocationform] = useState(false);
-  const [ride, setRideBo] = useState({ TimeSlots: [] });
+  const [ride, setRideBo] = useState({ timeSlots: [] });
   const { FormRideLoader, ButtonsFormRideLoader, DeleteButtonsFormRideLoader } =
     useLoader();
   const [days, setDay] = useState([]);
+  const [query, setQuery] = useState("");
+  const deferredInput = useDeferredValue(query);
 
   // Error Hook
   const [locationError, setLocationformError] = useState("");
-
+  const carNames = [
+    "Mercedes-Benz",
+    "BMW",
+    "Audi",
+    "Volkswagen",
+    "Toyota",
+    "Honda",
+    "Hyundai",
+    "Kia",
+    "Nissan",
+    "Ford",
+    "Chevrolet",
+    "Jeep",
+    "Land Rover",
+    "Mitsubishi",
+    "Peugeot",
+    "Lexus",
+    "Volvo",
+    "Subaru",
+    "Mazda",
+    "Suzuki",
+    "Renault",
+    "Fiat",
+    "Citroën",
+    "Opel",
+    "Skoda",
+    "Mini Cooper",
+    "Porsche",
+    "Jaguar",
+    "Tesla",
+    "Infiniti",
+    "Seat",
+    "Alfa Romeo",
+    "MG",
+    "Geely",
+    "Great Wall",
+    "Chery",
+    "Haval",
+    "JAC",
+    "Foton",
+    "Brilliance",
+    "Lifan",
+    "Luxgen",
+  ];
   const [carDescriptionError, setCarDescriptionError] = useState("");
   const [shortDescriptionError, setShortDescriptionError] = useState("");
   const [longDescriptionError, setLongDescriptionError] = useState("");
   const [emptySeatsError, setEmptySeatsError] = useState("");
   const [DayError, setDayError] = useState("");
   const [showDropdownLocation, setShowDropdownLocation] = useState(false);
+  const [ShowDropdownCar, setShowDropdownCar] = useState(false);
   /////////
   const [validatePersonalInformation, setValidatePersonalInformation] =
     useState();
@@ -60,18 +120,19 @@ const RideForm = () => {
         !event.target.closest(".input-container-option")
       ) {
         setShowDropdownLocation(false);
+        setShowDropdownCar(false);
+        setQuery("");
       }
     };
     document.addEventListener("click", handleOutsideClick);
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
-  }, [showDropdownLocation]);
+  }, [showDropdownLocation, ShowDropdownCar]);
 
-  useMemo(() => {
+  useEffect(() => {
     if (Ride) {
       setCarDescription(Ride.carDescription);
-      setShortDescription(Ride.shortDescription);
       setLongDescription(Ride.longDescription);
       setEmptySeats(Ride.emptySeats);
       getLocationByIdform(Ride.locationId);
@@ -80,15 +141,25 @@ const RideForm = () => {
         studentId: Ride.studentId,
         id: Ride.id,
         CarDescription: Ride.carDescription,
-        shortDescription: Ride.shortDescription,
         longDescription: Ride.longDescription,
         emptySeats: Ride.emptySeats,
-        location: Ride.locationId,
+        locationId: Ride.locationId,
+        timeSlots: TimeSlot,
       });
     }
     // eslint-disable-next-line
+  }, [Ride, TimeSlot]);
+  useEffect(() => {
+    if (TimeSlot) {
+      // Add the days from TimeSlot to the days array
+      const timeSlotDays = TimeSlot.map((slot) => slot.day);
+      setDay((prevDays) => [...prevDays, ...timeSlotDays]);
+    }
+  }, [TimeSlot]);
+  useEffect(() => {
+    if (Ride) getTimeSlot(Ride.id);
   }, [Ride]);
-  useMemo(() => {
+  useEffect(() => {
     setLocationform(LocationForm);
   }, [LocationForm]);
   useEffect(() => {
@@ -108,34 +179,39 @@ const RideForm = () => {
       setButtonCards("");
       setLocationForm("");
       setRide("");
+      setTimeSlot("");
+      setDay([]);
     };
     // eslint-disable-next-line
   }, []);
 
-  const handleLocationChange = (location) => {
+  const handleLocationChange = (selectedLocation) => {
     setRideBo({
       ...ride,
-      locationId: location.id,
+      locationId: selectedLocation.id,
     });
-    setLocationform(location);
+    setLocationform(selectedLocation);
     setLocationformError(false);
     setShowDropdownLocation(false);
   };
 
-  const handleCarDescription = (e) => {
-    const nameRegex = /^(?=.{0,})/;
-    if (!nameRegex.test(e.target.value)) {
-      setCarDescriptionError(
-        "Please enter a valid name, for example: Software Engineering"
-      );
-    } else {
-      setRideBo({
-        ...ride,
-        carDescription: e.target.value,
-      });
-      setCarDescription(e.target.value);
-      setCarDescriptionError(false);
-    }
+  const filteredLocations = Object.values(Locations).filter(
+    (Location) =>
+      Location.cityName.toLowerCase().includes(deferredInput.toLowerCase()) ||
+      Location.townName.toLowerCase().includes(deferredInput.toLowerCase())
+  );
+  const filteredCars = Object.values(carNames).filter((car) =>
+    car.toLowerCase().includes(deferredInput.toLowerCase())
+  );
+
+  const handleCarDescription = (value) => {
+    setRideBo({
+      ...ride,
+      carDescription: value,
+    });
+    setCarDescription(value);
+    setCarDescriptionError(false);
+    setShowDropdownCar(false);
   };
 
   const handelDay = (selectedDay) => {
@@ -146,8 +222,8 @@ const RideForm = () => {
       // Remove the corresponding time slot from TimeSlots
       setRideBo((prevRide) => ({
         ...prevRide,
-        TimeSlots: prevRide.TimeSlots.filter(
-          (slot) => slot.Day !== selectedDay
+        timeSlots: prevRide.timeSlots.filter(
+          (slot) => slot.day !== selectedDay
         ),
       }));
     } else {
@@ -155,7 +231,9 @@ const RideForm = () => {
       setDay((prevDay) => [...prevDay, selectedDay]);
     }
   };
-
+  useMemo(() => {
+    if (days.length > 0) setDayError(false);
+  }, [days]);
   const handleLongDescription = (e) => {
     const nameRegex = /^(?=.{10,})/;
     if (!nameRegex.test(e.target.value)) {
@@ -190,6 +268,7 @@ const RideForm = () => {
   };
   useMemo(() => {
     // Validate personal information fields here
+
     if (carDescription && longDescription && emptySeats && location)
       setValidatePersonalInformation(true);
     else setValidatePersonalInformation(false);
@@ -197,51 +276,44 @@ const RideForm = () => {
 
   useMemo(() => {
     // Validate medical information fields here
-    if (days) setValidateMedicalInformation(true);
+    if (days.length > 0) setValidateMedicalInformation(true);
     else setValidateMedicalInformation(false);
   }, [days]);
 
   const handleChange = (day, name, value) => {
     setRideBo((prevRide) => {
-      let updatedTimeSlots = [...prevRide.TimeSlots];
+      let updatedTimeSlots = [...prevRide.timeSlots];
+      const existingSlotIndex = updatedTimeSlots.findIndex(
+        (slot) => slot.day === day
+      );
 
-      if (days.includes(day)) {
-        const existingSlotIndex = updatedTimeSlots.findIndex(
-          (slot) => slot.Day === day
-        );
-
-        if (existingSlotIndex !== -1) {
-          updatedTimeSlots[existingSlotIndex][name] = value;
-        } else {
-          const newSlot = {
-            Day: day,
-            [name]: value,
-          };
-          updatedTimeSlots.push(newSlot);
-        }
+      if (existingSlotIndex !== -1) {
+        updatedTimeSlots[existingSlotIndex][name] = value;
       } else {
-        // Remove the day from TimeSlots if it's not present in days
-        updatedTimeSlots = updatedTimeSlots.filter((slot) => slot.Day !== day);
+        const newSlot = {
+          day: day,
+          [name]: value,
+          rideEntityId: prevRide ? prevRide.id : null, // Set RideEntityId to 0 if Ride is null
+        };
+        updatedTimeSlots.push(newSlot);
       }
 
-      return { ...prevRide, TimeSlots: updatedTimeSlots };
+      return { ...prevRide, timeSlots: updatedTimeSlots };
     });
-
-    // Remove the day from the day array if it's not present in days
-    setDay((prevDay) =>
-      prevDay.filter((selectedDay) => days.includes(selectedDay))
-    );
   };
 
   const handleNext = (event) => {
     event.preventDefault();
 
     if (step === 1) {
+      if (!location) setLocationformError("Please select a location");
+      if (!carDescription) setCarDescriptionError("Please select a car ");
       // Validate the first part of the form and proceed to the next step if valid
       if (validatePersonalInformation) {
         setStep(2);
       }
     } else if (step === 2) {
+      if (days.length <= 0) setDayError("Please select a day");
       // Validate the second part of the form and submit if valid
       if (validateMedicalInformation) {
         handleSubmit(event);
@@ -250,9 +322,10 @@ const RideForm = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!location) setLocationformError("Please enter a location");
-    if (location && ButtonCards === "UpdateRide") updateRide(Ride.id, ride);
-    else if (location && ButtonCards === "CreateRide") createRide(ride);
+    if (carDescription && location && ButtonCards === "UpdateRide")
+      updateRide(Ride.id, ride);
+    else if (carDescription && location && ButtonCards === "CreateRide")
+      createRide(ride);
   };
   return (
     <>
@@ -301,16 +374,16 @@ const RideForm = () => {
                   <div className="step-line"></div>
                   <div className="step step-active">
                     <div className="step-icon-container">
-                      <MdOutlineMedicalInformation className="step-icon" />
+                      <IoCarOutline className="step-icon" />
                     </div>
-                    <div className="step-title">Patient Info</div>
+                    <div className="step-title">Ride Info</div>
                   </div>
                   <div className="step-line"></div>
                   <div className="step">
                     <div className="step-icon-container">
-                      <FaRegAddressCard className="step-icon" />
+                      <GrTableAdd className="step-icon" />
                     </div>
-                    <div className="step-title">Medical Status</div>
+                    <div className="step-title">Schedule Info</div>
                   </div>
                   <div className="step-line"></div>
                 </div>
@@ -323,25 +396,51 @@ const RideForm = () => {
                       are adding.
                     </div>
                   </div>
-                  <div className="input-container">
-                    <input
-                      maxLength={40}
-                      type="text"
-                      name="carDescription"
-                      defaultValue={
-                        carDescription ? carDescription : ride.carDescription
-                      }
-                      onChange={handleCarDescription}
-                    />
+
+                  <div className="custom-select">
                     <div
-                      className="input-container-option"
-                      onClick={() =>
-                        document.getElementsByName("carDescription")[0].focus()
-                      }
+                      className="selected-option"
+                      onClick={() => setShowDropdownCar(!ShowDropdownCar)}
                     >
-                      Car Description
+                      {!carDescription ? (
+                        <div className="input-container-option input-dropdown">
+                          Select car name
+                        </div>
+                      ) : (
+                        <div>
+                          <div className="input-container-option input-dropdown-title">
+                            Select car name
+                          </div>
+                          <div className="input-container-option input-dropdown input-selected">
+                            {carDescription}
+                          </div>
+                        </div>
+                      )}
+                      <RiArrowDownSLine className="arrow-icon" />
                     </div>
+                    {ShowDropdownCar && (
+                      <div className="options" id="input-dropdown">
+                        <div className="option-title">Select car name</div>
+                        <input
+                          type="text"
+                          placeholder="Search Car..."
+                          value={query}
+                          onChange={(e) => setQuery(e.target.value)}
+                          className="input-search"
+                        />
+                        {filteredCars.map((carName) => (
+                          <div
+                            className="option"
+                            key={carName}
+                            onClick={() => handleCarDescription(carName)}
+                          >
+                            {carName}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
+
                   {carDescriptionError && (
                     <span className="wrong-info">
                       <AiFillExclamationCircle />
@@ -375,19 +474,21 @@ const RideForm = () => {
                     </div>
                     {showDropdownLocation && (
                       <div className="options" id="input-dropdown">
-                        <div className="option-title">
-                          {" "}
-                          Select Your Location
-                        </div>
-                        {Object.values(Locations).map((Location) => (
+                        <div className="option-title">Select Your Location</div>
+                        <input
+                          type="text"
+                          placeholder="Search locations..."
+                          value={query}
+                          onChange={(e) => setQuery(e.target.value)}
+                          className="input-search"
+                        />
+                        {filteredLocations.map((Location) => (
                           <div
                             className="option"
                             key={Location.id}
                             onClick={() => handleLocationChange(Location)}
                           >
-                            {Location.cityName}
-                            {" , "}
-                            {Location.townName}
+                            {Location.cityName}, {Location.townName}
                           </div>
                         ))}
                       </div>
@@ -460,27 +561,14 @@ const RideForm = () => {
                   )}
 
                   <div className="buttons">
-                    {ButtonCards === "UpdateRide" ? (
-                      <button
-                        type="submit"
-                        className={`btn btn-primary btn-fill`}
-                      >
-                        <div
-                          className="loader"
-                          style={{
-                            display: ButtonsFormRideLoader ? "block" : "none",
-                          }}
-                        />
-                        Update
-                      </button>
-                    ) : (
+                    {
                       <button
                         className="btn btn-primary btn-fill"
                         type="submit"
                       >
                         Next
                       </button>
-                    )}
+                    }
                     {ButtonCards === "UpdateRide" ? (
                       <button
                         onClick={handleDelete}
@@ -547,9 +635,9 @@ const RideForm = () => {
                   <div className="step-line"></div>
                   <div className="step step-active">
                     <div className="step-icon-container">
-                      <FaRegAddressCard className="step-icon" />
+                      <GrTableAdd className="step-icon" />
                     </div>
-                    <div className="step-title">Medical Status</div>
+                    <div className="step-title">Schedule Info</div>
                   </div>
                   <div className="step-line"></div>
                 </div>
@@ -687,6 +775,7 @@ const RideForm = () => {
                       </span>
                     )}
                   </div>
+
                   <div className="input-and-title-container">
                     <div className="form-title-paragraph ">
                       Add Time To Go & Time To Leave For Each Day
@@ -700,10 +789,10 @@ const RideForm = () => {
                               className="input-time"
                               type="time"
                               id={`timeToGo-${index}`}
-                              name="TimeToGo"
-                              value={
-                                ride.TimeSlots.find((slot) => slot.Day === day)
-                                  ?.TimeToGo || ""
+                              name="timeToGo"
+                              defaultValue={
+                                ride.timeSlots.find((slot) => slot.day === day)
+                                  ?.timeToGo
                               }
                               onChange={(event) =>
                                 handleChange(
@@ -719,11 +808,11 @@ const RideForm = () => {
                                 className="input-time"
                                 type="time"
                                 id={`timeToLeave-${index}`}
-                                name="TimeToLeave"
-                                value={
-                                  ride.TimeSlots.find(
-                                    (slot) => slot.Day === day
-                                  )?.TimeToLeave || ""
+                                name="timeToLeave"
+                                defaultValue={
+                                  ride.timeSlots.find(
+                                    (slot) => slot.day === day
+                                  )?.timeToLeave
                                 }
                                 onChange={(event) =>
                                   handleChange(
@@ -771,24 +860,7 @@ const RideForm = () => {
                     >
                       Back
                     </button>
-                    {ButtonCards === "UpdateRide" ? (
-                      <button
-                        onClick={handleDelete}
-                        className={`btn btn-primary btn-fill `}
-                      >
-                        <div
-                          className="loader"
-                          style={{
-                            display: DeleteButtonsFormRideLoader
-                              ? "block"
-                              : "none",
-                          }}
-                        />
-                        Delete
-                      </button>
-                    ) : (
-                      ""
-                    )}
+
                     <button
                       onClick={() => setButtonCards("")}
                       className={`btn btn-secondary btn-fill`}

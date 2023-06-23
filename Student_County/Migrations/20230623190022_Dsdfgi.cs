@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Student_County.Migrations
 {
     /// <inheritdoc />
-    public partial class Afi : Migration
+    public partial class Dsdfgi : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -433,7 +433,6 @@ namespace Student_County.Migrations
                     ServiceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EmptySeats = table.Column<int>(type: "int", nullable: false),
                     CarDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LongDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -503,7 +502,12 @@ namespace Student_County.Migrations
                     Day = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TimeToGo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TimeToLeave = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RideEntityId = table.Column<int>(type: "int", nullable: false)
+                    RideEntityId = table.Column<int>(type: "int", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -532,29 +536,29 @@ namespace Student_County.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "IsDeleted", "ModifiedBy", "ModifiedOn", "Name" },
                 values: new object[,]
                 {
-                    { 2, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9020), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9022), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Administrative and Financial Sciences" },
-                    { 3, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9025), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9026), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Allied Medical Sciences" },
-                    { 4, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9030), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9031), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Arts" },
-                    { 5, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9035), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9036), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Data Science" },
-                    { 6, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9039), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9040), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Dentistry" },
-                    { 7, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9043), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9044), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Engineering" },
-                    { 8, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9048), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9049), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Information Technology" },
-                    { 9, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9052), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9053), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Law" },
-                    { 10, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9056), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9057), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Medicine" },
-                    { 11, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9061), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9062), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Modern Media" },
-                    { 12, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9065), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9066), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Modern Sciences" },
-                    { 13, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9069), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9070), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Nursing" },
-                    { 14, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9074), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9075), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Pharmacy" },
-                    { 15, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9078), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9079), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Sciences" },
-                    { 16, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9083), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9084), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Sport Sciences" },
-                    { 17, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9087), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9088), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Intermediate Diploma" },
-                    { 18, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9091), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(9092), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Graduate Studies" }
+                    { 2, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5469), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5470), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Administrative and Financial Sciences" },
+                    { 3, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5474), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5475), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Allied Medical Sciences" },
+                    { 4, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5478), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5479), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Arts" },
+                    { 5, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5483), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5484), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Data Science" },
+                    { 6, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5487), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5488), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Dentistry" },
+                    { 7, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5531), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5532), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Engineering" },
+                    { 8, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5535), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5536), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Information Technology" },
+                    { 9, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5540), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5541), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Law" },
+                    { 10, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5544), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5545), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Medicine" },
+                    { 11, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5548), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5549), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Modern Media" },
+                    { 12, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5553), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5554), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Modern Sciences" },
+                    { 13, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5557), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5558), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Nursing" },
+                    { 14, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5561), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5562), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Pharmacy" },
+                    { 15, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5565), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5566), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Sciences" },
+                    { 16, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5570), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5571), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Sport Sciences" },
+                    { 17, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5574), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5575), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Intermediate Diploma" },
+                    { 18, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5579), new TimeSpan(0, 0, 0, 0, 0)), false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5579), new TimeSpan(0, 0, 0, 0, 0)), "Faculty of Graduate Studies" }
                 });
 
             migrationBuilder.InsertData(
                 table: "University",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "EmailDomainName", "IsDeleted", "ModifiedBy", "ModifiedOn", "Name" },
-                values: new object[] { 1, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(8983), new TimeSpan(0, 0, 0, 0, 0)), "@student.aaup.edu", false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 22, 18, 14, 37, 841, DateTimeKind.Unspecified).AddTicks(8989), new TimeSpan(0, 0, 0, 0, 0)), "Arab American University" });
+                values: new object[] { 1, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5430), new TimeSpan(0, 0, 0, 0, 0)), "@student.aaup.edu", false, "Ini", new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5434), new TimeSpan(0, 0, 0, 0, 0)), "Arab American University" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
