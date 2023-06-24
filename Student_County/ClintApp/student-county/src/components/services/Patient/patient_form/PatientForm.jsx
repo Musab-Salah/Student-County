@@ -20,6 +20,8 @@ const PatientForm = () => {
     setPatient,
     typeOfTreatments,
     currentIllnessess,
+    setError,
+    cleanupError,
   } = usePatient();
   // State Hook
   const [step, setStep] = useState(1); // Current step of the form
@@ -98,7 +100,7 @@ const PatientForm = () => {
     showDropdownGender,
   ]);
 
-  useMemo(() => {
+  useEffect(() => {
     if (Patient) {
       setFirstName(Patient.firstName);
       setLastName(Patient.lastName);
@@ -112,26 +114,29 @@ const PatientForm = () => {
       setCurrentlyUsedMedicines(Patient.currentlyUsedMedicines);
       setAddress(Patient.address);
       setGender(Patient.gender);
-
-      setPatientBo({
-        ...patient,
-        userId: Patient.userId,
-        id: Patient.id,
-        firstName: Patient.firstName,
-        lastName: Patient.lastName,
-        phoneNumber: Patient.phoneNumber,
-        nationalId: Patient.nationalId,
-        additionalInformation: Patient.additionalInformation,
-        age: Patient.age,
-        typeOfTreatment: Patient.typeOfTreatment,
-        currentIllnesses: Patient.currentIllnesses,
-        sensitivity: Patient.sensitivity,
-        currentlyUsedMedicines: Patient.currentlyUsedMedicines,
-        address: Patient.address,
-        gender: Patient.gender,
-      });
+      setSelectedTreatments((prevTreatments) => [
+        ...prevTreatments,
+        Patient.typeOfTreatment,
+      ]);
+      setSelectedIllnesses((prevIllnesses) => [
+        ...prevIllnesses,
+        Patient.currentIllnesses,
+      ]);
+      setPatientBo((prevPatient) => ({
+        ...prevPatient,
+        ...Patient,
+        id: !Patient.isDeleted ? Patient.id : 0,
+        isDeleted: Patient.isDeleted,
+        ...(Patient.isDeleted
+          ? {}
+          : {
+              createdBy: Patient.createdBy,
+              createdOn: Patient.createdOn,
+              modifiedBy: Patient.modifiedBy,
+              modifiedOn: Patient.modifiedOn,
+            }),
+      }));
     }
-    // eslint-disable-next-line
   }, [Patient]);
   useMemo(() => {
     if (PatientSuccess) {
@@ -348,7 +353,11 @@ const PatientForm = () => {
 
   const handleDelete = (event) => {
     event.preventDefault();
-    setDeleteDialogState(true);
+    if (!Patient.isDeleted) setDeleteDialogState(true);
+    else {
+      setError("Already deleted");
+      cleanupError();
+    }
   };
   useMemo(() => {
     // Validate personal information fields here
@@ -399,7 +408,8 @@ const PatientForm = () => {
       setTypeOfTreatmentError("Please select a treatment");
     if (selectedIllnesses.length === 0)
       setCurrentIllnessesError("Please select a Current Illnesses");
-    if (
+    if (Patient.isDeleted) createPatient(patient);
+    else if (
       gender &&
       selectedTreatments.length !== 0 &&
       selectedIllnesses.length !== 0 &&
@@ -723,6 +733,12 @@ const PatientForm = () => {
                       Cancel
                     </button>
                   </div>
+                  {PatientError && (
+                    <span className="wrong-info">
+                      <AiFillExclamationCircle />
+                      {PatientError}
+                    </span>
+                  )}
                   {PatientSuccess && (
                     <span className="success-info">
                       <AiFillExclamationCircle />
@@ -910,7 +926,9 @@ const PatientForm = () => {
                             Select Current Illnesses
                           </div>
                           <div className="input-container-option input-dropdown input-selected">
-                            {selectedIllnesses.join(", ")}
+                            {!Patient
+                              ? selectedIllnesses.join(", ")
+                              : patient.currentIllnesses}
                           </div>
                         </div>
                       )}
@@ -976,7 +994,7 @@ const PatientForm = () => {
                     </span>
                   )}
                   <div className="buttons">
-                    {ButtonCards === "UpdatePatient" ? (
+                    {ButtonCards === "UpdatePatient" && !Patient.isDeleted ? (
                       <button
                         type="submit"
                         className={`btn btn-primary btn-fill`}
@@ -1004,7 +1022,7 @@ const PatientForm = () => {
                               : "none",
                           }}
                         />
-                        Publish
+                        {Patient.isDeleted ? "Re-Publish" : "Publish"}
                       </button>
                     )}
                     <button

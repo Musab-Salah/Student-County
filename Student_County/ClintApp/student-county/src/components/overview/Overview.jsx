@@ -29,8 +29,13 @@ import PatientView from "../services/Patient/patient_view/PatientView";
 import HousingView from "../services/Housing/housing_view/HousingView";
 import ToolView from "../services/Tools/tool_view/ToolView";
 import RideView from "../services/Ride/ride_view/RideView";
+import useBooks from "../../hooks/useBooks";
+import useRides from "../../hooks/useRides";
+import useHousings from "../../hooks/useHousings";
+import useTools from "../../hooks/useTools";
+import usePatient from "../../hooks/usePatient";
 
-const Overview = ({}) => {
+const Overview = () => {
   const TYPES = ["All", "Book", "Ride", "House", "Patient", "Tools"];
   const {
     getMyAllUserRelationDatas,
@@ -41,8 +46,15 @@ const Overview = ({}) => {
     MyHousings,
     MyPatients,
     MyRides,
+    AllActivity,
   } = useUserRelationData(); //[0]books ,[1]housings,[2]rides,[3]tools,[4]patients
   const { decodedJwt } = useAuth();
+  const { setBook } = useBooks();
+  const { setRide } = useRides();
+  const { setHousing } = useHousings();
+  const { setTool } = useTools();
+  const { setPatient } = usePatient();
+
   const { ButtonCards, filteredValue, setOptionMenu } = useComponent();
 
   const { setButtonCards } = useComponent();
@@ -56,6 +68,7 @@ const Overview = ({}) => {
   const [Toolslength, setToolslength] = useState("");
   const [Patientslength, setPatientslength] = useState("");
   const [AddServices, setAddServices] = useState(false);
+
   useEffect(() => {
     getMyAllUserRelationDatas();
     getAllRecentActivity();
@@ -68,7 +81,6 @@ const Overview = ({}) => {
     setSelectType(type);
     setShowDropdownType(false);
   };
-
   useMemo(() => {
     const handleOutsideClick = (event) => {
       if (
@@ -85,7 +97,6 @@ const Overview = ({}) => {
     };
     // eslint-disable-next-line
   }, [showDropdownType, showDropdownSort]);
-
   useEffect(() => {
     if (MyBooks) setBookslength(MyBooks.length);
     if (MyTools) setToolslength(MyTools.length);
@@ -246,31 +257,86 @@ const Overview = ({}) => {
                   </div>
                 </div>
               </div>
-              {/* <div
-                className="activities-container"
-                style={{ display: "block" }}
-              >
+              <div className="activities-container-over">
                 <div className="activities-title">Recent Activities</div>
-                <div className="card-activity">
-                  <div className="smallIcon-activity">
-                    <div className="icon-activity"></div>
-                    <div className="name-activity"></div>
-                    <div className="roles-activity"></div>
-                    <div className="descripion-activity"></div>
-                  </div>
-                </div>
-                
-              </div> */}
-              <div style={{width: 310, height: 49, paddingLeft: 32, paddingRight: 32, paddingTop: 15, paddingBottom: 15, borderLeft: '1px #E4E8EB solid', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'inline-flex'}}>
-  <div style={{width: 10, height: 10, background: 'white', borderRadius: 6, borderLeft: '0.50px #8D37FF solid', borderTop: '0.50px #8D37FF solid', borderRight: '0.50px #8D37FF solid', borderBottom: '0.50px #8D37FF solid'}}></div>
-  <div>
-    <span style={{color: '#4E555F', fontSize: 14, fontFamily: 'Open Sans', fontWeight: 400, wordWrap: 'break-word'}}>Update a book card "</span>
-    <span style={{color: '#8D37FF', fontSize: 14, fontFamily: 'Open Sans', fontWeight: 400, wordWrap: 'break-word'}}>Name Changed</span>
-    <span style={{color: '#4E555F', fontSize: 14, fontFamily: 'Open Sans', fontWeight: 400, wordWrap: 'break-word'}}></span>
-  </div>
-  <div style={{width: 40.62, height: 18, color: '#8C96A3', fontSize: 13, fontFamily: 'Open Sans', fontWeight: 400, textTransform: 'uppercase', wordWrap: 'break-word'}}>Sep 25</div>
-</div>
+                <div className="activities-container-scroll">
+                  {Object.values(AllActivity)
+                    .sort((a, b) => {
+                      const aDate =
+                        a.modifiedOn > a.createdOn ? a.modifiedOn : a.createdOn;
+                      const bDate =
+                        b.modifiedOn > b.createdOn ? b.modifiedOn : b.createdOn;
 
+                      if (aDate > bDate) {
+                        return -1; // a should be placed before b
+                      } else if (aDate < bDate) {
+                        return 1; // a should be placed after b
+                      } else {
+                        return 0; // a and b have the same date, maintain their order
+                      }
+                    })
+                    .map((Activity, index) => (
+                      <div
+                        className="Item"
+                        onClick={() => {
+                          if (Activity.serviceName === "Book") {
+                            setButtonCards("UpdateBook");
+                            setBook(Activity);
+                          } else if (Activity.serviceName === "Ride") {
+                            setButtonCards("UpdateRide");
+                            setRide(Activity);
+                          } else if (Activity.serviceName === "Housing") {
+                            setButtonCards("UpdateHousing");
+                            setHousing(Activity);
+                          } else if (Activity.serviceName === "Tools") {
+                            setButtonCards("UpdateTool");
+                            setTool(Activity);
+                          } else if (Activity.serviceName === "Patient") {
+                            setButtonCards("UpdatePatient");
+                            setPatient(Activity);
+                          }
+                        }}
+                        key={index}
+                      >
+                        <div className="Pseudo" />
+                        <div className="TimeSep25">
+                          {Activity.createdOn > Activity.modifiedOn
+                            ? formatDate(Activity.createdOn)
+                            : formatDate(Activity.modifiedOn)}
+                        </div>
+                        <div className="UpdateABookCardNameChanged">
+                          {Activity.isDeleted
+                            ? "Delete"
+                            : Activity.createdOn > Activity.modifiedOn
+                            ? "Created"
+                            : "Update"}{" "}
+                          a {Activity.serviceName}{" "}
+                          {(Activity.serviceName === "Book" ||
+                            Activity.serviceName === "Tools") && (
+                            <span style={{ color: "#8D37FF" }}>
+                              “Name {Activity.name}
+                            </span>
+                          )}{" "}
+                          {Activity.serviceName === "Ride" && (
+                            <span style={{ color: "#8D37FF" }}>
+                              Car Name {Activity.carDescription}
+                            </span>
+                          )}
+                          {Activity.serviceName === "Patient" && (
+                            <span style={{ color: "#8D37FF" }}>
+                              First Name {Activity.firstName}
+                            </span>
+                          )}
+                          {Activity.serviceName === "Housing" && (
+                            <span style={{ color: "#8D37FF" }}>
+                              His Address Is {Activity.address}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
 
               <div className="add-container">
                 {!AddServices ? (

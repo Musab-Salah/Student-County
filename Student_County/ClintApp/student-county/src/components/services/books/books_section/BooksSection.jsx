@@ -1,6 +1,6 @@
 import BookCard from "../book_card/BookCard";
 import useBooks from "../../../../hooks/useBooks";
-import { useEffect, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import { RiArrowDownSLine } from "react-icons/ri";
 import "./BooksSection.css";
 import "../../../../pages/dashboard/Dashboard.css";
@@ -28,6 +28,9 @@ const BooksSection = () => {
   const [sortType, setSortType] = useState("");
   const [showDropdownSort, setShowDropdownSort] = useState("");
   const [showDropdownSortOwne, setShowDropdownSortOwne] = useState("");
+  const [query, setQuery] = useState("");
+
+  const deferredInput = useDeferredValue(query);
 
   const { MyBooks, UserRelationDataLoader } = useUserRelationData();
   const { Colleges } = useCollege();
@@ -37,7 +40,9 @@ const BooksSection = () => {
   const [showDropdownCollege, setShowDropdownCollege] = useState(false);
 
   const [maxCards, setMaxCards] = useState(3);
-
+  const filteredCitys = Object.values(Colleges).filter((car) =>
+    car.name.toLowerCase().includes(deferredInput.toLowerCase())
+  );
   useMemo(() => {
     const handleOutsideClick = (event) => {
       if (
@@ -47,6 +52,7 @@ const BooksSection = () => {
         setShowDropdownSortOwne(false);
         setShowDropdownSort(false);
         setShowDropdownCollege(false);
+        setQuery("");
       }
     };
     document.addEventListener("click", handleOutsideClick);
@@ -243,7 +249,7 @@ const BooksSection = () => {
               </div>
               <div className="show-more-button">
                 <div
-                  className="btn btn-primary btn-fill"
+                  className="btn btn-primary btn-fill btn-show"
                   onClick={handleShowMore}
                 >
                   Show More
@@ -258,6 +264,7 @@ const BooksSection = () => {
                 <div className="filterboxs">
                   <div className="input-group">
                     <div className="custom-select-select-by-college">
+                      <div className="custom-select">
                         <div
                           className="selected-option"
                           onClick={() =>
@@ -285,13 +292,21 @@ const BooksSection = () => {
                             <div className="option-title">
                               College Or Faculty
                             </div>
+
+                            <input
+                              type="text"
+                              placeholder="Search College..."
+                              value={query}
+                              onChange={(e) => setQuery(e.target.value)}
+                              className="input-search"
+                            />
                             <div
                               onClick={() => handleCollegeChange(false)}
                               className="option"
                             >
                               All
                             </div>
-                            {Object.values(Colleges).map((college) => (
+                            {filteredCitys.map((college) => (
                               <div
                                 className="option"
                                 key={college.id}
@@ -302,7 +317,9 @@ const BooksSection = () => {
                             ))}
                           </div>
                         )}
+                      </div>
                     </div>
+
                     <div className="custom-select-select-by-college">
                       <div
                         className="selected-option"

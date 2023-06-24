@@ -177,6 +177,8 @@ export function PatientsProvider({ children }) {
         typeOfTreatments,
         currentIllnessess,
         setPatients,
+        setError,
+        cleanupError,
       }}
     >
       {children}

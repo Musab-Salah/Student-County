@@ -37,10 +37,13 @@ namespace Student_County.BusinessLogic.Book
         public async Task Delete(int id)
         {
             var entity = await _context.Books.FirstOrDefaultAsync(entity => entity.Id == id);
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == entity.StudentId);
             if (entity == null)
                 throw new Exception("BookStore Not Found");
             else if (!entity.IsDeleted)
             {
+                entity.ModifiedBy = user.UserName;
+                entity.ModifiedOn = DateTimeOffset.Now;
                 entity.IsDeleted = true;
                 _context.Update(entity);
                 await _context.SaveChangesAsync();

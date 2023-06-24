@@ -14,6 +14,7 @@ import { FaRegAddressCard } from "react-icons/fa";
 import { GrTableAdd } from "react-icons/gr";
 import { BiCheck } from "react-icons/bi";
 import { IoCarOutline } from "react-icons/io5";
+import AddLoc from "../add_loc/AddLoc";
 
 const RideForm = () => {
   const { setButtonCards, ButtonCards } = useComponent();
@@ -27,6 +28,8 @@ const RideForm = () => {
     getTimeSlot,
     TimeSlot,
     setTimeSlot,
+    setError,
+    cleanupError,
   } = useRides();
   const {
     getLocations,
@@ -42,6 +45,8 @@ const RideForm = () => {
   const [step, setStep] = useState(1); // Current step of the form
   const [carDescription, setCarDescription] = useState("");
   const [deleteDialogState, setDeleteDialogState] = useState("");
+  const [addDialogState, setAddDialogState] = useState("");
+
   const [shortDescription, setShortDescription] = useState("");
   const [longDescription, setLongDescription] = useState("");
   const [emptySeats, setEmptySeats] = useState("");
@@ -136,19 +141,31 @@ const RideForm = () => {
       setLongDescription(Ride.longDescription);
       setEmptySeats(Ride.emptySeats);
       getLocationByIdform(Ride.locationId);
-      setRideBo({
-        ...ride,
-        studentId: Ride.studentId,
-        id: Ride.id,
-        CarDescription: Ride.carDescription,
-        longDescription: Ride.longDescription,
-        emptySeats: Ride.emptySeats,
-        locationId: Ride.locationId,
-        timeSlots: TimeSlot,
-      });
+      setRideBo((prevRide) => ({
+        ...prevRide,
+        ...Ride,
+        id: !Ride.isDeleted ? Ride.id : 0,
+        timeSlots:
+          Ride.isDeleted && Array.isArray(TimeSlot)
+            ? TimeSlot.map((slot) => ({
+                ...slot,
+                id: 0,
+              }))
+            : TimeSlot,
+        isDeleted: Ride.isDeleted,
+        ...(Ride.isDeleted
+          ? {}
+          : {
+              createdBy: Ride.createdBy,
+              createdOn: Ride.createdOn,
+              modifiedBy: Ride.modifiedBy,
+              modifiedOn: Ride.modifiedOn,
+            }),
+      }));
     }
     // eslint-disable-next-line
   }, [Ride, TimeSlot]);
+
   useEffect(() => {
     if (TimeSlot) {
       // Add the days from TimeSlot to the days array
@@ -264,7 +281,11 @@ const RideForm = () => {
   };
   const handleDelete = (event) => {
     event.preventDefault();
-    setDeleteDialogState(true);
+    if (!Ride.isDeleted) setDeleteDialogState(true);
+    else {
+      setError("Already deleted");
+      cleanupError();
+    }
   };
   useMemo(() => {
     // Validate personal information fields here
@@ -322,7 +343,8 @@ const RideForm = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (carDescription && location && ButtonCards === "UpdateRide")
+    if (Ride.isDeleted) createRide(ride);
+    else if (carDescription && location && ButtonCards === "UpdateRide")
       updateRide(Ride.id, ride);
     else if (carDescription && location && ButtonCards === "CreateRide")
       createRide(ride);
@@ -336,7 +358,8 @@ const RideForm = () => {
           serviceName={Ride.serviceName}
         />
       )}
-      <div style={{ opacity: deleteDialogState ? 0.2 : 1 }}>
+      {addDialogState && <AddLoc setAddDialogState={setAddDialogState} />}
+      <div style={{ opacity: deleteDialogState || addDialogState ? 0.2 : 1 }}>
         <div className="create-section">
           <div
             className="container-load-form"
@@ -500,6 +523,12 @@ const RideForm = () => {
                       <AiFillExclamationCircle /> {locationError}{" "}
                     </span>
                   )}
+                  <div
+                    onClick={() => setAddDialogState(true)}
+                    className="step-title-add-loc"
+                  >
+                    Your town is not on the list ?
+                  </div>
                   <div className={`input-container `}>
                     <input
                       type="number"
@@ -833,7 +862,7 @@ const RideForm = () => {
                     </div>{" "}
                   </div>
                   <div className="buttons">
-                    {ButtonCards === "UpdateRide" ? (
+                    {ButtonCards === "UpdateRide" && !Ride.isDeleted ? (
                       <button
                         type="submit"
                         className={`btn btn-primary btn-fill`}
@@ -851,7 +880,7 @@ const RideForm = () => {
                         className="btn btn-primary btn-fill"
                         type="submit"
                       >
-                        Publish
+                        {Ride.isDeleted ? "Re-Publish" : "Publish"}
                       </button>
                     )}
                     <button

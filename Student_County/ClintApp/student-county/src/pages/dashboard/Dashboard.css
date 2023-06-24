@@ -132,6 +132,7 @@
   justify-content: flex-start;
   gap: var(--gap-6xl);
   transition: 0.3s ease;
+  cursor: pointer;
 }
 .stats:hover {
   box-shadow: 3px 3px 0px #09072f;
@@ -161,6 +162,19 @@
 }
 .activities-container,
 .add-container {
+  /* align-self: stretch;
+  border-radius: var(--br-8xs);
+  background-color: var(--color-white);
+  box-shadow: 2px 2px 0px #09072f;
+  border: 1px solid var(--color-gray-100);
+  box-sizing: border-box;
+  width: 300px;
+  min-height: 315px;
+  display: flex;
+  padding: var(--padding-xl) var(--padding-11xl);
+  align-items: flex-start;
+  justify-content: flex-start;
+  transition: 0.3s ease; */
   align-self: stretch;
   border-radius: var(--br-8xs);
   background-color: var(--color-white);
@@ -174,6 +188,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   transition: 0.3s ease;
+  flex-direction: column;
 }
 .activities-container:hover,
 .add-container:hover {

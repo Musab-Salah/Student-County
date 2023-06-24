@@ -6,8 +6,11 @@
   justify-content: space-between;
   flex-direction: column;
   padding: var(--padding-31xl) var(--padding-6xl);
-
   font-family: var(--font-poppins);
+
+  position: sticky;
+  top: 0;
+  left: 0;
 }
 .animate {
   animation: 0.25s ease 0s 1 normal forwards slide-in-left;
@@ -73,8 +76,11 @@
   box-sizing: border-box;
   align-items: center;
   gap: var(--gap-3xs);
-  align-self: stretch;
   transition: 0.3s ease;
+  width: -webkit-fill-available;
+}
+.dash-nav-link-a {
+  align-self: stretch;
 }
 .padding-resize {
   padding: var(--padding-3xs);
@@ -158,7 +164,7 @@
     position: fixed;
     z-index: 9;
     transition: 0.3s ease;
-    left: -480px;
+    left: -480px!important;
   }
   .dash-menu.openn {
     left: 0 !important;

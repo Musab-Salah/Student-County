@@ -115,6 +115,13 @@ h6 {
 .btn-fill {
   flex: 1;
 }
+.btn-show {
+  padding: 7.5px 40px!important;
+  box-shadow: 3px 3px 0#09072f!important;
+}
+.btn-show:hover {
+  box-shadow: 4px 4px 0#09072f!important;
+}
 .arrow-right-icon {
   display: none;
 }
@@ -344,7 +351,8 @@ textarea:focus-within {
 
 /* logo */
 .logo {
-  height: 35px;
+  height: 40px;
+  width: auto;
 }
 
 /* arrows */
@@ -667,7 +675,10 @@ input#phone-number {
   border-radius: var(--br-8xs);
   border-top: none;
 }
-.options::-webkit-scrollbar{
+.options::-webkit-scrollbar {
+  background: none;
+}
+.activities-container-scroll::-webkit-scrollbar {
   background: none;
 }
 .option,

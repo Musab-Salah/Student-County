@@ -5,7 +5,11 @@ import "./DialogConfirmation.css";
 import useRides from "./../../hooks/useRides";
 import useTools from "../../hooks/useTools";
 
-const DialogConfirmation = ({ serviceName, id, setDeleteDialogState }) => {
+const DialogConfirmation = ({
+  serviceName,
+  id,
+  setDeleteDialogState,
+}) => {
   const { deleteBook } = useBooks();
   const { deleteTool } = useTools();
   const { deleteRide } = useRides();

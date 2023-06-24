@@ -149,6 +149,9 @@ export function ToolsProvider({ children }) {
         DeleteButtonsFormToolLoader,
         setDeleteButtonsFormToolLoader,
         setTools,
+        setError,
+        cleanupError,
+        setTool,
       }}
     >
       {children}

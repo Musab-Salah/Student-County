@@ -149,6 +149,8 @@ export function BooksProvider({ children }) {
         setBook,
         setBooks,
         setMyBooks,
+        setError,
+        cleanupError,
       }}
     >
       {children}

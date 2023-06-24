@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useDeferredValue, useState, useEffect, useMemo } from "react";
 import useComponent from "../../../../hooks/useComponent";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { AiFillExclamationCircle } from "react-icons/ai";
@@ -10,8 +10,16 @@ import useCollege from "../../../../hooks/useCollege";
 
 const BooksForm = () => {
   const { setButtonCards, ButtonCards } = useComponent();
-  const { BookSuccess, createBook, BookError, updateBook, Book, setBook } =
-    useBooks();
+  const {
+    BookSuccess,
+    createBook,
+    BookError,
+    updateBook,
+    Book,
+    setBook,
+    setError,
+    cleanupError,
+  } = useBooks();
   // State Hook
   const [name, setName] = useState("");
   const [deleteDialogState, setDeleteDialogState] = useState("");
@@ -21,6 +29,9 @@ const BooksForm = () => {
   const [theWay, setTheWay] = useState("");
   const [condition, setCondition] = useState("");
   const [book, setBookBo] = useState({});
+  const [query, setQuery] = useState("");
+  const deferredInput = useDeferredValue(query);
+
   const {
     FormBooksLoader,
     ButtonsFormBooksLoader,
@@ -38,7 +49,7 @@ const BooksForm = () => {
 
   const [showDropdownTheWay, setShowDropdownTheWay] = useState(false);
   const [showDropdownCondition, setShowDropdownCondition] = useState(false);
-  const { Colleges } = useCollege();
+  const { Colleges, getCollegeById, College, setCollege } = useCollege();
 
   const [selectCollege, setSelectCollege] = useState("");
 
@@ -64,27 +75,42 @@ const BooksForm = () => {
       document.removeEventListener("click", handleOutsideClick);
     };
   }, [showDropdownTheWay, showDropdownCondition, showDropdownCollege]);
-
+  const dateTimeOffset = new Date();
+  const filteredCitys = Object.values(Colleges).filter((car) =>
+    car.name.toLowerCase().includes(deferredInput.toLowerCase())
+  );
   useMemo(() => {
-    setName(Book.name);
-    setShortDescription(Book.shortDescription);
-    setLongDescription(Book.longDescription);
-    setPrice(Book.price);
-    setTheWay(Book.theWay);
-    setCondition(Book.condition);
-    setSelectCollege(Book.collegeId);
-    setBookBo({
-      ...book,
-      studentId: Book.studentId,
-      id: Book.id,
-      name: Book.name,
-      shortDescription: Book.shortDescription,
-      longDescription: Book.longDescription,
-      price: Book.price,
-      theWay: Book.theWay,
-      condition: Book.condition,
-      collegeId: Book.collegeId,
-    });
+    if (Book) {
+      setName(Book.name);
+      getCollegeById(Book.collegeId);
+      setShortDescription(Book.shortDescription);
+      setLongDescription(Book.longDescription);
+      setPrice(Book.price);
+      setTheWay(Book.theWay);
+      setCondition(Book.condition);
+      setSelectCollege(Book.collegeId);
+      setBookBo({
+        ...book,
+        studentId: Book.studentId,
+        id: !Book.isDeleted ? Book.id : 0,
+        name: Book.name,
+        shortDescription: Book.shortDescription,
+        longDescription: Book.longDescription,
+        price: Book.price,
+        theWay: Book.theWay,
+        condition: Book.condition,
+        collegeId: Book.collegeId,
+        isDeleted: Book.isDeleted,
+        ...(Book.isDeleted
+          ? {}
+          : {
+              createdBy: Book.createdBy,
+              createdOn: Book.createdOn,
+              modifiedBy: Book.modifiedBy,
+              modifiedOn: Book.modifiedOn,
+            }),
+      });
+    }
     // eslint-disable-next-line
   }, [Book]);
   useMemo(() => {
@@ -95,12 +121,15 @@ const BooksForm = () => {
     }
     // eslint-disable-next-line
   }, [BookSuccess]);
+  useMemo(() => {
+    if (College) setSelectCollege(College);
+  }, [College]);
   const handleCollegeChange = (college) => {
     setBookBo({
       ...book,
       collegeId: college.id,
     });
-    setSelectCollege(college.name);
+    setSelectCollege(college);
     setShowDropdownCollege(false);
     setSelectCollegeError(false);
   };
@@ -108,6 +137,7 @@ const BooksForm = () => {
     return function cleanup() {
       setButtonCards("");
       setBook("");
+      setCollege("");
     };
     // eslint-disable-next-line
   }, []);
@@ -187,14 +217,19 @@ const BooksForm = () => {
   };
   const handleDelete = (event) => {
     event.preventDefault();
-    setDeleteDialogState(true);
+    if (!Book.isDeleted) setDeleteDialogState(true);
+    else {
+      setError("Already deleted");
+      cleanupError();
+    }
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    console.log(book);
     if (!theWay) setTheWayError("Please enter a The Way");
     if (!condition) setConditionError("Please enter a The Way");
-    if (theWay && condition && ButtonCards === "UpdateBook")
+    if (Book.isDeleted) createBook(book);
+    else if (theWay && condition && ButtonCards === "UpdateBook")
       updateBook(Book.id, book);
     else if (theWay && condition && ButtonCards === "CreateBook")
       createBook(book);
@@ -276,7 +311,7 @@ const BooksForm = () => {
                     className="selected-option"
                     onClick={() => setShowDropdownCollege(!showDropdownCollege)}
                   >
-                    {!selectCollege ? (
+                    {!book.collegeId ? (
                       <div className="input-container-option input-dropdown">
                         The book for which college ?
                       </div>
@@ -286,7 +321,7 @@ const BooksForm = () => {
                           The book for which college ?
                         </div>
                         <div className="input-container-option input-dropdown input-selected">
-                          {selectCollege}
+                          {selectCollege.name}
                         </div>
                       </div>
                     )}
@@ -295,7 +330,14 @@ const BooksForm = () => {
                   {showDropdownCollege && (
                     <div className="options" id="input-dropdown">
                       <div className="option-title">College Or Faculty</div>
-                      {Object.values(Colleges).map((college) => (
+                      <input
+                        type="text"
+                        placeholder="Search College..."
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        className="input-search"
+                      />
+                      {filteredCitys.map((college) => (
                         <div
                           className="option"
                           key={college.id}
@@ -470,7 +512,7 @@ const BooksForm = () => {
 
               {/* <button type="submit" className={`btn btn-primary sign ${!isFormValid ? 'disabled' : ''}`}>  */}
               <div className="buttons">
-                {ButtonCards === "UpdateBook" ? (
+                {ButtonCards === "UpdateBook" && !Book.isDeleted ? (
                   <button type="submit" className={`btn btn-primary btn-fill`}>
                     <div
                       className="loader"
@@ -488,7 +530,7 @@ const BooksForm = () => {
                         display: ButtonsFormBooksLoader ? "block" : "none",
                       }}
                     />
-                    Publish
+                    {Book.isDeleted ? "Re-Publish" : "Publish"}
                   </button>
                 )}
                 {ButtonCards === "UpdateBook" ? (

@@ -1,6 +1,6 @@
 import RideCard from "../ride_card/RideCard";
 import useRides from "../../../../hooks/useRides";
-import { useEffect, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import { RiArrowDownSLine } from "react-icons/ri";
 import "./RideSection.css";
 import { Helmet } from "react-helmet";
@@ -30,8 +30,19 @@ const RideSection = () => {
   const [showDropdownSort, setShowDropdownSort] = useState("");
   const [showDropdownSortOwne, setShowDropdownSortOwne] = useState("");
   const { MyRides, UserRelationDataLoader } = useUserRelationData();
+  const [showDropdownCollege, setShowDropdownCollege] = useState(false);
+  const [selectLocation, setSelectLocation] = useState("");
 
   const [nowLocation, setNowLocation] = useState("");
+  const [query, setQuery] = useState("");
+
+  const deferredInput = useDeferredValue(query);
+
+  const filteredCitys = Object.values(Locations).filter(
+    (Location) =>
+      Location.cityName.toLowerCase().includes(deferredInput.toLowerCase()) ||
+      Location.townName.toLowerCase().includes(deferredInput.toLowerCase())
+  );
   const handleShowMore = () => {
     setMaxCards(maxCards + 3);
   };
@@ -42,7 +53,9 @@ const RideSection = () => {
         !event.target.closest(".input-container-option")
       ) {
         setShowDropdownSortOwne(false);
+        setShowDropdownCollege(false);
         setShowDropdownSort(false);
+        setQuery("");
       }
     };
     document.addEventListener("click", handleOutsideClick);
@@ -50,9 +63,7 @@ const RideSection = () => {
       document.removeEventListener("click", handleOutsideClick);
     };
     // eslint-disable-next-line
-  }, [showDropdownSortOwne, showDropdownSort]);
-
-
+  }, [showDropdownSortOwne, showDropdownSort, showDropdownCollege]);
 
   useEffect(() => {
     getLocations();
@@ -105,6 +116,11 @@ const RideSection = () => {
       });
       return formattedDate;
     }
+  };
+  const handleLocationChange = (college) => {
+    if (college) setSelectLocation(college);
+    else setSelectLocation(false);
+    setShowDropdownCollege(false);
   };
   return (
     <>
@@ -267,19 +283,74 @@ const RideSection = () => {
               </div>
               <div className="show-more-button">
                 <div
-                  className="btn btn-primary btn-fill"
+                  className="btn btn-primary btn-fill btn-show"
                   onClick={handleShowMore}
                 >
                   Show More
                 </div>
               </div>
-            <div className="vertical-line"></div>
+              <div className="vertical-line"></div>
             </div>
             <div className="service-container">
               <div className="services-head">
                 <div className="services-head-title">Find Services</div>
                 <div className="filterboxs">
                   <div className="input-group">
+                    <div className="custom-select-select-by-college">
+                      <div className="custom-select">
+                        <div
+                          className="selected-option"
+                          onClick={() =>
+                            setShowDropdownCollege(!showDropdownCollege)
+                          }
+                        >
+                          {!selectLocation ? (
+                            <div className="input-container-option input-dropdown" style={{width: 'max-content'}} >
+                              Select By Location
+                            </div>
+                          ) : (
+                            <div>
+                              <div className="input-container-option input-dropdown-title"  style={{width: 'max-content'}} >
+                                Select By Location
+                              </div>
+                              <div className="input-container-option input-dropdown input-selected">
+                                {selectLocation.cityName},
+                                {selectLocation.townName}
+                              </div>
+                            </div>
+                          )}
+                          <RiArrowDownSLine className="arrow-icon" />
+                        </div>
+                        {showDropdownCollege && (
+                          <div className="options" id="input-dropdown">
+                            <div className="option-title">Location</div>
+
+                            <input
+                              type="text"
+                              placeholder="Search Location..."
+                              value={query}
+                              onChange={(e) => setQuery(e.target.value)}
+                              className="input-search"
+                            />
+                            <div
+                              onClick={() => handleLocationChange(false)}
+                              className="option"
+                            >
+                              All
+                            </div>
+                            {filteredCitys.map((college) => (
+                              <div
+                                className="option"
+                                key={college.id}
+                                onClick={() => handleLocationChange(college)}
+                              >
+                                {college.cityName},{college.townName}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
                     <div className="custom-select">
                       <div
                         className="selected-option"
@@ -336,6 +407,11 @@ const RideSection = () => {
                 {!filteredValue
                   ? !sortType &&
                     Object.values(Rides)
+                      .filter((loc) =>
+                        selectLocation
+                          ? loc.locationId === selectLocation.id
+                          : true
+                      )
                       .filter((ride) => ride.studentId !== decodedJwt.uid)
                       .map((ride) => (
                         <RideCard
@@ -354,6 +430,11 @@ const RideSection = () => {
                       ))
                   : !sortType &&
                     Object.values(filteredValue)
+                      .filter((loc) =>
+                        selectLocation
+                          ? loc.locationId === selectLocation.id
+                          : true
+                      )
                       .filter((ride) => ride.studentId !== decodedJwt.uid)
                       .map((ride) => (
                         <RideCard
@@ -496,7 +577,6 @@ const RideSection = () => {
                           gender={ride.gender}
                         />
                       ))}
-                      
               </div>
             </div>
           </div>

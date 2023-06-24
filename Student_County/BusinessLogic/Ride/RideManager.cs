@@ -35,11 +35,17 @@ namespace Student_County.BusinessLogic.Ride
         public async Task Delete(int id)
         {
             var entity = await _context.Rides.FirstOrDefaultAsync(entity => entity.Id == id);
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == entity.StudentId);
+
             if (entity == null)
                 throw new Exception("Ride Not Found");
             else if (!entity.IsDeleted)
             {
                 var timeentity = await _contextt.TimeSlots.FirstOrDefaultAsync(tentity => tentity.RideEntity == entity);
+                entity.ModifiedBy = user.UserName;
+                entity.ModifiedOn = DateTimeOffset.Now;
+                timeentity.ModifiedBy = user.UserName;
+                timeentity.ModifiedOn = DateTimeOffset.Now;
                 entity.IsDeleted = true;
                 timeentity.IsDeleted = true;
                 _contextt.Update(timeentity);

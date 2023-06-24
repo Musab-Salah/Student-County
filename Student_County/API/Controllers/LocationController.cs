@@ -7,6 +7,7 @@ namespace Student_County.API.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
+    [Authorize(Roles = "Student,Dentistry Student,Admin")]
 
     public class LocationController : ControllerBase
     {
@@ -19,7 +20,6 @@ namespace Student_County.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Index() => Ok(await _manager.GetAll());
         
-        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] LocationBo bo)
         {

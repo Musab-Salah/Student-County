@@ -396,170 +396,170 @@ namespace Student_County.Migrations
                         {
                             Id = 2,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5469), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4240), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5470), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4241), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Administrative and Financial Sciences"
                         },
                         new
                         {
                             Id = 3,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5474), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4246), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5475), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4247), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Allied Medical Sciences"
                         },
                         new
                         {
                             Id = 4,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5478), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4252), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5479), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4253), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Arts"
                         },
                         new
                         {
                             Id = 5,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5483), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4267), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5484), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4267), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Data Science"
                         },
                         new
                         {
                             Id = 6,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5487), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4271), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5488), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4272), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Dentistry"
                         },
                         new
                         {
                             Id = 7,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5531), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4276), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5532), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4278), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Engineering"
                         },
                         new
                         {
                             Id = 8,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5535), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4282), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5536), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4282), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Information Technology"
                         },
                         new
                         {
                             Id = 9,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5540), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4287), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5541), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4287), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Law"
                         },
                         new
                         {
                             Id = 10,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5544), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4291), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5545), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4292), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Medicine"
                         },
                         new
                         {
                             Id = 11,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5548), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4295), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5549), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4296), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Modern Media"
                         },
                         new
                         {
                             Id = 12,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5553), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4300), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5554), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4301), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Modern Sciences"
                         },
                         new
                         {
                             Id = 13,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5557), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4304), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5558), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4305), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Nursing"
                         },
                         new
                         {
                             Id = 14,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5561), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4310), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5562), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4311), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Pharmacy"
                         },
                         new
                         {
                             Id = 15,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5565), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4316), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5566), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4317), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Sciences"
                         },
                         new
                         {
                             Id = 16,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5570), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4320), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5571), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4321), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Sport Sciences"
                         },
                         new
                         {
                             Id = 17,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5574), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4325), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5575), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4326), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Intermediate Diploma"
                         },
                         new
                         {
                             Id = 18,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5579), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4329), new TimeSpan(0, 0, 0, 0, 0)),
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5579), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4330), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Faculty of Graduate Studies"
                         });
                 });
@@ -1095,11 +1095,11 @@ namespace Student_County.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ini",
-                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5430), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4195), new TimeSpan(0, 0, 0, 0, 0)),
                             EmailDomainName = "@student.aaup.edu",
                             IsDeleted = false,
                             ModifiedBy = "Ini",
-                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 23, 19, 0, 22, 673, DateTimeKind.Unspecified).AddTicks(5434), new TimeSpan(0, 0, 0, 0, 0)),
+                            ModifiedOn = new DateTimeOffset(new DateTime(2023, 6, 24, 22, 20, 3, 658, DateTimeKind.Unspecified).AddTicks(4200), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Arab American University"
                         });
                 });

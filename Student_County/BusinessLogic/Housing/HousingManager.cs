@@ -30,10 +30,14 @@ namespace Student_County.BusinessLogic.Housing
         public async Task Delete(int id)
         {
             var entity = await _context.Housings.FirstOrDefaultAsync(entity => entity.Id == id);
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == entity.StudentId);
+
             if (entity == null)
                 throw new Exception("Housing Not Found");
             else if (!entity.IsDeleted)
             {
+                entity.ModifiedBy = user.UserName;
+                entity.ModifiedOn = DateTimeOffset.Now;
                 entity.IsDeleted = true;
                 _context.Update(entity);
                 await _context.SaveChangesAsync();

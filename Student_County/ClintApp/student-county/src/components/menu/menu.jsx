@@ -98,7 +98,7 @@ const Menu = () => {
             </div>
             {navLinksVisible[0] && (
               <div className="dash-nav-links">
-                <Link to="/dashboard/overview">
+                <Link className="dash-nav-link-a" to="/dashboard/overview">
                   <div
                     className={`dash-nav-link ${
                       isMenuOpen ? "padding-resize" : ""
@@ -115,7 +115,7 @@ const Menu = () => {
                     </div>
                   </div>
                 </Link>
-                <Link to="/dashboard/chat">
+                <Link className="dash-nav-link-a" to="/dashboard/chat">
                   <div
                     className={`dash-nav-link ${
                       isMenuOpen ? "padding-resize" : ""
@@ -152,7 +152,7 @@ const Menu = () => {
                 <WithPermission
                   ScopeRole={["Student", "Dentistry Student", "Admin"]}
                 >
-                  <Link to="/dashboard/book">
+                  <Link className="dash-nav-link-a" to="/dashboard/book">
                     <div
                       className={`dash-nav-link ${
                         isMenuOpen ? "padding-resize" : ""
@@ -173,7 +173,7 @@ const Menu = () => {
                 <WithPermission
                   ScopeRole={["Student", "Dentistry Student", "Admin"]}
                 >
-                  <Link to="/dashboard/housing">
+                  <Link className="dash-nav-link-a" to="/dashboard/housing">
                     <div
                       className={`dash-nav-link ${
                         isMenuOpen ? "padding-resize" : ""
@@ -193,7 +193,7 @@ const Menu = () => {
                 <WithPermission
                   ScopeRole={["Student", "Dentistry Student", "Admin"]}
                 >
-                  <Link to="/dashboard/ride">
+                  <Link className="dash-nav-link-a" to="/dashboard/ride">
                     {" "}
                     <div
                       className={`dash-nav-link ${
@@ -215,7 +215,7 @@ const Menu = () => {
                 <WithPermission
                   ScopeRole={["Student", "Dentistry Student", "Admin"]}
                 >
-                  <Link to="/dashboard/tool">
+                  <Link className="dash-nav-link-a" to="/dashboard/tool">
                     {" "}
                     <div
                       className={`dash-nav-link ${
@@ -234,7 +234,7 @@ const Menu = () => {
                   </Link>
                 </WithPermission>
                 <WithPermission ScopeRole={["Dentistry Student", "Admin"]}>
-                  <Link to="/dashboard/patient">
+                  <Link className="dash-nav-link-a" to="/dashboard/patient">
                     <div
                       className={`dash-nav-link ${
                         isMenuOpen ? "padding-resize" : ""
@@ -258,7 +258,7 @@ const Menu = () => {
       </div>
       <div className="dash-menu-items-buttom">
         <div className="dash-menu-items">
-          <Link to="/dashboard/setting">
+          <Link className="dash-nav-link-a" to="/dashboard/setting">
             <div
               className={`dash-nav-link ${isMenuOpen ? "padding-resize" : ""} ${
                 location.pathname === "/dashboard/setting" ? "active" : ""

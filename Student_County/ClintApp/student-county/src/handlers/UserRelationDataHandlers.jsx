@@ -40,6 +40,7 @@ export function UserRelationDatasProvider({ children }) {
     sleep(2000).then(() => {
       setUserSuccess("");
     });
+  const [AllActivity, setAllActivity] = useState([]);
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const cleanupError = () =>
     sleep(5000).then(() => {
@@ -72,14 +73,22 @@ export function UserRelationDatasProvider({ children }) {
     // eslint-disable-next-line
   }, [MyUserRelationData]);
   useMemo(() => {
-    if (AllRecentActivity) {
+    if (AllRecentActivity && decodedJwt.roles !== "Patient") {
       if (AllRecentActivity[0]) setBooksActivity(AllRecentActivity[0]);
       if (AllRecentActivity[1]) setHousingsActivity(AllRecentActivity[1]);
       if (AllRecentActivity[2]) setRidesActivity(AllRecentActivity[2]);
       if (AllRecentActivity[3]) setToolsActivity(AllRecentActivity[3]);
       if (AllRecentActivity[4]) setPatientsActivity(AllRecentActivity[4]);
-      const newArray = [...BooksActivity, ...ToolsActivity];
+    } else if (decodedJwt.roles === "Patient") {
+      setPatientsActivity(AllRecentActivity[0]);
     }
+    setAllActivity([
+      ...BooksActivity,
+      ...ToolsActivity,
+      ...PatientsActivity,
+      ...RidesActivity,
+      ...HousingsActivity]
+    );
   }, [AllRecentActivity]);
 
   const getMyAllUserRelationDatas = () => {
@@ -195,6 +204,7 @@ export function UserRelationDatasProvider({ children }) {
         getPatient,
         Patient,
         setPatient,
+        AllActivity,
       }}
     >
       {children}

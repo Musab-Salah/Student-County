@@ -9,8 +9,16 @@ import useTools from "../../../../hooks/useTools";
 
 const ToolForm = () => {
   const { setButtonCards, ButtonCards } = useComponent();
-  const { ToolsSuccess, createTool, ToolError, updateTool, Tool, setTool } =
-    useTools();
+  const {
+    ToolsSuccess,
+    createTool,
+    ToolsError,
+    updateTool,
+    Tool,
+    setTool,
+    setError,
+    cleanupError,
+  } = useTools();
   // State Hook
   const [name, setName] = useState("");
   const [deleteDialogState, setDeleteDialogState] = useState("");
@@ -63,13 +71,22 @@ const ToolForm = () => {
     setToolBo({
       ...tool,
       studentId: Tool.studentId,
-      id: Tool.id,
+      id: !Tool.isDeleted ? Tool.id : 0,
       name: Tool.name,
       shortDescription: Tool.shortDescription,
       longDescription: Tool.longDescription,
       price: Tool.price,
       theWay: Tool.theWay,
       condition: Tool.condition,
+      isDeleted: Tool.isDeleted,
+      ...(Tool.isDeleted
+        ? {}
+        : {
+            createdBy: Tool.createdBy,
+            createdOn: Tool.createdOn,
+            modifiedBy: Tool.modifiedBy,
+            modifiedOn: Tool.modifiedOn,
+          }),
     });
     // eslint-disable-next-line
   }, [Tool]);
@@ -165,13 +182,18 @@ const ToolForm = () => {
   };
   const handleDelete = (event) => {
     event.preventDefault();
-    setDeleteDialogState(true);
+    if (!Tool.isDeleted) setDeleteDialogState(true);
+    else {
+      setError("Already deleted");
+      cleanupError();
+    }
   };
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!theWay) setTheWayError("Please enter the way you want");
     if (!condition) setConditionError("Please enter the condition");
-    if (theWay && condition && ButtonCards === "UpdateTool")
+    if (Tool.isDeleted) createTool(tool);
+    else if (theWay && condition && ButtonCards === "UpdateTool")
       updateTool(Tool.id, tool);
     else if (theWay && condition && ButtonCards === "CreateTool")
       createTool(tool);
@@ -426,7 +448,7 @@ const ToolForm = () => {
               )}
               {/* <button type="submit" className={`btn btn-primary sign ${!isFormValid ? 'disabled' : ''}`}>  */}
               <div className="buttons">
-                {ButtonCards === "UpdateTool" ? (
+                {ButtonCards === "UpdateTool" && !Tool.isDeleted ? (
                   <button type="submit" className={`btn btn-primary btn-fill`}>
                     <div
                       className="loader"
@@ -444,11 +466,14 @@ const ToolForm = () => {
                         display: ButtonsFormToolLoader ? "block" : "none",
                       }}
                     />
-                    Publish
+                    {Tool.isDeleted ? "Re-Publish" : "Publish"}
                   </button>
                 )}
                 {ButtonCards === "UpdateTool" ? (
-                  <button onClick={handleDelete} className={`btn btn-primary btn-fill`}>
+                  <button
+                    onClick={handleDelete}
+                    className={`btn btn-primary btn-fill`}
+                  >
                     <div
                       className="loader"
                       style={{
@@ -467,10 +492,10 @@ const ToolForm = () => {
                   Cancel
                 </button>
               </div>
-              {ToolError && (
+              {ToolsError && (
                 <span className="wrong-info">
                   <AiFillExclamationCircle />
-                  {ToolError}
+                  {ToolsError}
                 </span>
               )}
               {ToolsSuccess && (

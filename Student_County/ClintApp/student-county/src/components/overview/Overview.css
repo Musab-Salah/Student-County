@@ -208,8 +208,8 @@
   }
 }
 
-.ActivitiesContainer {
-  width: 370;
+/* .ActivitiesContainer {
+  width: 366;
   height: 239;
   padding-left: 30;
   padding-right: 30;
@@ -229,3 +229,110 @@
   gap: 25;
   display: "inline-flex";
 }
+.ContainerTitle {
+  color: "#09072F";
+  font-size: 18;
+  font-family: "Poppins";
+  font-weight: "600";
+  word-wrap: "break-word";
+}
+.Body {
+  width: 306;
+  flex-direction: "column";
+  justify-content: "flex-start";
+  align-items: "flex-start";
+  display: "flex";
+}
+.Frame79{
+  border-left: '0.75px #8D37FF solid';
+  justify-content: 'flex-start';
+  align-items: 'flex-start';
+  display: 'inline-flex';
+}
+.Frame{
+  padding: '6.25px';
+  background: '#8D37FF';
+  border-radius: '12.50px';
+  border-left: '0.50px solid';
+  border-top: '0.50px solid';
+  border-right: '0.50px solid';
+  border-bottom: '0.50px solid';
+  justify-content: 'center';
+  align-items: 'center';
+  display: 'flex';
+} */
+.Item {
+  width: -webkit-fill-available;
+  /* height: 74px; */
+  padding-left: 24px;
+  border-left: 1px solid;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: inline-flex;
+  cursor: pointer;
+}
+.TimeSep25 {
+  color: #8c96a3;
+  font-size: 13px;
+  font-family: Poppins;
+  font-weight: 600;
+  text-transform: uppercase;
+  word-wrap: break-word;
+}
+.UpdateABookCardNameChanged {
+  color: #4e555f;
+  font-size: 14px;
+  font-family: Cabin;
+  font-weight: 400;
+  word-wrap: break-word;
+  padding-bottom: 2px;
+}
+
+.activities-container-over,
+.add-container-over {
+  align-self: stretch;
+  border-radius: var(--br-8xs);
+  background-color: var(--color-white);
+  box-shadow: 2px 2px 0px #09072f;
+  border: 1px solid var(--color-gray-100);
+  box-sizing: border-box;
+  width: 300px;
+
+  display: flex;
+  padding: 20px 20px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  transition: 0.3s ease;
+  flex-direction: column;
+
+}
+.activities-container-scroll {
+  max-height: 315px;
+  overflow-y: auto;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+}
+.Pseudo {
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 6px;
+  border-left: 0.5px solid #8d37ff;
+  border-top: 0.5px solid #8d37ff;
+  border-right: 0.5px solid #8d37ff;
+  border-bottom: 0.5px solid #8d37ff;
+  position: relative;
+  min-height: max-content;
+  right: 30px;
+}
+/* 
+.Item:hover {
+  box-shadow: 1px 1px 0px #09072f;
+  border: 1.5px solid var(--color-gray-100);
+  border-radius: var(--br-8xs);
+} */

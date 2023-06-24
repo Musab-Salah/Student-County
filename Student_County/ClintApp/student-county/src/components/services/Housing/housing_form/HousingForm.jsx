@@ -22,6 +22,8 @@ const HousingForm = () => {
     updateHousing,
     Housing,
     setHousing,
+    setError,
+    cleanupError,
   } = useHousings();
   // State Hook
   const [step, setStep] = useState(1); // Current step of the form
@@ -82,7 +84,7 @@ const HousingForm = () => {
     };
   }, [showDropdownTypeOfContract]);
 
-  useMemo(() => {
+  useEffect(() => {
     if (Housing) {
       setNationalId(Housing.nationalId);
       setCity(Housing.city);
@@ -95,25 +97,23 @@ const HousingForm = () => {
       setBathRoom(Housing.bathRoom);
       setRentalPrice(Housing.rentalPrice);
       setFurnishings(Housing.furnishings);
-      setHousingBo({
-        ...housing,
-        userId: Housing.userId,
-        id: Housing.id,
-        nationalId: Housing.nationalId,
-        city: Housing.city,
-        province: Housing.province,
-        address: Housing.address,
-        typeOfContract: Housing.typeOfContract,
-        homeType: Housing.homeType,
-        roomType: Housing.roomType,
-        bedRoom: Housing.bedRoom,
-        bathRoom: Housing.bathRoom,
-        rentalPrice: Housing.rentalPrice,
-        furnishings: Housing.furnishings,
-      });
+      setHousingBo((prevHousing) => ({
+        ...prevHousing,
+        ...Housing,
+        id: !Housing.isDeleted ? Housing.id : 0,
+        isDeleted: Housing.isDeleted,
+        ...(Housing.isDeleted
+          ? {}
+          : {
+              createdBy: Housing.createdBy,
+              createdOn: Housing.createdOn,
+              modifiedBy: Housing.modifiedBy,
+              modifiedOn: Housing.modifiedOn,
+            }),
+      }));
     }
-    // eslint-disable-next-line
   }, [Housing]);
+
   useMemo(() => {
     if (HousingSuccess) {
       sleep(2000).then(() => {
@@ -267,7 +267,11 @@ const HousingForm = () => {
 
   const handleDelete = (event) => {
     event.preventDefault();
-    setDeleteDialogState(true);
+    if (!Housing.isDeleted) setDeleteDialogState(true);
+    else {
+      setError("Already deleted");
+      cleanupError();
+    }
   };
   useMemo(() => {
     // Validate personal information fields here
@@ -318,7 +322,8 @@ const HousingForm = () => {
     if (!roomType) setRoomTypeError("Please enter a Room Type");
     if (!bedRoom) setBedRoomError("Please enter a Bed Room Number");
     if (!bathRoom) setBathRoomError("Please enter a Bath Room Number ");
-    if (
+    if (Housing.isDeleted) createHousing(housing);
+    else if (
       validatePersonalInformation &&
       validateHomeInfo &&
       validateHomeDescription &&
@@ -361,7 +366,8 @@ const HousingForm = () => {
                 className="form-create"
               >
                 <div className="form-title ">
-                  Add A New <span style={{ color: "#8D37FF" }}>&nbsp;House.</span>{" "}
+                  Add A New{" "}
+                  <span style={{ color: "#8D37FF" }}>&nbsp;House.</span>{" "}
                 </div>
                 <StepForm currentStep={step} />
                 <div className="form-input-container">
@@ -438,6 +444,12 @@ const HousingForm = () => {
                       Cancel
                     </button>
                   </div>
+                  {HousingError && (
+                    <span className="wrong-info">
+                      <AiFillExclamationCircle />
+                      {HousingError}
+                    </span>
+                  )}
                   {HousingSuccess && (
                     <span className="success-info">
                       <AiFillExclamationCircle />
@@ -728,7 +740,6 @@ const HousingForm = () => {
                           onClick={() => handelHomeType("House")}
                           type="radio"
                           name="hometype"
-                          value="House"
                         />
                         <div
                           className={`input-select ${
@@ -748,7 +759,6 @@ const HousingForm = () => {
                           onClick={() => handelHomeType("Apartment")}
                           type="radio"
                           name="hometype"
-                          value="Apartment"
                         />
                         <div
                           className={`input-select ${
@@ -781,7 +791,6 @@ const HousingForm = () => {
                           onClick={() => handelRoomType("Private")}
                           type="radio"
                           name="roomtype"
-                          value="Private"
                         />
                         <div
                           className={`input-select ${
@@ -795,13 +804,12 @@ const HousingForm = () => {
                           )}{" "}
                         </div>
                       </label>
-                      
+
                       <label className="input-select-group-label">
                         <input
                           onClick={() => handelRoomType("Common")}
                           type="radio"
                           name="roomtype"
-                          value="Common"
                         />
                         <div
                           className={`input-select ${
@@ -878,12 +886,37 @@ const HousingForm = () => {
                   </div>
 
                   <div className="buttons">
-                    <button
-                      onClick={handleSubmit}
-                      className={`btn btn-primary btn-fill`}
-                    >
-                      Publish
-                    </button>
+                    {ButtonCards === "UpdateHousing" && !Housing.isDeleted ? (
+                      <button
+                        onClick={handleSubmit}
+                        className={`btn btn-primary btn-fill`}
+                      >
+                        <div
+                          className="loader"
+                          style={{
+                            display: ButtonsFormHousingLoader
+                              ? "block"
+                              : "none",
+                          }}
+                        />
+                        Update
+                      </button>
+                    ) : (
+                      <button
+                        onClick={handleSubmit}
+                        className={`btn btn-primary btn-fill`}
+                      >
+                        <div
+                          className="loader"
+                          style={{
+                            display: ButtonsFormHousingLoader
+                              ? "block"
+                              : "none",
+                          }}
+                        />
+                        {Housing.isDeleted ? "Re-Publish" : "Publish"}
+                      </button>
+                    )}
                     <button
                       onClick={handelBack}
                       className={`btn btn-primary btn-fill`}

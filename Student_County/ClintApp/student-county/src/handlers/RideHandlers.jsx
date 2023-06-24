@@ -160,6 +160,8 @@ export function RidesProvider({ children }) {
         TimeSlot,
         setTimeSlot,
         getTimeSlot,
+        setError,
+        cleanupError,
       }}
     >
       {children}

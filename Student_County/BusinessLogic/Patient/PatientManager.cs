@@ -32,10 +32,13 @@ namespace Student_County.BusinessLogic.Patient
         public async Task Delete(int id)
         {
             var entity = await _context.Patients.FirstOrDefaultAsync(entity => entity.Id == id);
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == entity.UserId);
             if (entity == null)
                 throw new Exception("Patient Not Found");
             else if (!entity.IsDeleted)
             {
+                entity.ModifiedBy = user.UserName;
+                entity.ModifiedOn = DateTimeOffset.Now;
                 entity.IsDeleted = true;
                 _context.Update(entity);
                 await _context.SaveChangesAsync();

@@ -76,6 +76,7 @@ export function CollegesProvider({ children }) {
         createCollege,
         updateCollege,
         deleteCollege,
+        setCollege,
       }}
     >
       {children}

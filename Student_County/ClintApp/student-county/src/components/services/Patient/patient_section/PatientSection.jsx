@@ -253,7 +253,7 @@ const PatientSection = () => {
               </div>
               <div className="show-more-button">
                 <div
-                  className="btn btn-primary btn-fill"
+                  className="btn btn-primary btn-fill btn-show"
                   onClick={handleShowMore}
                 >
                   Show More
