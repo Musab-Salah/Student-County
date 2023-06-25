@@ -25,8 +25,9 @@
   font-family: var(--font-poppins);
   border: none;
   padding: var(--padding-3xs) 0 var(--padding-3xs) var(--padding-xl);
-  width: 107px;
+  max-width: 114px;
   color: var(--color-gray-100);
+  background: white;
 }
 
 .input-container-group-time {

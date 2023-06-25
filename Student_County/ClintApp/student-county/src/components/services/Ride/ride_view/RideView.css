@@ -6,7 +6,6 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: var(--gap-mini);
   color: var(--color-blueviolet-100);
   border-radius: var(--br-3xs) var(--br-3xs) 5px var(--br-3xs);
   background-color: var(--color-whitesmoke-200);
@@ -16,20 +15,15 @@
   object-fit: cover;
   padding: 30px;
 }
-
-.section-view {
-  border-radius: var(--br-3xs) var(--br-3xs);
-  background-color: var(--color-whitesmoke-200);
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--color-gray-100);
+.view-scu {
+  font-weight: 500;
+  font-size: 12.5px;
+  line-height: 1px;
   font-family: var(--font-poppins);
-  margin: 5px;
-  width: -webkit-fill-available;
-  display: flex;
-  align-items: center;
-  gap: 25px;
+  cursor: pointer;
+  padding-left: 1%;
 }
+
 .ride-info {
   display: flex;
   flex-direction: column;
@@ -54,22 +48,22 @@
   justify-content: space-between;
 }
 .title-ride-name {
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
   line-height: 33px;
   text-transform: capitalize;
-  color: #09072F;
+  color: #09072f;
 }
 .seats-field-ride {
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-style: normal;
   font-weight: 500;
   font-size: 15px;
   line-height: 33px;
   text-transform: capitalize;
-  color: #09072F;
+  color: #09072f;
 }
 
 .description-ride-view {
@@ -81,7 +75,7 @@
   line-height: 17px;
 }
 
-.condition-ride-view{
+.condition-ride-view {
   display: flex;
 }
 

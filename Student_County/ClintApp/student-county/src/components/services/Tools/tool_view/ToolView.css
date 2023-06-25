@@ -1,21 +1,6 @@
 /*view*/
 
-.form-create-view {
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: var(--gap-mini);
-  color: var(--color-blueviolet-100);
-  border-radius: var(--br-3xs) var(--br-3xs) 5px var(--br-3xs);
-  background-color: var(--color-whitesmoke-200);
-  box-shadow: 7.5px 7.5px 0#09072f;
-  border: 1px solid var(--color-gray-100);
-  flex-shrink: 0;
-  object-fit: cover;
-  padding: 30px;
-}
+
 
 .section-view {
   border-radius: var(--br-3xs) var(--br-3xs);
@@ -29,6 +14,11 @@
   display: flex;
   align-items: center;
   gap: 25px;
+}
+@media screen and (max-width: 720px) {
+  .section-view {
+    flex-direction: column;
+  }
 }
 .tool-info {
   display: flex;
@@ -53,14 +43,15 @@
   align-items: center;
   justify-content: space-between;
 }
-.title-tool-name, .price-field {
-  font-family: 'Poppins';
+.title-tool-name,
+.price-field {
+  font-family: "Poppins";
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
   line-height: 33px;
   text-transform: capitalize;
-  color: #09072F;
+  color: #09072f;
 }
 
 .description-tool-view {
@@ -72,7 +63,7 @@
   line-height: 17px;
 }
 
-.condition-tool-view{
+.condition-tool-view {
   display: flex;
 }
 

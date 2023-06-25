@@ -803,6 +803,7 @@ input#phone-number {
   margin-left: 30%;
   min-height: 100vh;
   z-index: 1;
+  /* width: -webkit-fill-available; */
 }
 
 .container-load-form {
@@ -838,7 +839,7 @@ input#phone-number {
   object-fit: cover;
   padding: 30px 0;
   max-width: 575px;
-  width: -webkit-fill-available;
+  /* width: -webkit-fill-available; */
 }
 
 .form-title {

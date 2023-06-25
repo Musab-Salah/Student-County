@@ -9,7 +9,7 @@
     },
     "mssql1": {
       "secretStore": "AzureAppSettings",
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/sctestsqlserver/databases/StudenCountyDB",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/sctestsqlserver/databases/StudentCountyDB",
       "type": "mssql.azure",
       "connectionId": "ConnectionStrings:Connectionstring",
       "dynamicId": null

@@ -15,6 +15,7 @@ import { GrTableAdd } from "react-icons/gr";
 import { BiCheck } from "react-icons/bi";
 import { IoCarOutline } from "react-icons/io5";
 import AddLoc from "../add_loc/AddLoc";
+import ShowSchedule from "../ride_view/show_schedule/ShowSchedule";
 
 const RideForm = () => {
   const { setButtonCards, ButtonCards } = useComponent();
@@ -359,7 +360,12 @@ const RideForm = () => {
         />
       )}
       {addDialogState && <AddLoc setAddDialogState={setAddDialogState} />}
-      <div style={{ opacity: deleteDialogState || addDialogState ? 0.2 : 1 }}>
+
+      <div
+        style={{
+          opacity: deleteDialogState || addDialogState ? 0.2 : 1,
+        }}
+      >
         <div className="create-section">
           <div
             className="container-load-form"
@@ -527,7 +533,7 @@ const RideForm = () => {
                     onClick={() => setAddDialogState(true)}
                     className="step-title-add-loc"
                   >
-                    Your town is not on the list ?
+                    Your town is not in the list ?
                   </div>
                   <div className={`input-container `}>
                     <input

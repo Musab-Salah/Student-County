@@ -34,6 +34,7 @@ import useRides from "../../hooks/useRides";
 import useHousings from "../../hooks/useHousings";
 import useTools from "../../hooks/useTools";
 import usePatient from "../../hooks/usePatient";
+import useLocation from "../../hooks/useLocation";
 
 const Overview = () => {
   const TYPES = ["All", "Book", "Ride", "House", "Patient", "Tools"];
@@ -54,6 +55,7 @@ const Overview = () => {
   const { setHousing } = useHousings();
   const { setTool } = useTools();
   const { setPatient } = usePatient();
+  const { getLocations } = useLocation();
 
   const { ButtonCards, filteredValue, setOptionMenu } = useComponent();
 
@@ -72,6 +74,8 @@ const Overview = () => {
   useEffect(() => {
     getMyAllUserRelationDatas();
     getAllRecentActivity();
+    getLocations();
+
     // eslint-disable-next-line
   }, []);
   const handeleAddServices = () => {
@@ -537,6 +541,7 @@ const Overview = () => {
                         key={book.id}
                         id={book.id}
                         studentId={book.studentId}
+                        createdOn={formatDate(book.createdOn)}
                       />
                     ))
                   : (selectType.name === "All" ||
@@ -551,6 +556,7 @@ const Overview = () => {
                         key={book.id}
                         id={book.id}
                         studentId={book.studentId}
+                        createdOn={formatDate(book.createdOn)}
                       />
                     ))}
 

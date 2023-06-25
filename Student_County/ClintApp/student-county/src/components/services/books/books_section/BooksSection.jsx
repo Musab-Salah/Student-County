@@ -89,6 +89,37 @@ const BooksSection = () => {
     else setSelectCollege(false);
     setShowDropdownCollege(false);
   };
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    if (
+      date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
+    ) {
+      const formattedTime = date.toLocaleTimeString([], {
+        hour: "numeric",
+        minute: "numeric",
+      });
+      return formattedTime;
+    } else if (
+      date.getDate() === yesterday.getDate() &&
+      date.getMonth() === yesterday.getMonth() &&
+      date.getFullYear() === yesterday.getFullYear()
+    ) {
+      return "Yesterday";
+    } else {
+      const formattedDate = date.toLocaleDateString([], {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+      return formattedDate;
+    }
+  };
   return (
     <>
       <Helmet>
@@ -183,6 +214,7 @@ const BooksSection = () => {
                         longDescription={book.longDescription}
                         key={book.id}
                         id={book.id}
+                        createdOn={formatDate(book.createdOn)}
                         studentId={book.studentId}
                         theWay={book.theWay}
                         collegeId={book.collegeId}
@@ -201,6 +233,7 @@ const BooksSection = () => {
                         longDescription={book.longDescription}
                         key={book.id}
                         id={book.id}
+                        createdOn={formatDate(book.createdOn)}
                         studentId={book.studentId}
                         theWay={book.theWay}
                         collegeId={book.collegeId}
@@ -222,6 +255,7 @@ const BooksSection = () => {
                         longDescription={book.longDescription}
                         key={book.id}
                         id={book.id}
+                        createdOn={formatDate(book.createdOn)}
                         studentId={book.studentId}
                         theWay={book.theWay}
                         collegeId={book.collegeId}
@@ -240,6 +274,7 @@ const BooksSection = () => {
                         longDescription={book.longDescription}
                         key={book.id}
                         id={book.id}
+                        createdOn={formatDate(book.createdOn)}
                         studentId={book.studentId}
                         theWay={book.theWay}
                         collegeId={book.collegeId}
@@ -391,6 +426,7 @@ const BooksSection = () => {
                           longDescription={book.longDescription}
                           key={book.id}
                           id={book.id}
+                          createdOn={formatDate(book.createdOn)}
                           studentId={book.studentId}
                           theWay={book.theWay}
                           collegeId={book.collegeId}
@@ -413,6 +449,7 @@ const BooksSection = () => {
                           longDescription={book.longDescription}
                           key={book.id}
                           id={book.id}
+                          createdOn={formatDate(book.createdOn)}
                           studentId={book.studentId}
                           theWay={book.theWay}
                           collegeId={book.collegeId}
@@ -439,6 +476,7 @@ const BooksSection = () => {
                           longDescription={book.longDescription}
                           key={book.id}
                           id={book.id}
+                          createdOn={formatDate(book.createdOn)}
                           studentId={book.studentId}
                           theWay={book.theWay}
                           collegeId={book.collegeId}
@@ -463,6 +501,7 @@ const BooksSection = () => {
                           longDescription={book.longDescription}
                           key={book.id}
                           id={book.id}
+                          createdOn={formatDate(book.createdOn)}
                           studentId={book.studentId}
                           theWay={book.theWay}
                           collegeId={book.collegeId}
@@ -492,6 +531,7 @@ const BooksSection = () => {
                           longDescription={book.longDescription}
                           key={book.id}
                           id={book.id}
+                          createdOn={formatDate(book.createdOn)}
                           studentId={book.studentId}
                           theWay={book.theWay}
                           collegeId={book.collegeId}
@@ -519,6 +559,7 @@ const BooksSection = () => {
                           longDescription={book.longDescription}
                           key={book.id}
                           id={book.id}
+                          createdOn={formatDate(book.createdOn)}
                           studentId={book.studentId}
                           theWay={book.theWay}
                           collegeId={book.collegeId}
@@ -545,6 +586,7 @@ const BooksSection = () => {
                           longDescription={book.longDescription}
                           key={book.id}
                           id={book.id}
+                          createdOn={formatDate(book.createdOn)}
                           studentId={book.studentId}
                           theWay={book.theWay}
                           collegeId={book.collegeId}
@@ -569,6 +611,7 @@ const BooksSection = () => {
                           longDescription={book.longDescription}
                           key={book.id}
                           id={book.id}
+                          createdOn={formatDate(book.createdOn)}
                           studentId={book.studentId}
                           theWay={book.theWay}
                           collegeId={book.collegeId}

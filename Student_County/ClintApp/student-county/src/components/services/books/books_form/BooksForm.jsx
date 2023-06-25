@@ -75,8 +75,7 @@ const BooksForm = () => {
       document.removeEventListener("click", handleOutsideClick);
     };
   }, [showDropdownTheWay, showDropdownCondition, showDropdownCollege]);
-  const dateTimeOffset = new Date();
-  const filteredCitys = Object.values(Colleges).filter((car) =>
+  const filteredColleges = Object.values(Colleges).filter((car) =>
     car.name.toLowerCase().includes(deferredInput.toLowerCase())
   );
   useMemo(() => {
@@ -337,7 +336,7 @@ const BooksForm = () => {
                         onChange={(e) => setQuery(e.target.value)}
                         className="input-search"
                       />
-                      {filteredCitys.map((college) => (
+                      {filteredColleges.map((college) => (
                         <div
                           className="option"
                           key={college.id}

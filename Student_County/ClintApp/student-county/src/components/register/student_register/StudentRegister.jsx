@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useDeferredValue } from "react";
 import { TbCheck } from "react-icons/tb";
 import { RiArrowDownSLine } from "react-icons/ri";
 import {
@@ -14,6 +14,8 @@ import useCollege from "../../../hooks/useCollege";
 
 const Students = () => {
   // State Hooks
+  const [query, setQuery] = useState("");
+  const deferredInput = useDeferredValue(query);
   const { Universities } = useUniversities();
   const { AuthLoader, studentRegister, AuthError, isSuccessfully } = useAuth();
   const { Colleges } = useCollege();
@@ -42,7 +44,9 @@ const Students = () => {
   const [genderError, setGenderError] = useState(false);
   const [selectUnivError, setSelectUnivError] = useState("");
   const [selectCollegeError, setSelectCollegeError] = useState("");
-
+  const filteredColleges = Object.values(Colleges).filter((car) =>
+    car.name.toLowerCase().includes(deferredInput.toLowerCase())
+  );
   const eyeIcon = showPassword ? (
     <AiFillEyeInvisible size={20} />
   ) : (
@@ -344,8 +348,15 @@ const Students = () => {
             {showDropdownCollege && (
               <div className="options" id="input-dropdown">
                 <div className="option-title">College Or Faculty</div>
+                <input
+                        type="text"
+                        placeholder="Search College..."
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        className="input-search"
+                      />
                 {emailDomainName ? (
-                  Object.values(Colleges).map((college) => (
+                  filteredColleges.map((college) => (
                     <div
                       className="option"
                       key={college.id}
