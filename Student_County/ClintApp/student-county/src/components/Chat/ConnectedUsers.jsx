@@ -54,10 +54,8 @@ const ConnectedUsers = ({ setMessages, setPreviosMessages }) => {
         <div className="messages-icons">
           <HiTrash
             onClick={() => {
-              {
-                setOpenDeleteMode(!openDeleteMode);
-                setToDelete(false);
-              }
+              setOpenDeleteMode(!openDeleteMode);
+              setToDelete(false);
             }}
             className="trash-menu btn btn-icon small-btn-icon"
           />
@@ -72,21 +70,17 @@ const ConnectedUsers = ({ setMessages, setPreviosMessages }) => {
               setPreviosMessages([]);
               setMessages([]);
 
-              {
-                !toDelete && !openDeleteMode && setChatOpened(chat);
-              }
-              {
-                !toDelete &&
-                  !openDeleteMode &&
-                  reJoinRoom(
-                    decodedJwt.uid,
-                    decodedJwt.uid !== chat.from ? chat.from : chat.to
-                  );
-              }
+              !toDelete && !openDeleteMode && setChatOpened(chat);
 
-              {
-                !toDelete && !openDeleteMode && setOpenChatArea(true);
-              }
+              !toDelete &&
+                !openDeleteMode &&
+                reJoinRoom(
+                  decodedJwt.uid,
+                  decodedJwt.uid !== chat.from ? chat.from : chat.to,
+                  chat.id
+                );
+
+              !toDelete && !openDeleteMode && setOpenChatArea(true);
             }}
             key={chat.id}
             className={`conversation ${

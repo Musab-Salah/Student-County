@@ -15,11 +15,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 
 const Menu = () => {
   const [navLinksVisible, setNavLinksVisible] = useState([true, true]);
-  const {
-    isMenuOpen,
-    isMenuOpenPhone,
-    setIsMenuOpenPhone,
-  } = useComponent();
+  const { isMenuOpen, isMenuOpenPhone, setIsMenuOpenPhone } = useComponent();
   const { logout, decodedJwt } = useAuth();
   const { AuthLoader } = useLoader();
 
@@ -102,7 +98,11 @@ const Menu = () => {
                   <div
                     className={`dash-nav-link ${
                       isMenuOpen ? "padding-resize" : ""
-                    } ${location.pathname === "/dashboard/overview" ? "active" : ""} `}
+                    } ${
+                      location.pathname === "/dashboard/overview"
+                        ? "active"
+                        : ""
+                    } `}
                   >
                     <RxDashboard className="dash-nav-link-icon" />
 
@@ -119,7 +119,9 @@ const Menu = () => {
                   <div
                     className={`dash-nav-link ${
                       isMenuOpen ? "padding-resize" : ""
-                    } ${location.pathname === "/dashboard/chat" ? "active" : ""} `}
+                    } ${
+                      location.pathname === "/dashboard/chat" ? "active" : ""
+                    } `}
                   >
                     <TbMessageCircle className="dash-nav-link-icon" />
                     <div
@@ -156,7 +158,9 @@ const Menu = () => {
                     <div
                       className={`dash-nav-link ${
                         isMenuOpen ? "padding-resize" : ""
-                      } ${location.pathname === "/dashboard/book" ? "active" : ""} `}
+                      } ${
+                        location.pathname === "/dashboard/book" ? "active" : ""
+                      } `}
                     >
                       <BiBook className="dash-nav-link-icon" />
                       <div
@@ -177,7 +181,11 @@ const Menu = () => {
                     <div
                       className={`dash-nav-link ${
                         isMenuOpen ? "padding-resize" : ""
-                      } ${location.pathname === "/dashboard/housing" ? "active" : ""} `}
+                      } ${
+                        location.pathname === "/dashboard/housing"
+                          ? "active"
+                          : ""
+                      } `}
                     >
                       <AiOutlineHome className="dash-nav-link-icon" />
                       <div
@@ -198,7 +206,9 @@ const Menu = () => {
                     <div
                       className={`dash-nav-link ${
                         isMenuOpen ? "padding-resize" : ""
-                      } ${location.pathname === "/dashboard/ride" ? "active" : ""} `}
+                      } ${
+                        location.pathname === "/dashboard/ride" ? "active" : ""
+                      } `}
                     >
                       <IoCarOutline className="dash-nav-link-icon" />
                       <div
@@ -220,7 +230,9 @@ const Menu = () => {
                     <div
                       className={`dash-nav-link ${
                         isMenuOpen ? "padding-resize" : ""
-                      } ${location.pathname === "/dashboard/tool" ? "active" : ""} `}
+                      } ${
+                        location.pathname === "/dashboard/tool" ? "active" : ""
+                      } `}
                     >
                       <TbTools className="dash-nav-link-icon" />
                       <div
@@ -238,7 +250,11 @@ const Menu = () => {
                     <div
                       className={`dash-nav-link ${
                         isMenuOpen ? "padding-resize" : ""
-                      } ${location.pathname === "/dashboard/patient" ? "active" : ""} `}
+                      } ${
+                        location.pathname === "/dashboard/patient"
+                          ? "active"
+                          : ""
+                      } `}
                     >
                       <AiOutlineUser className="dash-nav-link-icon" />
                       <div

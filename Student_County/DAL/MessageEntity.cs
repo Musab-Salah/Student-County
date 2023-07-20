@@ -16,6 +16,7 @@ namespace Student_County.DAL
         [Required]
         public string RoomId { get; set; }
         public RoomEntity Room { get; set; }
+        public bool IsRead { get; set; }
 
     }
 }

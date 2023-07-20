@@ -39,20 +39,20 @@ const Navbar = () => {
           {dropdownOpen && (
             <div className="dropdown-wrapper" ref={dropdownRef}>
               <div className="dropdown">
-                <NavLink to="/dashboard/book" className="dropdown-link">
+                <NavLink to="/sign_in" className="dropdown-link">
                   <img
                     className="dropdown-item-icon"
                     alt=""
                     src="./icons/book.svg"
                   />
                   <div className="dropdown-item">
-                    <div className="dropdown-item-title">Book Store</div>
+                    <div className="dropdown-item-title">Book</div>
                     <div className="dropdown-item-description">
                       Sell, exchange, negotiate books.
                     </div>
                   </div>
                 </NavLink>
-                <NavLink to="/dashboard/housing" className="dropdown-link">
+                <NavLink to="/sign_in" className="dropdown-link">
                   <img
                     className="dropdown-item-icon"
                     alt=""
@@ -65,7 +65,7 @@ const Navbar = () => {
                     </div>
                   </div>
                 </NavLink>
-                <NavLink to="/dashboard/ride" className="dropdown-link">
+                <NavLink to="/sign_in" className="dropdown-link">
                   <img
                     className="dropdown-item-icon"
                     alt=""
@@ -75,6 +75,32 @@ const Navbar = () => {
                     <div className="dropdown-item-title">Riding</div>
                     <div className="dropdown-item-description">
                       Find your companion!
+                    </div>
+                  </div>
+                </NavLink>
+                <NavLink to="/sign_in" className="dropdown-link">
+                  <img
+                    className="dropdown-item-icon"
+                    alt=""
+                    src="./icons/patient.svg"
+                  />
+                  <div className="dropdown-item">
+                    <div className="dropdown-item-title">Patient</div>
+                    <div className="dropdown-item-description">
+                    Find your Treatments!
+                    </div>
+                  </div>
+                </NavLink>
+                <NavLink to="/sign_in" className="dropdown-link">
+                  <img
+                    className="dropdown-item-icon"
+                    alt=""
+                    src="./icons/tools.svg"
+                  />
+                  <div className="dropdown-item">
+                    <div className="dropdown-item-title">Tools</div>
+                    <div className="dropdown-item-description">
+                      Sell, exchange, negotiate Tools.
                     </div>
                   </div>
                 </NavLink>

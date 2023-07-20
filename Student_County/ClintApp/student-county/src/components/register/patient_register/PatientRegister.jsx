@@ -212,7 +212,7 @@ const Patients = () => {
               id="lastName"
               name="lastName"
               onChange={handleLastNameChange}
-              maxLength={10}
+              maxLength={20}
               required
             />
             <div
@@ -287,7 +287,7 @@ const Patients = () => {
             id="phone-number"
             name="phone-number"
             onChange={handlePhoneNumberChange}
-            maxLength={15}
+            maxLength={20}
             required
           />
           <div

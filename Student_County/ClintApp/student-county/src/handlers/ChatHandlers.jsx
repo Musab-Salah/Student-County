@@ -1,4 +1,5 @@
-import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
+import { toast } from "react-toastify";
+
 import React, { useState, createContext, useEffect, useMemo } from "react";
 import useComponent from "./../hooks/useComponent";
 import useAuth from "../hooks/useAuth";
@@ -7,68 +8,65 @@ import ChatServices from "../services/ChatServices";
 const ChatCxt = createContext();
 
 export function ChatsProvider({ children }) {
-  const [connection, setConnection] = useState();
   const { OptionMenu, setOpenChatArea, ownerItem } = useComponent();
-  const { decodedJwt, token, isLogin, isLogout } = useAuth();
+  const {
+    decodedJwt,
+    token,
+    isLogin,
+    isLogout,
+    connection,
+    messages,
+    previosMessages,
+    setPreviosMessages,
+    setMessages,
+    unreadCount,
+    setUnreadCount,
+  } = useAuth();
   const [MyChat, setMyChat] = useState([]); //all user chat
   const [ChatLoader, setChatLoader] = useState("");
   const [ChatOpened, setChatOpened] = useState("");
   const [ChatError, setError] = useState("");
-  const [messages, setMessages] = useState([]);
-
-  const [previosMessages, setPreviosMessages] = useState([]);
+  const [Not, setNot] = useState("");
 
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const cleanupError = () =>
     sleep(5000).then(() => {
       setError("");
     });
-  useEffect(() => {
-    if (isLogin && !connection) joinRoom();
-    //getMyAllChats();
+  // useEffect(() => {
+  //   if (isLogin && !connection) {
+  //     joinRoom();
+  //   }
+  //   //getMyAllChats();
 
-    // eslint-disable-next-line
-  }, [isLogin]);
+  //   // eslint-disable-next-line
+  // }, [isLogin]);
+
+  // useEffect(() => {
+  //   if (isLogout && connection) closeConnection();
+  // }, [isLogout]);
 
   useEffect(() => {
-    if (isLogout && connection) closeConnection();
-  }, [isLogout]);
-
-  useEffect(() => {
-    if (isLogin) getMyAllChats();
+    if (isLogin && connection) getMyAllChats();
     // eslint-disable-next-line
   }, [messages]);
-
-  const joinRoom = async () => {
-    try {
-      const connection = new HubConnectionBuilder()
-        .withUrl("https://studentcountytestapi.azurewebsites.net/chat")
-        .configureLogging(LogLevel.None)
-        .build();
-
-      connection.on("ReceiveMessage", (roomId, message) => {
-        setMessages((messages) => [...messages, message]);
-      });
-
-      connection.on("ReceiveMessages", (from, Messages) => {
-        setPreviosMessages(Messages);
-      });
-
-      await connection.start();
-      setConnection(connection);
-      getMyAllChats();
-    } catch (e) {
-      console.log(e);
+  useEffect(() => {
+    if (connection && isLogin) {
+      //getUnreadMessageCount(decodedJwt.uid);
     }
-  };
+  }, [connection, messages]);
+  useMemo(() => {
+    console.log(unreadCount);
+  }, [unreadCount]);
 
-  const closeConnection = async () => {
-    try {
-      await connection.stop();
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const getUnreadMessageCount = async (to) => {
+  //   try {
+  //     const count = await connection.invoke("GetUnreadMessageCount", to);
+  //     setUnreadCount(count);
+  //   } catch (error) {
+  //     console.log("Failed to get unread message count:", error);
+  //   }
+  // };
 
   const getMyAllChats = () => {
     setChatLoader(true);
@@ -115,12 +113,11 @@ export function ChatsProvider({ children }) {
     }
   };
 
-  const reJoinRoom = async (From, To) => {
+  const reJoinRoom = async (from, to, roomId) => {
     setOpenChatArea(true);
     try {
-      const roomid = "5aea6cf4-43cf-450d-b475-becc931b63af";
-      await connection.invoke("JoinRoom", { roomid, From, To });
-      await connection.invoke("GetMessagesForUser", { roomid, From, To });
+      await connection.invoke("JoinRoom", { from, to, roomId });
+      await connection.invoke("GetMessagesForUser", { from, to, roomId });
     } catch (e) {
       console.log(e);
     }
@@ -129,11 +126,8 @@ export function ChatsProvider({ children }) {
   return (
     <ChatCxt.Provider
       value={{
-        joinRoom,
         getMyAllChats,
         connection,
-        setConnection,
-        closeConnection,
         MyChat,
         ChatLoader,
         ChatError,

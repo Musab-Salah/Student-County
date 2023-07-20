@@ -139,7 +139,6 @@ export function ToolsProvider({ children }) {
         deleteTool,
         setToolsSuccess,
         getMyAllTools,
-        setTool,
         ToolLoader,
         setToolLoader,
         FormToolLoader,

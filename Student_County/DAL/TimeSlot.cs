@@ -9,8 +9,11 @@ namespace Student_County.DAL
     {
         [Key]
         public int Id { get; set; }
+        [Required]
         public string Day { get; set; }
+        [Required]
         public string TimeToGo { get; set; }
+        [Required]
         public string TimeToLeave { get; set; }
         [Required]
         public int RideEntityId { get; set; }

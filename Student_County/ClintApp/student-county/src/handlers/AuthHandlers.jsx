@@ -1,6 +1,9 @@
+import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import React, { useState, createContext, useEffect } from "react";
+
 import AuthServices from "../services/AuthServices";
 import { useNavigate } from "react-router-dom";
+import useChat from "./../hooks/useChat";
 const AuthCxt = createContext();
 
 const parseJwt = (token) => {
@@ -19,6 +22,12 @@ export function AuthProvider({ children }) {
   const [decodedJwt, setDecodedJwt] = useState(false);
   const [Roles, setRoles] = useState();
   const [SendEmailResetPass, setSendEmailResetPass] = useState(false);
+  const [connection, setConnection] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  const [previosMessages, setPreviosMessages] = useState([]);
+
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const cleanup = () =>
     sleep(5000).then(() => {
@@ -68,6 +77,43 @@ export function AuthProvider({ children }) {
     // eslint-disable-next-line
   }, []);
 
+  const joinRoom = async (from) => {
+    try {
+      const connection = new HubConnectionBuilder()
+        .withUrl("https://studentcountytestapi.azurewebsites.net/chat")
+        .configureLogging(LogLevel.Information)
+        .build();
+
+      connection.on("ReceiveMessage", (roomId, message) => {
+        setMessages((messages) => [...messages, message]);
+      });
+
+      connection.on("ReceiveMessages", (from, Messages) => {
+        setPreviosMessages(Messages);
+      });
+      connection.on("ReceiveNotification", (count) => {
+        setUnreadCount(count);
+      });
+
+      const to = from;
+      const roomId = "5aea6cf4-43cf-450d-b475-becc931b63af";
+      await connection.start();
+      setConnection(connection);
+
+      await connection.invoke("JoinRoom", { from, to, roomId });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const closeConnection = async () => {
+    try {
+      await connection.stop();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const studentRegister = (Bo) => {
     setAuthLoader(true);
     AuthServices.studentRegister(Bo)
@@ -116,6 +162,7 @@ export function AuthProvider({ children }) {
         setDecodedJwt(decodedJwt);
         setError("");
         setIsLogin(true);
+        joinRoom(decodedJwt.uid);
         navigate("/dashboard/overview");
       })
       .catch((res) => {
@@ -146,6 +193,7 @@ export function AuthProvider({ children }) {
         setToken();
         setIsLogout(true);
         setIsLogin(false);
+        closeConnection();
         navigate("/sign_in");
       })
       .catch(() => {
@@ -228,8 +276,15 @@ export function AuthProvider({ children }) {
         decodedJwt,
         userInLocal,
         SendEmailResetPass,
+        connection,
         AuthLoader,
         token,
+        messages,
+        previosMessages,
+        setPreviosMessages,
+        setMessages,
+        unreadCount,
+        setUnreadCount,
       }}
     >
       {children}

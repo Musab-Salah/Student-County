@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import PrivateRoutes from "./certificates/PrivateRoutes";
-import { lazy, Suspense } from "react";
+import {  Suspense } from "react";
 import Home from "./pages/home/Home";
 import SignUp from "./pages/sign_up/SignUp";
 import SignIn from "./pages/sign_in/SignIn.jsx";
@@ -15,7 +15,8 @@ import ToolSection from "./components/services/Tools/tool_section/ToolSection";
 import Overview from "./components/overview/Overview.jsx";
 import ChatController from "./components/chat/ChatController";
 import Setting from "./components/setting/Setting.jsx";
-
+import TermsOfService from "./pages/agreement/TermsOfService";
+import PrivacyPolicy from "./pages/agreement/PrivacyPolicy";
 // const Home = lazy(() => import("./pages/home/Home"));
 // const SignUp = lazy(() => import("./pages/sign_up/SignUp"));
 // const SignIn = lazy(() => import("./pages/sign_in/SignIn"));
@@ -29,6 +30,7 @@ import Setting from "./components/setting/Setting.jsx";
 // const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
 
 function App() {
+  
   return (
     <Suspense fallback={<div className="spinner" />}>
       <Routes>
@@ -42,6 +44,8 @@ function App() {
           element={<ResetPassword />}
         />
         <Route path="/success" element={<Success />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
         <Route element={<PrivateRoutes />}>
           <Route path="/dashboard/book" element={<BooksSection />} />

@@ -4,7 +4,7 @@ import { RiSendPlaneFill } from "react-icons/ri";
 import { ImAttachment } from "react-icons/im";
 import useChat from "../../hooks/useChat";
 
-const SendMessageForm = ({}) => {
+const SendMessageForm = () => {
   const [message, setMessage] = useState("");
   const { sendMessage } = useChat();
 

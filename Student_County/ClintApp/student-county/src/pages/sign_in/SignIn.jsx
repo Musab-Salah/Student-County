@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TbArrowNarrowLeft, TbCheck } from "react-icons/tb";
+import { TbArrowNarrowLeft } from "react-icons/tb";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
@@ -11,7 +11,6 @@ import "./SignIn.css";
 const SignIn = () => {
   const { login, AuthError } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
   const [userName, setUserrName] = useState("");
   const { AuthLoader } = useLoader();
   const [bo, setbo] = useState();
@@ -36,9 +35,7 @@ const SignIn = () => {
     });
   };
 
-  const handleRememberMeChange = (event) => {
-    setRememberMe(!rememberMe);
-  };
+
 
   const handleSubmit = (event) => {
     event.preventDefault();

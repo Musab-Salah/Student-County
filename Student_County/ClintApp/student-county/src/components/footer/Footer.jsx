@@ -22,13 +22,16 @@ const Footer = () => {
           </div>
           <div className="footer-list">
             <div className="list-title">Services</div>
-            <a href="/services/book-store" className="footer-link">Book Store</a>
-            <a href="/services/housing" className="footer-link">Housing Page</a>
-            <a href="/services/riding" className="footer-link">Riding Page</a>
+            <a href="/services/sign_in" className="footer-link">Book Page</a>
+            <a href="/services/sign_in" className="footer-link">Housing Page</a>
+            <a href="/services/sign_in" className="footer-link">Riding Page</a>
+            <a href="/services/sign_in" className="footer-link">Patient Page</a>
+            <a href="/services/sign_in" className="footer-link">Tools Page</a>
+
           </div>
           <div className="footer-list">
             <div className="list-title">Policies</div>
-            <a href="/terms-of-use" className="footer-link">Terms of use</a>
+            <a href="/terms-of-service" className="footer-link">Terms of use</a>
             <a href="/privacy-policy" className="footer-link">Privacy Policy</a>
             <a href="/refund-policy" className="footer-link">Refund Policy</a>
             <a href="/supported-university" className="footer-link">Supported University</a>

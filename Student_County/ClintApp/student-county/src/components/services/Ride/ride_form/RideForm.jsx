@@ -1,21 +1,16 @@
 import { useState, useEffect, useMemo, useDeferredValue } from "react";
 import useComponent from "../../../../hooks/useComponent";
 import { RiArrowDownSLine } from "react-icons/ri";
-import {
-  AiFillExclamationCircle,
-  AiOutlineBorderlessTable,
-} from "react-icons/ai";
+import { AiFillExclamationCircle } from "react-icons/ai";
 import DialogConfirmation from "../../../dialog_confirmation/DialogConfirmation";
 import "./RideForm.css";
 import useLoader from "../../../../hooks/useLoader";
 import useRides from "../../../../hooks/useRides";
 import useLocation from "../../../../hooks/useLocation";
-import { FaRegAddressCard } from "react-icons/fa";
 import { GrTableAdd } from "react-icons/gr";
 import { BiCheck } from "react-icons/bi";
 import { IoCarOutline } from "react-icons/io5";
 import AddLoc from "../add_loc/AddLoc";
-import ShowSchedule from "../ride_view/show_schedule/ShowSchedule";
 
 const RideForm = () => {
   const { setButtonCards, ButtonCards } = useComponent();
@@ -41,14 +36,12 @@ const RideForm = () => {
     setLocation,
   } = useLocation();
   // State Hook
-  const [searchText, setSearchText] = useState("");
 
   const [step, setStep] = useState(1); // Current step of the form
   const [carDescription, setCarDescription] = useState("");
   const [deleteDialogState, setDeleteDialogState] = useState("");
   const [addDialogState, setAddDialogState] = useState("");
 
-  const [shortDescription, setShortDescription] = useState("");
   const [longDescription, setLongDescription] = useState("");
   const [emptySeats, setEmptySeats] = useState("");
   const [location, setLocationform] = useState(false);

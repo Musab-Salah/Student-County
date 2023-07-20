@@ -838,7 +838,7 @@ const Setting = () => {
                     id="lastName"
                     name="lastName"
                     onChange={handlePatientLastNameChange}
-                    maxLength={10}
+                    maxLength={20}
                     defaultValue={lastName ? lastName : patientBo.lastName}
                     required
                   />
@@ -864,10 +864,10 @@ const Setting = () => {
               <div className="input-container">
                 <input
                   type="text"
+                  maxLength={40}
                   id="phone-number"
                   name="phone-number"
                   onChange={handlePatientPhoneNumberChange}
-                  maxLength={13}
                   defaultValue={
                     phoneNumber ? phoneNumber : patientBo.phoneNumber
                   }

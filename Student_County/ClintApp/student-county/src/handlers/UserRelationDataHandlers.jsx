@@ -21,7 +21,6 @@ export function UserRelationDatasProvider({ children }) {
   const [RidesActivity, setRidesActivity] = useState("");
   const [ToolsActivity, setToolsActivity] = useState("");
   const [PatientsActivity, setPatientsActivity] = useState("");
-  const [RecentsActivity, setRecentsActivity] = useState([]);
   const [MyBooks, setMyBooks] = useState([]); //all user books
   const [MyTools, setMyTools] = useState([]); //all user tools
   const [MyHousings, setMyHousings] = useState([]); //all user housings
