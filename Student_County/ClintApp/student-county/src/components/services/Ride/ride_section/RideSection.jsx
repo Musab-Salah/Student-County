@@ -14,6 +14,7 @@ import Menu from "../../../menu/menu";
 import RideForm from "../ride_form/RideForm";
 import RideView from "../ride_view/RideView";
 import "../../../../pages/dashboard/Dashboard.css";
+import GeolocationApp from '../../../geo_location/GeoLocation';
 
 const RideSection = () => {
   const { decodedJwt } = useAuth();
@@ -132,6 +133,7 @@ const RideSection = () => {
       )}
 
       {ButtonCards === "ViewRide" && <RideView />}
+      <GeolocationApp />
 
       <div style={{ opacity: ButtonCards ? 0.2 : 1 }}>
         <div className={`dashboard-container  `}>

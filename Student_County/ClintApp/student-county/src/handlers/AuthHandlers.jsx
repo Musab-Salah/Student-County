@@ -80,7 +80,7 @@ export function AuthProvider({ children }) {
   const joinRoom = async (from) => {
     try {
       const connection = new HubConnectionBuilder()
-        .withUrl("https://studentcountytestapi.azurewebsites.net/chat")
+        .withUrl("https://localhost:7245/chat")
         .configureLogging(LogLevel.Information)
         .build();
 
