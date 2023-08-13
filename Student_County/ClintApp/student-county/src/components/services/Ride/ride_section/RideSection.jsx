@@ -14,7 +14,9 @@ import Menu from "../../../menu/menu";
 import RideForm from "../ride_form/RideForm";
 import RideView from "../ride_view/RideView";
 import "../../../../pages/dashboard/Dashboard.css";
-import GeolocationApp from '../../../geo_location/GeoLocation';
+import GeolocationApp from "../../../geo_location/GeoLocation";
+import GoogleMapApi from './../../../google_map_api/GoogleMapApi';
+
 
 const RideSection = () => {
   const { decodedJwt } = useAuth();
@@ -123,6 +125,7 @@ const RideSection = () => {
     else setSelectLocation(false);
     setShowDropdownCollege(false);
   };
+
   return (
     <>
       <Helmet>
@@ -131,10 +134,9 @@ const RideSection = () => {
       {(ButtonCards === "CreateRide" || ButtonCards === "UpdateRide") && (
         <RideForm />
       )}
-
       {ButtonCards === "ViewRide" && <RideView />}
       <GeolocationApp />
-
+      <GoogleMapApi/>
       <div style={{ opacity: ButtonCards ? 0.2 : 1 }}>
         <div className={`dashboard-container  `}>
           <Menu />
@@ -144,6 +146,7 @@ const RideSection = () => {
               className="service-container-owne"
               style={{ display: MyRides.length !== 0 ? "flex" : "none" }}
             >
+
               <div className="services-head">
                 <div className="services-head-title">Your Ride</div>
                 <div className="filterboxs">
@@ -307,12 +310,18 @@ const RideSection = () => {
                           }
                         >
                           {!selectLocation ? (
-                            <div className="input-container-option input-dropdown" style={{width: 'max-content'}} >
+                            <div
+                              className="input-container-option input-dropdown"
+                              style={{ width: "max-content" }}
+                            >
                               Select By Location
                             </div>
                           ) : (
                             <div>
-                              <div className="input-container-option input-dropdown-title"  style={{width: 'max-content'}} >
+                              <div
+                                className="input-container-option input-dropdown-title"
+                                style={{ width: "max-content" }}
+                              >
                                 Select By Location
                               </div>
                               <div className="input-container-option input-dropdown input-selected">
