@@ -17,7 +17,9 @@ namespace Student_County.BusinessLogic.Ride
         [Required]
         public string StudentId { get; set; }
         [Required]
-        public int LocationId { get; set; }
+        public double Latitude { get; set; }
+        [Required]
+        public double Longitude { get; set; }
         public List<TimeSlot> TimeSlots { get; set; } = new List<TimeSlot>();
     }
 }

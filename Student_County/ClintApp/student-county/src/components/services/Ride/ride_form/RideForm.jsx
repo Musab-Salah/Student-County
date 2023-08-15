@@ -11,6 +11,7 @@ import { GrTableAdd } from "react-icons/gr";
 import { BiCheck } from "react-icons/bi";
 import { IoCarOutline } from "react-icons/io5";
 import AddLoc from "../add_loc/AddLoc";
+import ChooseLocation from "./../../../map/choose_location/ChooseLocation";
 
 const RideForm = () => {
   const { setButtonCards, ButtonCards } = useComponent();
@@ -26,6 +27,8 @@ const RideForm = () => {
     setTimeSlot,
     setError,
     cleanupError,
+    Latitude,
+    Longitude,
   } = useRides();
   const {
     getLocations,
@@ -53,7 +56,7 @@ const RideForm = () => {
   const deferredInput = useDeferredValue(query);
 
   // Error Hook
-  const [locationError, setLocationformError] = useState("");
+  const [locationError, setLocationError] = useState("");
   const carNames = [
     "Mercedes-Benz",
     "BMW",
@@ -196,16 +199,6 @@ const RideForm = () => {
     // eslint-disable-next-line
   }, []);
 
-  const handleLocationChange = (selectedLocation) => {
-    setRideBo({
-      ...ride,
-      locationId: selectedLocation.id,
-    });
-    setLocationform(selectedLocation);
-    setLocationformError(false);
-    setShowDropdownLocation(false);
-  };
-
   const filteredLocations = Object.values(Locations).filter(
     (Location) =>
       Location.cityName.toLowerCase().includes(deferredInput.toLowerCase()) ||
@@ -284,10 +277,10 @@ const RideForm = () => {
   useMemo(() => {
     // Validate personal information fields here
 
-    if (carDescription && longDescription && emptySeats && location)
+    if (carDescription && longDescription && emptySeats)
       setValidatePersonalInformation(true);
     else setValidatePersonalInformation(false);
-  }, [carDescription, longDescription, emptySeats, location]);
+  }, [carDescription, longDescription, emptySeats]);
 
   useMemo(() => {
     // Validate medical information fields here
@@ -321,13 +314,15 @@ const RideForm = () => {
     event.preventDefault();
 
     if (step === 1) {
-      if (!location) setLocationformError("Please select a location");
       if (!carDescription) setCarDescriptionError("Please select a car ");
       // Validate the first part of the form and proceed to the next step if valid
       if (validatePersonalInformation) {
         setStep(2);
       }
     } else if (step === 2) {
+      if (!Latitude || !Longitude) setLocationError("Please select a location");
+      setStep(3);
+    } else if (step === 3) {
       if (days.length <= 0) setDayError("Please select a day");
       // Validate the second part of the form and submit if valid
       if (validateMedicalInformation) {
@@ -338,10 +333,9 @@ const RideForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (Ride.isDeleted) createRide(ride);
-    else if (carDescription && location && ButtonCards === "UpdateRide")
+    else if (carDescription && ButtonCards === "UpdateRide")
       updateRide(Ride.id, ride);
-    else if (carDescription && location && ButtonCards === "CreateRide")
-      createRide(ride);
+    else if (carDescription && ButtonCards === "CreateRide") createRide(ride);
   };
   return (
     <>
@@ -469,7 +463,7 @@ const RideForm = () => {
                       {carDescriptionError}
                     </span>
                   )}
-                  <div className="custom-select">
+                  {/* <div className="custom-select">
                     <div
                       className="selected-option"
                       onClick={() =>
@@ -527,7 +521,8 @@ const RideForm = () => {
                     className="step-title-add-loc"
                   >
                     Your town is not in the list ?
-                  </div>
+                  </div> */}
+
                   <div className={`input-container `}>
                     <input
                       type="number"
@@ -639,6 +634,42 @@ const RideForm = () => {
             </>
           )}
           {step === 2 && (
+            <>
+              <form
+                style={{ display: FormRideLoader ? "none" : "flex" }}
+                className="form-create"
+                onSubmit={handleNext}
+              >
+                <div className="form-input-container">
+                  {/* Add Step 2 JSX here */}
+                  {/* Include necessary input fields and logic for Step 2 */}
+                  <ChooseLocation />
+                  <div className="buttons">
+                    <button
+                      type="submit"
+                      className={`btn btn-primary btn-fill`}
+                    >
+                      Next
+                    </button>
+                    <button
+                      onClick={() => setStep(1)}
+                      className={`btn btn-secondary btn-fill`}
+                    >
+                      Back
+                    </button>
+                    <button
+                      onClick={() => setButtonCards("")}
+                      className={`btn btn-secondary btn-fill`}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </>
+          )}
+
+          {step === 3 && (
             <>
               <form
                 style={{ display: FormRideLoader ? "none" : "flex" }}
@@ -883,7 +914,7 @@ const RideForm = () => {
                       </button>
                     )}
                     <button
-                      onClick={() => setStep(1)}
+                      onClick={() => setStep(2)}
                       className={`btn btn-secondary btn-fill`}
                     >
                       Back

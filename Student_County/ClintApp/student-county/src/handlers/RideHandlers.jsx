@@ -16,6 +16,8 @@ export function RidesProvider({ children }) {
   const [ButtonsFormRideLoader, setButtonsFormRideLoader] = useState("");
   const [DeleteButtonsFormRideLoader, setDeleteButtonsFormRideLoader] =
     useState("");
+  const [Latitude, setLatitude] = useState("");
+  const [Longitude, setLongitude] = useState("");
 
   const [RideError, setError] = useState("");
   const [RideSuccess, setRideSuccess] = useState("");
@@ -68,6 +70,8 @@ export function RidesProvider({ children }) {
     setButtonsFormRideLoader(true);
 
     Bo.studentId = decodedJwt.uid;
+    Bo.latitude = Latitude;
+    Bo.longitude = Longitude;
     RideServices.createRide(Bo, token)
       .then((res) => {
         setRideSuccess("RideSuccessfully Created The Ride.");
@@ -162,6 +166,10 @@ export function RidesProvider({ children }) {
         getTimeSlot,
         setError,
         cleanupError,
+        setLatitude,
+        setLongitude,
+        Latitude,
+        Longitude,
       }}
     >
       {children}

@@ -23,11 +23,13 @@ namespace Student_County.DAL
         [Required]
         public string Gender { get; set; }
         [Required]
+        public double Latitude { get; set; }
+        [Required]
+        public double Longitude { get; set; }
+        [Required]
         public string StudentId { get; set; }
         public ApplicationUser Student { get; set; }
-        [Required]
-        public int LocationId { get; set; }
-        public LocationEntity Location { get; set; }
+
         [Required]
         public List<TimeSlot> TimeSlots { get; set; } = new List<TimeSlot>();
     }

@@ -16,7 +16,8 @@ namespace Student_County.BusinessLogic.Ride
                 CarDescription = bo.CarDescription,
                 LongDescription = bo.LongDescription,
                 StudentId = bo.StudentId,
-                LocationId = bo.LocationId,
+                Latitude = bo.Latitude,
+                Longitude = bo.Longitude,   
                 TimeSlots = new List<TimeSlot>()
             };
 
