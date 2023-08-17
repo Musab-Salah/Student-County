@@ -7,7 +7,7 @@ import "./RideForm.css";
 import useLoader from "../../../../hooks/useLoader";
 import useRides from "../../../../hooks/useRides";
 import useLocation from "../../../../hooks/useLocation";
-import { GrTableAdd } from "react-icons/gr";
+import { GrMapLocation, GrTableAdd } from "react-icons/gr";
 import { BiCheck } from "react-icons/bi";
 import { IoCarOutline } from "react-icons/io5";
 import AddLoc from "../add_loc/AddLoc";
@@ -395,6 +395,13 @@ const RideForm = () => {
                     <div className="step-title">Ride Info</div>
                   </div>
                   <div className="step-line"></div>
+                  <div className="step ">
+                    <div className="step-icon-container">
+                      <GrMapLocation className="step-icon" />
+                    </div>
+                    <div className="step-title">Location</div>
+                  </div>
+                  <div className="step-line"></div>
                   <div className="step">
                     <div className="step-icon-container">
                       <GrTableAdd className="step-icon" />
@@ -640,6 +647,38 @@ const RideForm = () => {
                 className="form-create"
                 onSubmit={handleNext}
               >
+                <div className="form-title ">
+                  Add A New{" "}
+                  <span style={{ color: "#8D37FF" }}>&nbsp;Ride.</span>{" "}
+                </div>
+                <div className="steps-container">
+                <div className="step-line"></div>
+                  <div className="step step-active">
+                    <div className="step-icon-container">
+                      <BiCheck className="step-icon" />
+                    </div>
+                    <div className="step-title">
+                      {/* Patient Info */}
+                      Completed
+                    </div>
+                  </div>
+                  <div className="step-line"></div>
+                  <div className="step step-active">
+                    <div className="step-icon-container">
+                      <GrMapLocation className="step-icon" />
+                    </div>
+                    <div className="step-title">Location</div>
+                  </div>
+                  <div className="step-line"></div>
+                  <div className="step">
+                    <div className="step-icon-container">
+                      <GrTableAdd className="step-icon" />
+                    </div>
+                    <div className="step-title">Schedule Info</div>
+                  </div>
+                  <div className="step-line"></div>
+                </div>
+                <div className="vertical-line" />
                 <div className="form-input-container">
                   {/* Add Step 2 JSX here */}
                   {/* Include necessary input fields and logic for Step 2 */}
@@ -681,6 +720,16 @@ const RideForm = () => {
                   <span style={{ color: "#8D37FF" }}>&nbsp;Ride.</span>{" "}
                 </div>
                 <div className="steps-container">
+                  <div className="step-line"></div>
+                  <div className="step step-active">
+                    <div className="step-icon-container">
+                      <BiCheck className="step-icon" />
+                    </div>
+                    <div className="step-title">
+                      {/* Patient Info */}
+                      Completed
+                    </div>
+                  </div>
                   <div className="step-line"></div>
                   <div className="step step-active">
                     <div className="step-icon-container">

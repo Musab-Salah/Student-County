@@ -40,7 +40,6 @@ const RideCard = ({
     };
   }, [Locations]);
 
-
   return (
     <>
       <div className="ride-card-container">
@@ -71,11 +70,6 @@ const RideCard = ({
           </div>
         </div>
         <div className="ride-card-room">
-          <div className="ride-card-inroom">
-            {nowLocation ? nowLocation.cityName : ""}
-            {" , "} {nowLocation ? nowLocation.townName : ""}
-          </div>
-
           <div className="ride-card-inroom">
             Have {emptySeats} Seats Available
           </div>

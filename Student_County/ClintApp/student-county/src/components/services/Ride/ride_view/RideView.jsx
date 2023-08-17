@@ -5,18 +5,20 @@ import "./RideView.css";
 import useLoader from "../../../../hooks/useLoader";
 import { TbCrown } from "react-icons/tb";
 import { BsTable } from "react-icons/bs";
-
+import MapIcon from "@mui/icons-material/Map";
 import useChat from "../../../../hooks/useChat";
 import useAuth from "../../../../hooks/useAuth";
 import useLocation from "../../../../hooks/useLocation";
 import { useNavigate } from "react-router-dom";
 import ShowSchedule from "./show_schedule/ShowSchedule";
+import { IconButton } from "@mui/material";
+import SeeLocation from "./../../../map/see_location/SeeLocation";
 
 const RideView = () => {
   let navigate = useNavigate();
 
   const { setButtonCards, setOptionMenu, setOwnerItem } = useComponent();
-  const { Ride, setRide, getTimeSlot, TimeSlot,setTimeSlot } = useRides();
+  const { Ride, setRide, getTimeSlot, TimeSlot, setTimeSlot } = useRides();
   const { reJoinRoom } = useChat();
   const { FormRideLoader } = useLoader();
   const { decodedJwt } = useAuth();
@@ -24,6 +26,7 @@ const RideView = () => {
   const [date, setDate] = useState();
   const [nowLocation, setNowLocation] = useState("");
   const [ShowScheduleState, setShowScheduleState] = useState("");
+  const [ShowLocationState, setShowLocationState] = useState("");
 
   // State Hook
   const [ride, setRideBo] = useState({ timeSlots: [] });
@@ -33,7 +36,7 @@ const RideView = () => {
     if (TimeSlot) {
       // Add the days from TimeSlot to the days array
       const timeSlotDays = TimeSlot.map((slot) => slot.day);
-      setDay(() => [ ...timeSlotDays]);
+      setDay(() => [...timeSlotDays]);
     }
   }, [TimeSlot]);
   useEffect(() => {
@@ -77,7 +80,7 @@ const RideView = () => {
   useEffect(() => {
     return function cleanup() {
       setButtonCards("");
-      setTimeSlot("")
+      setTimeSlot("");
       setRide("");
     };
     // eslint-disable-next-line
@@ -96,9 +99,12 @@ const RideView = () => {
           setDay={setDay}
         />
       )}
+      {ShowLocationState && (
+        <SeeLocation setShowScheduleState={setShowLocationState} />
+      )}
       <div
         style={{
-          opacity: ShowScheduleState ? 0.2 : 1,
+          opacity: ShowScheduleState || ShowLocationState ? 0.2 : 1,
         }}
       >
         <div className="create-section">
@@ -119,7 +125,7 @@ const RideView = () => {
               onClick={() => setShowScheduleState(true)}
               className="step-title-show-schedule"
             >
-              Show The Schedule{" "}<BsTable/>
+              Show The Schedule <BsTable />
             </div>
             <div className="section-view">
               <div className="ride-image-container">
@@ -146,7 +152,13 @@ const RideView = () => {
                 </div>
                 <div className="ride-additional-info-container">
                   <div className="ride-additional-info">
-                    {nowLocation.cityName}, {nowLocation.townName}
+                    <IconButton
+                      style={{ color: "#8d37ff" }}
+                      aria-label="see location"
+                      onClick={() => setShowLocationState(true)}
+                    >
+                      <MapIcon />
+                    </IconButton>
                   </div>
 
                   <div className="ride-additional-info">{date}</div>
